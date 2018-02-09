@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="10dp"
+        android:text="商品信息"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="品牌"/>
+
+            <TextView
+                android:id="@+id/one"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <TextView
+            android:background="@color/dialog_line_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="规格"/>
+
+            <TextView
+                android:id="@+id/four"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <TextView
+            android:background="@color/dialog_line_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="适用车型"/>
+
+            <TextView
+                android:id="@+id/two"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <TextView
+            android:background="@color/dialog_line_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="服务保障"/>
+
+            <TextView
+                android:id="@+id/three"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <TextView
+            android:background="@color/dialog_line_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+    </LinearLayout>
+</LinearLayout>

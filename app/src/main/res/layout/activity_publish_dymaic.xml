@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_publish_dymaic"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"></include>
+
+    <ScrollView
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/input_activity_publish_dymaic"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:textColor="@color/black"
+                    android:hint="这一刻的想法"
+                    android:padding="10dp"
+                    android:textColorHint="#999"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:padding="10dp"
+                android:background="#fff"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.blankj.utilcode.customwidget.Layout.LayoutNineGrid.NineView
+
+
+                    android:id="@+id/photo_activity_publish_dymaic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"></com.blankj.utilcode.customwidget.Layout.LayoutNineGrid.NineView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

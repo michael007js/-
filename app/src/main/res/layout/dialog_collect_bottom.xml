@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:background="#fff"
+        android:id="@+id/click_dialog_collect_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/click_transmit_userinfo_dialog_share_post_details_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:textColor="@color/mainColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="转发"/>
+
+        </LinearLayout>
+<TextView
+    android:background="@color/line"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"/>
+        <LinearLayout
+            android:id="@+id/click_edit_userinfo_dialog_share_post_details_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+
+            android:background="#fff"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/mainColor"
+                android:text="编辑"/>
+
+        </LinearLayout>
+        <TextView
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:id="@+id/click_delete_userinfo_dialog_share_post_details_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:background="#fff"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:textColor="@color/mainColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="删除"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:id="@+id/click_more_userinfo_dialog_share_post_details_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="更多"
+                android:textColor="#fff"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:id="@+id/item_address_list_adapter"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+              <LinearLayout
+                  android:layout_weight="1"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="horizontal">
+                  <TextView
+                      android:layout_weight="1"
+                      android:id="@+id/name_item_address_list_adapter"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"/>
+                  <TextView
+                      android:id="@+id/mobile_item_address_list_adapter"
+                      android:gravity="center"
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"/>
+              </LinearLayout>
+                <TextView
+                    android:id="@+id/address_item_address_list_adapter"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f3f3f3"/>
+
+        <LinearLayout
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/default_logo_item_address_list_adapter"
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:src="@mipmap/yes"
+                android:layout_height="20dp"/>
+            <TextView
+                android:id="@+id/default_item_address_list_adapter"
+                android:text="设为默认"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/mainColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:scaleType="fitCenter"
+                android:src="@mipmap/logo_edit"
+                android:layout_width="15dp"
+                android:layout_height="15dp"/>
+
+            <TextView
+                android:id="@+id/edit_item_address_list_adapter"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="编辑"
+                android:textColor="@color/mainColor"/>
+
+            <ImageView
+                android:scaleType="fitCenter"
+                android:src="@mipmap/logo_delete"
+                android:layout_width="15dp"
+                android:layout_height="15dp"/>
+            <TextView
+                android:id="@+id/delete_item_address_list_adapter"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="@color/mainColor"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#f3f3f3"/>
+    </LinearLayout>
+</LinearLayout>

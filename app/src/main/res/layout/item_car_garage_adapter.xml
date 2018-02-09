@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:id="@+id/item_car_list_adapter_content"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/click"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/logo_item_car_list_adapter_content"
+                android:scaleType="centerInside"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:id="@+id/name_item_car_list_adapter_content"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:id="@+id/type_item_car_list_adapter_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f3f3f3"/>
+
+        <LinearLayout
+            android:gravity="center"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/default_item_car_list_adapter_content"
+                android:text="默认车型"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/mainColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/default_logo_item_car_list_adapter_content"
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:src="@mipmap/yes"
+                android:layout_height="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/delete_item_car_list_adapter_content"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="删除爱车"
+                android:textColor="@color/mainColor"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#f3f3f3"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <com.blankj.utilcode.ViewpagerHelper.view.BannerViewPager
+            xmlns:zsr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            zsr:isloop="false"
+            zsr:looptime="5000"
+            zsr:switchtime="1000">
+
+        </com.blankj.utilcode.ViewpagerHelper.view.BannerViewPager>
+
+        <com.blankj.utilcode.ViewpagerHelper.indicator.ZoomIndicator
+            xmlns:zsr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/bottom_zoom_arc"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            zsr:zoom_alpha_min="0.5"
+            zsr:zoom_leftmargin="10dp"
+            zsr:zoom_max="1.5"
+            zsr:zoom_selector="@drawable/bottom_circle"/>
+    </RelativeLayout>
+</LinearLayout>

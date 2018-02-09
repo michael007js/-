@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/primary_text"
+              android:id="@+id/activity_qr"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:background="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/back_top"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/back"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="我的二维码"
+                android:textColor="@color/white"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/right_button_top"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="center"
+                android:src="@mipmap/logo_more_white"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+
+        android:background="@drawable/bg_activity_white"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="29dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="19dp"
+            android:id="@+id/pic_qr"/>
+
+
+        <TextView
+            android:textColor="@color/black"
+            android:text="1dsadadada23"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_qr"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_alignTop="@+id/pic_qr"
+            android:layout_toRightOf="@+id/pic_qr"
+            android:layout_toEndOf="@+id/pic_qr"/>
+
+        <TextView
+            android:text="1dsadadada23"
+            android:maxLines="1"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_qr"
+            android:layout_below="@+id/name_qr"
+            android:layout_alignLeft="@+id/name_qr"
+            android:layout_alignStart="@+id/name_qr"/>
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:scaleType="fitXY"
+            android:id="@+id/qr_pic_qr"
+            fresco:actualImageScaleType="fitXY"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="70dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:gravity="center"
+            android:text="扫一扫上面的二维码图案,加我为平台好友"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/textView13"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,76 @@
+https://github.com/LineChen/FlickerProgressBar
+
+自定义属性
+
+属性名	说明	默认值
+loadingColor	下载中颜色	#40c4ff
+stopColor	暂停时和下载完成颜色	#ff9800
+textSize	进度文本字体大小	12sp
+radius	圆角	0dp
+borderWidth	背景边框宽度	1dp
+
+
+<com.beiing.flikerprogressbar.FlikerProgressBar
+
+android:id="@+id/flikerbar"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+app:textSize="12sp"
+app:loadingColor="#40c4ff"
+app:stopColor="#ff9800"/>
+
+
+
+Handler handler = new Handler(){
+
+@Override
+
+public void handleMessage(Message msg) {
+
+super.handleMessage(msg);
+
+flikerProgressBar.setProgress(msg.arg1);
+
+if(msg.arg1 == 100){
+
+flikerProgressBar.finishLoad();
+
+}
+
+}
+
+};
+
+private void downLoad() {
+
+new Thread(new Runnable() {
+
+@Override
+
+public void run() {
+
+for (int i = 0; i < 100; i++) {
+
+try {
+
+Thread.sleep(200);
+
+Message message = handler.obtainMessage();
+
+message.arg1 = i + 1
+
+handler.sendMessage(message);
+
+} catch (InterruptedException e) {
+
+e.printStackTrace();
+
+}
+
+}
+
+}
+
+}).start();
+
+}

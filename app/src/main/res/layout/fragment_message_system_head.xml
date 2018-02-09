@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="wrap_content">
+    <com.blankj.utilcode.customwidget.ViewPager.BannerVariation
+        android:id="@+id/viewpager_fragment_message_system_head"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:visibility="visible">
+
+    </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
+
+    <LinearLayout
+        android:layout_marginBottom="1dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+
+            android:layout_weight="1"
+            android:id="@+id/click_score"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="30dp"
+                fresco:placeholderImage="@mipmap/logo_red"
+                fresco:placeholderImageScaleType="centerCrop"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="积分消息"
+                android:textColor="#000"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/click_activity"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                fresco:placeholderImage="@mipmap/logo_blue"
+                fresco:placeholderImageScaleType="centerCrop"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="活动消息"
+                android:textColor="#000"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/click_goods"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="30dp"
+                fresco:placeholderImage="@mipmap/logo_green"
+                fresco:placeholderImageScaleType="centerCrop"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="商品消息"
+                android:textColor="#000"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/click_other"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="30dp"
+                fresco:placeholderImage="@mipmap/logo_yellow"
+                fresco:placeholderImageScaleType="centerCrop"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="其他消息"
+                android:textColor="#000"
+                android:textSize="13sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

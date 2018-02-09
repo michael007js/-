@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:id="@+id/activity_my_data_car_garage"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
+<include layout="@layout/top_main"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.blankj.utilcode.customwidget.ListView.InnerListview
+                android:layout_marginTop="10dp"
+                android:id="@+id/list_activity_my_data_car_garage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null">
+
+            </com.blankj.utilcode.customwidget.ListView.InnerListview>
+
+            <TextView
+                android:id="@+id/add"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_button_small_ra"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="新增车型"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+    
+</LinearLayout>

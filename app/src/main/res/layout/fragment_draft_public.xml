@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
+    <com.blankj.utilcode.pullToRefresh.PullToRefreshScrollView
+        android:id="@+id/refresh_fragment_draft_public"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/listview_fragment_draft_public"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+    </com.blankj.utilcode.pullToRefresh.PullToRefreshScrollView>
+
+    <include layout="@layout/empty_view"/>
+</FrameLayout>

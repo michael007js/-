@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:id="@+id/activity_user_remark"
+              android:orientation="vertical"
+              android:background="#fff"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/top_main"/>
+    <TextView
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:textColor="@color/grayness"
+        android:text="备注名"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:background="@null"
+        android:id="@+id/input"
+        android:textColorHint="@color/grayness"
+        android:textSize="13.8sp"
+        android:layout_margin="10dp"
+        android:hint="设置备注名称"
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    
+</LinearLayout>

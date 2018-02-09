@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:id="@+id/click_listview_order_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/pic_listview_order_edit"
+                    android:layout_width="30dp"
+                    fresco:placeholderImage="@mipmap/logo_shop"
+                    android:layout_height="30dp"
+                    fresco:actualImageScaleType="centerInside"/>
+
+                <TextView
+                    android:id="@+id/name_listview_order_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text=""/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    fresco:placeholderImage="@mipmap/right_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+        <com.blankj.utilcode.customwidget.ListView.InnerListview
+            android:id="@+id/list_listview_order_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:divider="@null">
+
+        </com.blankj.utilcode.customwidget.ListView.InnerListview>
+
+
+    </LinearLayout>
+</LinearLayout>

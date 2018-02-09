@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">聚享车</string>
+    <string name="name"></string>
+    <string name="register">点击“注册”代表同意</string>
+    <string name="complaint">以上资料除“联系手机”外为选填项,请尽量完善,平台将根据您提交的资料进行审核。</string>
+    <string name="sss"><p>若没有注册码可通过微信搜索“<font color="#e83e41">聚享车</font>”或微信扫描上方二维码关注微信公众号获取注册码</p></string>
+</resources>

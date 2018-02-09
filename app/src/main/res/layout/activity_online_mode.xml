@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:id="@+id/activity_online_mode"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/top_main"/>
+
+
+    <LinearLayout
+        android:id="@+id/click_online"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="在线"
+            android:textColor="@color/black"/>
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/show_online"
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            fresco:placeholderImage="@mipmap/yes"
+            fresco:placeholderImageScaleType="centerInside"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/click_hidden"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="隐身"
+            android:textColor="@color/black"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/show_hidden"
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            fresco:placeholderImage="@mipmap/yes"
+            fresco:placeholderImageScaleType="centerInside"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

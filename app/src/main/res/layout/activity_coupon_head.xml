@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pic_activity_coupon_head"
+            android:layout_width="match_parent"
+            fresco:placeholderImage="@mipmap/logo_coupon"
+
+        fresco:placeholderImageScaleType="fitCenter"
+            android:layout_height="match_parent"
+            fresco:actualImageScaleType="fitXY"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="35dp"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7">
+
+                    <TextView
+                        android:id="@+id/discounts_activity_coupon_head"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:lines="1"
+                        android:text="9999"
+                        android:textColor="#fff"
+                        android:textSize="30sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:lines="1"
+                        android:text="先领券后下单"
+                        android:textColor="#fff"/>
+
+                    <TextView
+                        android:id="@+id/type_activity_coupon_head"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:lines="1"
+                        android:text="优惠券"
+                        android:textColor="#fff"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/date_activity_coupon_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="优惠券"
+                    android:textColor="#fff"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/name_activity_coupon_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|bottom"/>
+
+        <TextView
+            android:id="@+id/price_activity_coupon_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|top"
+            android:textColor="@color/mainColor"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+  <LinearLayout
+      android:gravity="center"
+      android:layout_marginTop="10dp"
+      android:background="#fff"
+      android:layout_width="match_parent"
+      android:layout_height="55dp"
+      android:orientation="horizontal">
+      <LinearLayout
+          android:layout_weight="1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:paddingBottom="5dp"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:paddingTop="5dp">
+
+
+          <TextView
+              android:textColor="@color/black"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:text="优惠券说明"/>
+
+          <TextView
+              android:textColor="@color/black"
+              android:id="@+id/explain_activity_coupon_head"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"/>
+
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/click_share"
+          android:gravity="center"
+          android:layout_marginRight="10dp"
+          android:layout_width="60dp"
+          android:orientation="vertical"
+          android:layout_height="match_parent">
+          <com.facebook.drawee.view.SimpleDraweeView
+              android:layout_marginTop="10dp"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/pic_activity_dymaic_details_head"
+              android:layout_width="20dp"
+              android:layout_height="20dp"
+              fresco:placeholderImage="@mipmap/logo_share_tab"
+          fresco:placeholderImageScaleType="fitXY"/>
+          <TextView
+              android:textColor="@color/black"
+              android:text="分享有奖"
+              android:gravity="center"
+              android:layout_weight="1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
+      </LinearLayout>
+
+  </LinearLayout>
+    <TextView
+        android:layout_marginBottom="1dp"
+        android:text="适用门店如下"
+        android:textColor="@color/mainColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"/>
+
+</LinearLayout>

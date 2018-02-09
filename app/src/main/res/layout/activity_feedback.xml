@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_feedback"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#fff"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dialog_line_gray"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.blankj.utilcode.customwidget.GridView.InnerGridView
+                android:id="@+id/form"
+                android:layout_width="match_parent"
+                android:numColumns="3"
+                android:layout_margin="10dp"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
+                android:layout_height="wrap_content">
+
+            </com.blankj.utilcode.customwidget.GridView.InnerGridView>
+
+            <EditText
+                android:id="@+id/input_activity_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@color/dialog_line_gray"
+                android:gravity="top"
+                android:hint="输入反馈内容"
+                android:padding="10dp"
+                android:textSize="13.8sp"/>
+            
+            <com.blankj.utilcode.customwidget.Layout.LayoutNineGrid.NineView
+                android:id="@+id/NineView"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.blankj.utilcode.customwidget.Layout.LayoutNineGrid.NineView>
+
+<TextView
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/submit_activity_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                
+                android:background="@drawable/bg_button_small_ra"
+                android:gravity="center"
+                android:text="确认反馈"
+                android:textColor="#fff"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

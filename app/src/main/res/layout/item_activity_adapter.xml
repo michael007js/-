@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/click_item_activity_adapter"
+        android:layout_marginTop="2dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            fresco:actualImageScaleType="focusCrop"
+            android:id="@+id/pic_item_activity_adapter"
+            android:layout_width="120dp"
+            android:layout_height="80dp"/>
+
+        <LinearLayout
+
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/title_item_activity_adapter"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></TextView>
+
+                <TextView
+                    android:id="@+id/get_item_activity_adapter"
+                    android:textColor="#fff"
+                    android:background="@drawable/bg_button_small_ra"
+                    android:padding="5dp"
+                    android:text="马上抢"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

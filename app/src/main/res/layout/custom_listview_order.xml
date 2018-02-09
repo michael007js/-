@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:id="@+id/click_custom_listview_order"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/pic_custom_listview_order"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    fresco:actualImageScaleType="centerInside"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/name_custom_listview_order"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:text="是否打算佛挡杀佛是否是否第三方士大夫的士大夫范德萨范德萨发生方式被"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    fresco:placeholderImage="@mipmap/right_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/one_order_custom_listview_order"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/mainColor"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/two_order_custom_listview_order"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/mainColor"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+
+            <TextView
+
+                android:id="@+id/three_order_custom_listview_order"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/mainColor"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+
+            <TextView
+
+                android:id="@+id/four_order_custom_listview_order"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/mainColor"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/order_code_custom_listview_order"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:maxLines="1"/>
+        </LinearLayout>
+
+        <com.blankj.utilcode.customwidget.ListView.InnerListview
+            android:id="@+id/list_custom_listview_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:divider="@null">
+
+        </com.blankj.utilcode.customwidget.ListView.InnerListview>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="1dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:text="订单状态:"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/state_custom_listview_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+
+
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/order_date_custom_listview_order"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:maxLines="1"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

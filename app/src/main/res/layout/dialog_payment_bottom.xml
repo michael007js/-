@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/title_dialog_payment_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="立即付款"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/close_dialog_payment_bottom"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:layout_marginStart="11dp"
+                android:background="@drawable/icon_close"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:id="@+id/click_dialog_payment_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="使用积分抵扣"/>
+
+         <LinearLayout
+             android:gravity="center"
+             android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:orientation="horizontal">
+             <TextView
+
+                 android:textColor="@color/black"
+                 android:text="¥"
+                 android:textSize="20sp"
+                 android:textStyle="bold"
+                 android:gravity="center"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+             <TextView
+                 android:textColor="@color/black"
+                 android:id="@+id/money_dialog_payment_bottom"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentTop="true"
+                 android:layout_centerHorizontal="true"
+                 android:gravity="center"
+                 android:text="0.00"
+                 android:textSize="20sp"
+                 android:textStyle="bold"/>
+         </LinearLayout>
+
+            <include layout="@layout/dialog_payment_bottom_score"
+                >
+
+            </include>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"/>
+
+        <LinearLayout
+            android:id="@+id/click_balance_dialog_payment_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:gravity="center_vertical"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/logo_wallet"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:text="钱包"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <CheckBox
+                android:id="@+id/cb_balance_dialog_payment_bottom"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:button="@drawable/bg_check_box"/>
+
+        </LinearLayout>
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"/>
+
+        <LinearLayout
+            android:id="@+id/click_wx_dialog_payment_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/logo_wx"/>
+
+            <TextView
+                android:id="@+id/wx_name"
+                android:textColor="@color/black"
+                android:text="微信"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <CheckBox
+                android:id="@+id/cb_wx_dialog_payment_bottom"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:button="@drawable/bg_check_box"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"/>
+        <LinearLayout
+            android:id="@+id/click_zfb_dialog_payment_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:src="@mipmap/logo_zfb"/>
+
+            <TextView
+                android:id="@+id/zfb_name"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:text="支付宝"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1"/>
+
+            <CheckBox
+                android:id="@+id/cb_zfb_dialog_payment_bottom"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:button="@drawable/bg_check_box"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/line"/>
+        <TextView
+            android:id="@+id/click_next_dialog_payment_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+
+</LinearLayout>

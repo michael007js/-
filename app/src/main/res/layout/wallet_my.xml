@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    android:id="@+id/wallet_my">
+
+    <include layout="@layout/top_main"/>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#fff"
+        android:id="@+id/click_income_wallet_my"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="我的收入"
+            />
+
+        <TextView
+            android:textColor="@color/mainColor"
+            android:id="@+id/show_income_wallet_my"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|center"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#fff"
+        android:id="@+id/click_expend_wallet_my"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="我的支出"
+            />
+
+        <TextView
+            android:textColor="@color/mainColor"
+            android:id="@+id/show_expend_wallet_my"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|center"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#fff"
+        android:id="@+id/click_integral_wallet_my"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="我的积分"
+            />
+
+        <TextView
+            android:textColor="@color/mainColor"
+            android:id="@+id/show_integral_wallet_my"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|center"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#fff"
+        android:id="@+id/click_coupon_wallet_my"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="优惠券"
+            />
+
+        <TextView
+            android:textColor="@color/mainColor"
+            android:id="@+id/show_coupon_wallet_my"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|center"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#fff"
+        android:id="@+id/click_money_wallet_my"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="我的资金"
+            />
+
+        <TextView
+            android:textColor="@color/mainColor"
+            android:id="@+id/show_money_wallet_my"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right|center"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/check_wallet_my"
+        android:background="@drawable/bg_button_small_ra"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:text="明细查询"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+    </TextView>
+</LinearLayout>

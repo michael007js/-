@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <com.blankj.utilcode.customwidget.ViewPager.BannerVariation
+        android:id="@+id/viewpager_fragment_share_synthesize_head"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:visibility="visible">
+
+    </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
+</LinearLayout>

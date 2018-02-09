@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_goods_list"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp">
+
+        <com.blankj.utilcode.pullToRefresh.PullToRefreshScrollView
+            android:id="@+id/scoll_view_fragment_goods"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.blankj.utilcode.customwidget.ViewPager.BannerVariation
+                    android:id="@+id/viewpager_up_fragment_goods_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp">
+
+                </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
+
+                <LinearLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <com.sss.car.custom.TAB
+                        android:id="@+id/tab_fragment_goods_head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp">
+
+                    </com.sss.car.custom.TAB>
+                </LinearLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/scoll_linearlayout_fragment_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.blankj.utilcode.pullToRefresh.PullToRefreshScrollView>
+
+        <ImageView
+
+            android:id="@+id/click_top"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/line"
+            android:scaleType="centerInside"
+            android:src="@mipmap/logo_top"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</LinearLayout>

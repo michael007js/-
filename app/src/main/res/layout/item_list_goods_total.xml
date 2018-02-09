@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/title_item_list_goods_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:inputType="number"
+                android:digits="01231456789"
+                android:hint="请输入价格"
+                android:id="@+id/price_item_list_goods_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:background="@drawable/bg_edittext2"
+                android:padding="10dp"
+                android:imeOptions="actionDone"
+                android:textSize="13sp"/>
+
+
+
+            <EditText
+                android:inputType="number"
+                android:digits="01231456789"
+                android:hint="请输入库存"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/num_item_list_goods_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:background="@drawable/bg_edittext2"
+                android:padding="10dp"
+                android:imeOptions="actionDone"
+                android:textSize="13sp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

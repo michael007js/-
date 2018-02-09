@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginBottom="5dp"
+        android:id="@+id/click_item_community_userinfo_posts_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pic_item_community_userinfo_posts_adapter"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                fresco:actualImageScaleType="centerInside"/>
+
+            <LinearLayout
+                android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/nikename_item_community_userinfo_posts_adapter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center_vertical"
+                        android:maxWidth="150dp"
+                        android:textColor="@color/black"
+                        android:singleLine="true"/>
+
+
+                    <TextView
+                        android:id="@+id/car_name_item_community_userinfo_posts_adapter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="13sp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center_vertical"
+                        android:maxWidth="150dp"
+                        android:singleLine="true"
+                        android:textColor="#999999"/>
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/type_name_item_community_userinfo_posts_adapter"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/mainColor"
+                        android:layout_height="match_parent"
+                        android:textSize="13sp"
+                        android:gravity="center_vertical"/>
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/arrows_item_community_userinfo_posts_adapter"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="5dp"
+                        fresco:placeholderImage="@mipmap/right_arrows"
+                        fresco:placeholderImageScaleType="centerInside"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:textSize="10sp"
+                        android:id="@+id/recommend_item_community_userinfo_posts_adapter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_tip"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="推荐"
+                        android:textColor="@color/mainColor"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:textSize="10sp"
+                        android:id="@+id/hot_item_community_userinfo_posts_adapter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/bg_tip"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="热门"
+                        android:textColor="@color/mainColor"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:textSize="10sp"
+                        android:id="@+id/essence_item_community_userinfo_posts_adapter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/bg_tip"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="精华"
+                        android:textColor="@color/mainColor"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:textSize="10sp"
+                        android:id="@+id/collect_item_community_userinfo_posts_adapter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/bg_tip"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="收藏"
+                        android:textColor="@color/mainColor"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/title_item_community_userinfo_posts_adapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+
+        <com.blankj.utilcode.customwidget.GridView.InnerGridView
+            android:id="@+id/nine_item_community_userinfo_posts_adapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:horizontalSpacing="2dp"
+            android:visibility="visible"
+            android:numColumns="3"
+            android:verticalSpacing="2dp">
+
+        </com.blankj.utilcode.customwidget.GridView.InnerGridView>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/click_collect_item_community_userinfo_posts_adapter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/logo_share"
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    fresco:placeholderImage="@mipmap/logo_collect"
+                    fresco:placeholderImageScaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/number_collect_item_community_userinfo_posts_adapter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="center_vertical"
+                    android:text="0"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="人收藏"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:id="@+id/click_comment_item_community_userinfo_posts_adapter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    fresco:placeholderImage="@mipmap/logo_comment_posts"
+                    fresco:placeholderImageScaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/number_comment_item_community_userinfo_posts_adapter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="center_vertical"
+                    android:text="0"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="人评论"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:id="@+id/click_share_item_community_userinfo_posts_adapter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    fresco:placeholderImage="@mipmap/logo_dymaic_share"
+                    fresco:placeholderImageScaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/number_share_item_community_userinfo_posts_adapter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="center_vertical"
+                    android:text="0"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="2dp"
+                    android:text="人分享"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/date_name_item_community_userinfo_posts_adapter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="13sp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:singleLine="true"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+</LinearLayout>

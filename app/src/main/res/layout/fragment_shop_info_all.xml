@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/click_synthesis_fragment_shop_info_all"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/show_synthesis_fragment_shop_info_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="综合"
+                android:textColor="@color/mainColor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/click_price_fragment_shop_info_all"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/show_price_fragment_shop_info_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价格"/>
+
+           <LinearLayout
+               android:layout_marginLeft="5dp"
+               android:gravity="center"
+               android:orientation="vertical"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+               <ImageView
+                   android:id="@+id/img_price_fragment_shop_info_all"
+                   android:layout_width="10dp"
+                   android:layout_height="10dp"
+                   android:src="@mipmap/logo_triangle_arrows_up"/>
+           </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/click_filter_fragment_shop_info_all"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/show_filter_fragment_shop_info_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="筛选"/>
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/logo_filtrate"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+<com.blankj.utilcode.customwidget.ListView.InnerListview
+    android:id="@+id/listview_fragment_shop_info_all"
+    android:divider="@null"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_marginTop="1dp"
+    android:layout_height="match_parent"></com.blankj.utilcode.customwidget.ListView.InnerListview>
+
+
+</LinearLayout>

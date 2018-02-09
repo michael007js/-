@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+<ListView
+    android:visibility="gone"
+    android:divider="@null"
+    android:background="#fff"
+    android:id="@+id/listview_dialog_number_share_post_details"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+</ListView>
+</LinearLayout>

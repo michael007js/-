@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/commodity"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <LinearLayout
+        android:id="@+id/click_on_commodity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:text="在架商品"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/click_down_commodity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="下架商品"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/click_commodity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:text="我的推广"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+
+</LinearLayout>

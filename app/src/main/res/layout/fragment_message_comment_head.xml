@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <com.blankj.utilcode.customwidget.ViewPager.BannerVariation
+        android:id="@+id/viewpager_fragment_message_comment"
+        android:layout_width="match_parent"
+        android:layout_height="190dp">
+    </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
+
+    <LinearLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+
+            android:layout_weight="1"
+            android:id="@+id/click_dymaic_item_tab"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="30dp"
+                fresco:placeholderImage="@mipmap/logo_red"
+            fresco:placeholderImageScaleType="centerCrop"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="动态评价"
+                android:textColor="#000"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/click_posts_item_tab"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                fresco:placeholderImage="@mipmap/logo_blue"
+                fresco:placeholderImageScaleType="centerCrop"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="帖子评价"
+                android:textColor="#000"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/click_deal_item_tab"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="30dp"
+                fresco:placeholderImage="@mipmap/logo_green"
+                fresco:placeholderImageScaleType="centerCrop"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="交易评价"
+                android:textColor="#000"
+                android:textSize="13sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

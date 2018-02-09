@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:id="@+id/activity_qr_image"
+              android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000">
+
+        <com.blankj.utilcode.customwidget.ImageView.ImageViewPhotoview.PhotoView
+            android:id="@+id/photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/click"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerInside"/>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

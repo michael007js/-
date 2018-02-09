@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/activity_share_interaction_manage_setting_people_manage"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/top_main"/>
+
+    <com.blankj.utilcode.pullToRefresh.PullToRefreshListView
+        android:layout_marginTop="1dp"
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+        
+    </com.blankj.utilcode.pullToRefresh.PullToRefreshListView>
+    
+    <TextView
+        android:gravity="center"
+        android:text="添加"
+        android:textColor="@color/white"
+        android:background="@color/mainColor"
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+</LinearLayout>

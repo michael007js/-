@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_my_data_car_carlist"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dddddd"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/top_main"/>
+        <LinearLayout
+            android:id="@+id/search_activity_my_data_car_carlist"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center"
+            android:background="#dbdbdb"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <LinearLayout
+                android:background="@drawable/bg_my_data_car_carlist_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+                
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/logo_search"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:text="搜索"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/list_activity_my_data_car_carlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"></ListView>
+
+    </LinearLayout>
+
+    <!--这是侧边栏滑动时出现的右边布局内容-->
+    <LinearLayout
+        android:id="@+id/drawer_content_activity_my_data_car_carlist"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/child_car_list_activity_my_data_car_carlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"></ListView>
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.DrawerLayout>

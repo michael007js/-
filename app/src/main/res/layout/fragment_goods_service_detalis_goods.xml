@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/parent_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewpager_fragment_goods_service_detalis_goods"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v4.view.ViewPager>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|bottom"
+                        android:orientation="vertical">
+
+                        <com.blankj.utilcode.customwidget.Layout.IndicatorPointLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp">
+
+                        </com.blankj.utilcode.customwidget.Layout.IndicatorPointLayout>
+
+
+
+                    </LinearLayout>
+                </FrameLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/parent_count_time"
+                    android:background="@color/mainColor"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:id="@+id/count_name"
+                        android:textColor="#fff"
+                        android:gravity="center"
+                        android:text="距离结束仅剩  "
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+                    <com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerViewWithDay
+                        android:id="@+id/count_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerViewWithDay>
+                </LinearLayout>
+               <LinearLayout
+                   android:background="#fff"
+                   android:paddingLeft="10dp"
+                   android:paddingRight="10dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+                   <com.blankj.utilcode.customwidget.ListView.HorizontalListView
+                       android:id="@+id/jump"
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                      >
+                   </com.blankj.utilcode.customwidget.ListView.HorizontalListView>
+               </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="#fff"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.35"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/title_fragment_goods_service_detalis_goods"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:textColor="#000"
+                            android:textSize="18sp"/>
+
+
+                        <TextView
+                            android:id="@+id/solger_fragment_goods_service_detalis_goods"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="@color/mainColor"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/goods_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:id="@+id/price_fragment_goods_service_detalis_goods"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="@color/mainColor"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0.65"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/click_praise_fragment_goods_service_detalis_goods"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center|right"
+                                android:orientation="horizontal">
+
+                                <com.facebook.drawee.view.SimpleDraweeView
+                                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/praise_fragment_goods_service_detalis_goods"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    fresco:actualImageScaleType="centerCrop"/>
+
+                                <TextView
+                                    android:id="@+id/priase_number_fragment_goods_service_detalis_goods"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:maxWidth="65dp"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="@color/mainColor"
+                                    android:textSize="13sp"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/click_share_fragment_goods_service_detalis_goods"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center|right"
+                                android:orientation="horizontal">
+
+                                <com.facebook.drawee.view.SimpleDraweeView
+                                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/share_fragment_goods_service_detalis_goods"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    fresco:actualImageScaleType="centerCrop"/>
+
+                                <TextView
+                                    android:id="@+id/share_number_fragment_goods_service_detalis_goods"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="@color/mainColor"
+                                    android:textSize="13sp"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="right"
+                            android:text="分享有赏"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/click_shop_fragment_goods_service_detalis_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#fff"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp">
+
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/pic_fragment_goods_service_detalis_goods"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        fresco:actualImageScaleType="fitXY"
+                        fresco:placeholderImage="@mipmap/logo_default"
+                        fresco:placeholderImageScaleType="fitXY"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/shop_name_fragment_goods_service_detalis_goods"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:textColor="@color/black"/>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:text="认证类型:"
+                                android:textColor="@color/black"/>
+
+                            <TextView
+                                android:id="@+id/auth_type_fragment_goods_service_detalis_goods"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/mainColor"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:text="最近登录:"
+                                android:textColor="@color/black"/>
+
+                            <TextView
+                                android:id="@+id/login_time_fragment_goods_service_detalis_goods"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/mainColor"/>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:text="营业时间:"
+                                android:textColor="@color/black"/>
+
+                            <TextView
+                                android:id="@+id/open_time_fragment_goods_service_detalis_goods"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/mainColor"/>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:text="信誉积分:"
+                                android:textColor="@color/black"/>
+
+                            <TextView
+                                android:id="@+id/score_fragment_goods_service_detalis_goods"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/mainColor"/>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        fresco:placeholderImage="@mipmap/right_arrows"
+                        fresco:placeholderImageScaleType="centerInside"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="1dp"
+                    android:background="#fff"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:id="@+id/location_path_fragment_goods_service_detalis_goods"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"/>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        fresco:placeholderImage="@mipmap/logo_location_with_color"
+                        fresco:placeholderImageScaleType="centerInside"/>
+
+                    <TextView
+                        android:id="@+id/distance_fragment_goods_service_detalis_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0.0"
+                        android:textColor="@color/mainColor"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/mainColor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/click_size_fragment_goods_service_detalis_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:background="#fff"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="规格"
+                        android:textColor="@color/black"/>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
+                        fresco:placeholderImage="@mipmap/right_arrows"
+                        fresco:placeholderImageScaleType="centerInside"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/click_coupon_fragment_goods_service_detalis_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:background="#fff"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="优惠券"
+                        android:textColor="@color/black"/>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
+                        fresco:placeholderImage="@mipmap/right_arrows"
+                        fresco:placeholderImageScaleType="centerInside"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/top_shop"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="83dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginRight="13dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/logo_cart"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    fresco:placeholderImage="@mipmap/logo_shopping"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+                <TextView
+                    android:id="@+id/unread"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/rc_unread_count_bg"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textColor="#fff"
+                    android:textSize="11sp"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>

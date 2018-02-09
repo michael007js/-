@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_user_info"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_image"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <!--用户信息显示面板-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <!--头像-->
+            <ImageView
+                android:id="@+id/pic_activity_user_info"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:scaleType="centerCrop"/>
+
+            <!--用户信息-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:maxWidth="80dp"
+                        android:text=""
+                        android:textColor="@color/black"/>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+
+                    <ImageView
+                        android:id="@+id/attention_image_activity_user_info"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/logo_attention_user_info"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/attention_text_activity_user_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/bg_att"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="1dp"
+                        android:textColor="@color/mainColor"
+                        android:text="关注"
+                        android:textSize="13sp"
+                        android:visibility="visible"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/account_activity_user_info"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:maxWidth="80dp"
+                        android:text=""/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/nikename_activity_user_info"
+                        android:maxLines="1"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/shop_image_activity_user_info"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/logo_shop"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/shop_text_activity_user_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="商铺"
+                        android:textColor="@color/black"
+                        android:visibility="gone"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/sex"
+                        android:maxLines="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <!--认证类型 信誉积分 最近登录-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="left">
+
+
+
+                <TextView
+                    android:id="@+id/type_activity_user_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:maxWidth="60dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/mainColor"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="信誉积分:"
+                    android:textSize="11sp"/>
+
+                <TextView
+                    android:id="@+id/score_activity_user_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:maxWidth="50dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/mainColor"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="最近登录:"
+                    android:textSize="11sp"
+                    android:id="@+id/textView16"/>
+
+                <TextView
+                    android:id="@+id/logon_time_activity_user_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/mainColor"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+<LinearLayout
+    android:background="#fff"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+    <com.blankj.utilcode.customwidget.Tab.tab.ScrollTab
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollTab"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:stab_avag="false"
+        app:stab_indicator_color="@color/color_accent"
+        app:stab_indicator_padding="2dp"
+        app:stab_indicator_radius="0.5dp"
+        app:stab_indicator_type="trend"
+        app:stab_indicator_weight="1dp"
+        app:stab_indicator_width="40dp"
+        app:stab_type="view_group"/>
+</LinearLayout>
+
+     <android.support.v4.view.ViewPager
+         android:id="@+id/viewpager"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+
+     </android.support.v4.view.ViewPager>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/chat_activity_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/mainColor"
+        android:gravity="center"
+        android:text="聊天"
+        android:textColor="#fff"
+        android:textSize="15sp"/>
+
+
+</LinearLayout>

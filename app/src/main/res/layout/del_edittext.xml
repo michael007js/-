@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:gravity="center"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textColor="@color/mainColor"
+            android:id="@+id/input_del_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="ddsad"
+           android:maxLines="1"
+            android:background="@drawable/bg_edittext"
+            android:padding="10dp"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@mipmap/logo_del"
+            android:id="@+id/delete_del_edittext"
+            android:layout_alignTop="@+id/input_del_edittext"
+            android:layout_alignRight="@+id/input_del_edittext"
+            android:layout_alignEnd="@+id/input_del_edittext"/>
+    </RelativeLayout>
+</LinearLayout>

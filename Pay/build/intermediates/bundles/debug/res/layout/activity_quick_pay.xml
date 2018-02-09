@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@android:color/black">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="14dp"
+            android:src="@drawable/img_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:text="快捷支付"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_authentication_query"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_margin="@dimen/dimen_5_dp"
+            android:drawableRight="@drawable/img_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="@string/authentication_query"
+            android:textSize="@dimen/dimen_16_sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1_dp"
+            android:layout_marginLeft="@dimen/dimen_5_dp"
+            android:layout_marginRight="@dimen/dimen_5_dp"
+            android:background="@color/blue" />
+
+        <TextView
+            android:id="@+id/tv_authentication"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_margin="@dimen/dimen_5_dp"
+            android:drawableRight="@drawable/img_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="@string/authentication_label"
+            android:textSize="@dimen/dimen_16_sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1_dp"
+            android:layout_marginLeft="@dimen/dimen_5_dp"
+            android:layout_marginRight="@dimen/dimen_5_dp"
+            android:background="@color/blue" />
+
+        <TextView
+            android:id="@+id/tv_request_pay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_margin="@dimen/dimen_5_dp"
+            android:drawableRight="@drawable/img_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:text="@string/request_pay"
+            android:textSize="@dimen/dimen_16_sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1_dp"
+            android:layout_marginLeft="@dimen/dimen_5_dp"
+            android:layout_marginRight="@dimen/dimen_5_dp"
+            android:background="@color/blue" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_5_dp" />
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_my_data_entities_certification_setvice"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:background="#fff"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/top_main"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_activity_my_data_entities_certification_setvice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

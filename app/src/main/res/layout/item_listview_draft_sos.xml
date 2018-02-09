@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scoll_item_listview_draft_sos"
+    android:layout_width="match_parent"
+    android:layout_marginTop="1dp"
+    android:background="#fff"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    app:ios="true"
+    app:leftSwipe="true"
+    app:swipeEnable="true">
+
+
+    <LinearLayout
+        android:id="@+id/click_item_listview_draft_sos"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/type_item_listview_draft_sos"
+                android:gravity="center|left"
+                android:textColor="@color/mainColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="@color/grayness"
+                android:id="@+id/date_item_listview_draft_sos"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/content_item_listview_draft_sos"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/address_item_listview_draft_sos"
+            android:textColor="@color/grayness"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/edit_item_listview_draft_sos"
+        android:background="@color/grayness"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:text="编辑"/>
+    <TextView
+        android:id="@+id/delete_item_listview_draft_sos"
+        android:background="@color/mainColor"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:text="删除"/>
+</com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout>

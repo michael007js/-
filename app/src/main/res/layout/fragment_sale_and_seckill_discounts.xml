@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="#fff"
+            android:background="@color/mainColor"
+            android:id="@+id/cut"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="折扣券"/>
+
+        <TextView
+            android:textColor="#fff"
+            android:background="@color/black_dark"
+            android:id="@+id/sub"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="满减券"/>
+
+        <TextView
+            android:textColor="#fff"
+            android:background="@color/black_dark"
+            android:id="@+id/cash"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="现金券"/>
+    </LinearLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+
+</LinearLayout>

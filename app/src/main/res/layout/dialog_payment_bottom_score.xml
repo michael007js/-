@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_marginLeft="30dp"
+
+              android:layout_marginTop="30dp"
+              android:background="#fff"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:id="@+id/parent_dialog_payment_bottom_score"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:background="@mipmap/logo_payment_bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/click_score"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="您当前的积分可以抵扣"/>
+
+            <TextView
+                android:id="@+id/score_dialog_payment_bottom_score"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"/>
+
+            <CheckBox
+                android:id="@+id/cb_score_dialog_payment_bottom_score"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:button="@drawable/bg_check_box"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"/>
+
+        <TextView
+            android:id="@+id/cancel_dialog_payment_bottom_score"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/mainColor"/>
+    </LinearLayout>
+</LinearLayout>

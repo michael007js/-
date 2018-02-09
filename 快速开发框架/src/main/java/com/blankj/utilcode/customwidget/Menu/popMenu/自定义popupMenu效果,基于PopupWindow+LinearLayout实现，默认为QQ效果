@@ -1,0 +1,29 @@
+一个自定义popupMenu效果,基于PopupWindow+LinearLayout实现，默认为QQ效果，支持icon、文字、文字颜色、文字单位、是否可点击等属性设置,并支持自定义背景
+
+
+https://github.com/AriesHoo/UIPopupMenu
+
+  List<MenuItemEntity> listMenus = new ArrayList<>();
+ UIPopupMenu uiPopupMenu = new UIPopupMenu(MainActivity.this);
+                listMenus.clear();
+                listMenus.add(new MenuItemEntity(R.mipmap.ic_multi, "创建群聊"));
+                listMenus.add(new MenuItemEntity(R.mipmap.ic_add, "加好友/群"));
+                listMenus.add(new MenuItemEntity(R.mipmap.ic_qr_scan, "扫一扫"));
+                uiPopupMenu
+                        .setAlpha(0.5f)
+                        .setMargin(0, 0, 0, 0)
+                        .setMenuItems(listMenus)
+                        .setMenuItem(new MenuItemEntity(R.mipmap.ic_facet2face, "面对面快传", Color.BLUE))
+                        .setMenuItem(new MenuItemEntity(R.mipmap.ic_pay, "付款", Color.RED))
+                        .setOnMenuItemClickListener(new UIPopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public void onMenuItemClick(int position) {
+                                Toast.makeText(MainActivity.this, "点击菜单:" + position, Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setClickDismissible(checkClickDismissible.isChecked())
+                        .setAnimationEnable(checkBoxAnimation.isChecked())
+                        .showAsDropDown(ivMenu, -200, 0);
+
+
+

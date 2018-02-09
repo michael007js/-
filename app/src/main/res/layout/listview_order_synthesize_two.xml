@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="wrap_content">
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:divider="@null"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/title_listview_order_synthesize_two"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp"/>
+
+        <TextView
+            android:id="@+id/write_listview_order_synthesize_two"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:text="订单填写"/>
+    </LinearLayout>
+
+
+    <com.blankj.utilcode.customwidget.ListView.InnerListview
+        android:id="@+id/listview_listview_order_synthesize_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_weight="1"
+        android:background="#fff">
+
+    </com.blankj.utilcode.customwidget.ListView.InnerListview>
+</LinearLayout>

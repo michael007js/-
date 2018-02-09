@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="blue">#34b1e7</color>
+    <color name="colorGray">#cccccc</color>
+    <color name="colorLightestGray">#cecece</color>
+    <color name="colorDeepGray">#aaaaaa</color>
+    <color name="colorBlue">#0000ff</color>
+    <color name="colorLightBlue">#0033ff</color>
+	<drawable name="transparent_background">#00000000</drawable>
+	<color name="menu_bg_press">#cecece</color>
+	
+</resources>

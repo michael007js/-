@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="payTypes">
+        <item>畅捷支付</item>
+        <item>微信支付</item>
+        <item>支付宝支付</item>
+        <item>支付宝网页支付</item>
+    </string-array>
+    <string-array name="order_type">
+        <item>鉴权订单</item>
+        <item>支付订单</item>
+        <item>退款订单</item>
+    </string-array>
+    <string-array name="quick_pay_menu">
+        <item>鉴权绑卡请求</item>
+        <item>鉴权绑卡确认</item>
+        <item>鉴权绑卡查询</item>
+        <item>支付请求</item>
+        <item>支付确认</item>
+        <item>确认收货</item>
+    </string-array>
+
+    <string-array name="quick_pay_front_end_menu">
+        <item>鉴权绑卡请求(畅捷前台)</item>
+        <!--<item>鉴权绑卡确认(畅捷前台)</item>-->
+        <!--<item>鉴权绑卡查询(畅捷前台)</item>-->
+        <item>支付请求--必须先绑卡(畅捷前台)</item>
+        <item>直接支付请求(畅捷前台)</item>
+    </string-array>
+</resources>

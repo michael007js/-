@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="editable_menu_label_field">
+        <item name="android:layout_width">@dimen/dimen_0_dp</item>
+        <item name="android:layout_height">@dimen/dimen_40_dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/dimen_16_sp</item>
+    </style>
+
+    <style name="editable_menu_input_field">
+        <item name="android:layout_width">@dimen/dimen_0_dp</item>
+        <item name="android:layout_height">@dimen/dimen_40_dp</item>
+        <item name="android:layout_weight">5</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/dimen_16_sp</item>
+    </style>
+</resources>

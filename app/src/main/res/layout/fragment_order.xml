@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+
+        <com.blankj.utilcode.customwidget.Layout.LayoutRefresh.RefreshLoadMoreLayout
+            android:id="@+id/refresh_fragment_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/scollview_fragment_order"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.sss.car.custom.ListViewOrder
+                    android:id="@+id/ListViewOrder_fragment_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"/>
+            </ScrollView>
+        </com.blankj.utilcode.customwidget.Layout.LayoutRefresh.RefreshLoadMoreLayout>
+
+
+        <ImageView
+            android:id="@+id/top_fragment_order"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/line"
+            android:scaleType="centerInside"
+            android:src="@mipmap/logo_top"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/all_fragment_order"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="visible">
+
+            <CheckBox
+                android:id="@+id/cb_fragment_order"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:button="@drawable/bg_check_box"
+                android:text=" 全选"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:text="合计: "
+                android:textColor="@color/mainColor"/>
+
+            <TextView
+                android:id="@+id/price_fragment_order"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="¥0"
+                android:textColor="@color/mainColor"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/pay_fragment_order"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:text="立即付款"
+            android:background="@color/mainColor"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:background="#fff"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:id="@+id/name_item_displacement_year_type_public_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <TextView
+        android:background="#f3f3f3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

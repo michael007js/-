@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:orientation="horizontal"
+              android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:gravity="center_vertical"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+       <ImageView
+           android:layout_marginLeft="5dp"
+           android:src="@mipmap/logo_location"
+           android:layout_width="20dp"
+           android:layout_height="20dp"/>
+
+       <TextView
+           android:id="@+id/location_path_left_location"
+           android:gravity="center"
+           android:text="定位中..."
+           android:layout_marginLeft="5dp"
+           android:layout_marginRight="5dp"
+           android:layout_width="wrap_content"
+           android:layout_height="30dp"/>
+       <LinearLayout
+           android:layout_weight="1"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+       </LinearLayout>
+
+       <ImageView
+           android:id="@+id/search_path_left_location"
+           android:src="@mipmap/logo_search"
+           android:layout_width="20dp"
+           android:layout_height="20dp"/>
+   </LinearLayout>
+
+</LinearLayout>

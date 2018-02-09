@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout
+    android:layout_marginTop="1dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scoll_item_fragment_popularize_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    app:ios="true"
+    android:background="#fff"
+    app:leftSwipe="true"
+    app:swipeEnable="true">
+
+    <LinearLayout
+        android:id="@+id/click_item_fragment_popularize_list"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pic_item_fragment_popularize_list"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            fresco:actualImageScaleType="centerCrop"/>
+
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+
+            <TextView
+                android:id="@+id/title_item_fragment_popularize_list"
+                android:maxLines="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/slogan_item_fragment_popularize_list"
+                android:maxLines="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:padding="10dp"
+        android:visibility="gone"
+        android:id="@+id/cancel_popularize_item_fragment_popularize_list"
+        android:text="取消推广"
+        android:background="@color/grid_view_state_pressed"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:padding="10dp"
+        android:visibility="gone"
+        android:id="@+id/view_item_fragment_popularize_list"
+        android:text="查看详情"
+        android:background="@color/mainColor"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+</com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout>

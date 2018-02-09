@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/click_item_share_dynamic_adapter_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="5dp"
+                android:background="#dfdfdf"/>
+
+            <FrameLayout
+                android:id="@+id/bg_item_share_dynamic_adapter_goods"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/month_item_share_dynamic_adapter_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"/>
+
+                    <TextView
+                        android:id="@+id/day_item_share_dynamic_adapter_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"/>
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/pic_item_share_dynamic_adapter_goods"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                fresco:placeholderImageScaleType="centerInside"/>
+
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#dfdfdf"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/nikename_item_share_dynamic_adapter_goods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/content_item_share_dynamic_adapter_goods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:textColor="#000"/>
+
+            <LinearLayout
+                android:id="@+id/parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_item_share_dynamic_adapter_goods"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:maxLines="3"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/price_item_share_dynamic_adapter_goods"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:singleLine="true"
+                            android:textColor="@color/mainColor"/>
+
+
+                        <TextView
+                            android:id="@+id/loacation_item_share_dynamic_adapter_goods"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp">
+
+            </android.support.v7.widget.RecyclerView>
+            
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/time_item_share_dynamic_adapter_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:id="@+id/click_praise_item_share_dynamic_adapter_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/praise_item_share_dynamic_adapter_goods"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        fresco:placeholderImage="@mipmap/logo_praise_no"
+                        fresco:placeholderImageScaleType="centerCrop"/>
+
+                    <TextView
+                        android:id="@+id/show_praise_item_share_dynamic_adapter_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:id="@+id/click_comment_item_share_dynamic_adapter_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/comment_item_share_dynamic_adapter_goods"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        fresco:placeholderImage="@mipmap/logo_comment"
+                        fresco:placeholderImageScaleType="centerCrop"/>
+
+                    <TextView
+                        android:id="@+id/show_comment_item_share_dynamic_adapter_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:id="@+id/click_share_item_share_dynamic_adapter_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/share_item_share_dynamic_adapter_goods"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        fresco:placeholderImage="@mipmap/logo_dymaic_share"
+                        fresco:placeholderImageScaleType="fitCenter"/>
+
+                    <TextView
+                        android:id="@+id/show_share_item_share_dynamic_adapter_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:background="#dfdfdf"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

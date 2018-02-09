@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/listview_fragment_wallet_integral_send_friend_attention_fans_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+    
+</LinearLayout>

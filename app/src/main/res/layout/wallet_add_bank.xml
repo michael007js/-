@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/wallet_add_bank"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="持卡人    "
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="张三"
+            android:gravity="center_vertical"
+            android:hint="请输入持卡人"
+            android:maxLength="4"
+            android:textSize="13.8sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="卡号        "
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="6013826105012325999"
+            android:gravity="center_vertical"
+            android:hint="请输入卡号"
+            android:inputType="phone"
+            android:maxLength="19"
+            android:textSize="13.8sp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="身份证号"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:text="320681199101250058"
+            android:id="@+id/idcard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="0123456789xX"
+            android:gravity="center_vertical"
+            android:hint="请输入身份证号"
+            android:maxLength="18"
+            android:textSize="13.8sp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="手机号    "
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="1234567890"
+            android:text="13888888888"
+            android:gravity="center_vertical"
+            android:hint="请输入手机号    "
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textSize="13.8sp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/complete"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_button_small_ra"
+        android:gravity="center"
+        android:text="完成"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

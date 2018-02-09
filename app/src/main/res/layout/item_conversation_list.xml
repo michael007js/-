@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scoll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    app:ios="true"
+    android:layout_marginTop="1dp"
+    app:leftSwipe="true"
+    app:swipeEnable="false">
+
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:id="@+id/click"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:visibility="visible"
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundAsCircle="false"
+                ></com.facebook.drawee.view.SimpleDraweeView>
+            <!--fresco:placeholderImage="@drawable/rc_default_portrait"-->
+
+
+            <TextView
+                android:textColor="#fff"
+                android:text="0"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:background="@drawable/rc_unread_count_bg"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/unread"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/name"
+                    android:maxLines="1"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:maxLines="1"
+                    android:id="@+id/date"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical|right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+
+                    android:id="@+id/content"
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/receipt"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/rc_read_receipt"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:background="@color/grayness"
+        android:text="置顶"
+        android:id="@+id/top"
+        android:textColor="#fff"/>
+
+    <TextView
+        android:id="@+id/delete"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:background="@color/mainColor"
+        android:text="删除"
+        android:textColor="#fff"/>
+
+</com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout>

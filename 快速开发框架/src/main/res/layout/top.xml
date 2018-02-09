@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+
+
+        <LinearLayout
+            android:id="@+id/background_maintop"
+            android:background="#116b9f"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/back_maintop"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/back_bg_maintop"
+                    android:layout_width="10dp"
+                    android:layout_height="20dp"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/right_bg_maintop"
+                    android:layout_width="30dp"
+                    android:layout_marginRight="10dp"
+                    fresco:actualImageScaleType="centerInside"
+                    android:layout_height="30dp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:textColor="#ffffff"
+            android:id="@+id/title_maintop"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:textSize="20dp"/>
+    </FrameLayout>
+</LinearLayout>

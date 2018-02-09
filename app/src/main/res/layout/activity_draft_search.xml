@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_draft_search"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/top_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/back_activity_draft_search"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                fresco:placeholderImage="@mipmap/logo_back"
+                fresco:placeholderImageScaleType="centerInside"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:background="@null"
+            android:id="@+id/input_activity_draft_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="搜索"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/search_activity_draft_search"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="搜索"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/parent_activity_draft_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+</LinearLayout>

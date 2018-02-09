@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/click"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <FrameLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/pic_item_fragment_coupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    fresco:actualImageScaleType="centerCrop"/>
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:paddingBottom="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7">
+
+                            <TextView
+                                android:id="@+id/discounts_item_fragment_coupon"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:text="9999"
+                                android:textColor="#fff"
+                                android:textSize="25sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="0.3"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom"
+                                android:lines="1"
+                                android:textSize="13sp"
+                                android:text="先领券后下单"
+                                android:textColor="#fff"/>
+
+                            <TextView
+                                android:gravity="top"
+                                android:layout_marginBottom="10dp"
+                                android:id="@+id/type_item_fragment_coupon"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:text="优惠券"
+                                android:textColor="#fff"
+                                android:textSize="18sp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:paddingBottom="5dp">
+
+                        <TextView
+                            android:id="@+id/date_item_fragment_coupon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:lines="1"
+                            android:text="优惠券"
+                            android:textColor="#fff"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/title_item_fragment_coupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"/>
+
+                <TextView
+                    android:id="@+id/slogan_item_fragment_coupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="1"
+                    android:textColor="@color/grayness"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/price_item_fragment_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:textColor="@color/mainColor"/>
+
+                    <TextView
+                        android:id="@+id/get_item_fragment_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dp"
+                        android:background="@drawable/bg_button_small_ra"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="已加入"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/IMKit/IMKit.iml" filepath="$PROJECT_DIR$/IMKit/IMKit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IMLib/IMLib.iml" filepath="$PROJECT_DIR$/IMLib/IMLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JuXiangChe.iml" filepath="$PROJECT_DIR$/JuXiangChe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Pay/Pay.iml" filepath="$PROJECT_DIR$/Pay/Pay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/快速开发框架/快速开发框架.iml" filepath="$PROJECT_DIR$/快速开发框架/快速开发框架.iml" />
+    </modules>
+  </component>
+</project>

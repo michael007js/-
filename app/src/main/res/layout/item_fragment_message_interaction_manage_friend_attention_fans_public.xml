@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scoll_item_fragment_message_interaction_manage_friend_attention_fans_public"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:ios="true"
+    app:leftSwipe="true"
+    app:swipeEnable="true">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/title_item_fragment_message_interaction_manage_friend_attention_fans_public"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#eeeeee"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"/>
+
+
+            <LinearLayout
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:id="@+id/data_item_fragment_message_interaction_manage_friend_attention_fans_public"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp">
+
+                    <ImageView
+                        android:id="@+id/pic_item_fragment_message_interaction_manage_friend_attention_fans_public"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:id="@+id/text_item_fragment_message_interaction_manage_friend_attention_fans_public"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/delete_item_fragment_message_interaction_manage_friend_attention_fans_public"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="删除"
+            android:textColor="#fff"/>
+    </LinearLayout>
+</com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_order_returns_change_apply_for_and_complete_data"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="订单号"/>
+
+                <TextView
+                    android:id="@+id/order_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <com.sss.car.custom.ListViewOrderRetuenOrChange
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </com.sss.car.custom.ListViewOrderRetuenOrChange>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="申请类型"/>
+
+                <Spinner
+                    android:id="@+id/apply_for_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/title_company"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="快递公司"/>
+
+                <TextView
+                    android:id="@+id/company"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_expressage_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/title_expressage_code"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="快递单号"/>
+
+                <TextView
+                    android:id="@+id/expressage_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/click_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/title_reason"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="退换原因"/>
+
+                <TextView
+                    android:id="@+id/reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <com.blankj.utilcode.customwidget.ListView.HorizontalListView
+                android:background="#fff"
+                android:id="@+id/photo"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp">
+
+            </com.blankj.utilcode.customwidget.ListView.HorizontalListView>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/click_result"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="卖家反馈"/>
+
+                <TextView
+                    android:id="@+id/result"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity=""/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+   <LinearLayout
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <TextView
+           android:id="@+id/click_refund"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:background="@color/mainColor"
+           android:gravity="center"
+           android:text="立即退款"
+           android:visibility="gone"
+           android:textColor="#fff"/>
+       <TextView
+           android:layout_weight="1"
+           android:id="@+id/click_reject"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:background="@color/text_black"
+           android:gravity="center"
+           android:visibility="gone"
+           android:text="拒绝"
+           android:textColor="#fff"/>
+       <TextView
+           android:layout_weight="1"
+           android:id="@+id/click_submit"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:background="@color/mainColor"
+           android:gravity="center"
+           android:text="提交"
+           android:visibility="gone"
+           android:textColor="#fff"/>
+       <TextView
+           android:layout_weight="1"
+           android:id="@+id/click_complete_submit"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:background="@color/mainColor"
+           android:gravity="center"
+           android:text="提交"
+           android:visibility="gone"
+           android:textColor="#fff"/>
+       <TextView
+           android:layout_weight="1"
+           android:id="@+id/click_agree"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:background="@color/mainColor"
+           android:gravity="center"
+           android:text="同意"
+           android:visibility="gone"
+           android:textColor="#fff"/>
+
+   </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_goods_service_details"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+<LinearLayout
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#fff">
+
+        <LinearLayout
+            android:id="@+id/back_activity_goods_service_details"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_back"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.blankj.utilcode.customwidget.Tab.tab.ScrollTab
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/scrollTab"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:stab_avag="false"
+                app:stab_indicator_color="@color/color_accent"
+                app:stab_indicator_padding="2dp"
+                app:stab_indicator_radius="0.5dp"
+                app:stab_indicator_type="trend"
+                app:stab_indicator_weight="1dp"
+                app:stab_indicator_width="40dp"
+                app:stab_type="view_group"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/more_activity_goods_service_details"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_more"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+
+      <android.support.v4.view.ViewPager
+          android:id="@id/viewpager"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+      </android.support.v4.view.ViewPager>
+
+        <ImageView
+
+            android:id="@+id/top_activity_goods_service_details"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/line"
+            android:scaleType="centerInside"
+            android:src="@mipmap/logo_top"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_parent"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/click_shop_activity_goods_service_details"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/logo_shop_logo"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:text="商铺"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_customer_service_goods_service_details"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/logo_custom_service"/>
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textSize="13sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:text="客服"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_collect_goods_service_details"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_collect_goods_service_details"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/logo_collect_no"/>
+                <TextView
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textSize="13sp"
+                    android:layout_marginTop="5dp"
+                    android:text="收藏"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/add_shop_car_goods_service_details"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="加入购物车"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:background="#ff8f51"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/subscribe_goods_service_details"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="立即预购"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:background="@color/mainColor"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/activity_share_dymaic_my"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/top_more"/>
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <FrameLayout
+            android:id="@+id/parent_activity_share_dymaic_my"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></FrameLayout>
+        <ImageView
+            android:background="@color/line"
+            android:id="@+id/top_activity_share_dymaic_my"
+            android:layout_width="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/logo_top"
+            android:scaleType="centerInside"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_protect"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+  <LinearLayout
+      android:visibility="visible"
+      android:id="@+id/parent"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+      <LinearLayout
+          android:id="@+id/click_login_password"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:layout_marginTop="1dp"
+          android:background="#fff"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:gravity="center_vertical"
+              android:text="登录密码"
+              android:textColor="@color/black"/>
+
+          <TextView
+              android:id="@+id/show_login_password"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:textColor="@color/grayness"
+              android:text="去修改"/>
+
+          <ImageView
+              android:layout_width="10dp"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="10dp"
+              android:scaleType="centerInside"
+              android:src="@mipmap/right_arrows"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/click_pay_password"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:layout_marginTop="1dp"
+          android:background="#fff"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp">
+
+
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:gravity="center_vertical"
+              android:text="支付密码"
+              android:textColor="@color/black"
+              android:id="@+id/textView18"/>
+          <TextView
+              android:id="@+id/show_pay_password"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:textColor="@color/grayness"
+              android:text="去设置"/>
+          <ImageView
+              android:layout_width="10dp"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="10dp"
+              android:scaleType="centerInside"
+              android:src="@mipmap/right_arrows"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/click_password_protect"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:layout_marginTop="1dp"
+          android:background="#fff"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:gravity="center_vertical"
+              android:text="密保信息"
+              android:textColor="@color/black"/>
+          <TextView
+              android:id="@+id/show_password_protect"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:textColor="@color/grayness"
+              android:text="去修改"/>
+
+          <ImageView
+              android:layout_width="10dp"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="10dp"
+              android:scaleType="centerInside"
+              android:src="@mipmap/right_arrows"/>
+      </LinearLayout>
+  </LinearLayout>
+
+</LinearLayout>

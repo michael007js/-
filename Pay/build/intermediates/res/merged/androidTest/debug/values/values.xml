@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="order_type">
+        <item>鉴权订单</item>
+        <item>支付订单</item>
+        <item>退款订单</item>
+    </string-array>
+    <string-array name="payTypes">
+        <item>畅捷支付</item>
+        <item>微信支付</item>
+        <item>支付宝支付</item>
+        <item>支付宝网页支付</item>
+    </string-array>
+    <string-array name="quick_pay_front_end_menu">
+        <item>鉴权绑卡请求(畅捷前台)</item>
+        <!--<item>鉴权绑卡确认(畅捷前台)</item>-->
+        <!--<item>鉴权绑卡查询(畅捷前台)</item>-->
+        <item>支付请求--必须先绑卡(畅捷前台)</item>
+        <item>直接支付请求(畅捷前台)</item>
+    </string-array>
+    <string-array name="quick_pay_menu">
+        <item>鉴权绑卡请求</item>
+        <item>鉴权绑卡确认</item>
+        <item>鉴权绑卡查询</item>
+        <item>支付请求</item>
+        <item>支付确认</item>
+        <item>确认收货</item>
+    </string-array>
+    <color name="blue">#34b1e7</color>
+    <color name="colorBlue">#0000ff</color>
+    <color name="colorDeepGray">#aaaaaa</color>
+    <color name="colorGray">#cccccc</color>
+    <color name="colorLightBlue">#0033ff</color>
+    <color name="colorLightestGray">#cecece</color>
+    <color name="menu_bg_press">#cecece</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="dimen_0_dp">0dp</dimen>
+    <dimen name="dimen_10_dp">10dp</dimen>
+    <dimen name="dimen_12_sp">12sp</dimen>
+    <dimen name="dimen_14_sp">14sp</dimen>
+    <dimen name="dimen_16_sp">16sp</dimen>
+    <dimen name="dimen_18_sp">18sp</dimen>
+    <dimen name="dimen_1_dp">1dp</dimen>
+    <dimen name="dimen_200_dp">200dp</dimen>
+    <dimen name="dimen_20_dp">20dp</dimen>
+    <dimen name="dimen_20_sp">20sp</dimen>
+    <dimen name="dimen_24_sp">24sp</dimen>
+    <dimen name="dimen_30_dp">30dp</dimen>
+    <dimen name="dimen_32_sp">32sp</dimen>
+    <dimen name="dimen_400_dp">400dp</dimen>
+    <dimen name="dimen_40_dp">40dp</dimen>
+    <dimen name="dimen_5_dp">5dp</dimen>
+    <drawable name="transparent_background">#00000000</drawable>
+    <string name="action_settings">Settings</string>
+    <string name="ali_wx_pay_param">微信/支付宝支付参数</string>
+    <string name="app_name">畅捷sdk-Demo</string>
+    <string name="auth_order">鉴权订单</string>
+    <string name="authentication_label">鉴权绑卡</string>
+    <string name="authentication_query">鉴权查询</string>
+    <string name="bank_card_number">卡号</string>
+    <string name="buyer_pay_code">付方支付ID</string>
+    <string name="card_holder_name">持卡人姓名</string>
+    <string name="card_holder_phone">手机号</string>
+    <string name="card_prefix">卡号前六位</string>
+    <string name="card_suffix">卡号后四位</string>
+    <string name="card_type">卡类型</string>
+    <string name="certificate_of_identification">身份证</string>
+    <string name="credentials_type">证件类型</string>
+    <string name="credit_card_cvv2">cvv2码</string>
+    <string name="credit_card_label">贷记卡</string>
+    <string name="credit_card_term">有效期</string>
+    <string name="debit_card_label">借记卡</string>
+    <string name="ensure_amount">担保金额</string>
+    <string name="extension">扩展字段</string>
+    <string name="goods_detail">商品详情</string>
+    <string name="goods_name">商品名称</string>
+    <string name="id_card_number">证件号</string>
+    <string name="limit_credit_pay">限制信用卡</string>
+    <string name="mer_user_id">用户标识</string>
+    <string name="no_credit">是</string>
+    <string name="notify_url">异步通知地址</string>
+    <string name="order_expired_time">订单有效期</string>
+    <string name="order_number">订单号</string>
+    <string name="pay_order">支付订单</string>
+    <string name="read_number">流水号</string>
+    <string name="request_pay">请求支付</string>
+    <string name="return_url">同步回跳地址</string>
+    <string name="royalty_parameters">分润账号集</string>
+    <string name="seller_id">商户编号</string>
+    <string name="send_message_flag">短信发送标识</string>
+    <string name="split_list">分账列表</string>
+    <string name="sub_merchant_no">子商户号</string>
+    <string name="trade_memo">商品描述</string>
+    <string name="trade_status">交易状态</string>
+    <string name="trade_type">交易类型</string>
+    <string name="trx_amt">交易金额</string>
+    <string name="type_ensure">担保</string>
+    <string name="type_right">即时</string>
+    <string name="use_credit">否</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="editable_menu_input_field">
+        <item name="android:layout_width">@dimen/dimen_0_dp</item>
+        <item name="android:layout_height">@dimen/dimen_40_dp</item>
+        <item name="android:layout_weight">5</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/dimen_16_sp</item>
+    </style>
+    <style name="editable_menu_label_field">
+        <item name="android:layout_width">@dimen/dimen_0_dp</item>
+        <item name="android:layout_height">@dimen/dimen_40_dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/dimen_16_sp</item>
+    </style>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/commodity_add_size"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+    
+   <ScrollView
+       android:layout_weight="1"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <com.sss.car.custom.GoodsTypeSelect.View.ListGoodsTypeSelect
+           android:id="@+id/listGoodsTypeSelect_commodity_add_size"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+       </com.sss.car.custom.GoodsTypeSelect.View.ListGoodsTypeSelect>
+   </ScrollView>
+    
+    <TextView
+        android:id="@+id/sure_commodity_add_size"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="确定"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:background="@color/mainColor"/>
+</LinearLayout>

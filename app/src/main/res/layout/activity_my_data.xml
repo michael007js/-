@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_my_data"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+
+                android:id="@+id/pic_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="头像更换"
+                    android:textColor="@color/black"/>
+
+                <ImageView
+                    android:id="@+id/pic_show_activity_my_data"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+                android:id="@+id/account_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="用户ID"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/account_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginRight="20dp"
+                    android:text=""/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+                android:id="@+id/register_code_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="推广注册码"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/register_code_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginRight="20dp"
+                    android:text=""/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/username_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="真实姓名"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/username_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="设置"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+                android:id="@+id/nikename_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="昵称"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/nikename_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="设置"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+                android:id="@+id/sex_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="性别"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/sex_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="设置"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+                android:id="@+id/mobile_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="绑定手机"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/mobile_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="设置"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+                android:id="@+id/car_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="爱车档案"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/car_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="设置"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+
+                android:id="@+id/receiving_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="收货信息"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/receiving_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="设置"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+                android:id="@+id/entity_certification_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="用户认证"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/entity_certification_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="设置"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"/>
+
+            <LinearLayout
+                android:id="@+id/shop_activity_my_data"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="商铺资料"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/shop_show_activity_my_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="设置"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+

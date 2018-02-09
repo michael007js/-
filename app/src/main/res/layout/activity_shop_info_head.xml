@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <com.blankj.utilcode.customwidget.ViewPager.BannerVariation
+        android:id="@+id/advertisement"
+        android:layout_width="match_parent"
+        android:layout_height="190dp">
+
+    </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pic_activity_shop_info_head"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            fresco:actualImageScaleType="centerCrop"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/shop_name_activity_shop_info_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="认证类型:"/>
+
+                <TextView
+                    android:id="@+id/auth_type_activity_shop_info_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/mainColor"/>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="最近登录:"/>
+
+                <TextView
+                    android:id="@+id/login_time_activity_shop_info_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/mainColor"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="营业时间:"/>
+
+                <TextView
+                    android:id="@+id/open_time_activity_shop_info_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/mainColor"/>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="信誉积分:"/>
+
+                <TextView
+                    android:id="@+id/score_activity_shop_info_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/mainColor"/>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/location_path_activity_shop_info_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            fresco:placeholderImage="@mipmap/logo_location_with_color"
+            fresco:placeholderImageScaleType="centerInside"/>
+
+        <TextView
+            android:id="@+id/distance_activity_shop_info_head"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000"
+            android:text="0.0"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/click_coupon_activity_shop_info_head"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:text="优惠券"
+            android:textColor="@color/mainColor"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/right_arrows"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="20dp"
+        android:gravity="center"
+        android:background="#fff"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/click_home_page_activity_shop_info_head"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/home_page_activity_shop_info_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="店铺首页"
+                android:textColor="@color/mainColor"/>
+
+            <TextView
+                android:id="@+id/hone_pager_line_activity_shop_info_head"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/mainColor"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textView4"/>
+
+        <LinearLayout
+            android:id="@+id/click_all_activity_shop_info_head"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/all_activity_shop_info_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="全部宝贝"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/all_line_activity_shop_info_head"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/mainColor"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    
+</LinearLayout>

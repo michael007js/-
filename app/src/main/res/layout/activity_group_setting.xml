@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_group_setting"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <com.blankj.utilcode.customwidget.ListView.HorizontalListView
+                    android:id="@+id/list_activity_group_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    ></com.blankj.utilcode.customwidget.ListView.HorizontalListView>
+
+
+                <ImageView
+                    android:id="@+id/add_activity_group_setting"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/ic_launcher"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_group_name_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="群组名称"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/right_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_group_qr_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="群二维码"/>
+
+                <ImageView
+                    android:id="@+id/image_group_qr_activity_group_setting"
+                    android:src="@mipmap/ic_launcher"
+                    android:scaleType="centerInside"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/right_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/click_group_announcement_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="群公告"/>
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/right_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_find_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="查找聊天记录"/>
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/right_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_message_dont_disturb_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="消息免打扰"/>
+
+
+               <com.blankj.utilcode.customwidget.SwitchButton.SwitchButton
+                   android:id="@+id/switch_message_dont_disturb_activity_group_setting"
+                   android:layout_width="60dp"
+                   android:layout_height="30dp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/click_save_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="保存到通讯录"/>
+
+
+                <com.blankj.utilcode.customwidget.SwitchButton.SwitchButton
+                    android:id="@+id/switch_save_activity_group_setting"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_my_nikename_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="我在本群的昵称"/>
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/right_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/click_show_group_member_name_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="显示群成员昵称"/>
+
+
+                <com.blankj.utilcode.customwidget.SwitchButton.SwitchButton
+                    android:id="@+id/switch_show_nikename_activity_group_setting"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_report_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="举报"/>
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/right_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_clear_activity_group_setting"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="清空聊天记录"/>
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/right_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginBottom="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/click_delete_and_exit_activity_group_setting"
+                    android:background="@color/mainColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

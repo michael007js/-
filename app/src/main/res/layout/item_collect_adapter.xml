@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/long_click_item_collect_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:id="@+id/short_click_item_collect_adapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:enabled="false"
+                android:visibility="gone"
+                android:id="@+id/cb_item_collect_adapter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:button="@drawable/bg_check_box"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/pic_item_collect_adapter"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        fresco:actualImageScaleType="centerCrop"/>
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:id="@+id/name_item_collect_adapter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+
+                        android:id="@+id/time_item_collect_adapter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:textSize="13sp"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/content_item_collect_adapter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+                <com.blankj.utilcode.customwidget.GridView.InnerGridView
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/nine_item_collect_adapter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="2dp"
+                    android:numColumns="3"
+                    android:verticalSpacing="2dp"></com.blankj.utilcode.customwidget.GridView.InnerGridView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/label_parent_item_collect_adapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/line"/>
+            <LinearLayout
+
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    fresco:placeholderImage="@mipmap/logo_label_red"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+                <TextView
+                    android:id="@+id/label_item_collect_adapter"
+                    android:textColor="@color/mainColor"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

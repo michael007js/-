@@ -1,0 +1,49 @@
+<resources>
+
+    <string name="start_download">开始下载</string>
+    <string name="download_progress">下载进度</string>
+    <string name="was_latest_version">当前已是最新版</string>
+    <string name="finished_install">下载完成，点击安装</string>
+    <string name="download_done">任务下载完成</string>
+    <string name="download_tips">下载提示</string>
+    <string name="download_tips_network">您在目前的网络环境下继续下载将可能会消耗手机流量，请确认是否继续下载？</string>
+    <string name="download_cancel">取消下载</string>
+    <string name="download_continue">继续下载</string>
+    <string name="next_time">下次再说</string>
+    <string name="download">开始更新</string>
+    <string name="permission_storage">请允许应用添加存储权限</string>
+    <string name="progressActivityErrorButton">重新加载</string>
+    <string name="progressActivityEmptyTitlePlaceholder">未加载到任何内容!</string>
+    <string name="progressActivityEmptyContentPlaceholder">We could not find anything. Tap the button to take your first image</string>
+    <string name="progressActivityErrorTitlePlaceholder">No Connection</string>
+    <string name="progressActivityErrorContentPlaceholder">网络不给力哦，加载失败</string>
+
+
+
+    <string name="release_refresh">释放立即刷新</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="refresh_success">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="load_more_fail">加载失败</string>
+
+
+    <string name="rll_header_hint_normal">下拉更新</string>
+    <string name="rll_header_hint_ready">松开更新</string>
+    <string name="rll_header_hint_loading">正在努力更新</string>
+    <string name="rll_header_last_time">上次更新时间：</string>
+    <string name="rll_header_time_justnow">刚刚</string>
+    <string name="rll_header_time_minutes">分钟以前</string>
+    <string name="rll_header_time_hours">小时以前</string>
+    <string name="rll_header_time_days">天以前</string>
+    <string name="rll_footer_hint_normal">上拉加载更多</string>
+    <string name="rll_footer_hint_ready">松开加载更多</string>
+    <string name="rll_footer_hint_loading">正在努力加载</string>
+    <string name="rll_footer_no_more_data">没有更多了</string>
+
+    <string name="tips_not_wifi">您当前正在使用移动网络，继续播放将消耗流量</string>
+    <string name="tips_not_wifi_confirm">继续播放</string>
+    <string name="tips_not_wifi_cancel">停止播放</string>
+    <string name="no_url">播放地址无效</string>
+
+</resources>

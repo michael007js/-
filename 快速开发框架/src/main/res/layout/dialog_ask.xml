@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="提示"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textColor="#f37174"
+        android:id="@+id/content_dialog_ask"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="确定?" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/dialog_line_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:gravity="center"
+        android:orientation="horizontal">
+
+           <TextView
+        android:textColor="#727272"
+        android:id="@+id/cancel_dialog_ask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="取消" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/dialog_line_gray" />
+        <TextView
+            android:textColor="#727272"
+            android:id="@+id/yes_dialog_ask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="确定" />
+
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+</LinearLayout>

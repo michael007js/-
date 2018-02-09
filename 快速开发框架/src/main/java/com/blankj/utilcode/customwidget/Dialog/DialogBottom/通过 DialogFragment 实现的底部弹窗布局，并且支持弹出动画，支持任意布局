@@ -1,0 +1,259 @@
+通过 DialogFragment 实现的底部弹窗布局，并且支持弹出动画，支持任意布局
+
+https://github.com/shaohui10086/BottomDialog
+
+中文版https://github.com/shaohui10086/BottomDialog/blob/master/README_ZH.md
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Maven
+
+<dependency>
+  <groupId>me.shaohui</groupId>
+  <artifactId>bottomdialog</artifactId>
+  <version>1.1.9</version>
+  <type>pom</type>
+</dependency>
+or Gradle
+
+compile 'me.shaohui:bottomdialog:1.1.9'
+Uasge
+
+你可以通过两种不同的方式来使用 BottomDialog：
+
+1.直接使用 BottomDialog
+
+简单的三行代码就可以搞定
+
+BottomDialog.create(getSupportFragmentManager())
+                .setLayoutRes(R.layout.dialog_layout)      // dialog layout
+                .show();
+当然，你也可以进行简单的设置
+
+BottomDialog.create(getSupportFragmentManager())
+                .setViewListener(new BottomDialog.ViewListener() {      // 可以进行一些必要对View的操作
+                    @Override
+                    public void bindView(View v) {
+                        // you can do bind view operation
+                    }
+                })
+                .setLayoutRes(R.layout.dialog_layout)
+                .setDimAmount(0.1f)            // Dialog window 背景色深度 范围：0 到 1，默认是0.2f
+                .setCancelOutside(false)     // 点击外部区域是否关闭，默认true
+                .setTag("BottomDialog")     // 设置DialogFragment的tag
+                .show();
+So Easy！
+
+2.或者继承 BaseBottomDialog 使用
+
+首先根据自己的需求定义一个 Dialog 类，继承BaseBottomDialog，比如下方的ShareBottomDialog
+
+public class ShareBottomDialog extends BaseBottomDialog{
+
+    @Override
+    public int getLayoutRes() {
+        return R.layout.dialog_layout;
+    }
+
+    @Override
+    public void bindView(View v) {
+        // do any thing you want
+    }
+}
+还是那么简单，只需要实现两个抽象方法就大功告成，剩下的就是添加自己的逻辑。 当然，你也可以重写一些必要的方法来满足自己的需求
+
+int getHeight()                 // 设置 bottomDialog 的高度
+
+float getDimAmount()            // 设置 dialog 所在 window 的背景深度，默认0.2f
+
+boolean getCancelOutside()      // 设置 dialog 点击外部区域是否消失
+
+String getFragmentTag()         // 设置 dialogFragment 的 tag
+调用方法：
+
+    ShareBottomDialog dialog = new ShareBottomDialog();
+    dialog.show(getSupportFragmentManager());
+完成！
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   public void createSexDialog(final Activity context, final SexChangeListener listener, String sex) {
+        bottomdDialog = new BottomSheetDialog(context);
+        view = LayoutInflater.from(context).inflate(R.layout.dialog_sex, null);
+        radioButtonBoyDialogSex = (CheckBox) view.findViewById(R.id.radioButton_boy_dialog_sex);
+        radioButtonGrilDialogSex = (CheckBox) view.findViewById(R.id.radioButton_gril_dialog_sex);
+        clickBoyDialogSex = (LinearLayout) view.findViewById(R.id.click_boy_dialog_sex);
+        clickGrilDialogSex = (LinearLayout) view.findViewById(R.id.click_gril_dialog_sex);
+        switch (sex) {
+            case "男":
+                radioButtonBoyDialogSex.setChecked(true);
+                radioButtonGrilDialogSex.setChecked(false);
+                break;
+            case "女":
+                radioButtonBoyDialogSex.setChecked(false);
+                radioButtonGrilDialogSex.setChecked(true);
+                break;
+        }
+        clickBoyDialogSex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomdDialog.dismiss();
+                radioButtonBoyDialogSex.setChecked(true);
+                radioButtonGrilDialogSex.setChecked(false);
+                changeSex(context, 1, listener);
+            }
+        });
+        clickGrilDialogSex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomdDialog.dismiss();
+                radioButtonBoyDialogSex.setChecked(false);
+                radioButtonGrilDialogSex.setChecked(true);
+                changeSex(context, 2, listener);
+            }
+        });
+
+        radioButtonBoyDialogSex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomdDialog.dismiss();
+                radioButtonBoyDialogSex.setChecked(true);
+                radioButtonGrilDialogSex.setChecked(false);
+                changeSex(context, 1, listener);
+            }
+        });
+        radioButtonGrilDialogSex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomdDialog.dismiss();
+                radioButtonBoyDialogSex.setChecked(false);
+                radioButtonGrilDialogSex.setChecked(true);
+                changeSex(context, 2, listener);
+            }
+        });
+        bottomdDialog
+                .contentView(view)
+                .inDuration(500)
+                .outDuration(500)
+                .inInterpolator(new BounceInterpolator())
+                .outInterpolator(new AnticipateInterpolator())
+                .cancelable(true).canceledOnTouchOutside(true);
+        if (AdapterVirtualButton.checkDeviceHasNavigationBar(context)) {
+            bottomdDialog.heightParam(250);
+        } else {
+            bottomdDialog.heightParam(180);
+        }
+        bottomdDialog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        bottomdDialog.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        //布局位于状态栏下方
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+//                        //全屏
+//                        View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        //隐藏导航栏
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                if (Build.VERSION.SDK_INT >= 19) {
+                    uiOptions |= 0x00001000;
+                } else {
+                    uiOptions |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+                }
+                bottomdDialog.getWindow().getDecorView().setSystemUiVisibility(uiOptions);
+            }
+        });
+
+
+        bottomdDialog.show();
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

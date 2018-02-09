@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/order_sos_accept_from_buyer"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="求助者:"/>
+
+                <TextView
+                    android:id="@+id/people_name_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/mobile_name_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车型:"/>
+
+                <TextView
+                    android:id="@+id/car_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"/>
+
+
+            </LinearLayout>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                fresco:placeholderImage="@mipmap/logo_order_line"
+                fresco:placeholderImageScaleType="centerCrop"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/line"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp">
+
+                <TextView
+                    android:id="@+id/fault_order_sos_accept_from_buyer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView
+                    android:id="@+id/count_down_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                </com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="求助类型"/>
+
+                <TextView
+                    android:id="@+id/help_type_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical">
+
+                </TextView>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="地址"/>
+
+                <TextView
+                    android:id="@+id/show_address_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right|center"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="服务价格"/>
+
+                <com.blankj.utilcode.customwidget.EditText.NumberSelectEdit
+                    android:id="@+id/NumberSelectEdit_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp">
+
+                </com.blankj.utilcode.customwidget.EditText.NumberSelectEdit>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:id="@+id/click_service_time_order_sos_accept_from_buyer"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="服务就位"
+                    android:textColor="@color/mainColor"/>
+
+                <TextView
+                    android:id="@+id/show_service_time_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:id="@+id/click_penal_sum_order_sos_accept_from_buyer"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="违约金比例"
+                    android:textColor="@color/mainColor"/>
+
+                <TextView
+                    android:id="@+id/show_penal_sum_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"/>
+
+            <LinearLayout
+                android:id="@+id/click_other_sum_order_sos_accept_from_buyer"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="其他要求"
+                    android:textColor="@color/mainColor"/>
+
+                <TextView
+                    android:id="@+id/show_other_order_sos_accept_from_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center"
+                    android:text=""/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"/>
+
+            <com.blankj.utilcode.customwidget.ListView.HorizontalListView
+                android:visibility="gone"
+                android:id="@+id/photo_order_sos_accept_from_buyer"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+            </com.blankj.utilcode.customwidget.ListView.HorizontalListView>
+
+            <TextView
+                android:background="#fff"
+                android:id="@+id/tip_order_sos_accept_from_buyer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"/>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计: "/>
+
+        <TextView
+            android:id="@+id/total_price_order_sos_accept_from_buyer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="¥0"
+            android:textColor="@color/mainColor"/>
+
+
+        <TextView
+            android:id="@+id/cancel_submit_order_sos_accept_from_buyer"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/hint_text"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="#fff"
+            android:text="忽略"/>
+        <TextView
+            android:id="@+id/click_submit_order_sos_accept_from_buyer"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="接受订单"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+</LinearLayout>

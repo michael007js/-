@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/popularize_edit"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="推广类型        "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:hint="请选择推广类型"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/down_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="推广类别        "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:hint="请选择推广类别"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/down_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="一级推广类别"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:hint="请选择一级推广类别"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/down_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="二级推广类别"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:hint="请选择二级推广类别"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/down_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_include"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="商品范围        "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_include"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:hint="请选择商品范围"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="具体商品        "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:hint="具体商品"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="城市                "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:hint="请选择城市"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/down_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="用户性别        "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:hint="请选择性别"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/down_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="推广数量        "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入推广数量"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="活动价格        "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:digits="0123456789"
+                    android:gravity="center_vertical"
+                    android:hint="请输入推广价格"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tip_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="活动时间        "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:hint="请选择活动时间"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/down_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:id="@+id/tip_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="活动图片"
+                    android:textColor="@color/black"/>
+
+
+                <com.blankj.utilcode.customwidget.GalleryHorizontalListView.GalleryHorizontalListView
+                    android:id="@+id/picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginTop="5dp">
+
+                </com.blankj.utilcode.customwidget.GalleryHorizontalListView.GalleryHorizontalListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tip_describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="活动描述"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="请输入活动描述"
+                    android:textColor="@color/black"
+                    android:textSize="13.8sp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_price_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="费用查询"
+                    android:textColor="@color/mainColor"/>
+
+                <TextView
+                    android:id="@+id/tv_tip"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="费用合计"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_total_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textColor="@color/mainColor"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <TextView
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/grayness"
+        android:gravity="center"
+        android:text="申请推广"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

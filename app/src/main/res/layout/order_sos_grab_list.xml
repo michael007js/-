@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/order_sos_grab_list"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="距离订单自动取消剩余: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView
+            android:id="@+id/count_down_order_sos_accept_from_seller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView>
+    </LinearLayout>
+
+
+
+<ListView
+android:divider="@null"
+android:id="@+id/listview_order_sos_grab_list"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+</ListView>
+
+    </LinearLayout>

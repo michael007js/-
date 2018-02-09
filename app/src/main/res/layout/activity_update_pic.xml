@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/activity_update_pic"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:gravity="center"
+        android:textColor="@color/mainColor"
+        android:text="长按删除图标"
+        android:id="@+id/textView17"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.2">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pic_activity_update_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+            fresco:placeholderImage="@mipmap/add_photo"
+            fresco:actualImageScaleType="fitXY"
+            fresco:placeholderImageScaleType="fitXY"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/delete_activity_update_pic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="17dp"
+            android:visibility="gone"
+            fresco:placeholderImage="@mipmap/logo_delete_red"
+            fresco:placeholderImageScaleType="fitXY"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"/>
+</LinearLayout>

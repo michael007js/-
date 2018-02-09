@@ -1,0 +1,90 @@
+https://github.com/ikew0ng/SwipeBackLayout
+
+
+1.添加SwipeBackLayout作为对现有项目的依赖。
+
+2.要启用SwipeBackLayout，
+  您可以简单地让您的活动扩展SwipeBackActivity:在onCreate方法中，
+  setContentView()应该像往常一样调用。
+  您将可以访问getSwipeBackLayout()方法，
+  这样您就可以定制SwipeBackLayout。
+
+  3.使窗口半透明的通过添加<项目名称= " android:windowIsTranslucent " >真正的< /项目>你的主题。
+
+
+
+
+
+//////////////////
+如果出现滑动时看不到上一个界面,显示的是黑屏状态,
+1.在Manifest中为App设置theme属性（我这叫APPTheme）
+2.该theme所有的parent里都要加item
+<item name="android:windowIsTranslucent">true</item>
+//////////////////
+
+
+
+
+
+使用方式：
+
+继承BaseSwipeActivity，修改改Activity的主题为背景透明
+可通过setSwipeBackEnable方法设置是否禁止该功能
+其中若是在app中要使用右滑返回，那么每个Activity的主题记得要设置为背景透明（栈底界面除外），具体例子可参照Sample中theme的使用。
+
+简单的例子
+
+  public class DemoActivity extends SwipeBackActivity implements View.OnClickListener {
+      private int[] mBgColors;
+
+      private static int mBgIndex = 0;
+
+      private String mKeyTrackingMode;
+
+      private RadioGroup mTrackingModeGroup;
+
+      private SwipeBackLayout mSwipeBackLayout;
+
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_demo);
+          changeActionBarColor();
+          findViews();
+          mKeyTrackingMode = getString(R.string.key_tracking_mode);
+          mSwipeBackLayout = getSwipeBackLayout();
+
+          mTrackingModeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+              @Override
+              public void onCheckedChanged(RadioGroup group, int checkedId) {
+                  int edgeFlag;
+                  switch (checkedId) {
+                      case R.id.mode_left:
+                          edgeFlag = SwipeBackLayout.EDGE_LEFT;
+                          break;
+                      case R.id.mode_right:
+                          edgeFlag = SwipeBackLayout.EDGE_RIGHT;
+                          break;
+                      case R.id.mode_bottom:
+                          edgeFlag = SwipeBackLayout.EDGE_BOTTOM;
+                          break;
+                      default:
+                          edgeFlag = SwipeBackLayout.EDGE_ALL;
+                  }
+                  mSwipeBackLayout.setEdgeTrackingEnabled(edgeFlag);
+                  saveTrackingMode(edgeFlag);
+              }
+          });
+
+
+          setSwipeBackEnable(true);
+      }
+  ...
+  Download
+
+  Download via Jcenter:
+
+  compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+合并请求
+
+我很乐意接受关于修复和特性增强的拉请求，但是请在开发分支中完成。

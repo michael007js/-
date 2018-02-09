@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/wallet_withdraw"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <LinearLayout
+        android:id="@+id/bank"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            fresco:placeholderImage="@mipmap/logo_bank"
+            fresco:placeholderImageScaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/bank_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="绑定银行卡"
+            android:textColor="@color/black"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/arrows_bank"
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            fresco:placeholderImage="@mipmap/yes"
+            fresco:placeholderImageScaleType="fitXY"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="fitXY"/>
+    </LinearLayout>
+
+    <TextView
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:background="#fff"
+        android:padding="10dp"
+        android:text="提现金额"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="¥"/>
+
+        <EditText
+            android:textColor="@color/black"
+            android:id="@+id/input_wallet_withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:digits="0123456789"
+            android:gravity="center|left"
+            android:inputType="number"
+            android:textSize="14sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="可用于提现的金额:  "/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/can_wallet_withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/next_wallet_withdraw"
+        android:gravity="center"
+        android:background="@drawable/bg_button_small_ra"
+        android:text="提现"
+        android:textColor="#fff"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+</LinearLayout>

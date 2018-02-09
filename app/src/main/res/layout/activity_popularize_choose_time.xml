@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_popularize_choose_time"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+
+
+    <TextView
+        android:id="@+id/from_activity_popularize_choose_time"
+        android:background="#fff"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/mainColor"
+        android:text="从"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <TextView
+        android:id="@+id/to_activity_popularize_choose_time"
+        android:background="#fff"
+        android:layout_marginTop="1dp"
+        android:textColor="@color/mainColor"
+        android:text="至"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+</LinearLayout>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="@dimen/dimen_0_dp"
+                android:layout_height="@dimen/dimen_0_dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <requestFocus />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="合作者ID：" />
+
+                <EditText
+                    android:id="@+id/et_partner_id"
+                    style="@style/editable_menu_input_field"
+                    android:inputType="numberDecimal"
+                    android:maxLength="32" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:text="畅捷支付sdk Demo" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_5_dp"
+                android:layout_marginLeft="@dimen/dimen_5_dp"
+                android:layout_marginRight="@dimen/dimen_5_dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/common_button_bg"
+                android:onClick="toPay"
+                android:text="支付" />
+
+            <EditText
+                android:id="@+id/edt_query_orderid"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="输入订单号查询"
+                android:inputType="number"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/sp_paytype"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:background="@drawable/common_button_bg"
+                android:onClick="toQuery"
+                android:text="测试查询"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1_dp"
+                android:layout_margin="@dimen/dimen_10_dp"
+                android:background="@color/colorDeepGray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/dimen_0_dp"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_margin="@dimen/dimen_5_dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="原订单号"
+                    android:textSize="@dimen/dimen_16_sp" />
+
+                <EditText
+                    android:id="@+id/et_ori_order_no"
+                    android:layout_width="@dimen/dimen_0_dp"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_weight="2"
+                    android:inputType="number"
+                    android:maxLength="32"
+                    android:maxLines="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/dimen_0_dp"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_margin="@dimen/dimen_5_dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="退款金额"
+                    android:textSize="@dimen/dimen_16_sp" />
+
+                <EditText
+                    android:id="@+id/et_refund_amount"
+                    android:layout_width="@dimen/dimen_0_dp"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_weight="2"
+                    android:inputType="numberDecimal"
+                    android:maxLength="12"
+                    android:maxLines="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/dimen_0_dp"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_margin="@dimen/dimen_5_dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="退担保金额"
+                    android:textSize="@dimen/dimen_16_sp" />
+
+                <EditText
+                    android:id="@+id/et_refund_ensure_amount"
+                    android:layout_width="@dimen/dimen_0_dp"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_weight="2"
+                    android:inputType="number"
+                    android:maxLength="18"
+                    android:maxLines="1" />
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:background="@drawable/common_button_bg"
+                android:onClick="toRefund"
+                android:text="测试退款"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_200_dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

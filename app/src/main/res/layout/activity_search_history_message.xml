@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/activity_search_history_message"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <LinearLayout
+            android:id="@+id/back_activity_search_history_message"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/input_activity_search_history_message"
+            android:layout_weight="1"
+            android:background="@color/line"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="13sp"
+            android:hint="搜索"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/voice_search_activity_search_history_message"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_activity_search_history_message"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!--<item-->
+        <!--android:id="@android:id/background"-->
+        <!--android:drawable="@drawable/bg_seekbar_f">-->
+    <!--</item>-->
+    <!--<item-->
+        <!--android:id="@android:id/progress"-->
+        <!--android:drawable="@drawable/bg_seekbar_b">-->
+    <!--</item>-->
+
+    <!--&lt;!&ndash;<item&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@android:id/secondaryProgress"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:drawable="@color/mainColor">&ndash;&gt;-->
+    <!--&lt;!&ndash;</item>&ndash;&gt;-->
+    <item android:id="@android:id/background"
+          android:paddingTop="3px"
+          android:paddingBottom="3px">
+        <shape>
+            <corners android:radius="10dip" />
+            <gradient
+                android:startColor="#88e83e41"
+                android:centerColor="#dddddd"
+                android:endColor="#88e83e41"
+                android:centerY="0.45"
+                android:angle="270"/>
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress"
+          android:paddingTop="3px"
+          android:paddingBottom="3px" >
+        <clip>
+            <shape>
+                <corners android:radius="10dip" />
+                <gradient
+                    android:startColor="@color/mainColor"
+                    android:centerColor="#ffffffff"
+                    android:endColor="@color/mainColor"
+                    android:centerY="0.45"
+                    android:angle="270"/>
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

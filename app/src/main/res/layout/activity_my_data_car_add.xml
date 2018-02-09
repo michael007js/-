@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_my_data_car_add"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/click_database"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="数据库选择"
+                    android:textColor="@color/black"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/right_arrows"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="汽车品牌"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:background="@null"
+                    android:id="@+id/et_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="例如 大众"
+                    android:maxLines="1"
+                    android:textSize="13.5sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="汽车系列"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:background="@null"
+                    android:id="@+id/et_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="例如 朗逸"
+                    android:maxLines="1"
+                    android:textSize="13.5sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="发动机排量"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:background="@null"
+                    android:id="@+id/et_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="例如 1.2L"
+                    android:maxLines="1"
+                    android:textSize="13.5sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="生产年份"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:background="@null"
+                    android:id="@+id/et_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="例如 2017"
+                    android:maxLines="1"
+                    android:textSize="13.5sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="汽车款型"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:background="@null"
+                    android:id="@+id/et_five"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="例如 DSG舒适版"
+                    android:maxLines="1"
+                    android:textSize="13.5sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/click_save"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_button_small_ra"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="#fff"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

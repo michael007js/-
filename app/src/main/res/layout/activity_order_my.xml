@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_order_my"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <LinearLayout
+        android:id="@+id/in_activity_order_my"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="收入订单"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/out_activity_order_my"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="支出订单"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sos_activity_order_my_seller"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="SOS增援订单"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sos_activity_order_my_buyer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="SOS求助订单"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@mipmap/right_arrows"
+            fresco:placeholderImageScaleType="centerInside"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/check"
+        android:background="@drawable/bg_button_small_ra"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:text="订单查询"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+    </TextView>
+</LinearLayout>

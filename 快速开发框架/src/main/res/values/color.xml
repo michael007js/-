@@ -1,0 +1,118 @@
+<resources>
+    <color name="textColor">#F0393A3E</color>
+    <color name="black_dark">#000000</color>
+    <color name="black">#dd000000</color>
+    <color name="white">#ffffff</color>
+    <color name="mainColor">#e83e41</color>
+    <color name="dialog_line_gray">#f2f2f2</color>
+    <color name="pay_gray">#f5f5f5</color>
+    <color name="transparent">#00000000</color>
+    <color name="start">#6fb630</color>
+    <color name="grayness">#afafaf</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="half_transparent">#3f000000</color>
+    <color name="line">#eeeeee</color>
+
+    <!--LayoutCanRefresh-->
+    <color name="google_blue">#4285F4</color>
+    <color name="google_red">#EA4335</color>
+    <color name="google_green">#34A853</color>
+    <color name="google_yellow">#FBBC05</color>
+    <color name="shadow">#25808080</color>
+    <!--LayoutCanRefresh-->
+
+
+    <!--update-->
+    <color name="checkupdatelibrary_update_button">#64B5F6</color>
+    <color name="checkupdatelibrary_no_update_button">#EBEBEB</color>
+    <color name="checkupdatelibrary_normal_text_color">#666666</color>
+    <!--update-->
+
+
+    <!--webview-->
+    <color name="select_color">#2e2e32</color>
+    <!--webview-->
+
+
+    <!--仿bilibili搜索框效果-->
+    <color name="colorWhite">#FFF</color>
+    <color name="text_black">#737373</color>
+    <color name="text_grey">#9DA0A3</color>
+    <color name="divider">#e6e6e6</color>
+    <!--仿bilibili搜索框效果-->
+
+
+    <!--CustomSeekBar-->
+    <color name="customCompleteColor">#FF4081</color>
+    <color name="customInCompleteColor">#05AAF5</color>
+    <color name="customThumbColor">#FF00FF</color>
+    <color name="customTextColor">#303F9F</color>
+    <!--CustomSeekBar-->
+
+    <!--ExpandTextView-->
+    <color name="primary_text">#de000000</color>
+    <color name="secondary_text">#8a000000</color>
+    <color name="hint_text">#61000000</color>
+    <color name="dividers">#1f000000</color>
+    <!--ExpandTextView-->
+
+
+    <!--adDialog-->
+    <color name="mc">#c8ccd1</color>
+    <!--adDialog-->
+
+    <!--RefreshLoadMoreLayout-->
+    <color name="rll_layout_bg_color">#eeeeee</color>
+    <color name="rll_text_color">#666666</color>
+    <!--RefreshLoadMoreLayout-->
+
+
+    <color name="grid_view_state_pressed">#ff7314</color>
+    <color name="grid_view_not_state_pressed">#fff</color>
+
+
+    <!--ViewPagerHelper-->
+    <color name="page_colorPrimary">#3F51B5</color>
+    <color name="page_colorPrimaryDark">#303F9F</color>
+    <color name="page_colorAccent">#FF4081</color>
+    <color name="page_loop_bottom">#a0a1a1a1</color>
+    <color name="page_white">#ffffff</color>
+    <color name="page_gray_ff">#ded2d2</color>
+    <color name="page_gray_cc">#cccccc</color>
+    <!-- 灰色cc -->
+    <color name="page_gray_cccc">#b0cccccc</color>
+    <!-- 灰色cc-->
+    <color name="page_black_cc">#b01a1a1a</color>
+    <!-- 灰色cc -->
+
+    <!--ViewPagerHelper-->
+
+    <!--ScrollTab-->
+    <color name="color_accent">#e83e41</color>
+    <color name="color_trans">#00000000</color>
+    <color name="color_line">#171A21</color>
+    <color name="color_text">#000</color>
+    <!--ScrollTab-->
+
+
+    <!--popwindow-->
+    <color name="pop_bg_content">#F9F9F9</color>
+    <color name="pop_bg_translucent">#01000000</color>
+    <color name="pop_bg_translucent_half">#70000000</color>
+    <color name="pop_item_text_normal_color">#007AFF</color>
+    <color name="pop_item_text_warning_color">#FF3B30</color>
+    <color name="pop_item_bg_pressed">#EBEBEB</color>
+    <color name="pop_action_sheet_title">#4d4d4d</color>
+    <color name="pop_action_sheet_message">#8f8f8f</color>
+    <!--popwindow-->
+
+
+    <!--SideBarListView-->
+    <!-- 线的颜色 -->
+    <color name="view_line">#999999</color>
+    <!-- 索引栏的颜色 -->
+    <color name="sidebar_bg_color">#262935</color>
+    <!--SideBarListView-->
+</resources>

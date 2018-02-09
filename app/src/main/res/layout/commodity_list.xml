@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/commodity_list"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="horizontal">
+       <LinearLayout
+           android:layout_weight="1"
+           android:gravity="center"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <com.blankj.utilcode.customwidget.Tab.tab.ScrollTab
+               xmlns:app="http://schemas.android.com/apk/res-auto"
+               android:id="@+id/scrollTab"
+               android:layout_width="wrap_content"
+               android:layout_height="30dp"
+               android:background="#fff"
+               android:orientation="vertical"
+               android:visibility="visible"
+               app:stab_avag="false"
+               app:stab_indicator_color="@color/color_accent"
+               app:stab_indicator_padding="2dp"
+               app:stab_indicator_radius="0.5dp"
+               app:stab_indicator_type="trend"
+               app:stab_indicator_weight="1dp"
+               app:stab_indicator_width="40dp"
+               app:stab_type="view_group"/>
+       </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/filter_commodity_list"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="筛选"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_filtrate"
+                android:id="@+id/search_top_more"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

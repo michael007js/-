@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_shopping_cart"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+        <ScrollView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.sss.car.custom.ShoppingCartView
+                android:id="@+id/ShoppingCartView_activity_shopping_cart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></com.sss.car.custom.ShoppingCartView>
+
+        </ScrollView>
+
+    <FrameLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <CheckBox
+                android:layout_marginLeft="10dp"
+                android:id="@+id/all_choose_activity_shopping_cart"
+                android:text="  全选"
+                android:textColor="@color/textColor"
+                android:button="@drawable/bg_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"/>
+        </LinearLayout>
+        <include layout="@layout/activity_shopping_cart_bottom_edit_mode"
+            />
+        <include layout="@layout/activity_shopping_cart_bottom_no_edit_mode"/>
+    </FrameLayout>
+
+</LinearLayout>

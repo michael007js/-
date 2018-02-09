@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_search"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+  <LinearLayout
+      android:layout_marginTop="10dp"
+      android:background="@color/line"
+      android:layout_width="match_parent"
+      android:layout_height="60dp">
+      <LinearLayout
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:layout_margin="10dp"
+          android:orientation="horizontal"
+          android:background="@drawable/bg_my_data_car_carlist_search"
+          android:gravity="center">
+
+          <EditText
+              android:background="@null"
+              android:id="@+id/input_activity_search"
+              android:textSize="13sp"
+              android:maxLines="1"
+              android:layout_weight="1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:hint="请输入要搜索的内容"/>
+
+          <LinearLayout
+
+              android:layout_weight="1"
+              android:background="@drawable/bg_button_small_ra"
+              android:layout_width="100dp"
+              android:orientation="horizontal"
+              android:layout_height="30dp"
+              android:gravity="center">
+
+              <TextView
+                  android:id="@+id/search_activity_search"
+                  android:gravity="center"
+                  android:textColor="#fff"
+                  android:text="搜索"
+                  android:layout_marginLeft="5dp"
+                  android:maxLines="1"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+
+          </LinearLayout>
+
+      </LinearLayout>
+  </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/list_activity_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

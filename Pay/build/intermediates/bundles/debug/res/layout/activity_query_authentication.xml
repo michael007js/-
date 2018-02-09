@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@android:color/black">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="14dp"
+            android:src="@drawable/img_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:text="鉴权查询"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/dimen_0_dp"
+        android:layout_height="@dimen/dimen_0_dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <requestFocus />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40_dp"
+        android:layout_margin="@dimen/dimen_5_dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/mer_user_id" />
+
+        <EditText
+            android:id="@+id/et_mer_user_id"
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:hint="请输入用户标识"
+            android:inputType="number"
+            android:maxLength="32"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40_dp"
+        android:layout_margin="@dimen/dimen_5_dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/card_prefix" />
+
+        <EditText
+            android:id="@+id/et_card_prefix"
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:hint="请输入卡号前六位"
+            android:inputType="number"
+            android:maxLength="6"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40_dp"
+        android:layout_margin="@dimen/dimen_5_dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/card_suffix" />
+
+        <EditText
+            android:id="@+id/et_card_suffix"
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:hint="请输入卡号后四位"
+            android:inputType="number"
+            android:maxLength="4"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40_dp"
+        android:layout_margin="@dimen/dimen_5_dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/card_type" />
+
+        <RadioGroup
+            android:id="@+id/rg_card_type"
+            android:layout_width="@dimen/dimen_0_dp"
+            android:layout_height="@dimen/dimen_40_dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="@dimen/dimen_0_dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:tag="00"
+                android:text="@string/credit_card_label" />
+
+            <RadioButton
+                android:layout_width="@dimen/dimen_0_dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:tag="01"
+                android:text="@string/debit_card_label" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40_dp"
+        android:layout_margin="@dimen/dimen_5_dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/editable_menu_label_field"
+            android:text="@string/extension" />
+
+        <EditText
+            android:id="@+id/et_extension"
+            style="@style/editable_menu_input_field"
+            android:hint="[{'key1':'value','key2':'value2'}]" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_ok"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40_dp"
+        android:layout_marginLeft="@dimen/dimen_5_dp"
+        android:layout_marginRight="@dimen/dimen_5_dp"
+        android:layout_marginTop="@dimen/dimen_20_dp"
+        android:background="@drawable/common_button_bg"
+        android:text="确定" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1_dp"
+        android:layout_marginBottom="@dimen/dimen_10_dp"
+        android:layout_marginTop="@dimen/dimen_10_dp"
+        android:background="@color/colorDeepGray" />
+
+    <ListView
+        android:id="@+id/lv_card_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

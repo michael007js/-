@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:id="@+id/activity_choose_date"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/top_main"/>
+
+    <TextView
+        android:id="@+id/from"
+        android:background="#fff"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/mainColor"
+        android:text="从"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <TextView
+        android:id="@+id/to"
+        android:background="#fff"
+        android:layout_marginTop="1dp"
+        android:textColor="@color/mainColor"
+        android:text="至"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+</LinearLayout>

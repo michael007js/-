@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_change_info_shop_address"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:background="#cccccc"/>
+
+    <EditText
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:id="@+id/edit_activity_change_info_shop_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"/>
+
+
+    <TextView
+        android:id="@+id/select"
+        android:textColor="@color/mainColor"
+        android:background="@color/white"
+        android:text="地图位置选择"
+        android:gravity="center"
+        android:singleLine="true"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+</LinearLayout>

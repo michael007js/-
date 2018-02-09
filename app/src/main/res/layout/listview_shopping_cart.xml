@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/select_shop_item_share_post_details_comment_adapter"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:button="@drawable/bg_checkbox"/>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_marginLeft="5dp"
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pic_item_share_post_details_comment_adapter"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                fresco:placeholderImage="@mipmap/logo_shop_logo"
+                fresco:placeholderImageScaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/shop_name_shopping_cart"
+                android:layout_marginLeft="10dp"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                fresco:placeholderImage="@mipmap/right_arrows"
+                fresco:placeholderImageScaleType="centerInside"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:id="@+id/edit_shopping_cart"
+                android:text="编辑"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <com.blankj.utilcode.customwidget.ListView.InnerListview
+            android:id="@+id/listview_listview_shopping_cart"
+            android:layout_width="match_parent"
+            android:divider="@null"
+            android:layout_height="match_parent">
+
+        </com.blankj.utilcode.customwidget.ListView.InnerListview>
+
+    </LinearLayout>
+</LinearLayout>

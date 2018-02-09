@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_sale_and_seckill"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/top_parent"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:id="@+id/back_activity_sale_and_seckill"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_back"/>
+        </LinearLayout>
+
+       <LinearLayout
+           android:gravity="center"
+           android:layout_weight="1"
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/one_activity_sale_and_seckill"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+           <TextView
+               android:textColor="#000"
+               android:textSize="40sp"
+               android:text="·"
+               android:paddingLeft="10dp"
+               android:paddingRight="10dp"
+               android:gravity="center"
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"/>
+
+           <TextView
+               android:textSize="18sp"
+               android:gravity="center"
+               android:id="@+id/two_activity_sale_and_seckill"
+               android:layout_weight="1"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"/>
+
+           <TextView
+               android:textColor="#000"
+               android:textSize="40sp"
+               android:text="·"
+               android:paddingLeft="10dp"
+               android:paddingRight="10dp"
+               android:gravity="center"
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"/>
+
+           <TextView
+               android:textSize="18sp"
+               android:gravity="center"
+               android:id="@+id/three_activity_sale_and_seckill"
+               android:layout_weight="1"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"/>
+
+       </LinearLayout>
+        <TextView
+            android:layout_marginRight="10dp"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+
+    <FrameLayout
+        android:id="@+id/parent_activity_sale_and_seckill"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+    
+
+</LinearLayout>

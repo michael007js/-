@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/coupon_edit"
+              android:layout_height="match_parent">
+<include layout="@layout/top_main"/>
+
+    <FrameLayout
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pic"
+        android:layout_width="match_parent"
+        fresco:placeholderImage="@mipmap/logo_coupon"
+
+        fresco:placeholderImageScaleType="fitCenter"
+        android:layout_height="match_parent"
+        fresco:actualImageScaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingBottom="15dp">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/one"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:textSize="20sp"
+                    android:text="20元优惠券"
+                    android:textColor="#fff"/>
+
+                <TextView
+                    android:id="@+id/two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:text="20元优惠券，快来领取吧"
+                    android:textColor="#fff"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:layout_marginLeft="10dp"
+                android:text="20优惠券"
+                android:textColor="#fff"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#fff"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </LinearLayout>
+    </FrameLayout>
+
+
+    <EditText
+        android:id="@+id/number"
+        android:textSize="13.8sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/black"
+        android:hint="输入数量"
+        android:maxLength="9"
+        android:digits="0123456789"
+        android:inputType="phone"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <TextView
+        android:id="@+id/start"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:text="优惠券开始日期"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+    </TextView>
+    <TextView
+        android:id="@+id/end"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:text="优惠券结束日期"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+    </TextView>
+
+</LinearLayout>

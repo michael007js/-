@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/activity_un_read_message"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/top_main"/>
+    
+
+
+     <LinearLayout
+         android:layout_marginTop="1dp"
+         android:background="#fff"
+         android:gravity="center"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+         <com.blankj.utilcode.customwidget.Tab.tab.ScrollTab
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/tab_activity_un_read_message"
+             android:layout_width="wrap_content"
+             android:layout_height="30dp"
+             android:layout_marginTop="1dp"
+             android:orientation="vertical"
+             android:visibility="visible"
+             app:stab_avag="false"
+             app:stab_indicator_color="@color/color_accent"
+             app:stab_indicator_padding="2dp"
+             app:stab_indicator_radius="0.5dp"
+             app:stab_indicator_type="trend"
+             app:stab_indicator_weight="1dp"
+             app:stab_indicator_width="40dp"
+             app:stab_type="view_group"/>
+     </LinearLayout>
+
+    <com.blankj.utilcode.customwidget.ViewPager.AutofitViewPager
+        android:layout_marginTop="1dp"
+        android:id="@+id/viewpager_activity_un_read_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.blankj.utilcode.customwidget.ViewPager.AutofitViewPager>
+
+</LinearLayout>

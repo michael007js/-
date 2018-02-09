@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:gravity="center"
+              android:layout_height="match_parent">
+<com.sss.car.custom.GoodsTypeSelect.View.FocusEditText
+    android:id="@+id/et_item_custom_adapter_focus"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</com.sss.car.custom.GoodsTypeSelect.View.FocusEditText>
+</LinearLayout>

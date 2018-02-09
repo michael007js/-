@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@color/mainColor"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/price_item_bottom_coupon_adapter"
+                android:textSize="15sp"
+                android:textColor="#fff"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/condition_item_bottom_coupon_adapter"
+                android:textColor="#fff"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/date_item_bottom_coupon_adapter"
+                android:textColor="#fff"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#fff"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/details_item_bottom_coupon_adapter"
+            android:textColor="#fff"
+            android:text="查看详情"
+            android:gravity="center"
+            android:layout_weight="0.7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scoll_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    app:ios="true"
+    app:leftSwipe="true"
+    app:swipeEnable="true">
+
+    <FrameLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:id="@+id/click"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/edittext_parent_item_shopping_cart_adapter"
+                android:visibility="visible"
+                layout="@layout/item_shopping_cart_edit_adapter"/>
+
+            <include
+                android:id="@+id/edittext_parent_item_shopping_choose_adapter"
+                android:visibility="gone"
+                layout="@layout/item_shopping_cart_choose_adapter"/>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/add_fav_item_shopping_cart_adapter"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/text_black"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:padding="10dp"
+        android:text="加入收藏夹"/>
+
+    <TextView
+        android:id="@+id/delete_item_shopping_cart_adapter"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/mainColor"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:padding="10dp"
+        android:text="删除"/>
+
+</com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout>
+
+

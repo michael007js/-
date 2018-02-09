@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_my_data_entities_certification_pic"
+              android:layout_width="match_parent"
+             android:background="#fff"
+              android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/top_main"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/pic_list_list_activity_my_data_entities_certification_pic"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+        <LinearLayout
+            android:id="@+id/delete_activity_my_data_entities_certification_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="拖到此处删除"
+
+                android:textColor="#fff"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </LinearLayout>
+<RelativeLayout
+    android:id="@+id/imageView_parent_activity_my_data_entities_certification_pic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     ></RelativeLayout>
+</FrameLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/wallet_my_income_and_expend_public"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:background="#fff">
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:text="收入总计(元)"/>
+
+        <TextView
+            android:id="@+id/total_price_wallet_my_income_and_expend_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/title"
+            android:layout_alignStart="@+id/title"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="13dp"
+            android:text="0.00"
+            android:textColor="#000"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:background="#fba62f"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/title_goods_wallet_my_income_and_expend_public"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="商品收入"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/goods_wallet_my_income_and_expend_public"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:background="#f26956"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/money_wallet_my_income_and_expend_public"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="保证金收入"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/deposit_wallet_my_income_and_expend_public"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:background="#0000cc"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/three"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="保证金收入"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/three_sss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+<TextView
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
+        <com.blankj.utilcode.customwidget.PieChart
+            android:id="@+id/calc_price_wallet_my_income_and_expend_public"
+            android:layout_width="150dp"
+            android:layout_height="150dp"/>
+    </LinearLayout>
+
+</LinearLayout>

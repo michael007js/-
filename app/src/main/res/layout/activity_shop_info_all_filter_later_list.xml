@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/activity_shop_info_all_filter_later_list"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+
+
+
+
+
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.blankj.utilcode.customwidget.Layout.LayoutRefresh.RefreshLoadMoreLayout
+            android:id="@+id/refresh_activity_shop_info_all_filter_later_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ScrollView
+                android:id="@+id/scollview_activity_shop_info_all_filter_later_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="#fff"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/click_hot_activity_shop_info_all_filter_later_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/show_hot_activity_shop_info_all_filter_later_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="人气"
+                                android:textColor="@color/mainColor"/>
+
+                            <ImageView
+                                android:id="@+id/image_hot_activity_shop_info_all_filter_later_list"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@mipmap/logo_arrows_up"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/click_price_activity_shop_info_all_filter_later_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/show_price_activity_shop_info_all_filter_later_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="价格"/>
+
+                            <ImageView
+                                android:id="@+id/image_price_activity_shop_info_all_filter_later_list"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@mipmap/logo_arrows_up"/>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/click_collect_activity_shop_info_all_filter_later_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/show_collect_activity_shop_info_all_filter_later_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="收藏"/>
+
+                            <ImageView
+                                android:id="@+id/image_collect_activity_shop_info_all_filter_later_list"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@mipmap/logo_arrows_up"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <com.blankj.utilcode.customwidget.ListView.InnerListview
+                        android:id="@+id/listview_activity_shop_info_all_filter_later_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></com.blankj.utilcode.customwidget.ListView.InnerListview>
+                </LinearLayout>
+            </ScrollView>
+        </com.blankj.utilcode.customwidget.Layout.LayoutRefresh.RefreshLoadMoreLayout>
+
+
+        <ImageView
+            android:id="@+id/top_activity_shop_info_all_filter_later_list"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/line"
+            android:scaleType="centerInside"
+            android:src="@mipmap/logo_top"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+</LinearLayout>

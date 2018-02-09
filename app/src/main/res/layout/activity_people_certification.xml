@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_people_certification"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="真实姓名"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:id="@+id/et_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:hint="请输入真实姓名"
+                android:padding="10dp"
+                android:textSize="13.8sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="身份证号"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:digits="1234567890Xx"
+                android:id="@+id/et_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:hint="请输入身份证号"
+                android:padding="10dp"
+                android:textSize="13.8sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="身份证有效期"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:id="@+id/et_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:hint="请输入身份证有效期 例如2020.03.24"
+                android:padding="10dp"
+                android:textSize="13.8sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="身份证正面照"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/click_front"
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/add_photo"
+                    fresco:placeholderImageScaleType="fitCenter">
+
+
+                </com.facebook.drawee.view.SimpleDraweeView>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="身份证反面照"
+                android:textColor="@color/black"/>
+            
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/click_back"
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/add_photo"
+                    fresco:placeholderImageScaleType="fitCenter">
+
+
+                </com.facebook.drawee.view.SimpleDraweeView>
+            </LinearLayout>
+            
+            <TextView
+                android:id="@+id/click_save"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_button_small_ra"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:text="提交审核"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

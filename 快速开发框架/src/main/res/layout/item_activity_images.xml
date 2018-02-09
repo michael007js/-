@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+<com.blankj.utilcode.customwidget.PhotoDraweeView.PhotoDraweeView
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    fresco:placeholderImageScaleType="centerCrop"
+    android:id="@+id/pic_item_activity_images"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+</LinearLayout>

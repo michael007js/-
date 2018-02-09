@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.blankj.utilcode.customwidget.Layout.LayoutRefresh.RefreshLoadMoreLayout
+            android:id="@+id/refresh_fragment_sale_and_seckill_filter_later"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/scoll_view_fragment_sale_and_seckill_filter_later"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.blankj.utilcode.customwidget.ListView.InnerListview
+                    android:orientation="vertical"
+                    android:id="@+id/listview_linearlayout_fragment_sale_and_seckill_filter_later"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </com.blankj.utilcode.customwidget.ListView.InnerListview>
+            </ScrollView>
+        </com.blankj.utilcode.customwidget.Layout.LayoutRefresh.RefreshLoadMoreLayout>
+
+
+        <ImageView
+
+            android:id="@+id/top_fragment_sale_and_seckill_filter_later"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/line"
+            android:scaleType="centerInside"
+            android:src="@mipmap/logo_top"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</LinearLayout>

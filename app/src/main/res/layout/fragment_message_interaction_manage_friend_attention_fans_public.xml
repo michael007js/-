@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/list_fragment_message_interaction_manage_friend_attention_fans_public"
+            android:layout_width="match_parent"
+            android:divider="@null"
+            android:layout_height="match_parent">
+        </ListView>
+
+        <com.blankj.utilcode.customwidget.Slidebar.WaveSideBar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/side_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            app:sidebar_text_color="@color/mainColor"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

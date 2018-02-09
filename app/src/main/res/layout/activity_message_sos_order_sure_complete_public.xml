@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/activity_message_sos_order_sure_complete_public"
+              android:layout_height="match_parent">
+    <include layout="@layout/top_main"/>
+    <FrameLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/parent_activity_message_sos_order_sure_complete_public"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
+
+</LinearLayout>

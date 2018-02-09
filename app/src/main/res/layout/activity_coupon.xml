@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_coupon"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#fff">
+
+        <LinearLayout
+            android:id="@+id/back_activity_goods_service_details"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_back"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:id="@+id/goods_name_activity_goods_service_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="优惠券详情"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/click_shop_car_activity_goods_service_details"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_shop_car"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:text="购物车"
+                android:textSize="11sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/more_activity_goods_service_details"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_more"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+
+        <com.blankj.utilcode.pullToRefresh.PullToRefreshScrollView
+            android:id="@+id/refresh_activity_coupon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.blankj.utilcode.customwidget.ListView.InnerListview
+                android:id="@+id/listview_activity_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null">
+            </com.blankj.utilcode.customwidget.ListView.InnerListview>
+        </com.blankj.utilcode.pullToRefresh.PullToRefreshScrollView>
+
+
+        <ImageView
+            android:id="@+id/top_activity_coupon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/line"
+            android:scaleType="centerInside"
+            android:src="@mipmap/logo_top"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/buy_activity_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainColor"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="立即购买"
+        android:textColor="#fff"
+        android:textSize="15sp"/>
+
+</LinearLayout>

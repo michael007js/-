@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/activity_my_data_synthesize_setting_protect_password"
+              android:layout_height="match_parent">
+    <include layout="@layout/top_main"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="#fff"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="问题一"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Spinner
+                android:id="@+id/spinner_one_activity_my_data_synthesize_setting_protect_password"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_marginTop="1dp"
+            android:background="#fff"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="答案:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/input_one_activity_my_data_synthesize_setting_protect_password"
+                android:background="@null"
+                android:layout_marginLeft="10dp"
+                android:hint="请输入答案"
+                android:textSize="13.8sp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="#fff"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="问题二"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Spinner
+                android:id="@+id/spinner_two_activity_my_data_synthesize_setting_protect_password"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_marginTop="1dp"
+            android:background="#fff"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="答案:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/input_two_activity_my_data_synthesize_setting_protect_password"
+                android:background="@null"
+                android:layout_marginLeft="10dp"
+                android:hint="请输入答案"
+                android:textSize="13.8sp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+    </LinearLayout>
+    <TextView
+
+        android:id="@+id/submit_activity_my_data_synthesize_setting_protect_password"
+        android:textColor="#fff"
+        android:background="@color/mainColor"
+        android:gravity="center"
+        android:text="提交"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+</LinearLayout>

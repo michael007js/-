@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.blankj.utilcode.pullToRefresh.PullToRefreshScrollView
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.sss.car.order_new.CustomListViewOrderSeller
+            android:id="@+id/list_new_order_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </com.sss.car.order_new.CustomListViewOrderSeller>
+    </com.blankj.utilcode.pullToRefresh.PullToRefreshScrollView>
+    <include layout="@layout/empty_view"/>
+
+</FrameLayout>

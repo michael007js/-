@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_order_synthesize"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <com.sss.car.custom.ListViewOrderSynthesize
+            android:id="@+id/listview_activity_order_synthesize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
+
+        </com.sss.car.custom.ListViewOrderSynthesize>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计"/>
+
+        <TextView
+            android:id="@+id/total_price_activity_order_synthesize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/click_pay_activity_order_synthesize"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="去支付"
+            android:textColor="#fff"/>
+    </LinearLayout>
+</LinearLayout>

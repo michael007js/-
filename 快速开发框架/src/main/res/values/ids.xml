@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="glide_tag" type="id"/>
+    <item name="decode" type="id" />
+    <item name="decode_failed" type="id" />
+    <item name="decode_succeeded" type="id" />
+    <item name="quit" type="id" />
+    <item name="restart_preview" type="id" />
+    <item name="return_scan_result" type="id" />
+
+
+    <!-- pullToRefresh -->
+    <item type="id" name="gridview" />
+    <item type="id" name="webview" />
+    <item type="id" name="scrollview" />
+    <item type="id" name="linearlayout" />
+
+
+
+    <!--LayoutCanRefresh-->
+    <item name="can_content_view" type="id" />
+    <item name="can_refresh_header" type="id" />
+    <item name="can_refresh_footer" type="id" />
+    <item name="can_scroll_view" type="id" />
+
+
+    <!--酷狗-->
+    <item type="id" name="md__drawer" />
+    <item type="id" name="md__content" />
+
+    <!--SmartRecycleView-->
+    <item name="BaseQuickAdapter_viewholder_support" type="id" />
+    <item name="BaseQuickAdapter_swiping_support" type="id" />
+    <item name="BaseQuickAdapter_dragging_support" type="id" />
+    <item name="BaseQuickAdapter_databinding_support" type="id" />
+
+
+
+  <!--banner-->
+    <item name="bannerContainer" type="id"/>
+    <item name="bannerViewPager" type="id"/>
+    <item name="circleIndicator" type="id"/>
+    <item name="numIndicator" type="id"/>
+    <item name="titleView" type="id"/>
+    <item name="bannerTitle" type="id"/>
+    <item name="numIndicatorInside" type="id"/>
+    <item name="indicatorInside" type="id"/>
+    <item name="bannerDefaultImage" type="id"/>
+    <!--banner-->
+
+</resources>

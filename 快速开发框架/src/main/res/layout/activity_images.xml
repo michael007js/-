@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_image"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.blankj.utilcode.customwidget.ViewPager.AnimationViewPager
+            android:id="@+id/viewpager_activity_image"
+            android:layout_width="match_parent"
+            android:background="#000"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:id="@+id/click"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="60dp">
+            <ImageView
+                android:id="@+id/back"
+                android:scaleType="centerInside"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

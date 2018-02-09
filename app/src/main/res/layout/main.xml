@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/main"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_main"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"/>
+
+
+    <com.blankj.utilcode.customwidget.Layout.LayoutNavMenu.NavMenuLayout
+        android:id="@+id/navMenuLayout_main"
+        android:background="#fff"
+        android:layout_width="fill_parent"
+        android:layout_height="65dp">
+
+    </com.blankj.utilcode.customwidget.Layout.LayoutNavMenu.NavMenuLayout>
+
+
+</LinearLayout>

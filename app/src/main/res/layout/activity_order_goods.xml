@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_order_goods"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/click_choose_car_activity_order_goods"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="收货人:"/>
+
+                            <TextView
+                                android:id="@+id/people_name_activity_order_goods"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:maxLines="1"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/mobile_name_activity_order_goods"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <com.facebook.drawee.view.SimpleDraweeView
+                                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                fresco:placeholderImage="@mipmap/logo_location"
+                                fresco:placeholderImageScaleType="fitXY"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="收货地址:"/>
+
+                            <TextView
+                                android:id="@+id/address_activity_order_goods"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"/>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+                <com.sss.car.custom.ListviewOrderServiceGoodsList
+                    android:id="@+id/list_activity_order_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </com.sss.car.custom.ListviewOrderServiceGoodsList>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="购买价格"/>
+
+                    <com.blankj.utilcode.customwidget.EditText.NumberSelectEdit
+                        android:id="@+id/price_activity_order_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="match_parent">
+
+                    </com.blankj.utilcode.customwidget.EditText.NumberSelectEdit>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:id="@+id/click_coupon_activity_order_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="优惠券"
+                        android:textColor="@color/mainColor"/>
+
+                    <TextView
+                        android:id="@+id/show_coupon_activity_order_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"/>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        fresco:placeholderImage="@mipmap/right_arrows"
+                        fresco:placeholderImageScaleType="centerInside"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:id="@+id/click_order_time_order_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="送达时效"
+                        android:textColor="@color/mainColor"/>
+
+                    <TextView
+                        android:id="@+id/show_order_time_activity_order_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"/>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        fresco:placeholderImage="@mipmap/right_arrows"
+                        fresco:placeholderImageScaleType="centerInside"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:id="@+id/click_penal_sum_activity_order_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="违约金比例"
+                        android:textColor="@color/mainColor"/>
+
+                    <TextView
+                        android:id="@+id/show_penal_sum_activity_order_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"/>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        fresco:placeholderImage="@mipmap/right_arrows"
+                        fresco:placeholderImageScaleType="centerInside"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:id="@+id/click_other_sum_activity_order_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="其他要求"
+                        android:textColor="@color/mainColor"/>
+
+                    <TextView
+                        android:id="@+id/show_other_activity_order_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"
+                        android:text="(选填)对本次交易的其他说明"/>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        fresco:placeholderImage="@mipmap/right_arrows"
+                        fresco:placeholderImageScaleType="centerInside"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/line"/>
+
+                <TextView
+                    android:id="@+id/tip_activity_order_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计: "/>
+
+        <TextView
+            android:id="@+id/total_price_activity_order_goods"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="¥0"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/click_submit_activity_order_goods"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="提交订单"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+</LinearLayout>

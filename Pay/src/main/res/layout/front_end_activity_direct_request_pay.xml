@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@android:color/black">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="14dp"
+            android:src="@drawable/img_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:text="直接支付请求（畅捷前台）"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="@dimen/dimen_0_dp"
+                android:layout_height="@dimen/dimen_0_dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <requestFocus />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/order_number" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/dimen_0_dp"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_order_number"
+                        style="@style/editable_menu_input_field"
+                        android:layout_weight="4"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:text="" />
+
+                    <Button
+                        android:id="@+id/bt_generate_order"
+                        android:layout_width="@dimen/dimen_0_dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/common_button_bg"
+                        android:gravity="center"
+                        android:text="生成"
+                        android:textSize="@dimen/dimen_14_sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/goods_name" />
+
+                <EditText
+                    android:id="@+id/et_goods_name"
+                    style="@style/editable_menu_input_field"
+                    android:text="Android-小炒肉" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/goods_detail" />
+
+                <EditText
+                    android:id="@+id/et_goods_detail"
+                    style="@style/editable_menu_input_field"
+                    android:hint="(可空)[{'商品型号':'D007','商品性能':'Test'}]" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/mer_user_id" />
+
+                <EditText
+                    android:id="@+id/et_mer_user_id"
+                    style="@style/editable_menu_input_field"
+                    android:hint="请输入用户标识"
+                    android:inputType="number"
+                    android:maxLength="32" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/seller_id" />
+
+                <EditText
+                    android:id="@+id/et_seller_id"
+                    style="@style/editable_menu_input_field"
+                    android:hint="请输入商户编号"
+                    android:maxLength="32" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/sub_merchant_no" />
+
+                <EditText
+                    android:id="@+id/et_sub_merchant_no"
+                    style="@style/editable_menu_input_field"
+                    android:hint="请输入子商户号(可空)"
+                    android:maxLength="32" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/order_expired_time" />
+
+                <EditText
+                    android:id="@+id/et_expired_time"
+                    style="@style/editable_menu_input_field"
+                    android:maxLength="6"
+                    android:text="10m" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/card_type" />
+
+                <RadioGroup
+                    android:id="@+id/rg_card_type"
+                    android:layout_width="@dimen/dimen_0_dp"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="@dimen/dimen_0_dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:tag="00"
+                        android:text="@string/credit_card_label" />
+
+                    <RadioButton
+                        android:layout_width="@dimen/dimen_0_dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:tag="01"
+                        android:text="@string/debit_card_label" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/bank_card_number" />
+
+                <EditText
+                    android:id="@+id/et_bank_card_number"
+                    style="@style/editable_menu_input_field"
+                    android:hint="请输入银行卡号"
+                    android:maxLength="19"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_cvv2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/credit_card_cvv2" />
+
+                <EditText
+                    android:id="@+id/et_cvv2"
+                    style="@style/editable_menu_input_field"
+                    android:inputType="number"
+                    android:maxLength="3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_credit_term"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/credit_card_term" />
+
+                <EditText
+                    android:id="@+id/et_card_term"
+                    style="@style/editable_menu_input_field"
+                    android:hint="示例:0925"
+                    android:maxLength="4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/credentials_type" />
+
+                <EditText
+                    style="@style/editable_menu_input_field"
+                    android:editable="false"
+                    android:text="@string/certificate_of_identification" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/id_card_number" />
+
+                <EditText
+                    android:id="@+id/et_id_card_number"
+                    style="@style/editable_menu_input_field"
+                    android:maxLength="18"
+                    android:hint="请输入证件号码" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/card_holder_name" />
+
+                <EditText
+                    android:id="@+id/et_holder_name"
+                    style="@style/editable_menu_input_field"
+                    android:maxLength="10"
+                    android:hint="请输入持卡人姓名" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/card_holder_phone" />
+
+                <EditText
+                    android:id="@+id/et_phone_number"
+                    style="@style/editable_menu_input_field"
+                    android:hint="请输入手机号"
+                    android:maxLength="11"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/trade_type" />
+
+                <RadioGroup
+                    android:id="@+id/rg_trade_type"
+                    android:layout_width="@dimen/dimen_0_dp"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButton1"
+                        android:layout_width="@dimen/dimen_0_dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:tag="11"
+                        android:text="@string/type_right" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="@dimen/dimen_0_dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:tag="12"
+                        android:text="@string/type_ensure" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/ensure_amount" />
+
+                <EditText
+                    android:id="@+id/et_ensure_amount"
+                    style="@style/editable_menu_input_field"
+                    android:hint="担保必填"
+                    android:inputType="numberDecimal"
+                    android:maxLength="18" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/trx_amt" />
+
+                <EditText
+                    android:id="@+id/et_trx_amt"
+                    style="@style/editable_menu_input_field"
+                    android:inputType="numberDecimal"
+                    android:maxLength="12"
+                    android:text="0.01" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/royalty_parameters" />
+
+                <EditText
+                    android:id="@+id/et_royalty_parameters"
+                    style="@style/editable_menu_input_field"
+                    android:hint="[{“userId”:”13890009900”,”PID”:”2”,”account_type”:”101”,”amount”:”100.00”}]" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/return_url" />
+
+                <EditText
+                    android:id="@+id/et_return_url"
+                    style="@style/editable_menu_input_field"
+                    android:hint="同步回跳地址（可空）"
+                    android:text="http://cadmin.chanpay.com/tpu/mag/syncNotify.do" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/notify_url" />
+
+                <EditText
+                    android:id="@+id/et_notify_url"
+                    style="@style/editable_menu_input_field"
+                    android:text="http://cadmin.chanpay.com/tpu/mag/asynNotify.do" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/editable_menu_label_field"
+                    android:text="@string/extension" />
+
+                <EditText
+                    android:id="@+id/et_extension"
+                    style="@style/editable_menu_input_field"
+                    android:hint="[{'key1':'value','key2':'value2'}]" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_ok"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/dimen_5_dp"
+                android:background="@drawable/common_button_bg"
+                android:text="确 定" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

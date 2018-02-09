@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.blankj.utilcode.pullToRefresh.PullToRefreshListView
+            android:layout_weight="1"
+            android:id="@+id/listview_activity_share_collect"
+            android:divider="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.blankj.utilcode.pullToRefresh.PullToRefreshListView>
+
+        <LinearLayout
+            android:id="@+id/parent_bottom_activity_share_collect"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/mainColor"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/share_activity_share_collect"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_share_white"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/edit_activity_share_collect"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_label_white"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/delete_activity_share_collect"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_delete_rubbish"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

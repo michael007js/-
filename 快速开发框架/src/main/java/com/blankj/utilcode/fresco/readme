@@ -1,0 +1,53 @@
+   <com.facebook.drawee.view.SimpleDraweeView
+             xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main_sdv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+
+         fresco:fadeDuration="300"//图片淡出的事件(ms)
+
+            fresco:actualImageScaleType="focusCrop"//实际
+
+            fresco:placeholderImage="@color/wait_color"//占位图
+
+            fresco:placeholderImageScaleType="fitCenter"//占位图的缩放类型
+
+            fresco:failureImage="@drawable/error"//失败图片
+
+            fresco:failureImageScaleType="centerInside"//失败图片的类型
+
+            fresco:retryImage="@drawable/retrying"//重试图片
+
+            fresco:retryImageScaleType="centerCrop"//图的重试缩放类型
+
+            fresco:progressBarImage="@drawable/progress_bar"//进度图片
+
+            fresco:progressBarImageScaleType="centerInside"//进度图的缩放类型
+
+            fresco:progressBarAutoRotateInterval="1000"//进度图自动旋转的间隔时间(ms)
+
+            fresco:backgroundImage="@color/blue"//背景图片
+
+            fresco:overlayImage="@drawable/watermark"//叠加图片
+
+            fresco:pressedStateOverlayImage="@color/red"//按压状态下显示的叠加图
+
+            fresco:roundAsCircle="false"//是否设置为圆形图片
+
+            fresco:roundedCornerRadius="1dp"//圆角半径
+
+            fresco:roundTopLeft="true"//左上角是否为圆角
+
+            fresco:roundTopRight="false"//右上角是否为圆角
+
+            fresco:roundBottomLeft="false"//左下角是否为圆角
+
+            fresco:roundBottomRight="true"//右下角是否为圆角
+
+            fresco:roundWithOverlayColor="@color/corner_color"//圆形或者圆角图片底下的叠加颜色
+
+            fresco:roundingBorderWidth="2dp"//圆形或者圆角图片边框的宽度
+
+            fresco:roundingBorderColor="@color/border_color"//圆形或者圆角边框的颜色
+        ></com.facebook.drawee.view.SimpleDraweeView>

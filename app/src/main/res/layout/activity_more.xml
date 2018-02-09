@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_more"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+ <include layout="@layout/top_main"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null">
+        </ListView>
+
+        <com.blankj.utilcode.customwidget.Slidebar.WaveSideBar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/side_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            app:sidebar_text_color="@color/mainColor"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#fff"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.blankj.utilcode.customwidget.ViewPager.BannerVariation
+            android:id="@+id/viewpager_up_fragment_goods_head"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
+
+        <com.sss.car.custom.TAB
+            android:id="@+id/tab_fragment_goods_head"
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+        </com.sss.car.custom.TAB>
+
+
+        <com.blankj.utilcode.customwidget.ListView.HorizontalListView
+            android:id="@+id/hot_fragment_goods_head"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="2dp">
+
+        </com.blankj.utilcode.customwidget.ListView.HorizontalListView>
+
+        <LinearLayout
+            android:id="@+id/adv_up_fragment_goods_head"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/line"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="活动专区"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/line"/>
+        </LinearLayout>
+
+        <com.blankj.utilcode.customwidget.ViewPager.BannerVariation
+            android:id="@+id/viewpager_down_fragment_goods_head"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
+
+    </LinearLayout>
+
+</LinearLayout>

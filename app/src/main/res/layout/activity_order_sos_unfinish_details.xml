@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_order_sos_unfinish_details"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="求助者:"/>
+
+                            <TextView
+                                android:id="@+id/people_name_activity_order_sos_unfinish_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:maxLines="1"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/mobile_name_activity_order_sos_unfinish_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="车辆:"/>
+
+                            <TextView
+                                android:id="@+id/car_activity_order_sos_unfinish_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"/>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="#fbfbfb"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/content_activity_order_sos_unfinish_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+                
+                
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="求助类型"/>
+
+                    <TextView
+                        android:id="@+id/show_type_activity_order_sos_unfinish_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"
+                        android:singleLine="true"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="求助故障"/>
+
+                    <TextView
+                        android:id="@+id/show_fault_activity_order_sos_unfinish_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"
+                        android:singleLine="true"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="地址"/>
+
+                    <TextView
+                        android:id="@+id/show_address_activity_order_sos_unfinish_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"
+                        android:singleLine="true"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="服务价格"/>
+
+                    <TextView
+                        android:id="@+id/price_activity_order_sos_unfinish_details"
+                        android:layout_width="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent">
+
+                    </TextView>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="服务就位"
+                        android:textColor="@color/mainColor"/>
+
+                    <TextView
+                        android:id="@+id/show_time_activity_order_sos_unfinish_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"
+                        android:singleLine="true"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+
+                <LinearLayout
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="违约金比例"
+                        android:textColor="@color/mainColor"/>
+
+                    <TextView
+                        android:id="@+id/show_penal_sum_activity_order_sos_unfinish_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"
+                        android:singleLine="true"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="其他要求"
+                        android:textColor="@color/mainColor"/>
+
+                    <TextView
+                        android:id="@+id/show_other_activity_order_sos_unfinish_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"
+                        android:singleLine="true"
+                        android:text=""/>
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+                <com.blankj.utilcode.customwidget.ListView.HorizontalListView
+                    android:id="@+id/photo"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="#fff">
+
+                </com.blankj.utilcode.customwidget.ListView.HorizontalListView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/line"/>
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line"/>
+
+                <TextView
+                    android:id="@+id/tip_activity_order_sos_unfinish_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/click_cancel_activity_order_sos_unfinish_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="取消订单"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+</LinearLayout>

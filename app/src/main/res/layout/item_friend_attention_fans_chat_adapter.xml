@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:background="#fff"
+        android:layout_marginTop="1dp"
+        android:id="@+id/click_item_friend_attention_fans_chat_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pic_item_friend_attention_fans_chat_adapter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            fresco:actualImageScaleType="centerCrop"/>
+        <TextView
+            android:id="@+id/text_item_friend_attention_fans_chat_adapter"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+      <CheckBox
+          android:id="@+id/cb_item_friend_attention_fans_chat_adapter"
+          android:layout_width="wrap_content"
+          android:button="@drawable/bg_checkbox"
+          android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

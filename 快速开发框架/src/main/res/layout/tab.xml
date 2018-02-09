@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:layout_height="match_parent">
+<LinearLayout
+
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.blankj.utilcode.customwidget.Tab.CustomTab.HorizontalPageGridView
+        android:id="@+id/page_grid_view"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+<com.blankj.utilcode.customwidget.Layout.IndicatorPointLayout
+    android:id="@+id/point"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+</com.blankj.utilcode.customwidget.Layout.IndicatorPointLayout>
+
+</LinearLayout>
+
+</LinearLayout>

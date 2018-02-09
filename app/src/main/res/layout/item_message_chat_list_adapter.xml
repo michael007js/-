@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+
+    <com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scoll_new_friend_item"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        app:ios="true"
+        app:leftSwipe="true"
+        app:swipeEnable="true">
+
+
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:background="#fff"
+            android:id="@+id/click_item_message_chat_list_adapter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pic_item_message_chat_list_adapter"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundAsCircle="false"
+                ></com.facebook.drawee.view.SimpleDraweeView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/name_item_message_chat_list_adapter"
+                        android:textColor="#000"
+                        android:maxLines="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/time_item_message_chat_list_adapter"
+                        android:maxLines="1"
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical|right"
+                        android:text="00:00"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/content_item_message_chat_list_adapter"
+                        android:textColor="#cccccc"
+                        android:maxLines="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"/>
+
+                    <ImageView
+                        android:visibility="invisible"
+                        android:src="@mipmap/ic_launcher"
+                        android:id="@+id/ring_item_message_chat_list_adapter"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/delete"
+            android:gravity="center"
+            android:text="删除"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:background="@color/mainColor"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout>
+
+
+
+</LinearLayout>

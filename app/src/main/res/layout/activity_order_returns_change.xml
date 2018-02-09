@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_order_returns_change"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <com.blankj.utilcode.customwidget.Layout.LayoutNavMenu.NavMenuLayout
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:id="@+id/navMenuLayout_activity_order_returns_change"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp">
+
+    </com.blankj.utilcode.customwidget.Layout.LayoutNavMenu.NavMenuLayout>
+
+    <FrameLayout
+        android:id="@+id/parent_activity_order_returns_change"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,46 @@
+库说明:
+package:com.blankj.util
+
+各个包介绍
+
+activity:存放了PermissionsActivity,权限申请activity,要使用的话调用PermissionUtils中的requestRunTimePermission即可
+
+adapter:适配器相关
+        FragmentAdapter:Fragment适配器
+        ViewPagerAdpter:ViewPager适配器
+        sssAdapter:万能适配器,详见包内readme
+
+algorithmImpl:一些文件,字符串算法
+
+application:全局application
+
+autoAdapter:
+            AdapterVirtualButton:自动适配华为等有虚拟按键的手机,调用 AdapterVirtualButton.assistActivity即可
+            AutoUtils:自动调整布局尺寸以适应不同手机,调用AutoUtils.setSize(this, true)即可;
+
+bar:快速实现沉浸式状态栏相关
+
+constant:模型,utils包中一些类会用到
+
+customwidget:封装了自定义的一些组件,详见各个包内的说明
+
+dao:一些用到的接口
+    重点说明ScreenListener,这个类用来监听系统锁屏,只需要调用begin即可
+
+database:数据库,详见包内readme
+
+filedownloader:文件下载
+
+fresco:封装了fresco的一些常用方法及工具类
+
+http:网络请求相关
+
+okhttp:对OKHttp进行了深度封装
+
+photo:调起系统相机或相册,主要在GetPhotoUtil类中
+
+pullToRefresh: 上下拉刷新加载更多
+
+util:常用的工具类
+
+zxing:二维码扫描

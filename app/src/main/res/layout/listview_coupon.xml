@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:divider="@null"
+        android:background="#fff"
+        android:id="@+id/click_listview_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/mainColor"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:id="@+id/title_listview_coupon"
+            android:paddingRight="10dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+       <LinearLayout
+           android:visibility="gone"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <TextView
+               android:layout_marginLeft="5dp"
+               android:layout_marginRight="5dp"
+               android:gravity="center_vertical"
+               android:text="筛选"
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"/>
+           <com.facebook.drawee.view.SimpleDraweeView
+               xmlns:fresco="http://schemas.android.com/apk/res-auto"
+               android:layout_width="20dp"
+               android:layout_height="match_parent"
+               fresco:placeholderImage="@mipmap/logo_filtrate"
+               fresco:placeholderImageScaleType="centerInside"/>
+       </LinearLayout>
+
+    </LinearLayout>
+
+    <com.blankj.utilcode.customwidget.ListView.InnerListview
+        android:id="@+id/listview_listview_coupon"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#fff"></com.blankj.utilcode.customwidget.ListView.InnerListview>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/more_listview_coupon"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:text="查看更多"/>
+</LinearLayout>

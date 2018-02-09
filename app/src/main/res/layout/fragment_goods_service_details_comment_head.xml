@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:gravity="center"
+            android:id="@+id/all_fragment_goods_service_details_comment_head"
+            android:text="    全部    "
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="#fff"
+            android:background="@drawable/bg_button_small_ra"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:background="@drawable/bg_button_small_ra_gray"
+            android:textColor="@color/checkupdatelibrary_normal_text_color"
+            android:gravity="center"
+            android:id="@+id/high_fragment_goods_service_details_comment_head"
+            android:text="    好评    "
+            android:singleLine="true"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:background="@drawable/bg_button_small_ra_gray"
+            android:textColor="@color/checkupdatelibrary_normal_text_color"
+            android:gravity="center"
+            android:id="@+id/middle_fragment_goods_service_details_comment_head"
+            android:text="    中评    "
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:background="@drawable/bg_button_small_ra_gray"
+            android:textColor="@color/checkupdatelibrary_normal_text_color"
+            android:gravity="center"
+            android:id="@+id/low_fragment_goods_service_details_comment_head"
+            android:text="    差评    "
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <TextView
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</LinearLayout>

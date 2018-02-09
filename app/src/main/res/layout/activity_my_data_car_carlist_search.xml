@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_my_data_car_carlist_search"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+    <EditText
+        android:id="@+id/input_activity_my_data_car_carlist_search"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="14sp"
+        android:hint="请输入搜索品牌"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <ListView
+        android:id="@+id/list_activity_my_data_car_carlist_search"
+        android:divider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+</LinearLayout>

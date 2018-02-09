@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/activity_share_interaction_manage_create_group"
+              android:layout_height="match_parent">
+<include layout="@layout/top_main"/>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/search_activity_share_interaction_manage_create_group"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:visibility="invisible"
+            android:background="@drawable/bg_activity_share_interaction_manage_create_group"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:src="@mipmap/logo_search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+            <TextView
+                android:text="搜索"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/all_choose_activity_share_interaction_manage_create_group"
+            android:layout_marginLeft="10dp"
+            android:background="@color/grayness"
+            android:layout_width="wrap_content"
+            android:padding="5dp"
+            android:text="    全选    "
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+<com.blankj.utilcode.customwidget.Layout.LayoutNavMenu.NavMenuLayout
+    android:id="@+id/_NavMenuLayoutactivity_share_interaction_manage_create_group"
+    android:layout_width="match_parent"
+    android:layout_marginTop="1dp"
+    android:layout_height="40dp"></com.blankj.utilcode.customwidget.Layout.LayoutNavMenu.NavMenuLayout>
+
+<FrameLayout
+    android:id="@+id/parent_activity_share_interaction_manage_create_group"
+    android:layout_marginTop="1dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"></FrameLayout>
+</LinearLayout>

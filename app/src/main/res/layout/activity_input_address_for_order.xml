@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_input_address_for_order"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:hint="输入您的地址"
+        android:textSize="13sp"
+        android:padding="10dp"
+        android:id="@+id/input_activity_input_address_for_order"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+    </EditText>
+</LinearLayout>

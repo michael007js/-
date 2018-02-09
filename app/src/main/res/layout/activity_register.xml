@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_register"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <ScrollView
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="手机号    "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/mobile_activity_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:digits="1234567890"
+                    android:gravity="center_vertical"
+                    android:hint="请输入手机号"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:textSize="13.8sp"/>
+
+                <com.sss.car.custom.ResultIma
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/show_phone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="invisible"
+                    fresco:placeholderImageScaleType="fitXY"
+                    fresco:roundAsCircle="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="验证码    "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/code_activity_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入验证码"
+                    android:inputType="phone"
+                    android:maxLength="6"
+                    android:textSize="13.8sp"/>
+
+                <com.sss.car.custom.ResultIma
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/show_code"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    fresco:placeholderImage="@mipmap/logo_eyes_close"
+                    fresco:placeholderImageScaleType="fitXY"
+                    android:visibility="invisible"
+                    fresco:roundAsCircle="true"/>
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="#cccccc"/>
+
+
+                <com.blankj.utilcode.customwidget.Button.CountDownButton
+                    android:id="@+id/get_code_activity_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="获取验证码"
+                    android:textColor="@color/mainColor"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="密码设置"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/password_one_activity_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="6-18位数字和字母组合"
+                    android:inputType="textPassword"
+                    android:maxLength="18"
+                    android:textSize="13.8sp"/>
+
+                <com.sss.car.custom.HideShowButton
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/eyes_one"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    fresco:placeholderImage="@mipmap/logo_eyes_close"
+                    fresco:placeholderImageScaleType="fitXY"
+                    fresco:roundAsCircle="true"/>
+
+                <com.sss.car.custom.ResultIma
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/show_password_one"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    fresco:placeholderImage="@mipmap/logo_eyes_close"
+                    fresco:placeholderImageScaleType="fitXY"
+                    android:visibility="invisible"
+                    fresco:roundAsCircle="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="密码确认"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/password_two_activity_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请确认密码"
+                    android:inputType="textPassword"
+                    android:maxLength="18"
+                    android:textSize="13.8sp"/>
+
+                <com.sss.car.custom.HideShowButton
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/eyes_two"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    fresco:placeholderImage="@mipmap/logo_eyes_close"
+                    fresco:placeholderImageScaleType="fitXY"
+                    fresco:roundAsCircle="true"/>
+
+                <com.sss.car.custom.ResultIma
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/show_password_two"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    fresco:placeholderImage="@mipmap/logo_eyes_close"
+                    fresco:placeholderImageScaleType="fitXY"
+                    android:visibility="invisible"
+                    fresco:roundAsCircle="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="注册码    "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/invitation_activity_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入注册码"
+                    android:inputType="text"
+                    android:textSize="13.8sp"/>
+
+                <com.sss.car.custom.ResultIma
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/show_invitation"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    fresco:placeholderImage="@mipmap/logo_eyes_close"
+                    fresco:placeholderImageScaleType="fitXY"
+                    android:visibility="invisible"
+                    fresco:roundAsCircle="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="密保信息"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/protect_activity_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:maxLength="10"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="预留密码保护信息(10字以内)"
+                    android:inputType="text"
+                    android:textSize="13.8sp"/>
+
+                <com.sss.car.custom.ResultIma
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/show_protect"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    fresco:placeholderImage="@mipmap/logo_eyes_close"
+                    fresco:placeholderImageScaleType="fitXY"
+                    android:visibility="invisible"
+                    fresco:roundAsCircle="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp">
+
+                <TextView
+                    android:id="@+id/register_activity_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_button"
+                    android:gravity="center"
+                    android:text="注册"
+                    android:textSize="15sp"
+                    android:textColor="#fff"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register"
+                    android:textSize="13.8sp"/>
+
+                <TextView
+                    android:id="@+id/protocol_activity_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="相关法律声明政策及协议"
+                    android:textColor="@color/mainColor"
+                    android:textSize="13.8sp"/>
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/qr_activity_register"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:padding="15dp"
+                android:text="@string/sss"
+                android:textSize="13.8sp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--RefreshLoadMoreLayout-->
+    <dimen name="rll_header_height">60dp</dimen>
+    <dimen name="rll_header_progress_size">18dp</dimen>
+    <dimen name="rll_header_arrow_width">10dp</dimen>
+    <dimen name="rll_header_arrow_height">21dp</dimen>
+    <dimen name="rll_header_title_size">14sp</dimen>
+    <dimen name="rll_header_subtitle_size">15sp</dimen>
+    <dimen name="rll_header_content_margin">12dp</dimen>
+    <dimen name="rll_footer_height">45dp</dimen>
+    <dimen name="rll_footer_content_margin">8dp</dimen>
+    <dimen name="rll_footer_progress_size">18dp</dimen>
+    <dimen name="rll_footer_title_size">14sp</dimen>
+    <!--RefreshLoadMoreLayout-->
+
+
+    <!-- google -->
+    <dimen name="refresh_height_google">60dp</dimen>
+    <!-- google -->
+
+    <!-- yalantis -->
+    <dimen name="refresh_height_yalantis">136dp</dimen>
+    <dimen name="refresh_height_rotate">50dp</dimen>
+    <!-- yalantis -->
+
+
+    <!--gallery_final-->
+    <dimen name="gf_title_bar_height">56dp</dimen>
+    <dimen name="fab_size_normal">56dp</dimen>
+    <dimen name="fab_icon_size">24dp</dimen>
+    <dimen name="fab_shadow_offset">3dp</dimen>
+    <dimen name="fab_shadow_radius">9dp</dimen>
+    <dimen name="fab_stroke_width">0.0dp</dimen>
+    <!--gallery_final-->
+
+<!--viewpagerhelper-->
+    <dimen name="tabsize">14sp</dimen>
+    <!--viewpagerhelper-->
+
+    <!--节操播放器 https://github.com/JasonChow1989/JieCaoVideoPlayer-develop-->
+    <dimen name="jc_progress_dialog_margin_top">80dp</dimen>
+    <dimen name="jc_volume_dialog_margin_left">24dp</dimen>
+    <!--节操播放器 https://github.com/JasonChow1989/JieCaoVideoPlayer-develop-->
+
+    <!--popwindow-->
+    <dimen name="pop_item_padding">10dp</dimen>
+    <dimen name="pop_item_text_size">18sp</dimen>
+    <dimen name="pop_line_height">1dp</dimen>
+    <dimen name="pop_radius">8dp</dimen>
+    <dimen name="pop_action_sheet_text_size_title">16sp</dimen>
+    <dimen name="pop_action_sheet_text_size_message">14sp</dimen>
+    <!--popwindow-->
+
+</resources>

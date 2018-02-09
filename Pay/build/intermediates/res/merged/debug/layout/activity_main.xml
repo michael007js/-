@@ -1,0 +1,544 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@android:color/black">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="14dp"
+            android:src="@drawable/img_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:text="支付订单"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="@dimen/dimen_0_dp"
+                android:layout_height="@dimen/dimen_0_dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <requestFocus />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:gravity="center"
+                    android:text="@string/ali_wx_pay_param"
+                    android:textSize="@dimen/dimen_20_sp" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/editable_menu_label_field"
+                        android:text="子商户号：" />
+
+                    <EditText
+                        android:id="@+id/et_sub_mch_id"
+                        style="@style/editable_menu_input_field"
+                        android:hint="选填"
+                        android:maxLength="32" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/editable_menu_label_field"
+                        android:text="订单金额：" />
+
+                    <EditText
+                        android:id="@+id/et_amount"
+                        style="@style/editable_menu_input_field"
+                        android:inputType="numberDecimal"
+                        android:maxLength="12"
+                        android:text="0.01" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/editable_menu_label_field"
+                        android:text="订单标题：" />
+
+                    <EditText
+                        android:id="@+id/et_subject"
+                        style="@style/editable_menu_input_field"
+                        android:text="Android" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/editable_menu_label_field"
+                        android:text="商品名称：" />
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        style="@style/editable_menu_input_field"
+                        android:text="Android-小炒肉" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_margin="@dimen/dimen_5_dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/editable_menu_label_field"
+                        android:text="@string/trade_type" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_trade_type"
+                        android:layout_width="@dimen/dimen_0_dp"
+                        android:layout_height="@dimen/dimen_40_dp"
+                        android:layout_weight="5"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioButton1"
+                            android:layout_width="@dimen/dimen_0_dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:tag="11"
+                            android:text="@string/type_right" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="@dimen/dimen_0_dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:tag="12"
+                            android:text="@string/type_ensure" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_margin="@dimen/dimen_5_dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/editable_menu_label_field"
+                        android:text="@string/ensure_amount" />
+
+                    <EditText
+                        android:id="@+id/et_ensure_amount"
+                        style="@style/editable_menu_input_field"
+                        android:hint="担保必填"
+                        android:inputType="numberDecimal"
+                        android:maxLength="18" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_margin="@dimen/dimen_5_dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/editable_menu_label_field"
+                        android:text="@string/split_list" />
+
+                    <EditText
+                        android:id="@+id/et_split_list"
+                        style="@style/editable_menu_input_field"
+                        android:hint="@string/split_list" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_margin="@dimen/dimen_5_dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/editable_menu_label_field"
+                        android:text="@string/notify_url"
+                        android:textSize="@dimen/dimen_16_sp" />
+
+                    <EditText
+                        android:id="@+id/et_notify_url"
+                        style="@style/editable_menu_input_field"
+                        android:hint="@string/notify_url" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40_dp"
+                    android:layout_margin="@dimen/dimen_5_dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/editable_menu_label_field"
+                        android:text="@string/extension" />
+
+                    <EditText
+                        android:id="@+id/et_extension"
+                        style="@style/editable_menu_input_field"
+                        android:hint="[{'key1':'value','key2':'value2'}]" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:background="@color/colorGray"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:text="微信公众号所需其他参数"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_40_dp"
+                        android:layout_margin="@dimen/dimen_5_dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/editable_menu_label_field"
+                            android:text="@string/buyer_pay_code" />
+
+                        <EditText
+                            android:id="@+id/et_buyer_pay_code"
+                            style="@style/editable_menu_input_field"
+                            android:hint="付方支付ID(不可空)" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_40_dp"
+                        android:layout_margin="@dimen/dimen_5_dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/editable_menu_label_field"
+                            android:text="@string/trade_memo" />
+
+                        <EditText
+                            android:id="@+id/et_trade_memo"
+                            style="@style/editable_menu_input_field"
+                            android:hint="商品描述" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_40_dp"
+                        android:layout_margin="@dimen/dimen_5_dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/editable_menu_label_field"
+                            android:text="@string/limit_credit_pay" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_limit_credit_pay"
+                            android:layout_width="@dimen/dimen_0_dp"
+                            android:layout_height="@dimen/dimen_40_dp"
+                            android:layout_weight="5"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rb_use_credit"
+                                android:layout_width="@dimen/dimen_0_dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:checked="true"
+                                android:gravity="center"
+                                android:tag=""
+                                android:text="@string/use_credit" />
+
+                            <RadioButton
+                                android:id="@+id/rb_no_credit"
+                                android:layout_width="@dimen/dimen_0_dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:tag="NoCredit"
+                                android:text="@string/no_credit" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:text="选择支付方式"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_item_selector"
+                android:onClick="do_quickpay"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_icon_xj" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="快捷支付"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_menu_click" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_item_selector"
+                android:onClick="do_chanpay_wap"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_icon_chanjet" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="快捷支付"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_menu_click" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:id="@+id/ll_wx_public_number_pay"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_item_selector"
+                android:onClick="do_chanpay_wap_front_end"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_icon_chanjet" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="快捷支付（畅捷前台）"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_menu_click" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:id="@+id/ll_wx_pay"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_item_selector"
+                android:onClick="do_wxpay"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_icon_wx" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="微信支付"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_menu_click" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:id="@+id/ll_ali_pay"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_item_selector"
+                android:onClick="do_alipay"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_icon_zfb" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="支付宝支付"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_menu_click" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_item_selector"
+                android:onClick="do_alipay_wap"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_icon_zfb" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="支付宝网页支付"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_menu_click" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

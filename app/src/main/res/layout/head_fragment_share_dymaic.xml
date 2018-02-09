@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.blankj.utilcode.customwidget.ViewPager.BannerVariation
+            android:id="@+id/viewpager_head_fragment_share_dymaic"
+            android:layout_width="match_parent"
+            android:layout_height="190dp">
+
+        </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
+
+        <com.sss.car.custom.TAB
+            android:background="#fff"
+            android:id="@+id/tab_head_fragment_share_dymaic"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"></com.sss.car.custom.TAB>
+
+
+        <LinearLayout
+            android:background="#fff"
+            android:id="@+id/publish_head_fragment_share_dymaic"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="25dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/logo_camera"/>
+
+            <TextView
+                android:id="@+id/share_now_fragment_share_dynamic"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

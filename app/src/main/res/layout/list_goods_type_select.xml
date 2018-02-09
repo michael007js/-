@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/title_list_goods_type_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="#000"/>
+
+        <com.blankj.utilcode.customwidget.GridView.InnerGridView
+            android:id="@+id/custom_list_goods_type_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:verticalSpacing="10dp">
+
+        </com.blankj.utilcode.customwidget.GridView.InnerGridView>
+
+        <com.blankj.utilcode.customwidget.GridView.InnerGridView
+            android:id="@+id/type_list_goods_type_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:paddingTop="10dp"
+            android:verticalSpacing="10dp">
+
+        </com.blankj.utilcode.customwidget.GridView.InnerGridView>
+
+
+        <com.sss.car.custom.GoodsTypeSelect.View.MoreTextView
+            android:id="@+id/more_list_goods_type_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="更多"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/click_report"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <CheckBox
+            android:enabled="false"
+            android:layout_marginRight="10dp"
+            android:id="@+id/cb_item_report"
+            android:button="@drawable/bg_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:paddingLeft="10dp"
+            android:layout_weight="1"
+            android:id="@+id/text_item_report"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

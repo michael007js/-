@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:id="@+id/activity_search_goods_shop_user_list_public"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/back_top_image"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@mipmap/logo_back"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext4"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/logo_search"/>
+
+            <EditText
+                android:singleLine="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="关键词"
+                android:maxLines="1"
+                android:textColorHint="@color/grayness"
+                android:textSize="13.8sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/search"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                fresco:placeholderImage="@mipmap/logo_search_black"
+                fresco:placeholderImageScaleType="fitXY"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.blankj.utilcode.pullToRefresh.PullToRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.blankj.utilcode.pullToRefresh.PullToRefreshListView>
+
+</LinearLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/wallet_choose_type"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+    <LinearLayout
+        android:id="@+id/bank"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            fresco:placeholderImage="@mipmap/logo_bank"
+            fresco:placeholderImageScaleType="fitXY"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="银行卡"
+            android:textColor="@color/black"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/arrows_bank"
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            fresco:placeholderImage="@mipmap/yes"
+            fresco:placeholderImageScaleType="fitXY"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wx"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            fresco:placeholderImage="@mipmap/logo_wx"
+            fresco:placeholderImageScaleType="fitXY"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="微信"
+            android:textColor="@color/black"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/arrows_wx"
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            fresco:placeholderImage="@mipmap/yes"
+            fresco:placeholderImageScaleType="fitXY"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zfb"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            fresco:placeholderImage="@mipmap/logo_zfb"
+            fresco:placeholderImageScaleType="fitXY"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="支付宝"
+            android:textColor="@color/black"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/arrows_zfb"
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            fresco:placeholderImage="@mipmap/yes"
+            fresco:placeholderImageScaleType="fitXY"/>
+    </LinearLayout>
+
+</LinearLayout>

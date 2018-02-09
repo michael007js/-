@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
+
+            <com.blankj.utilcode.customwidget.ViewPager.BannerVariation
+                android:id="@+id/advertisement_fragment_message_interaction"
+                android:layout_width="match_parent"
+                android:layout_height="190dp">
+
+            </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
+
+            <LinearLayout
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+
+                    android:layout_weight="1"
+                    android:id="@+id/friend"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="30dp"
+                        fresco:placeholderImage="@mipmap/logo_red"
+                        fresco:placeholderImageScaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="好友聊天"
+                        android:textColor="#000"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:id="@+id/buy"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="5dp"
+                        fresco:placeholderImage="@mipmap/logo_blue"
+                        fresco:placeholderImageScaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="交易聊天"
+                        android:textColor="#000"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:id="@+id/attention"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="30dp"
+                        fresco:placeholderImage="@mipmap/logo_green"
+                        fresco:placeholderImageScaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="关注聊天"
+                        android:textColor="#000"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:id="@+id/other"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="30dp"
+                        fresco:placeholderImage="@mipmap/logo_yellow"
+                        fresco:placeholderImageScaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="其他聊天"
+                        android:textColor="#000"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:id="@+id/manager"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="30dp"
+                        fresco:placeholderImage="@mipmap/logo_prink"
+                        fresco:placeholderImageScaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="互动管理"
+                        android:textColor="#000"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

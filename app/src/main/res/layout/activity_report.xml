@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_report"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/top_main"/>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="35dp"
+              android:gravity="center_vertical"
+              android:paddingLeft="10dp"
+              android:text="请告诉我们您要举报的理由"
+              android:textColor="@color/grayness"/>
+
+    <com.blankj.utilcode.customwidget.ListView.InnerListview
+        android:divider="@null"
+        android:id="@+id/list_activity_report"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.blankj.utilcode.customwidget.ListView.InnerListview>
+
+          <LinearLayout
+              android:background="#fff"
+              android:padding="10dp"
+              android:layout_width="match_parent"
+              android:layout_height="150dp"
+              android:orientation="vertical">
+              <TextView
+                  android:text="其他"
+                  android:textColor="@color/black"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"/>
+
+              <EditText
+                  android:id="@+id/input"
+                  android:gravity="top"
+                  android:textSize="13.8sp"
+                  android:hint="请输入举报内容"
+                  android:padding="10dp"
+                  android:layout_marginTop="10dp"
+                  android:background="@color/line"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"/>
+              
+          </LinearLayout>
+
+
+          <LinearLayout
+              android:id="@+id/layout_black_activity_report"
+              android:layout_width="match_parent"
+              android:layout_height="50dp"
+              android:background="#fff"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingBottom="5dp"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:paddingTop="5dp">
+
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:textColor="@color/black"
+                  android:gravity="center_vertical"
+                  android:maxLines="1"
+                  android:text="同时拉黑TA"/>
+
+              <com.blankj.utilcode.customwidget.SwitchButton.SwitchButton
+                  android:id="@+id/switch_black_activity_report"
+                  android:layout_width="60dp"
+                  android:layout_height="30dp"/>
+          </LinearLayout>
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:layout_marginTop="1dp"
+              android:paddingLeft="10dp"
+              android:paddingTop="10dp"
+              android:background="#fff"
+              android:paddingBottom="10dp"
+              android:gravity="center_vertical"
+              android:maxLines="1"
+              android:textColor="@color/black"
+              android:text="图片证据"/>
+
+          <com.blankj.utilcode.customwidget.Layout.LayoutNineGrid.NineView
+              android:id="@+id/nine"
+              android:layout_width="match_parent"
+              android:layout_margin="10dp"
+              android:layout_height="wrap_content">
+
+          </com.blankj.utilcode.customwidget.Layout.LayoutNineGrid.NineView>
+
+          <TextView
+              android:id="@+id/report_black_activity_report"
+              android:layout_width="match_parent"
+              android:layout_height="40dp"
+              android:layout_margin="30dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:background="@drawable/bg_button_small_ra"
+              android:gravity="center"
+              android:maxLines="1"
+              android:text="举报"
+              android:textColor="#fff"
+              android:textSize="15sp"/>
+      </LinearLayout>
+  </ScrollView>
+
+</LinearLayout>

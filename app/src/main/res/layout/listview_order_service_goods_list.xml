@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/shopname_listview_order_service_goods_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text=""/>
+            <com.facebook.drawee.view.SimpleDraweeView
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pic_item_shopping_cart_edit_adapter"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                fresco:placeholderImage="@mipmap/right_arrows"
+                fresco:placeholderImageScaleType="centerInside"/>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listview_listview_order_service_goods_list"
+            android:layout_width="match_parent"
+            android:divider="@null"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+</LinearLayout>
