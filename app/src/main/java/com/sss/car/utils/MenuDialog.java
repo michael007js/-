@@ -57,6 +57,7 @@ import com.sss.car.view.ActivityPublishDymaic;
 import com.sss.car.view.ActivityPublishPost;
 import com.sss.car.view.ActivityReport;
 import com.sss.car.view.ActivitySearchAddFriend;
+import com.sss.car.view.ActivitySearchGoodsShopUserListPublic;
 import com.sss.car.view.ActivityShareCollect;
 import com.sss.car.view.ActivitySharePostMy;
 import com.sss.car.view.ActivityUserInfo;
@@ -204,7 +205,10 @@ public class MenuDialog implements QRCodeDataListener {
                                 ShareUtils.prepareShare(ywLoadingDialog, activity, "terrace", Config.member_id);
                                 break;
                             case 1:
-                                MenuDialog.this.activity.startActivity(new Intent(MenuDialog.this.activity, ActivitySearchAddFriend.class));
+//                                MenuDialog.this.activity.startActivity(new Intent(MenuDialog.this.activity, ActivitySearchAddFriend.class));
+                                MenuDialog.this.activity.startActivity(new Intent(MenuDialog.this.activity, ActivitySearchGoodsShopUserListPublic.class)
+                                        .putExtra("type", "3")
+                                        .putExtra("keywords", ""));
                                 break;
                             case 2:
                                 if (onExistsShopCallBack != null) {
@@ -261,7 +265,10 @@ public class MenuDialog implements QRCodeDataListener {
                     public void onMenuItemClick(int position) {
                         switch (position) {
                             case 0:
-                                MenuDialog.this.activity.startActivity(new Intent(MenuDialog.this.activity, ActivitySearchAddFriend.class));
+                                MenuDialog.this.activity.startActivity(new Intent(MenuDialog.this.activity, ActivitySearchGoodsShopUserListPublic.class)
+                                        .putExtra("type", "3")
+                                        .putExtra("keywords", ""));
+//                                MenuDialog.this.activity.startActivity(new Intent(MenuDialog.this.activity, ActivitySearchAddFriend.class));
                                 break;
                             case 1:
                                 APPOftenUtils.startQRScanView(MenuDialog.this.activity, MenuDialog.this);

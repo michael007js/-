@@ -26,6 +26,7 @@ import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.dao.Webbiz;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
+import com.blankj.utilcode.util.BadgerUtils;
 import com.blankj.utilcode.util.CountDownTimerUtils;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.EncodeUtils;
@@ -158,6 +159,8 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
         ButterKnife.bind(this);
         requestAPPLicense();
     }
+
+
     /**
      * 请求APP许可
      * @param isLogin
@@ -681,6 +684,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
     public boolean onReceived(Message message, int i) {
         parseMessage("onReceived", message);
         getUnreadMessageCount();
+        BadgerUtils.applyCount(getBaseActivityContext(),1);
         EventBus.getDefault().post(new ChangedMessageList());
         return false;
     }

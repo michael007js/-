@@ -2473,6 +2473,15 @@ public class RequestWeb {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Order/expend", send, "新我的支出订单", stringCallback);
     }
     /**
+     * 获取订单评价用户信息
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call order_comment(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Order/order_comment", send, "获取订单评价用户信息", stringCallback);
+    }
+    /**
      * 新我的支出订单(单条)
      *
      * @param send

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.blankj.utilcode.util.ActivityManagerUtils;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.BadgerUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -50,6 +51,7 @@ public class ReceivedMessage extends BroadcastReceiver {
             LogUtils.e(bundle.getString(JPushInterface.EXTRA_EXTRA));
             add(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
             EventBus.getDefault().post(new JiGuangModel());
+            BadgerUtils.applyCount(context,1);
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
                 LogUtils.e(TAG, "[MyReceiver] 接收Registration Id : " + regId);
@@ -65,6 +67,7 @@ public class ReceivedMessage extends BroadcastReceiver {
                 LogUtils.e(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
+                BadgerUtils.removeCount(context);
                 parse(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
                 LogUtils.e(TAG, "[MyReceiver] 用户点击打开了通知");
                 //打开自定义的Activity

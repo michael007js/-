@@ -373,7 +373,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        BadgerUtils.removeCount(weakReference);
+        BadgerUtils.removeCount(getBaseActivityContext());
     }
 
     @Override

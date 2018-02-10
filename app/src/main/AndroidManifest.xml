@@ -34,6 +34,7 @@
     <!-- 拨打电话权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
 
     <application
         android:name=".MyApplication"
@@ -1025,9 +1026,10 @@
             android:value="Channel ID"/>
 
         <!--新浪-->
-        <activity android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
-                  android:theme="@style/Theme.UMDefault"
-                  android:excludeFromRecents="true"/>
+        <activity
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault"/>
         <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"

@@ -161,7 +161,9 @@ public class ActivitySearchGoodsShopUserListPublic extends BaseActivity {
             }
         });
         initAdapter();
-        all_search_into();
+        if (input.getText().toString().trim()!=null&&!"".equals(input.getText().toString().trim())) {
+            all_search_into();
+        }
     }
 
     @OnClick(R.id.back_top_image)

@@ -8,6 +8,7 @@ import android.net.Uri;
 import com.blankj.utilcode.util.ActivityManagerUtils;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.BadgerUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.sss.car.view.ConversationChat;
 import com.sss.car.view.LoginAndRegister;
@@ -31,6 +32,7 @@ public class PushMessageReceiver extends io.rong.push.notification.PushMessageRe
                 "\n发送者用户名" + message.getSenderName() +
                 "\n发送者ID" + message.getSenderId() +
                 "\n目标ID" + message.getTargetId());
+        BadgerUtils.applyCount(context,1);
         return false;
     }
 
@@ -45,7 +47,7 @@ public class PushMessageReceiver extends io.rong.push.notification.PushMessageRe
                 "\n发送者用户名" + message.getSenderName() +
                 "\n发送者ID" + message.getSenderId() +
                 "\n目标ID" + message.getTargetId());
-
+        BadgerUtils.removeCount(context);
 //        if (ActivityUtils.isActivityExistsInStack(Main.class)){
 //            if (!ActivityUtils.isActivityExistsInStack(ConversationChat.class)){
 //                Uri uri = Uri.parse("rong://" + context.getApplicationInfo().processName).buildUpon().appendPath("conversation").appendPath(message.getConversationType().getName().toLowerCase()).appendQueryParameter("targetId", message.getSenderId()).appendQueryParameter("title", message.getSenderName()).build();

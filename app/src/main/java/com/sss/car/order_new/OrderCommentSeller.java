@@ -90,7 +90,7 @@ public class OrderCommentSeller extends BaseActivity {
         titleTop.setText("发表评价");
         rightButtonTop.setText("发布");
         rightButtonTop.setTextColor(getResources().getColor(R.color.mainColor));
-        FrescoUtils.showImage(false, 80, 80, Uri.parse(Config.url + getIntent().getExtras().getString("targetPic")), picOrderCommentSeller, 30f);
+        order_comment();
         ratingBar.setStarCount(5);
         ratingBar.setOnStarChangeListener(new OnChangeListener() {
             @Override
@@ -140,6 +140,53 @@ public class OrderCommentSeller extends BaseActivity {
         }
     }
 
+    public void order_comment() {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
+        ywLoadingDialog.show();
+
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.order_comment(
+                    new JSONObject()
+                            .put("order_id", getIntent().getExtras().getString("order_id"))
+                            .put("member_id", Config.member_id)
+                            .put("type", "1")//1收入，2支出
+                            .toString()//用户Id
+                    , new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(getBaseActivityContext(), e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    FrescoUtils.showImage(false, 80, 80, Uri.parse(Config.url + jsonObject.getJSONObject("data").getString("picture")), picOrderCommentSeller, 30f);
+                                } else {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
+                                e.printStackTrace();
+                            }
+                        }
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
+            e.printStackTrace();
+        }
+    }
     /**
      * 订单评论
      */

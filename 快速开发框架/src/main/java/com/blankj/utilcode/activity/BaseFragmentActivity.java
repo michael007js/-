@@ -288,7 +288,7 @@ public abstract class BaseFragmentActivity extends SwipeBackActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        BadgerUtils.removeCount(weakReference);
+        BadgerUtils.removeCount(getBaseActivityContext());
     }
 
     @Override

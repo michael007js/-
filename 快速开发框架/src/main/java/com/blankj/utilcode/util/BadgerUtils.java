@@ -18,23 +18,17 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class BadgerUtils {
 
-    public static void addBadger(WeakReference<Context> weakReference,int badgeCount){
-        if (EmptyUtils.isNotEmpty(weakReference.get())){
-            ShortcutBadger.applyCount(weakReference.get(), badgeCount);
+    public static void addBadger(Context context,int badgeCount){
+            ShortcutBadger.applyCount(context, badgeCount);
             LogUtils.e("addBadger"+badgeCount);
-        }
     }
 
-    public static void removeCount(WeakReference<Context> weakReference ){
-        if (EmptyUtils.isNotEmpty(weakReference.get())){
-            ShortcutBadger.removeCount(weakReference.get());
-        }
+    public static void removeCount(Context context ){
+            ShortcutBadger.removeCount(context);
     }
 
-    public static void applyCount(WeakReference<Context> weakReference ,int badgeCount){
-        if (EmptyUtils.isNotEmpty(weakReference.get())){
-            ShortcutBadger.applyCount(weakReference.get(),badgeCount);
-        }
+    public static void applyCount(Context context ,int badgeCount){
+            ShortcutBadger.applyCount(context,badgeCount);
     }
 
 }
