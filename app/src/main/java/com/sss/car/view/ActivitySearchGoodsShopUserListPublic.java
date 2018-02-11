@@ -268,7 +268,6 @@ public class ActivitySearchGoodsShopUserListPublic extends BaseActivity {
                             .put("keywords", input.getText().toString().trim())
                             .put("gps", Config.latitude + "," + Config.longitude)
                             .put("type", getIntent().getExtras().getString("type"))//1商品信息，2店铺信息，3账户信息
-
                             .toString()
                     , new StringCallback() {
                         @Override

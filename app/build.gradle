@@ -8,8 +8,8 @@ android {
         applicationId "com.sss.car"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 64
-        versionName "6.4"
+        versionCode 65
+        versionName "6.5"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {

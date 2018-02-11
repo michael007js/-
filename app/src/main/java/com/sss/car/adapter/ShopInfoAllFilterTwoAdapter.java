@@ -31,7 +31,6 @@ public class ShopInfoAllFilterTwoAdapter extends BaseAdapter {
         this.shopInfoAllFilterTwoAdapterOperationCallBack = shopInfoAllFilterTwoAdapterOperationCallBack;
     }
 
-
     public void clear() {
         if (list != null) {
             list.clear();
@@ -41,13 +40,11 @@ public class ShopInfoAllFilterTwoAdapter extends BaseAdapter {
         context = null;
     }
 
-
     public void refresh(List<ShopInfoAllFilter_SubClassModel> list) {
         this.list = list;
         this.notifyDataSetChanged();
 
     }
-
 
     @Override
     public int getCount() {

@@ -196,7 +196,7 @@ public class ActivityShopInfoAllFilter extends BaseActivity implements
 
     @Override
     public void onClickShopInfoAllFilterOneAdapterItem(int position, ShopInfoAllFilterModel model, List<ShopInfoAllFilterModel> list) {
-        shopInfoAllFilterTwoAdapter.refresh(list.get(position).subclass);
+        shopInfoAllFilterTwoAdapter .refresh(list.get(position).subclass);
     }
 
     @Override
@@ -232,9 +232,13 @@ public class ActivityShopInfoAllFilter extends BaseActivity implements
         finish();
     }
 
+    boolean isLoad=false;
     @Override
     public void onChoose(int position, List<ShopInfoAllFilter_SubClassModel> list) {
-        shopInfoAllFilterTwoAdapter.refresh(list);
+        if (isLoad == false) {
+            shopInfoAllFilterTwoAdapter.refresh(list);
+        }
+        isLoad=true;
     }
 
 }
