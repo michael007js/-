@@ -125,7 +125,7 @@ public class FragmentRongyunUnreadMessage extends BaseFragment {
                 helper.setText(R.id.name, bean.username);
                 helper.setText(R.id.content, bean.contents);
                 helper.setTextColor(R.id.content,getResources().getColor(R.color.grayness));
-                helper.setText(R.id.date,TimeUtils.LongFormatTime(TimeUtils.string2Millis(bean.create_time)));
+                helper.setText(R.id.date,bean.create_time);
                 addImageViewList(FrescoUtils.showImage(false, 40, 40, Uri.parse(Config.url + bean.face), ((SimpleDraweeView) helper.getView(R.id.pic)), 80));
                 helper.getView(R.id.click).setOnClickListener(new View.OnClickListener() {
                     @Override

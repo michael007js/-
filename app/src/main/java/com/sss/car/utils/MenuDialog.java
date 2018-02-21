@@ -701,7 +701,7 @@ public class MenuDialog implements QRCodeDataListener {
         ImageView close_dialog_choose_shop_info_bottom = $.f(view, R.id.close_dialog_choose_shop_info_bottom);
         final TextView price_dialog_choose_shop_info_bottom = $.f(view, R.id.price_dialog_choose_shop_info_bottom);
         ChooseType choose_type_dialog_choose_shop_info_bottom = $.f(view, R.id.choose_type_dialog_choose_shop_info_bottom);
-        NumberSelectEdit numberSelectEdit_dialog_choose_shop_info_bottom = $.f(view, R.id.numberSelectEdit_dialog_choose_shop_info_bottom);
+        final NumberSelectEdit numberSelectEdit_dialog_choose_shop_info_bottom = $.f(view, R.id.numberSelectEdit_dialog_choose_shop_info_bottom);
         TextView add_dialog_choose_shop_info_bottom = $.f(view, R.id.add_dialog_choose_shop_info_bottom);
         TextView subscribe_dialog_choose_shop_info_bottom = $.f(view, R.id.subscribe_dialog_choose_shop_info_bottom);
         final TextView m_dialog_choose_shop_info_bottom = $.f(view, R.id.m_dialog_choose_shop_info_bottom);
@@ -721,6 +721,8 @@ public class MenuDialog implements QRCodeDataListener {
         numberSelectEdit_dialog_choose_shop_info_bottom
                 .init(context, true)
                 .setCurrentNumber(1)
+                .withKeyBoard(false)
+                .isLongClick(true)
                 .defaultNumber(number)
                 .minNumber(1)
                 .setNumberSelectEditOperationCakkBack(new NumberSelectEdit.NumberSelectEditOperationCakkBack() {
@@ -829,6 +831,12 @@ public class MenuDialog implements QRCodeDataListener {
             }
         });
         bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                numberSelectEdit_dialog_choose_shop_info_bottom.clear();
+            }
+        });
         bottomSheetDialog.show();
     }
 

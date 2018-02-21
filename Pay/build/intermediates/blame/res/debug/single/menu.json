@@ -1,9 +1,5 @@
 [
     {
-        "merged": "C:\\Users\\leilei\\Desktop\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
-        "source": "C:\\Users\\leilei\\Desktop\\JuXiangChe\\Pay\\src\\main\\res\\menu\\main.xml"
-    },
-    {
         "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
         "source": "C:\\JuXiangChe\\Pay\\src\\main\\res\\menu\\main.xml"
     }

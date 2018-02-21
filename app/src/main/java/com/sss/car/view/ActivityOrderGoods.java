@@ -146,6 +146,9 @@ public class ActivityOrderGoods extends BaseActivity {
         addressActivityOrderGoods = null;
         clickChooseCarActivityOrderGoods = null;
         listActivityOrderGoods = null;
+        if (priceActivityOrderGoods!=null){
+            priceActivityOrderGoods.clear();
+        }
         priceActivityOrderGoods = null;
         showCouponActivityOrderGoods = null;
         clickCouponActivityOrderGoods = null;

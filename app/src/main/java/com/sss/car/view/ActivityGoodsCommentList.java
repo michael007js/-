@@ -50,6 +50,7 @@ public class ActivityGoodsCommentList extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_comment_list);
+        customInit(activityGoodsCommentList,false,true,false);
         if (getIntent()==null||getIntent().getExtras()==null){
             ToastUtils.showLongToast(getBaseActivityContext(),"数据传递错误!");
             finish();

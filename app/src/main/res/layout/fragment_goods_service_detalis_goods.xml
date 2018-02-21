@@ -112,7 +112,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:textColor="@color/mainColor"
+                            android:textColor="@color/grayness"
                             android:textSize="15sp"/>
 
                         <TextView
@@ -211,7 +211,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="right"
-                            android:text="分享有赏"
+                            android:text="分享有奖"
                             android:textColor="@color/black"/>
 
                         <TextView

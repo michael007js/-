@@ -1,5 +1,6 @@
 package com.sss.car.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +11,10 @@ import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.SwitchButton.SwitchButton;
+import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
+import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.sss.car.Config;
@@ -38,6 +41,7 @@ import okhttp3.Call;
  * Created by leilei on 2017/8/22.
  */
 
+@SuppressWarnings("ALL")
 public class ActivityMyDataSynthesizeSetting extends BaseActivity {
     @BindView(R.id.back_top)
     LinearLayout backTop;
@@ -180,8 +184,21 @@ public class ActivityMyDataSynthesizeSetting extends BaseActivity {
                 }
                 break;
             case R.id.click_clear:
-                FrescoUtils.clearDiskCache();
-                cache.setText(FrescoUtils.getCacheSize());
+                APPOftenUtils.createAskDialog(getBaseActivityContext(), "是否要清理缓存？", new OnAskDialogCallBack() {
+                    @Override
+                    public void onOKey(Dialog dialog) {
+                        dialog.dismiss();
+                        dialog=null;
+                        FrescoUtils.clearDiskCache();
+                        cache.setText(FrescoUtils.getCacheSize());
+                    }
+
+                    @Override
+                    public void onCancel(Dialog dialog) {
+                        dialog.dismiss();
+                        dialog=null;
+                    }
+                });
                 break;
             case R.id.click_system_received:
                 break;

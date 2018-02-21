@@ -148,6 +148,9 @@ public class ActivityOrderSOSPublish extends BaseActivity {
         clickTypeActivityOrderSosPublish = null;
         showAddressActivityOrderSosPublish = null;
         clickAddressActivityOrderSosPublish = null;
+        if (priceActivityOrderSosPublish!=null){
+            priceActivityOrderSosPublish.clear();
+        }
         priceActivityOrderSosPublish = null;
         showTimeActivityOrderSosPublish = null;
         clickTimeActivityOrderSosPublish = null;

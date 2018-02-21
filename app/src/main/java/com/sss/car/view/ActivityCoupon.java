@@ -1,5 +1,6 @@
 package com.sss.car.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,11 +20,13 @@ import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.Layout.LayoutRefresh.RefreshLoadMoreLayout;
 import com.blankj.utilcode.customwidget.ListView.InnerListview;
 import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
+import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.pullToRefresh.PullToRefreshBase;
 import com.blankj.utilcode.pullToRefresh.PullToRefreshScrollView;
 import com.blankj.utilcode.util.$;
+import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PriceUtils;
@@ -66,6 +69,7 @@ import static android.R.attr.data;
  * Created by leilei on 2017/9/23.
  */
 
+@SuppressWarnings("ALL")
 public class ActivityCoupon extends BaseActivity {
     @BindView(R.id.back_activity_goods_service_details)
     LinearLayout backActivityGoodsServiceDetails;
@@ -228,25 +232,61 @@ public class ActivityCoupon extends BaseActivity {
             buyActivityCoupon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (menuDialog == null) {
-                        menuDialog = new MenuDialog(getBaseActivity());
-                    }
-                    menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
+                    APPOftenUtils.createAskDialog(getBaseActivityContext(), "确认要立即退款吗？", new OnAskDialogCallBack() {
                         @Override
-                        public void onVerificationPassword(final String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
-                            P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
+                        public void onOKey(Dialog dialog) {
+                            dialog.dismiss();
+                            dialog=null;
+                            if (menuDialog == null) {
+                                menuDialog = new MenuDialog(getBaseActivity());
+                            }
+
+                            /**
+                             * 输入密码
+                             */
+                            P.e(ywLoadingDialog, Config.member_id, getBaseActivity(), new P.p() {
                                 @Override
-                                public void match() {
-                                    bottomSheetDialog.dismiss();
-                                    passWordKeyboard.setStatus(true);
-                                    returnsCoupon();
+                                public void exist() {
+                                    if (menuDialog == null) {
+                                        menuDialog = new MenuDialog(getBaseActivity());
+                                    }
+                                    menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
+                                        @Override
+                                        public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+                                            P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
+                                                @Override
+                                                public void match() {
+                                                    bottomSheetDialog.dismiss();
+                                                    passWordKeyboard.setStatus(true);
+                                                    returnsCoupon();
+                                                }
+
+                                                @Override
+                                                public void mismatches() {
+
+                                                    passWordKeyboard.setStatus(false);
+                                                }
+                                            });
+                                        }
+
+                                    });
                                 }
 
+
                                 @Override
-                                public void mismatches() {
-                                    passWordKeyboard.setStatus(false);
+                                public void nonexistence() {
+                                    if (getBaseActivityContext() != null) {
+                                        startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSetPassword.class));
+                                    }
                                 }
                             });
+
+                        }
+
+                        @Override
+                        public void onCancel(Dialog dialog) {
+                            dialog.dismiss();
+                            dialog=null;
                         }
                     });
                 }

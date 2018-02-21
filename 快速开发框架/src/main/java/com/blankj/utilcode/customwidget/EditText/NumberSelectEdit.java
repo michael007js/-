@@ -121,11 +121,12 @@ public class NumberSelectEdit extends LinearLayout {
         mEditText.setPadding(mEditPadding, mEditPadding, mEditPadding, mEditPadding);
         mSubtract.setPadding(mSubtractPadding, mSubtractPadding, mSubtractPadding, mSubtractPadding);
         mAdd.setPadding(mAddPadding, mAddPadding, mAddPadding, mAddPadding);
-
-
-
         addView(mView);
     }
+
+
+
+
 
     /**
      * 初始化点击监听
@@ -241,6 +242,15 @@ public class NumberSelectEdit extends LinearLayout {
 
     }
 
+
+    /**
+     * 是否可以弹出键盘
+     * @param with
+     */
+    public NumberSelectEdit withKeyBoard(boolean with){
+        mEditText.setEnabled(with);
+        return this;
+    }
 
     /**
      * 初始值

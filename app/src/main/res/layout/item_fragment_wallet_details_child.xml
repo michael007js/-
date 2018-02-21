@@ -14,14 +14,16 @@
             android:layout_width="match_parent"
             android:gravity="left|center"
             android:layout_weight="1"
+            android:singleLine="true"
+            android:maxLines="1"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:textSize="13sp"/>
         <TextView
             android:id="@+id/type_item_fragment_wallet_details_child"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:gravity="right|center"
-            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
             android:textSize="13sp"/>
     </LinearLayout>
