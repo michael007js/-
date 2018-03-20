@@ -19,14 +19,10 @@ import com.blankj.utilcode.dao.CustomExceptionCallBack;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -34,8 +30,6 @@ import java.text.DecimalFormat;
 
 import Decoder.BASE64Decoder;
 import Decoder.BASE64Encoder;
-
-import static android.R.attr.value;
 
 /**
  * <pre>

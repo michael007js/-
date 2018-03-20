@@ -178,7 +178,7 @@ public class FragmentMessageComment extends BaseFragment {
                     bannerVariation
                             .setImages(list)
                             .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-                            .setDelayTime(5000)
+                            .setDelayTime(Config.flash)
                             .setImageLoader(new ImageLoaderInterface() {
                                 @Override
                                 public void displayImage(Context context, Object path, View imageView) {

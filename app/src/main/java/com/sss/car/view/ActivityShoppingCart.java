@@ -245,10 +245,6 @@ public class ActivityShoppingCart extends BaseActivity {
 
     void total() {
         a = 0;
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
                 if (ShoppingCartViewActivityShoppingCart.getList().size() != 0) {
                     for (int i = 0; i < ShoppingCartViewActivityShoppingCart.getList().size(); i++) {
                         for (int j = 0; j < ShoppingCartViewActivityShoppingCart.getList().get(i).data.size(); j++) {
@@ -261,14 +257,7 @@ public class ActivityShoppingCart extends BaseActivity {
                         }
                     }
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        totalPriceChooseActivityShoppingCartBottomEditMode.setText(a + ".00");
-                    }
-                });
-            }
-        }.start();
+        totalPriceChooseActivityShoppingCartBottomEditMode.setText(a + ".00");
     }
 
     @OnClick({R.id.back_top, R.id.right_button_top, R.id.ready_buy_choose_activity_shopping_cart_bottom_edit_mode, R.id.collect_choose_activity_shopping_cart_bottom_no_edit_mode, R.id.delete_choose_activity_shopping_cart_bottom_no_edit_mode})

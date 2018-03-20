@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.sss.car.Config;
+import com.sss.car.WebViewActivity;
 import com.sss.car.order.OrderGoodsMyOrderBuyer;
 import com.sss.car.order.OrderGoodsOrderSendSeller;
 import com.sss.car.order.OrderGoodsOrderTip;
@@ -20,7 +21,9 @@ import com.sss.car.order.OrderServiceOrderTip;
 import com.sss.car.order_new.Constant;
 import com.sss.car.order_new.OrderGoodsReadyBuyList;
 import com.sss.car.order_new.OrderServiceReadyBuyList;
+import com.sss.car.view.ActivityWeb;
 
+import static com.blankj.utilcode.okhttp.OkHttpUtils.delete;
 import static com.sss.car.R.id.comment;
 
 
@@ -41,6 +44,15 @@ public class CarUtils {
             } else {
                 return 0;
             }
+        }
+    }
+
+
+    public static void startAdvertisement(Context context) {
+        if (!StringUtils.isEmpty(Config.tempUrl)) {
+            context.startActivity(new Intent(context, WebViewActivity.class)
+                    .putExtra("title", "广告")
+                    .putExtra("url", Config.tempUrl));
         }
     }
 
@@ -117,39 +129,39 @@ public class CarUtils {
             case Constant.Ready_Buy://预购
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderGoodsReadyBuyList.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids));
                 } else {
                     context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
-                            .putExtra("isIncome",isIncome)
+                            .putExtra("isIncome", isIncome)
                             .putExtra("status", status));
                 }
                 break;
             case Constant.Non_Payment://未付款
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("buttonTitle", "待买家支付"));
                 } else {
                     context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
-                            .putExtra("isIncome",isIncome)
+                            .putExtra("isIncome", isIncome)
                             .putExtra("status", status));
                 }
                 break;
             case Constant.Have_Already_Paid_Awating_Delivery:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("status", status));
                 } else {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("buttonTitle", "待发货"));
                 }
@@ -157,15 +169,15 @@ public class CarUtils {
             case Constant.Have_Already_Delivery_Awating_Sign_For:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("status", status)
                             .putExtra("buttonTitle", "待签收"));
                 } else {
                     context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
-                            .putExtra("isIncome",isIncome)
+                            .putExtra("isIncome", isIncome)
                             .putExtra("status", status));
                 }
                 break;
@@ -173,31 +185,31 @@ public class CarUtils {
                 if (isIncome) {
                     if ("0".equals(goodsComment)) {
                         context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
-                                .putExtra("isIncome",isIncome)
+                                .putExtra("isIncome", isIncome)
                                 .putExtra("status", status));
 
 
                     } else {
                         context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
-                                .putExtra("isIncome",isIncome)
+                                .putExtra("isIncome", isIncome)
                                 .putExtra("status", -100));/*传-100为删除订单*/
                     }
                 } else {
                     if ("0".equals(isComment)) {
                         context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
-                                .putExtra("isIncome",isIncome)
+                                .putExtra("isIncome", isIncome)
                                 .putExtra("status", status));
                     } else {
                         context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
-                                .putExtra("isIncome",isIncome)
+                                .putExtra("isIncome", isIncome)
                                 .putExtra("status", -100));/*传-100为删除订单*/
                     }
                 }
@@ -205,12 +217,12 @@ public class CarUtils {
             case Constant.Delete:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("hideButton", true));
                 } else {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("hideButton", true));
                 }
@@ -219,19 +231,19 @@ public class CarUtils {
                 if (isIncome) {
                     if ("1".equals(exchange_status)) {
                         context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("grayness", true)
                                 .putExtra("buttonTitle", "已同意"));
                     } else if ("2".equals(exchange_status)) {
                         context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("grayness", true)
                                 .putExtra("buttonTitle", "未同意"));
                     } else {
                         context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("status", status));
                     }
@@ -239,14 +251,14 @@ public class CarUtils {
                 } else {
                     if ("1".equals(exchange_status)) {
                         context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("what", 2)
-                                .putExtra("isIncome",isIncome)
+                                .putExtra("isIncome", isIncome)
                                 .putExtra("status", status));
                     } else if ("2".equals(exchange_status)) {
                         context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("grayness", true)
                                 .putExtra("buttonTitle", "未同意"));
@@ -257,12 +269,14 @@ public class CarUtils {
             case Constant.Returns:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra("exchange_id", exchange_id)
                             .putExtra("order_id", ids)
+                            .putExtra("exchange_status",exchange_status)
                             .putExtra("status", status));
                 } else {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("grayness", true)
                             .putExtra("buttonTitle", "待签收"));
@@ -272,12 +286,14 @@ public class CarUtils {
             case Constant.Changed:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
+                            .putExtra("exchange_id", exchange_id)
+                            .putExtra("exchange_status",exchange_status)
                             .putExtra("status", status));
                 } else {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("grayness", true)
                             .putExtra("buttonTitle", "待签收"));
@@ -285,15 +301,21 @@ public class CarUtils {
                 break;
             case Constant.Refunded:
                 if (isIncome) {
-                    context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
-                            .putExtra("order_id", ids)
-                            .putExtra("status", status));
-
-
+                    if ("5".equals(exchange_id)) {
+                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("order_id", ids)
+                                .putExtra("grayness", true)
+                                .putExtra("buttonTitle", "已退款"));
+                    } else {
+                        context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("order_id", ids)
+                                .putExtra("status", status));
+                    }
                 } else {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("grayness", true)
                             .putExtra("buttonTitle", "已退款"));
@@ -303,14 +325,14 @@ public class CarUtils {
             case Constant.Cancel:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("buttonTitle", "已取消"));
 
 
                 } else {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("buttonTitle", "已取消"));
                 }
@@ -331,11 +353,11 @@ public class CarUtils {
             case Constant.Ready_Buy://预购
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderServiceReadyBuyList.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids));
                 } else {
                     context.startActivity(new Intent(context, OrderServiceMyOrderBuyer.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("status", status));
                 }
@@ -343,12 +365,12 @@ public class CarUtils {
             case Constant.Non_Payment:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("buttonTitle", "待买家支付"));
                 } else {
                     context.startActivity(new Intent(context, OrderServiceMyOrderBuyer.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("status", status));
                 }
@@ -357,13 +379,13 @@ public class CarUtils {
             case Constant.Have_Already_Paid_Awating_Delivery:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderServiceOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("status", status)
                             .putExtra("buttonTitle", "待服务"));
                 } else {
                     context.startActivity(new Intent(context, OrderServiceMyOrderBuyer.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("status", status));
                 }
@@ -372,24 +394,24 @@ public class CarUtils {
                 if (isIncome) {
                     if ("0".equals(goodsComment)) {
                         context.startActivity(new Intent(context, OrderServiceMyOrderBuyer.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("status", status));
                     } else {
                         context.startActivity(new Intent(context, OrderServiceMyOrderBuyer.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("status", -100));/*传-100为删除订单*/
                     }
                 } else {
                     if ("0".equals(isComment)) {
                         context.startActivity(new Intent(context, OrderServiceMyOrderBuyer.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("status", status));
                     } else {
                         context.startActivity(new Intent(context, OrderServiceMyOrderBuyer.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("status", -100));/*传-100为删除订单*/
                     }
@@ -398,12 +420,12 @@ public class CarUtils {
             case Constant.Delete:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderServiceOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("hideButton", true));
                 } else {
                     context.startActivity(new Intent(context, OrderServiceOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("hideButton", true));
                 }
@@ -411,7 +433,7 @@ public class CarUtils {
             case Constant.Cancel:
                 if (isIncome) {
                     context.startActivity(new Intent(context, OrderServiceOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("grayness", true)
                             .putExtra("buttonTitle", "已取消"));
@@ -419,7 +441,7 @@ public class CarUtils {
 
                 } else {
                     context.startActivity(new Intent(context, OrderServiceOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("grayness", true)
                             .putExtra("buttonTitle", "已取消"));
@@ -440,7 +462,7 @@ public class CarUtils {
         switch (status) {
             case 0://求助中
                 context.startActivity(new Intent(context, OrderSOSGrabList.class)/*OrderSOSDetails详情*/
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("sos_id", ids));
                 break;
             case 1://求助者进行中
@@ -450,7 +472,7 @@ public class CarUtils {
                 break;
             case 2://已完成
                 context.startActivity(new Intent(context, OrderSOSDetails.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("sos_id", ids));
                 break;
             case 3://已取消
@@ -460,12 +482,12 @@ public class CarUtils {
                 break;
             case 5:// 施救者进行中(建立关系后)
                 context.startActivity(new Intent(context, OrderSOSAffirmSeller.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("sos_id", ids));
                 break;
             case 6://施救者进行中(建立关系前)
                 context.startActivity(new Intent(context, OrderSOSDetails.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("sos_id", ids));
                 break;
         }

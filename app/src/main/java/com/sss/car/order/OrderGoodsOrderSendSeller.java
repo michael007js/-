@@ -53,6 +53,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 import static com.sss.car.R.string.sss;
+import static com.umeng.socialize.utils.DeviceConfig.context;
 
 /**
  * 我的订单==>实物类发货
@@ -206,168 +207,196 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
 
     void initView() {
 
-        LogUtils.e(getIntent().getExtras().getInt("status"));
+        LogUtils.e(getIntent().getExtras().getInt("status")+"---"+getIntent().getExtras().getString("exchange_status"));
         switch (getIntent().getExtras().getInt("status")) {
             case Constant.Have_Already_Paid_Awating_Delivery:
-                clicks.setText("立即发货");
-                expressageCode.setEnabled(true);
-                parentExpressageCode.setVisibility(View.VISIBLE);
-                parentCompany.setVisibility(View.VISIBLE);
-                expressageCode.setHint("请填写快递单号");
-                initExpressAdapter();
-                express_company();
-                clicks.setVisibility(View.VISIBLE);
-                clicks.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (StringUtils.isEmpty(express_id)) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "请选择快递公司");
-                            return;
-                        }
-                        if (StringUtils.isEmpty(expressageCode.getText().toString().trim())) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "请输入快递单号");
-                            return;
-                        }
-                        OrderUtils.deliver(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), express_id, expressageCode.getText().toString().trim());
-                    }
-                });
-                company.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (expressList.size() == 0) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "快递公司信息获取中...");
-                            express_company();
-                            return;
-                        }
-                        if (menuDialog == null) {
-                            menuDialog = new MenuDialog(getBaseActivity());
-                        }
-                        if (bottomSheetDialog != null) {
-                            bottomSheetDialog.dismiss();
-                        }
-                        bottomSheetDialog = null;
-                        bottomSheetDialog = menuDialog.createExpressBottomDialog(getBaseActivityContext(), expressAdapter);
-                        expressAdapter.setList(expressList);
-                    }
-                });
+                send();
                 break;
             case Constant.Returns:
-                clicks.setText("确认收货");
-                clicks.setVisibility(View.VISIBLE);
-                parentExpressageCode.setVisibility(View.VISIBLE);
-                parentCompany.setVisibility(View.VISIBLE);
-                clicks.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                if ("5".equals(getIntent().getExtras().getString("exchange_status"))) {
+                    delete();
+                } else {
+                    returns();
+                }
 
-                        if (orderSellerModel == null) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "订单刷新中...");
-                            return;
-                        }
-                        APPOftenUtils.createAskDialog(getBaseActivityContext(), "确认要收货吗？", new OnAskDialogCallBack() {
-                            @Override
-                            public void onOKey(Dialog dialog) {
-                                dialog.dismiss();
-                                dialog = null;
-                                OrderUtils.confirm_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
-
-                            }
-
-                            @Override
-                            public void onCancel(Dialog dialog) {
-                                dialog.dismiss();
-                                dialog = null;
-                            }
-                        });
-
-
-                    }
-                });
                 break;
             case Constant.Changed:
-                clicks.setText("确认收货");
-                clicks.setVisibility(View.VISIBLE);
-                parentExpressageCode.setVisibility(View.VISIBLE);
-                parentCompany.setVisibility(View.VISIBLE);
-                clicks.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (orderSellerModel == null) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "订单刷新中...");
-                            return;
-                        }
-                        APPOftenUtils.createAskDialog(getBaseActivityContext(), "确认要收货吗？", new OnAskDialogCallBack() {
-                            @Override
-                            public void onOKey(Dialog dialog) {
-                                dialog.dismiss();
-                                dialog = null;
-                                OrderUtils.exchange_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
-
-                            }
-
-                            @Override
-                            public void onCancel(Dialog dialog) {
-                                dialog.dismiss();
-                                dialog = null;
-                            }
-                        });
-
-                    }
-                });
+                if ("4".equals(getIntent().getExtras().getString("exchange_status"))) {
+                    changed();
+                } else {
+                    send();
+                }
                 break;
             case Constant.Refunded:
-                clicks.setText("删除订单");
-                clicks.setVisibility(View.VISIBLE);
-                clicks.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (orderSellerModel == null) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "订单刷新中...");
-                            return;
-                        }
-                        APPOftenUtils.createAskDialog(getBaseActivityContext(), "确认要删除订单吗？", new OnAskDialogCallBack() {
-                            @Override
-                            public void onOKey(Dialog dialog) {
-                                dialog.dismiss();
-                                dialog = null;
-                                OrderUtils.del_expend(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"));
-
-                            }
-
-                            @Override
-                            public void onCancel(Dialog dialog) {
-                                dialog.dismiss();
-                                dialog = null;
-                            }
-                        });
-
-                    }
-                });
+                delete();
                 break;
             case Constant.Awating_Dispose_Returns:
-                clicks.setText("立即处理");
-                clicks.setVisibility(View.VISIBLE);
-                clicks.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (orderSellerModel == null) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "订单刷新中...");
-                            return;
-                        }
-                        if ("1".equals(orderSellerModel.type)) {
-                            if (getBaseActivityContext() != null) {
-                                startActivity(new Intent(getBaseActivityContext(), OrderReturnsChangeApplyForAndCompleteDataSeller.class)
-                                        .putExtra("order_id", orderSellerModel.order_id));
-                            }
-                        }
-
-                    }
-                });
+                deposit();
                 break;
         }
 
     }
 
+    private void send() {
+        clicks.setText("立即发货");
+        expressageCode.setEnabled(true);
+        parentExpressageCode.setVisibility(View.VISIBLE);
+        parentCompany.setVisibility(View.VISIBLE);
+        expressageCode.setHint("请填写快递单号");
+        initExpressAdapter();
+        express_company();
+        clicks.setVisibility(View.VISIBLE);
+        clicks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (StringUtils.isEmpty(express_id)) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请选择快递公司");
+                    return;
+                }
+                if (StringUtils.isEmpty(expressageCode.getText().toString().trim())) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请输入快递单号");
+                    return;
+                }
+                OrderUtils.deliver(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), express_id, expressageCode.getText().toString().trim());
+            }
+        });
+        company.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expressList.size() == 0) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "快递公司信息获取中...");
+                    express_company();
+                    return;
+                }
+                if (menuDialog == null) {
+                    menuDialog = new MenuDialog(getBaseActivity());
+                }
+                if (bottomSheetDialog != null) {
+                    bottomSheetDialog.dismiss();
+                }
+                bottomSheetDialog = null;
+                bottomSheetDialog = menuDialog.createExpressBottomDialog(getBaseActivityContext(), expressAdapter);
+                expressAdapter.setList(expressList);
+            }
+        });
+    }
+
+    private void returns() {
+        clicks.setText("确认收货");
+        clicks.setVisibility(View.VISIBLE);
+        parentExpressageCode.setVisibility(View.VISIBLE);
+        parentCompany.setVisibility(View.VISIBLE);
+        clicks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (orderSellerModel == null) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "订单刷新中...");
+                    return;
+                }
+                APPOftenUtils.createAskDialog(getBaseActivityContext(), "确认要收货吗？", new OnAskDialogCallBack() {
+                    @Override
+                    public void onOKey(Dialog dialog) {
+                        dialog.dismiss();
+                        dialog = null;
+                        OrderUtils.confirm_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
+
+                    }
+
+                    @Override
+                    public void onCancel(Dialog dialog) {
+                        dialog.dismiss();
+                        dialog = null;
+                    }
+                });
+
+
+            }
+        });
+    }
+
+    private void changed() {
+        clicks.setText("确认收货");
+        clicks.setVisibility(View.VISIBLE);
+        parentExpressageCode.setVisibility(View.VISIBLE);
+        parentCompany.setVisibility(View.VISIBLE);
+        clicks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (orderSellerModel == null) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "订单刷新中...");
+                    return;
+                }
+                APPOftenUtils.createAskDialog(getBaseActivityContext(), "确认要收货吗？", new OnAskDialogCallBack() {
+                    @Override
+                    public void onOKey(Dialog dialog) {
+                        dialog.dismiss();
+                        dialog = null;
+                        OrderUtils.exchange_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
+
+                    }
+
+                    @Override
+                    public void onCancel(Dialog dialog) {
+                        dialog.dismiss();
+                        dialog = null;
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void delete() {
+        clicks.setText("删除订单");
+        clicks.setVisibility(View.VISIBLE);
+        clicks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (orderSellerModel == null) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "订单刷新中...");
+                    return;
+                }
+                APPOftenUtils.createAskDialog(getBaseActivityContext(), "确认要删除订单吗？", new OnAskDialogCallBack() {
+                    @Override
+                    public void onOKey(Dialog dialog) {
+                        dialog.dismiss();
+                        dialog = null;
+                        OrderUtils.del_expend(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"));
+
+                    }
+
+                    @Override
+                    public void onCancel(Dialog dialog) {
+                        dialog.dismiss();
+                        dialog = null;
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void deposit() {
+        clicks.setText("立即处理");
+        clicks.setVisibility(View.VISIBLE);
+        clicks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (orderSellerModel == null) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "订单刷新中...");
+                    return;
+                }
+                if ("1".equals(orderSellerModel.type)) {
+                    if (getBaseActivityContext() != null) {
+                        startActivity(new Intent(getBaseActivityContext(), OrderReturnsChangeApplyForAndCompleteDataSeller.class)
+                                .putExtra("order_id", orderSellerModel.order_id));
+                    }
+                }
+
+            }
+        });
+    }
 
     void initExpressAdapter() {
         expressAdapter = new SSS_Adapter<ExpressModel>(getBaseActivityContext(), R.layout.item_express_text) {
@@ -501,6 +530,7 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
 
 
     void showData() {
+        express_id = orderSellerModel.express_id;
         peopleNameOrderGoodsOrderSendSeller.setText(orderSellerModel.recipients);
         contentOrderGoodsOrderSendSeller.setText(orderSellerModel.address);
         mobileNameOrderGoodsOrderSendSeller.setText(orderSellerModel.mobile);
@@ -510,7 +540,6 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
         showPenalSumOrderGoodsOrderSendSeller.setText(orderSellerModel.damages);
         showOtherOrderGoodsOrderSendSeller.setText(orderSellerModel.remark);
         listOrderGoodsOrderSendSeller.setData(getBaseActivityContext(), orderSellerModel);
-
         expressageCode.setText(orderSellerModel.waybill);
         if (getIntent().getExtras().getInt("status") == Constant.Have_Already_Paid_Awating_Delivery) {
             company.setHint("请填写快递公司");

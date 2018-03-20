@@ -1,22 +1,27 @@
 package com.sss.car.view;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.Glid.GlidUtils;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Button.CountDownButton;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangeInfoModel;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.rongyun.RongYunUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -26,6 +31,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
+
+import static android.R.attr.key;
+import static android.R.attr.value;
 
 /**
  * Created by leilei on 2017/8/16.
@@ -74,7 +82,11 @@ public class ActivityMyDataChangeMobile extends BaseActivity {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                getCodeActivityMyDataChangeMobile.setText("剩余" + millisUntilFinished / 1000 + "秒");
+                if (millisUntilFinished>2000) {
+                    getCodeActivityMyDataChangeMobile.setText("剩余" + millisUntilFinished / 1000 + "秒");
+                }else {
+                    getCodeActivityMyDataChangeMobile.setText("获取验证码");
+                }
             }
 
             @Override
@@ -120,14 +132,20 @@ public class ActivityMyDataChangeMobile extends BaseActivity {
                     ToastUtils.showShortToast(getBaseActivityContext(),"新手机号不能为空");
                     return;
                 }
-                mobile_isset(newActivityMyDataChangeMobile.getText().toString().trim());
+                try {
+                    getSms(newActivityMyDataChangeMobile.getText().toString().trim());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             case R.id.sure_activity_my_data_change_mobile:
                 if (StringUtils.isEmpty(newActivityMyDataChangeMobile.getText().toString().trim())){
                     ToastUtils.showShortToast(getBaseActivityContext(),"新手机号不能为空");
                     return;
                 }
-                sure(newActivityMyDataChangeMobile.getText().toString().trim());
+                mobile_isset(newActivityMyDataChangeMobile.getText().toString().trim());
+
                 break;
         }
     }
@@ -136,7 +154,7 @@ public class ActivityMyDataChangeMobile extends BaseActivity {
     /**
      * 确定
      */
-    void sure(String mobile) {
+    void sure(final String mobile) {
         if (StringUtils.isEmpty(mobile)) {
             if (getBaseActivityContext() != null) {
                 ToastUtils.showShortToast(getBaseActivityContext(), "手机号为空");
@@ -168,11 +186,72 @@ public class ActivityMyDataChangeMobile extends BaseActivity {
             return;
         }
 
-        changeUserInfoModel = new ChangeInfoModel();
-        changeUserInfoModel.msg = mobile;
-        changeUserInfoModel.type = getIntent().getExtras().getString("type");
-        EventBus.getDefault().post(changeUserInfoModel);
-        finish();
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        if (getBaseActivityContext() != null) {
+            ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
+            ywLoadingDialog.show();
+        }
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.setUserInfo(
+                    new JSONObject()
+                            .put("mobile", mobile)
+                            .put("verify_code",code)
+                            .put("old_mobile",oldActivityMyDataChangeMobile.getText().toString().trim())
+                            .put("member_id", Config.member_id).toString(), "保存手机号", new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (getBaseActivityContext() != null) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "服务器访问错误");
+                            }
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            if (StringUtils.isEmpty(response)) {
+                                if (getBaseActivityContext() != null) {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), "服务器返回错误");
+                                }
+                            } else {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    if ("1".equals(jsonObject.getString("status"))) {
+                                        Config.mobile = jsonObject.getJSONObject("data").getString("value");
+                                        new SPUtils(getBaseActivityContext(),Config.defaultFileName, Context.MODE_PRIVATE).put("account",Config.mobile);
+
+                                        changeUserInfoModel = new ChangeInfoModel();
+                                        changeUserInfoModel.msg = mobile;
+                                        changeUserInfoModel.type = getIntent().getExtras().getString("type");
+                                        EventBus.getDefault().post(changeUserInfoModel);
+                                        finish();
+                                    } else {
+                                        if (getBaseActivityContext() != null) {
+                                            ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                        }
+                                    }
+                                } catch (JSONException e) {
+                                    if (getBaseActivityContext() != null) {
+                                        ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:save-0");
+                                    }
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:save-0");
+            e.printStackTrace();
+        }
+
 
     }
     /**
@@ -210,7 +289,7 @@ public class ActivityMyDataChangeMobile extends BaseActivity {
                             try {
                                 final JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
-                                    getSms(mobile);
+                                    sure(newActivityMyDataChangeMobile.getText().toString().trim());
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }
@@ -246,7 +325,7 @@ public class ActivityMyDataChangeMobile extends BaseActivity {
             return;
         }
 
-        if (getCodeActivityMyDataChangeMobile.getmCurrentmillis() > 1000) {
+        if (getCodeActivityMyDataChangeMobile.getmCurrentmillis() > 2000) {
             if (getBaseActivityContext() != null) {
                 ToastUtils.showShortToast(getBaseActivityContext(), "剩余" + (getCodeActivityMyDataChangeMobile.getmCurrentmillis() / 1000) + "秒后再试");
             }
@@ -302,4 +381,5 @@ public class ActivityMyDataChangeMobile extends BaseActivity {
             }
         })));
     }
+
 }

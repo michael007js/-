@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.amap.api.location.AMapLocation;
@@ -20,7 +18,6 @@ import com.blankj.utilcode.EventbusModel.SendMessageFromActivityInputKeyBoard;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.adapter.FragmentAdapter;
 import com.blankj.utilcode.constant.RequestModel;
-import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.Layout.LayoutNavMenu.NavMenuLayout;
 import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.dao.Webbiz;
@@ -29,7 +26,6 @@ import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.BadgerUtils;
 import com.blankj.utilcode.util.CountDownTimerUtils;
 import com.blankj.utilcode.util.DeviceUtils;
-import com.blankj.utilcode.util.EncodeUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -56,6 +52,7 @@ import com.sss.car.fragment.FragmentMy;
 import com.sss.car.fragment.FragmentShare;
 import com.sss.car.gaode.LocationConfig;
 import com.sss.car.rongyun.RongYunUtils;
+import com.sss.car.utils.CarUtils;
 import com.umeng.socialize.UMShareAPI;
 
 import org.greenrobot.eventbus.EventBus;
@@ -68,18 +65,14 @@ import java.security.NoSuchAlgorithmException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
-import io.rong.imkit.model.UIConversation;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
-
-import static com.umeng.socialize.utils.DeviceConfig.context;
 
 
 /**
@@ -155,6 +148,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CarUtils.startAdvertisement(getBaseActivityContext());
         setContentView(R.layout.main);
         ButterKnife.bind(this);
         requestAPPLicense();
@@ -197,7 +191,9 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
                                 run();
                             }
                         } else {
+                            startActivity(new Intent(getBaseActivityContext(),LoginAndRegister.class));
                             ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                            finish();
                         }
                     } catch (JSONException e) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "Error:" + e.getMessage());
@@ -280,6 +276,10 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
                                     }
                                 });
                             } else {
+                                startActivity(new Intent(getBaseActivityContext(),LoginAndRegister.class)
+                                        .putExtra("isShowBack", false));
+                                ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                finish();
                             }
                         } catch (JSONException e) {
                             dissmissLoading();

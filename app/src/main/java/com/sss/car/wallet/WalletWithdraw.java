@@ -27,6 +27,7 @@ import com.sss.car.RequestWeb;
 import com.sss.car.dao.OnPayPasswordVerificationCallBack;
 import com.sss.car.model.BankModel;
 import com.sss.car.utils.MenuDialog;
+import com.sss.car.view.ActivityBangCardBind;
 import com.sss.car.view.ActivityWeb;
 import com.sss.car.view.WalletAddBank;
 
@@ -143,8 +144,9 @@ public class WalletWithdraw extends BaseActivity {
                         }
                     }else {
                         if (getBaseActivityContext() != null) {
-                            startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
-                                    .putExtra("type",ActivityWeb.BANK_BIND));
+//                            startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
+//                                    .putExtra("type",ActivityWeb.BANK_BIND));
+                            startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
                         }
 //                        if (getBaseActivityContext() != null) {
 //                            startActivity(new Intent(getBaseActivityContext(), WalletAddBank.class));

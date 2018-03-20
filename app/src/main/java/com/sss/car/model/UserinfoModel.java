@@ -19,9 +19,9 @@ public class UserinfoModel {
     public String remark;
     public String status;
     public String sex;
+    public String stranger;
 
-
-    public UserinfoModel(String member_id, String face, String username, String is_auth, String credit, String last_time, String auth_type, String friend, String shop_id,String account,String is_special,String remark,String status,String sex) {
+    public UserinfoModel(String member_id, String face, String username, String is_auth, String credit, String last_time, String auth_type, String friend, String shop_id,String account,String is_special,String remark,String status,String sex,String stranger) {
         this.member_id = member_id;
         this.face = face;
         this.username = username;
@@ -36,6 +36,7 @@ public class UserinfoModel {
         this.remark=remark;
         this.status=status;
         this.sex=sex;
+        this.stranger=stranger;
     }
 
     @Override

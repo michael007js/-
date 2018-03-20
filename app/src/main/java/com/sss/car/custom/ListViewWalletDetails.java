@@ -84,15 +84,21 @@ public class ListViewWalletDetails extends LinearLayout {
                     helper.setText(R.id.date_item_fragment_wallet_details_child, "日期:" + bean.create_time);
                     //1收入，2支出，3积分,4资金
                     if ("1".equals(bean.type)){
+                        helper.setVisibility(R.id.parent,VISIBLE);
                         if (!StringUtils.isEmpty(bean.order_code)){
                             helper.setText(R.id.code_item_fragment_wallet_details_child, "订单编号:"+bean.order_code);
                         }
-                        helper.setText(R.id.price_item_fragment_wallet_details_child, "金额:" + bean.money);
+                        helper.setText(R.id.price_item_fragment_wallet_details_child, "发生金额:" + bean.total);
+                        helper.setText(R.id.three, "收入金额:"+bean.money);
+                        helper.setText(R.id.four, "费用:"+bean.rate_price);
                     }else  if ("2".equals(bean.type)){
+                        helper.setVisibility(R.id.parent,VISIBLE);
                         if (!StringUtils.isEmpty(bean.order_code)){
                             helper.setText(R.id.code_item_fragment_wallet_details_child, "订单编号:"+bean.order_code);
                         }
-                        helper.setText(R.id.price_item_fragment_wallet_details_child, "金额:" + bean.money);
+                        helper.setText(R.id.price_item_fragment_wallet_details_child, "发生金额:" + bean.total);
+                        helper.setText(R.id.three, "支出金额:"+bean.money);
+                        helper.setText(R.id.four, "费用:"+bean.rate_price);
                     }else if ("3".equals(bean.type)){
                         helper.setText(R.id.price_item_fragment_wallet_details_child, "数量:" + bean.integral);
                     }else if ("4".equals(bean.type)){

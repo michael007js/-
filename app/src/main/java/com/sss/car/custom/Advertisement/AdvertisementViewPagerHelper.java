@@ -167,7 +167,7 @@ public class AdvertisementViewPagerHelper implements JCBuriedPointStandard {
                             @Override
                             public void onClick(View v) {
                                 if (onAdvertisementClickCallBack != null) {
-                                    onAdvertisementClickCallBack.onClick();
+                                    onAdvertisementClickCallBack.onClick(((AdvertisementModel) data).link_url);
                                 }
                             }
                         });
@@ -346,7 +346,7 @@ public class AdvertisementViewPagerHelper implements JCBuriedPointStandard {
 
 
     public interface OnAdvertisementClickCallBack {
-        void onClick();
+        void onClick(String url);
     }
 
 }

@@ -20,7 +20,6 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chanjet.yqpay.IYQPayCallback;
 import com.chanjet.yqpay.YQPayApi;
 import com.chanjet.yqpay.util.DeviceUtils;
-import com.chanjet.yqpay.util.StringUtils;
 import com.google.gson.Gson;
 import com.rey.material.app.BottomSheetDialog;
 import com.sss.car.Config;
@@ -30,7 +29,6 @@ import com.sss.car.EventBusModel.ChangedPopularizeModel;
 import com.sss.car.P;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
-import com.sss.car.WebViewActivity;
 import com.sss.car.view.ActivityMyDataSynthesizSettingSetPayPassword;
 import com.sss.car.view.ActivityPayInfo;
 
@@ -42,9 +40,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 import okhttp3.Call;
-
-import static com.sss.car.R.id.click_score;
-import static com.sss.car.R.id.money_dialog_payment_bottom;
 
 /**
  * Created by leilei on 2018/1/16.
@@ -109,7 +104,7 @@ public class PayUtils {
      * @param activity
      */
     public static void requestPayment(final YWLoadingDialog ywLoadingDialog, final String friend_id, final String ids, final int title_type, final int is_deposit, final String money, final Activity activity) {
-        LogUtils.e("ids:" + ids + "    title_type:" + title_type + "    money:" + money + "");
+        LogUtils.e("ids:" + ids + "    title_type:" + title_type + "    money:" + money + "    is_deposit:"+is_deposit);
         try {
             RequestWeb.payment_integral(
                     new JSONObject()
@@ -454,6 +449,8 @@ public class PayUtils {
                             .put("money", money)
                             .put("type", title_type)
                             .put("ids", ids)
+                            .put("lat",Config.latitude)
+                            .put("lng",Config.longitude)
                             .put("is_deposit", is_deposit)
                             .put("friend_id", friend_id)
                             .put("is_integral", is_integral)
@@ -500,10 +497,16 @@ public class PayUtils {
                                     if (ywLoadingDialog != null) {
                                         ywLoadingDialog.disMiss();
                                     }
+                                    if (ywLoadingDialog1 != null) {
+                                        ywLoadingDialog1.disMiss();
+                                    }
                                     ToastUtils.showShortToast(activity, jsonObject.getString("message"));
                                 }
 
                             } catch (JSONException e) {
+                                if (ywLoadingDialog1 != null) {
+                                    ywLoadingDialog1.disMiss();
+                                }
                                 if (ywLoadingDialog != null) {
                                     ywLoadingDialog.disMiss();
                                 }
@@ -515,6 +518,9 @@ public class PayUtils {
         } catch (JSONException e) {
             if (ywLoadingDialog != null) {
                 ywLoadingDialog.disMiss();
+            }
+            if (ywLoadingDialog1 != null) {
+                ywLoadingDialog1.disMiss();
             }
             ToastUtils.showShortToast(activity, "统一订单数据解析错误Err -1");
             e.printStackTrace();

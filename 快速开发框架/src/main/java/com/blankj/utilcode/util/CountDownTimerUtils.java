@@ -30,6 +30,10 @@ public abstract class CountDownTimerUtils {
         mCountdownInterval = countDownInterval;
     }
 
+    public long getmStopTimeInFuture() {
+        return mStopTimeInFuture;
+    }
+
     public synchronized final void cancel() {
         mComplete = true;
         mCancelled = true;
@@ -37,6 +41,7 @@ public abstract class CountDownTimerUtils {
             mHandler.removeCallbacksAndMessages(null);
         }
         mHandler = null;
+        LogUtils.e("cancel");
     }
 
     public void onPause() {
@@ -64,7 +69,9 @@ public abstract class CountDownTimerUtils {
             return this;
         }
         mStopTimeInFuture = SystemClock.elapsedRealtime() + mMillisInFuture;
-        mHandler.sendMessage(mHandler.obtainMessage(MSG));
+        if (mHandler != null) {
+            mHandler.sendMessage(mHandler.obtainMessage(MSG));
+        }
         return this;
     }
 

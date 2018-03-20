@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.NumberKeyListener;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,6 +20,9 @@ import com.sss.car.R;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +46,7 @@ public class ActivityChangeInfo extends BaseActivity {
     String type = "";
     JSONObject send;
     boolean isChanged = false;
-    boolean canChange=true;
+    boolean canChange = true;
     ChangeInfoModel changeUserInfoModel;
 
     @Override
@@ -75,9 +79,9 @@ public class ActivityChangeInfo extends BaseActivity {
             }
             finish();
         }
-        customInit(activityChangeInfo,false,true,false);
+        customInit(activityChangeInfo, false, true, false);
         type = getIntent().getExtras().getString("type");
-        canChange=getIntent().getExtras().getBoolean("canChange");
+        canChange = getIntent().getExtras().getBoolean("canChange");
         rightButtonTop.setText("保存");
         rightButtonTop.setTextColor(getResources().getColor(R.color.mainColor));
         switch (type) {
@@ -139,6 +143,44 @@ public class ActivityChangeInfo extends BaseActivity {
             case "expressageCode":
                 titleTop.setText("快递单号");
                 editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
+                editActivityChangeInfo. setKeyListener(new  NumberKeyListener() {
+
+                    @Override
+                    public int getInputType() {
+                        return InputType.TYPE_CLASS_NUMBER;
+                    }
+
+                    protected char[] getAcceptedChars() {
+                        char numberChars[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',};
+                        return numberChars;
+
+                    }
+
+                });
+                editActivityChangeInfo.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        String editable = editActivityChangeInfo.getText().toString();
+                        String regEx = "[^0-9]";  //只能输入字母或数字
+                        Pattern p = Pattern.compile(regEx);
+                        Matcher m = p.matcher(editable);
+                        String str = m.replaceAll("").trim();    //删掉不是字母或数字的字符
+                        if (!editable.equals(str)) {
+                            editActivityChangeInfo.setText(str);  //设置EditText的字符
+                            editActivityChangeInfo.setSelection(str.length()); //因为删除了字符，要重写设置新的光标所在位置
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
                 break;
             case "returnAndChangeReason":
                 titleTop.setText("退换原因");
@@ -175,7 +217,6 @@ public class ActivityChangeInfo extends BaseActivity {
                 break;
 
         }
-
 
 
         editActivityChangeInfo.addTextChangedListener(new TextWatcher() {
@@ -230,8 +271,8 @@ public class ActivityChangeInfo extends BaseActivity {
      */
     void save() throws JSONException {
 
-        if (canChange==false){
-            ToastUtils.showShortToast(getBaseActivityContext(),"您无权修改任何内容!");
+        if (canChange == false) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "您无权修改任何内容!");
             return;
         }
         if (!isChanged) {
@@ -240,8 +281,8 @@ public class ActivityChangeInfo extends BaseActivity {
             }
             return;
         }
-        if ("idCard".equals(getIntent().getExtras().getString("type"))){
-            if (!RegexUtils.isIDCard18(editActivityChangeInfo.getText().toString().trim())){
+        if ("idCard".equals(getIntent().getExtras().getString("type"))) {
+            if (!RegexUtils.isIDCard18(editActivityChangeInfo.getText().toString().trim())) {
                 ToastUtils.showShortToast(getBaseActivityContext(), "身份证不正确!");
                 return;
             }

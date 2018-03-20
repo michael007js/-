@@ -81,7 +81,7 @@ public class ActivityPayInfo extends BaseActivity {
 //        orderID=getIntent().getExtras().getString("orderID");
         HashMap<String, String> respMap = new Gson().fromJson(getIntent().getExtras().getString("respMap"), HashMap.class);
         String payContent = respMap.get("PayInfo");
-        WebViewActivity.startActionForResult(this, payContent, REQUEST_CODE);
+        WebViewActivity.startActionForResult(this, payContent, REQUEST_CODE,"支付");
     }
 
     @OnClick({R.id.back_top, R.id.right_button_top})

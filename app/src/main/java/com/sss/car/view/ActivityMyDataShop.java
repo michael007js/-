@@ -63,6 +63,8 @@ public class ActivityMyDataShop extends BaseActivity {
     TextView showTimeActivityMyDataShop;
     @BindView(R.id.show_pro_activity_my_data_shop)
     TextView showProActivityMyDataShop;
+    @BindView(R.id.click_kefu)
+    LinearLayout clickKeFu;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -84,7 +86,7 @@ public class ActivityMyDataShop extends BaseActivity {
         timeActivityMyDataShop = null;
         proActivityMyDataShop = null;
         activityMyDataShop = null;
-        showProActivityMyDataShop=null;
+        showProActivityMyDataShop = null;
         super.onDestroy();
     }
 
@@ -102,9 +104,8 @@ public class ActivityMyDataShop extends BaseActivity {
     public void onMessageEvent(ChangeInfoModel event) {
         switch (event.type) {
             case "shopName":
-
                 try {
-                    setshopInfo("设置店铺名称", new JSONObject().put("name", event.msg));
+                    setshopInfo("设置商铺名称", new JSONObject().put("name", event.msg));
                     showNameActivityMyDataShop.setText(event.msg);
                 } catch (JSONException e) {
                     ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err: set Shop-0");
@@ -113,9 +114,9 @@ public class ActivityMyDataShop extends BaseActivity {
                 break;
             case "shopAdress":
                 try {
-                    setshopInfo("设置店铺地址", new JSONObject()
-                            .put("lat",event.lat)
-                            .put("lng",event.lng)
+                    setshopInfo("设置商铺地址", new JSONObject()
+                            .put("lat", event.lat)
+                            .put("lng", event.lng)
                             .put("address", event.msg));
                     showAdressActivityMyDataShop.setText(event.msg);
                 } catch (JSONException e) {
@@ -125,7 +126,7 @@ public class ActivityMyDataShop extends BaseActivity {
                 break;
             case "shopPro":
                 try {
-                    setshopInfo("设置店铺简介", new JSONObject()
+                    setshopInfo("设置商铺简介", new JSONObject()
                             .put("describe", event.msg));
 //                    showProActivityMyDataShop.setText(event.msg);
                 } catch (JSONException e) {
@@ -135,12 +136,12 @@ public class ActivityMyDataShop extends BaseActivity {
                 break;
             case "shopTime":
                 try {
-                    setshopInfo("设置店铺营业时间", new JSONObject()
+                    setshopInfo("设置商铺营业时间", new JSONObject()
                             .put("business_hours", event.msg));
                     showTimeActivityMyDataShop.setText(event.msg);
-                    String[] a=event.msg.split("-");
-                    if (a.length==2){
-                        showTimeActivityMyDataShop.setText(a[0]+"-"+a[1]);
+                    String[] a = event.msg.split("-");
+                    if (a.length == 2) {
+                        showTimeActivityMyDataShop.setText(a[0] + "-" + a[1]);
                     }
                 } catch (JSONException e) {
                     ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err: set Shop-0");
@@ -150,11 +151,18 @@ public class ActivityMyDataShop extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.back_top, R.id.name_activity_my_data_shop, R.id.logo_activity_my_data_shop, R.id.pic_activity_my_data_shop, R.id.adress_activity_my_data_shop, R.id.time_activity_my_data_shop, R.id.pro_activity_my_data_shop})
+    @OnClick({R.id.back_top, R.id.name_activity_my_data_shop,R.id.click_kefu, R.id.logo_activity_my_data_shop, R.id.pic_activity_my_data_shop, R.id.adress_activity_my_data_shop, R.id.time_activity_my_data_shop, R.id.pro_activity_my_data_shop})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_top:
                 finish();
+                break;
+            case R.id.click_kefu:
+                if (getBaseActivityContext()!=null){
+                    startActivity(new Intent(getBaseActivityContext(),ActivityShareInteractionManageSettingPeopleManage.class)
+                            .putExtra("title","商铺客服设置")
+                            .putExtra("type","5"));
+                }
                 break;
             case R.id.name_activity_my_data_shop:
                 if (StringUtils.isEmpty(myDataShopModel.shop_id)) {
@@ -225,7 +233,7 @@ public class ActivityMyDataShop extends BaseActivity {
 
 
     /**
-     * 获取店铺信息
+     * 获取商铺信息
      */
     void getshopInfo() {
 
@@ -273,11 +281,18 @@ public class ActivityMyDataShop extends BaseActivity {
                                         myDataShopModel.address = jsonObject.getJSONObject("data").getString("address");
                                         myDataShopModel.business_hours = jsonObject.getJSONObject("data").getString("business_hours");
                                         myDataShopModel.describe = jsonObject.getJSONObject("data").getString("describe");
-                                        showNameActivityMyDataShop.setText( myDataShopModel.name);
-                                        showAdressActivityMyDataShop.setText( myDataShopModel.address);
-                                        String[] a=myDataShopModel.business_hours.split("-");
-                                        if (a.length==2){
-                                            showTimeActivityMyDataShop.setText(a[0]+"-"+a[1]);
+                                        myDataShopModel.member_id = jsonObject.getJSONObject("data").getString("member_id");
+                                        showNameActivityMyDataShop.setText(myDataShopModel.name);
+                                        showAdressActivityMyDataShop.setText(myDataShopModel.address);
+                                        String[] a = myDataShopModel.business_hours.split("-");
+                                        if (a.length == 2) {
+                                            showTimeActivityMyDataShop.setText(a[0] + "-" + a[1]);
+                                        }
+
+                                        if (Config.member_id.equals(myDataShopModel.member_id)){
+                                            clickKeFu.setVisibility(View.VISIBLE);
+                                        }else {
+                                            clickKeFu.setVisibility(View.GONE);
                                         }
 
                                     } else {
@@ -302,7 +317,7 @@ public class ActivityMyDataShop extends BaseActivity {
     }
 
     /*
-    * 设置店铺信息
+    * 设置商铺信息
     */
     void setshopInfo(String meaning, JSONObject jsonObject) {
 
@@ -346,10 +361,10 @@ public class ActivityMyDataShop extends BaseActivity {
                                     JSONObject jsonObject = new JSONObject(response);
                                     if ("1".equals(jsonObject.getString("status"))) {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
-                                        getshopInfo();
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                     }
+                                    getshopInfo();
                                 } catch (JSONException e) {
                                     if (getBaseActivityContext() != null) {
                                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err: set Shop-0");

@@ -30,6 +30,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+import static com.sss.car.R.id.eyes;
+
 
 /**
  * Created by leilei on 2018/1/2.
@@ -100,7 +102,7 @@ public class ActivityMyDataSynthesizeSettingSetLoginPassword extends BaseActivit
                 }
             }
         });
-        eyesOne.setOnHideShowButtonCallBack(new HideShowButton.OnHideShowButtonCallBack() {
+        eyesThree.setOnHideShowButtonCallBack(new HideShowButton.OnHideShowButtonCallBack() {
             @Override
             public void onHideShowButtonClick(boolean isHide) {
                 eyesThree.changed(60,60,getBaseActivityContext());

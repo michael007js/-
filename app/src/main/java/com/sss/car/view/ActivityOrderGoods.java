@@ -51,6 +51,7 @@ import static android.R.attr.order;
  * Created by leilei on 2017/9/29.
  */
 
+@SuppressWarnings("ALL")
 public class ActivityOrderGoods extends BaseActivity {
     @BindView(R.id.back_top)
     LinearLayout backTop;

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cpdetector">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../快速开发框架/libs/cpdetector.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

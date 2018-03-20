@@ -3,6 +3,7 @@ package com.blankj.utilcode.fresco;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.widget.ImageView;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import com.blankj.utilcode.R;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.facebook.binaryresource.FileBinaryResource;
+import com.facebook.cache.common.SimpleCacheKey;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.common.disk.NoOpDiskTrimmableRegistry;
 import com.facebook.common.internal.Supplier;
@@ -319,7 +322,13 @@ public class FrescoUtils {
         roundingParams.setOverlayColor(bgColor);//加一层遮罩
         draweeView.getHierarchy().setRoundingParams(roundingParams);
     }
-
+    public static  Bitmap returnBitmap(Uri uri) {
+        if (uri==null){
+            return null;
+        }else {
+            return BitmapFactory.decodeFile(((FileBinaryResource) Fresco.getImagePipelineFactory().getMainDiskStorageCache().getResource(new SimpleCacheKey(uri.toString()))).getFile().getPath());
+        }
+    }
 
     /**
      * 暂停网络请求

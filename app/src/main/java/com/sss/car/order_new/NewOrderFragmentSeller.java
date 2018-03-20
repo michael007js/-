@@ -197,8 +197,11 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
                                     }
                                     if (list.size() > 0) {
                                         emptyView.setVisibility(View.GONE);
+                                        listNewOrderFragment.setVisibility(View.VISIBLE);
                                     }else {
                                         emptyView.setVisibility(View.VISIBLE);
+                                        listNewOrderFragment.setVisibility(View.GONE);
+
                                     }
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
@@ -528,10 +531,16 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
 
     /**
      * 立即发货
+     * @param orderModel
      */
     @Override
-    public void onImmediateDelivery() {
+    public void onImmediateDelivery(OrderModel orderModel) {
+        if ("1".equals(orderModel.type)) {
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "goods", orderModel.status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status);
+        } else {
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "service", orderModel.status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status);
 
+        }
     }
 
     /**

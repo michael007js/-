@@ -196,6 +196,17 @@ public class RequestWeb {
     }
 
     /**
+     * 重置支付密码
+     *
+     * @param send
+     * @param meaning
+     * @param stringCallback
+     * @return
+     */
+    public static Call set_pay_pass(String send, String meaning, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Member/set_pay_pass", send, "重置支付密码" + meaning, stringCallback);
+    }
+    /**
      * 找回登录密码
      *
      * @param send
@@ -2833,4 +2844,16 @@ public class RequestWeb {
     public static Call parameter(String send, StringCallback stringCallback) {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Goods/parameter", send, "商品规格参数", stringCallback);
     }
+
+    /**
+     * PC端数据信息
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call site(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Member/site", send, "PC端数据信息", stringCallback);
+    }
+
+
 }

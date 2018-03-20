@@ -780,7 +780,6 @@ public class OrderServiceReadyBuy extends BaseActivity {
                 couponModel3.is_check = jsonArray.getJSONObject(i).getString("is_check");
                 list.add(couponModel3);
                 showCouponOrderServiceReadyBuy.setTextColor(getResources().getColor(R.color.black));
-                showCouponOrderServiceReadyBuy.setText("");
                 if ("1".equals(couponModel3.is_check)) {
                     showCouponOrderServiceReadyBuy.setText(couponModel3.name);
                     coupon_id = couponModel3.id;

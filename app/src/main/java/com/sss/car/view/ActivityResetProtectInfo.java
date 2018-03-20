@@ -1,6 +1,7 @@
 package com.sss.car.view;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -71,6 +72,17 @@ public class ActivityResetProtectInfo extends BaseActivity {
         ButterKnife.bind(this);
         titleTop.setText("重置密保信息");
         customInit(activityResetProtectInfo,false,true,false);
+        eyesOne.setOnHideShowButtonCallBack(new HideShowButton.OnHideShowButtonCallBack() {
+            @Override
+            public void onHideShowButtonClick(boolean isHide) {
+                eyesOne.changed(20, 20, getBaseActivityContext());
+                if (isHide) {
+                    password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                } else {
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+            }
+        });
     }
 
     @OnClick({R.id.back_top, R.id.save})

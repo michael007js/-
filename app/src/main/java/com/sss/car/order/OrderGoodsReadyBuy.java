@@ -767,8 +767,8 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                 couponModel3.duration = jsonArray.getJSONObject(i).getString("duration");
                 couponModel3.is_check = jsonArray.getJSONObject(i).getString("is_check");
                 list.add(couponModel3);
+                LogUtils.e(couponModel3.is_check);
                 showCouponOrderGoodsReadyBuy.setTextColor(getResources().getColor(R.color.black));
-                showCouponOrderGoodsReadyBuy.setText("");
                 if ("1".equals(couponModel3.is_check)) {
                     showCouponOrderGoodsReadyBuy.setText(couponModel3.name);
                 }
@@ -906,7 +906,6 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                 integrityMoneyModel.is_check = jsonArray.getJSONObject(i).getString("is_check");
                 integrityMoneyModel.name = jsonArray.getJSONObject(i).getString("name");
                 if ("1".equals(integrityMoneyModel.is_check)) {
-                    LogUtils.e(integrityMoneyModel.is_check);
                     penalSum = integrityMoneyModel.name;
                     showPenalSumOrderGoodsReadyBuy.setText(integrityMoneyModel.name);
                 }

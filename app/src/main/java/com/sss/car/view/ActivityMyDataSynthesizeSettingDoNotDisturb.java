@@ -111,6 +111,7 @@ public class ActivityMyDataSynthesizeSettingDoNotDisturb extends BaseActivity {
         switchTime.setOnStateChangedListener(new SwitchButton.OnStateChangedListener() {
             @Override
             public void toggleToOn(SwitchButton view) {
+                switchTime.setOpened(true);
                 if (StringUtils.isEmpty(start)||StringUtils.isEmpty(end)){
                     startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSynthesizeSettingDoNotDisturbChooseTime.class)
                             .putExtra("start", start)
@@ -123,6 +124,7 @@ public class ActivityMyDataSynthesizeSettingDoNotDisturb extends BaseActivity {
 
             @Override
             public void toggleToOff(SwitchButton view) {
+                switchTime.setOpened(false);
                 if (!StringUtils.isEmpty(start)&&!StringUtils.isEmpty(end)){
                     setUsinfo("0");
                 }

@@ -1463,7 +1463,6 @@ public class MenuDialog implements QRCodeDataListener {
 
     }
 
-
     public void createUserRightMenu(UserinfoModel userinfoModel, Context context, final OnUserInfoMenuCallBack onUserInfoMenuCallBack) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_userinfo, null);
@@ -1482,7 +1481,11 @@ public class MenuDialog implements QRCodeDataListener {
         } else {
             specialAttention.setText("添加特别关注");
         }
-
+        if ("0".equals(userinfoModel.stranger)) {
+            disturb.setText("消息免打扰");
+        } else {
+            disturb.setText("取消免打扰");
+        }
         if ("0".equals(userinfoModel.status)) {//0什么关系也不是
             remark.setVisibility(View.GONE);
             line_remark.setVisibility(View.GONE);

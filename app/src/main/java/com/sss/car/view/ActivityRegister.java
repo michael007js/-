@@ -19,6 +19,7 @@ import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.BitmapUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -235,7 +236,7 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
     }
 
 
-    @OnClick({R.id.back_top, R.id.get_code_activity_register, R.id.register_activity_register, R.id.protocol_activity_register,R.id.qr_activity_register})
+    @OnClick({R.id.back_top, R.id.get_code_activity_register, R.id.register_activity_register, R.id.protocol_activity_register, R.id.qr_activity_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.qr_activity_register:
@@ -243,18 +244,18 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
                     @Override
                     public void onOKey(Dialog dialog) {
                         dialog.dismiss();
-                        dialog=null;
-                        if (APPOftenUtils.saveImageToGallery(getBaseActivityContext(), BitmapUtils.getBitmapFromImageView(qrActivityRegister))){
-                            ToastUtils.showShortToast(getBaseActivityContext(),"保存成功");
-                        }else {
-                            ToastUtils.showShortToast(getBaseActivityContext(),"保存失败");
+                        dialog = null;
+                        if (APPOftenUtils.saveImageToGallery(getBaseActivityContext(), BitmapUtils.getBitmapFromImageView(qrActivityRegister))) {
+                            ToastUtils.showShortToast(getBaseActivityContext(), "保存成功");
+                        } else {
+                            ToastUtils.showShortToast(getBaseActivityContext(), "保存失败");
                         }
                     }
 
                     @Override
                     public void onCancel(Dialog dialog) {
                         dialog.dismiss();
-                        dialog=null;
+                        dialog = null;
 
                     }
                 });
@@ -263,8 +264,8 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
                 finish();
                 break;
             case R.id.get_code_activity_register:
-                if (StringUtils.isEmpty(mobileActivityRegister.getText().toString().trim())){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"填写手机号");
+                if (StringUtils.isEmpty(mobileActivityRegister.getText().toString().trim())) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "填写手机号");
                     return;
                 }
                 mobile_isset();
@@ -285,49 +286,49 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
                 activityRegister.setFocusable(true);
                 activityRegister.setFocusableInTouchMode(true);
                 activityRegister.requestFocus();
-                if (StringUtils.isEmpty(mobileActivityRegister.getText().toString().trim())){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请输入手机号码");
-                    showPhone.wrong(60,60,getBaseActivityContext());
+                if (StringUtils.isEmpty(mobileActivityRegister.getText().toString().trim())) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请输入手机号码");
+                    showPhone.wrong(60, 60, getBaseActivityContext());
                     showPhone.setVisibility(View.VISIBLE);
                     return;
                 }
 
-                if (StringUtils.isEmpty(codeActivityRegister.getText().toString().trim())){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请输入验证码");
-                    showCode.wrong(60,60,getBaseActivityContext());
+                if (StringUtils.isEmpty(codeActivityRegister.getText().toString().trim())) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请输入验证码");
+                    showCode.wrong(60, 60, getBaseActivityContext());
                     showCode.setVisibility(View.VISIBLE);
                     return;
                 }
 
-                if (StringUtils.isEmpty(passwordOneActivityRegister.getText().toString().trim())){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请输入密码");
-                    showPasswordOne.wrong(60,60,getBaseActivityContext());
+                if (StringUtils.isEmpty(passwordOneActivityRegister.getText().toString().trim())) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请输入密码");
+                    showPasswordOne.wrong(60, 60, getBaseActivityContext());
                     showPasswordOne.setVisibility(View.VISIBLE);
                     return;
                 }
 
-                if (StringUtils.isEmpty(passwordTwoActivityRegister.getText().toString().trim())){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请确认密码");
-                    showPasswordTwo.wrong(60,60,getBaseActivityContext());
+                if (StringUtils.isEmpty(passwordTwoActivityRegister.getText().toString().trim())) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请确认密码");
+                    showPasswordTwo.wrong(60, 60, getBaseActivityContext());
                     showPasswordTwo.setVisibility(View.VISIBLE);
                     return;
                 }
-                if (RegexUtils.isABC(passwordOneActivityRegister.getText().toString().trim())||RegexUtils.isNumericString(passwordOneActivityRegister.getText().toString().trim())||passwordOneActivityRegister.getText().length()<6) {
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请输入6-18位的字母和数字组合");
-                    showPasswordOne.wrong(60,60,getBaseActivityContext());
+                if (RegexUtils.isABC(passwordOneActivityRegister.getText().toString().trim()) || RegexUtils.isNumericString(passwordOneActivityRegister.getText().toString().trim()) || passwordOneActivityRegister.getText().length() < 6) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请输入6-18位的字母和数字组合");
+                    showPasswordOne.wrong(60, 60, getBaseActivityContext());
                     showPasswordOne.setVisibility(View.VISIBLE);
                     return;
                 }
 
-                if (StringUtils.isEmpty(invitationActivityRegister.getText().toString().trim())){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请输入注册码");
-                    showInvitation.wrong(60,60,getBaseActivityContext());
+                if (StringUtils.isEmpty(invitationActivityRegister.getText().toString().trim())) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请输入注册码");
+                    showInvitation.wrong(60, 60, getBaseActivityContext());
                     showInvitation.setVisibility(View.VISIBLE);
                     return;
                 }
-                if (StringUtils.isEmpty(protectActivityRegister.getText().toString().trim())){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请输入预留密保信息");
-                    showProtect.wrong(60,60,getBaseActivityContext());
+                if (StringUtils.isEmpty(protectActivityRegister.getText().toString().trim())) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请输入预留密保信息");
+                    showProtect.wrong(60, 60, getBaseActivityContext());
                     showProtect.setVisibility(View.VISIBLE);
                     return;
                 }
@@ -350,12 +351,13 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
 
                 break;
             case R.id.protocol_activity_register:
-                if (getBaseActivityContext()!=null){
-                    startActivity(new Intent(getBaseActivityContext(),ActivityProtocol.class));
+                if (getBaseActivityContext() != null) {
+                    startActivity(new Intent(getBaseActivityContext(), ActivityProtocol.class));
                 }
                 break;
         }
     }
+
     /**
      * 获取该账号是否注册
      */
@@ -418,9 +420,9 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
         addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.register(
                 new JSONObject()
                         .put("mobile", mobile)
-                        .put("verify_code",code)
-                        .put("register_code",invitationActivityRegister.getText().toString().trim())
-                        .put("reserved",protectActivityRegister.getText().toString().trim())
+                        .put("verify_code", code)
+                        .put("register_code", invitationActivityRegister.getText().toString().trim())
+                        .put("reserved", protectActivityRegister.getText().toString().trim())
                         .put("password", passwordOne).toString(),
                 new StringCallback() {
                     @Override
@@ -452,8 +454,8 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
                                 } else {
                                     if (getBaseActivityContext() != null) {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
-                                        if ("验证码有误".equals( jsonObject.getString("message"))){
-                                            showCode.wrong(60,60,getBaseActivityContext());
+                                        if ("验证码有误".equals(jsonObject.getString("message"))) {
+                                            showCode.wrong(60, 60, getBaseActivityContext());
                                             showCode.setVisibility(View.VISIBLE);
                                         }
                                     }
@@ -570,7 +572,7 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
                 if (hasFocus == false) {
                     if (StringUtils.isEmpty(codeActivityRegister.getText().toString().trim()) ||
                             StringUtils.isEmpty(code) ||
-                            code.equals(StringUtils.isEmpty(codeActivityRegister.getText().toString().trim()))||codeActivityRegister.getText().toString().trim().length()<6) {
+                            code.equals(StringUtils.isEmpty(codeActivityRegister.getText().toString().trim())) || codeActivityRegister.getText().toString().trim().length() < 6) {
                         showCode.setVisibility(View.VISIBLE);
                         showCode.wrong(60, 60, getBaseActivityContext());
                     } else {
@@ -584,7 +586,7 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
                 break;
             case R.id.password_one_activity_register:
                 if (hasFocus == false) {
-                    if (StringUtils.isEmpty(passwordOneActivityRegister.getText().toString().trim()) || passwordOneActivityRegister.getText().length() < 6|| passwordOneActivityRegister.getText().length() >18) {
+                    if (StringUtils.isEmpty(passwordOneActivityRegister.getText().toString().trim()) || passwordOneActivityRegister.getText().length() < 6 || passwordOneActivityRegister.getText().length() > 18) {
                         showPasswordOne.setVisibility(View.VISIBLE);
                         showPasswordOne.wrong(60, 60, getBaseActivityContext());
                         return;
@@ -596,7 +598,7 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
                     }
                     if (RegexUtils.isNumericString(passwordOneActivityRegister.getText().toString().trim())) {
                         showPasswordOne.setVisibility(View.VISIBLE);
-                        showPasswordTwo.wrong(60, 60, getBaseActivityContext());
+                        showPasswordOne.wrong(60, 60, getBaseActivityContext());
                         return;
                     }
                     showPasswordOne.setVisibility(View.VISIBLE);

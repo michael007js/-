@@ -15,11 +15,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
+import android.text.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,7 +27,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.R;
 import com.blankj.utilcode.Service.MyNotificationService;
 import com.blankj.utilcode.adapter.sssAdapter.SSS_Adapter;
-import com.blankj.utilcode.application.UtilCodeApplication;
 import com.blankj.utilcode.customwidget.Dialog.FlycoDialog.dialog.listener.OnOperItemClickL;
 import com.blankj.utilcode.customwidget.Dialog.FlycoDialog.dialog.widget.ActionSheetDialog;
 import com.blankj.utilcode.dao.CustomExceptionCallBack;
@@ -36,22 +35,16 @@ import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.dao.QRCodeDataListener;
 import com.blankj.utilcode.zxing.activity.CaptureActivity;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
-
-import static android.R.attr.targetName;
-import static com.blankj.utilcode.R.attr.isSuccess;
 
 /**
  * APP开发常用的方法
@@ -63,6 +56,24 @@ public final class APPOftenUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    /**
+     * 将文本内容放到系统剪贴板里。
+     *
+     * @param context
+     * @param content
+     */
+    public static void copyTxt2Clipboard(Context context, String content) {
+        ((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)).setText(content);
+    }
+
+    /**
+     * 从系统剪贴板里获取复制过的文本。
+     *
+     * @param context
+     */
+    public static CharSequence getTxtFromClipboard(Context context) {
+        return ((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)).getText().toString();
+    }
 
 
     /**
@@ -102,7 +113,7 @@ public final class APPOftenUtils {
         mapList.add("com.autonavi.minimap");
         ArrayList<String> temp = new ArrayList<>();
         for (int i = 0; i < mapList.size(); i++) {
-            if (APPOftenUtils.isInstallMaps(context, mapList.get(i))){
+            if (APPOftenUtils.isInstallMaps(context, mapList.get(i))) {
                 temp.add(mapList.get(i));
                 LogUtils.e(temp.get(i));
             }

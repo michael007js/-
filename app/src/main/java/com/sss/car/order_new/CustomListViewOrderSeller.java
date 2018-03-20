@@ -99,7 +99,7 @@ public class CustomListViewOrderSeller extends LinearLayout {
             TextView two_order_custom_listview_order = $.f(view, R.id.two_order_custom_listview_order);
             TextView three_order_custom_listview_order = $.f(view, R.id.three_order_custom_listview_order);
 
-            order_code_custom_listview_order.setText(list.get(finalI).order_code);
+            order_code_custom_listview_order.setText("订单编号"+list.get(finalI).order_code);
             order_date_custom_listview_order.setText(list.get(finalI).create_time);
             name_custom_listview_order.setText(list.get(finalI).name);
             state_custom_listview_order.setText(list.get(finalI).status_name);
@@ -268,11 +268,11 @@ public class CustomListViewOrderSeller extends LinearLayout {
                     });
                     break;
                 case Constant.Returns://已退货
-                    addLine(one_order_custom_listview_order, "确认收货").setOnClickListener(new OnClickListener() {
+                    addLine(one_order_custom_listview_order, "已完成").setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (onCustomListViewCallBack != null) {
-                                onCustomListViewCallBack.onConfirmReceipt(list.get(finalI));
+                                onCustomListViewCallBack.onRefunded();
                             }
                         }
                     });
@@ -295,7 +295,8 @@ public class CustomListViewOrderSeller extends LinearLayout {
                     break;
                 case Constant.Changed://已换货
 
-                    if ("1".equals(list.get(finalI).exchange_status)) {
+                    LogUtils.e(list.get(finalI).exchange_status);
+                    if ("3".equals(list.get(finalI).exchange_status)) {
                         addLine(one_order_custom_listview_order, "确认收货").setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -304,22 +305,24 @@ public class CustomListViewOrderSeller extends LinearLayout {
                                 }
                             }
                         });
-                    } else if ("3".equals(list.get(finalI).exchange_status)) {
+                    } else if ("4".equals(list.get(finalI).exchange_status)) {
                         addLine(one_order_custom_listview_order, "立即发货").setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                if (onCustomListViewCallBack != null) {
+                                    onCustomListViewCallBack.onImmediateProcessing(list.get(finalI));
+                                }
                             }
                         });
-                    } else if ("4".equals(list.get(finalI).exchange_status)) {
-                        addLine(one_order_custom_listview_order, "待签收").setOnClickListener(new OnClickListener() {
+                    } else if ("5".equals(list.get(finalI).exchange_status)) {
+                        addLine(one_order_custom_listview_order, "已完成").setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
                             }
                         });
-                    } else if ("5".equals(list.get(finalI).exchange_status)) {
-                        addLine(one_order_custom_listview_order, "已签收").setOnClickListener(new OnClickListener() {
+                    } else if ("6".equals(list.get(finalI).exchange_status)) {
+                        addLine(one_order_custom_listview_order, "待签收").setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
@@ -563,8 +566,9 @@ public class CustomListViewOrderSeller extends LinearLayout {
 
         /**
          * 立即发货
+         * @param orderModel
          */
-        void onImmediateDelivery();
+        void onImmediateDelivery(OrderModel orderModel);
 
         /**
          * 已签收

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="seekbar-compat-0.2.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../快速开发框架/build/intermediates/exploded-aar/com.minimize.library/seekbar-compat/0.2.5/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../快速开发框架/build/intermediates/exploded-aar/com.minimize.library/seekbar-compat/0.2.5/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.minimize.library/seekbar-compat/0.2.5/e37b7f46488423df304d7b05c584ecd0d8f06a21/seekbar-compat-0.2.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

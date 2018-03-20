@@ -44,6 +44,7 @@
             android:layout_height="1dp"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/share"
             android:textColor="@color/black"
             android:text="分享该名片"
@@ -55,6 +56,7 @@
             android:layout_height="40dp"
             android:gravity="center_vertical"/>
         <TextView
+            android:visibility="gone"
             android:background="@color/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>

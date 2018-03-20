@@ -284,7 +284,11 @@ public class OrderSOSAcceptFromSeller extends BaseActivity {
                 if (showPenalSumOrderSOSAcceptFromSeller.getText().toString().trim().indexOf("%") != -1) {
                     int a = initTotalPrice();
                     if (a != -1) {
-                        PayUtils.requestPayment(ywLoadingDialog,friend_id,getIntent().getExtras().getString("sos_id"),1,0, String.valueOf(a),getBaseActivity());
+                        if (showPenalSumOrderSOSAcceptFromSeller.getText().toString().trim().contains("%")) {
+                            PayUtils.requestPayment(ywLoadingDialog, friend_id, getIntent().getExtras().getString("sos_id"), 1, 1, String.valueOf(a), getBaseActivity());
+                        }else {
+                            PayUtils.requestPayment(ywLoadingDialog, friend_id, getIntent().getExtras().getString("sos_id"), 1, 0, String.valueOf(a), getBaseActivity());
+                        }
 //                        showDialog(initTotalPrice() + "");
                     } else {
                         ToastUtils.showLongToast(getBaseActivityContext(), "服务器数据解析异常-1");

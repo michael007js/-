@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="barlibrary-2.2.6">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../快速开发框架/build/intermediates/exploded-aar/com.gyf.barlibrary/barlibrary/2.2.6/res" />
+      <root url="jar://$PROJECT_DIR$/../快速开发框架/build/intermediates/exploded-aar/com.gyf.barlibrary/barlibrary/2.2.6/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gyf.barlibrary/barlibrary/2.2.6/a7f8383366898239a0be62304f2e9e00b469b6a7/barlibrary-2.2.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

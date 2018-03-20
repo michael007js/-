@@ -268,6 +268,7 @@ public class OrderServiceOrderTip extends BaseActivity {
         showPenalSumOrderGoodsMyOrderBuyer.setText(orderSellerModel.damages);
         showOtherOrderGoodsMyOrderBuyer.setText(orderSellerModel.remark);
         listOrderGoodsMyOrderBuyer.setData(getBaseActivityContext(), orderSellerModel);
+
     }
 
 }

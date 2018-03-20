@@ -161,7 +161,7 @@ public class ActivityMyDataSetPassword extends BaseActivity {
             return;
         }
 
-        if (getActivityMyDataSetPassword.getmCurrentmillis() > 1000) {
+        if (getActivityMyDataSetPassword.getmCurrentmillis() > 2000) {
             if (getBaseActivityContext() != null) {
                 ToastUtils.showShortToast(getBaseActivityContext(), "请于" + (getActivityMyDataSetPassword.getmCurrentmillis() / 1000) + "秒后再试");
             }

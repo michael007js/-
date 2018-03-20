@@ -28,6 +28,7 @@ import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.model.BankModel;
 import com.sss.car.utils.PayUtils;
+import com.sss.car.view.ActivityBangCardBind;
 import com.sss.car.view.ActivityWeb;
 import com.sss.car.view.WalletAddBank;
 
@@ -160,9 +161,7 @@ public class WalletRecharge extends BaseActivity {
                             }
                         } else {
                             if (getBaseActivityContext() != null) {
-                                startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
-                                        .putExtra("type", ActivityWeb.BANK_BIND)
-                                .putExtra("card_id",bankModel.card_id));
+                                startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
                             }
 //                        if (getBaseActivityContext() != null) {
 //                            startActivity(new Intent(getBaseActivityContext(), WalletAddBank.class));
@@ -193,10 +192,11 @@ public class WalletRecharge extends BaseActivity {
                         return;
                     }
                     if (getBaseActivityContext() != null) {
-                        startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
-                                .putExtra("type", ActivityWeb.BANK_RECHANGE)
-                                .putExtra("money",inputWalletRecharge.getText().toString().trim())
-                                .putExtra("card_id",bankModel.card_id));
+//                        startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
+//                                .putExtra("type", ActivityWeb.BANK_RECHANGE)
+//                                .putExtra("money",inputWalletRecharge.getText().toString().trim())
+//                                .putExtra("card_id",bankModel.card_id));
+                        startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
                     }
 
                 } else if ("wx".equals(getIntent().getExtras().getString("type"))) {

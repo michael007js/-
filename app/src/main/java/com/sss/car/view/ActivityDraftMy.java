@@ -158,32 +158,32 @@ public class ActivityDraftMy extends BaseActivity {
                 finish();
                 break;
             case R.id.right_search_top_image:
-                switch (scrollTab.position) {
-                    case 0:
-                        if (getBaseActivityContext() != null) {
-                            startActivity(new Intent(getBaseActivityContext(), ActivityDraftSearch.class)
-                                    .putExtra("search_mode", FragmentDraftPublic.REQUEST_MODE_ORDER));
-                        }
-                        break;
-                    case 1:
-                        if (getBaseActivityContext() != null) {
-                            startActivity(new Intent(getBaseActivityContext(), ActivityDraftSearch.class)
-                                    .putExtra("search_mode", FragmentDraftPublic.REQUEST_MODE_SOS));
-                        }
-                        break;
-                    case 2:
-                        if (getBaseActivityContext() != null) {
-                            startActivity(new Intent(getBaseActivityContext(), ActivityDraftSearch.class)
-                                    .putExtra("search_mode", FragmentDraftPublic.REQUEST_MODE_GOODS));
-                        }
-                        break;
-                    case 3:
-                        if (getBaseActivityContext() != null) {
-                            startActivity(new Intent(getBaseActivityContext(), ActivityDraftSearch.class)
-                                    .putExtra("search_mode", FragmentDraftPublic.REQUEST_MODE_POPULARIZE));
-                        }
-                        break;
-                }
+//                switch (scrollTab.position) {
+//                    case 0:
+//                        if (getBaseActivityContext() != null) {
+//                            startActivity(new Intent(getBaseActivityContext(), ActivityDraftSearch.class)
+//                                    .putExtra("search_mode", FragmentDraftPublic.REQUEST_MODE_ORDER));
+//                        }
+//                        break;
+//                    case 1:
+//                        if (getBaseActivityContext() != null) {
+//                            startActivity(new Intent(getBaseActivityContext(), ActivityDraftSearch.class)
+//                                    .putExtra("search_mode", FragmentDraftPublic.REQUEST_MODE_SOS));
+//                        }
+//                        break;
+//                    case 2:
+//                        if (getBaseActivityContext() != null) {
+//                            startActivity(new Intent(getBaseActivityContext(), ActivityDraftSearch.class)
+//                                    .putExtra("search_mode", FragmentDraftPublic.REQUEST_MODE_GOODS));
+//                        }
+//                        break;
+//                    case 3:
+//                        if (getBaseActivityContext() != null) {
+//                            startActivity(new Intent(getBaseActivityContext(), ActivityDraftSearch.class)
+//                                    .putExtra("search_mode", FragmentDraftPublic.REQUEST_MODE_POPULARIZE));
+//                        }
+//                        break;
+//                }
                 break;
         }
     }

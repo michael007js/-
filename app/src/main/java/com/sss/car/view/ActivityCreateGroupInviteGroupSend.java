@@ -72,6 +72,7 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
     public static final int do_not_see_target = 6;//不看TA的动态
     public static final int do_not_see_me = 7;//不让TA看我的动态
     public static final int black = 8;//黑名单
+    public static final int shop_service = 9;//店铺客服
     @BindView(R.id.back_top)
     LinearLayout backTop;
     @BindView(R.id.right_button_top)
@@ -185,7 +186,7 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
             parentPic.setVisibility(View.VISIBLE);
         } else if (create_group == getIntent().getExtras().getInt("type")) {
             parentPic.setVisibility(View.VISIBLE);
-            rightButtonTop.setVisibility(View.GONE);
+            rightButtonTop.setVisibility(View.VISIBLE);
         }
 
 
@@ -197,10 +198,10 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
         fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), title);
 
 
-        friend = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),"1", this);
-        fans = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),"2", this);
-        attention = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),"3", this);
-        chat = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),"4", this);
+        friend = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),shop_service == getIntent().getExtras().getInt("type"), "1", this);
+        fans = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"), shop_service == getIntent().getExtras().getInt("type"),"2", this);
+        attention = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),shop_service == getIntent().getExtras().getInt("type"), "3", this);
+        chat = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),shop_service == getIntent().getExtras().getInt("type"), "4", this);
 
         fragmentAdapter.addFragment(friend);
         fragmentAdapter.addFragment(attention);
@@ -270,7 +271,7 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                             int a = 0;
                             for (int j = 0; j < selectList.size(); j++) {
                                 if (StringUtils.isEmpty(attention.list.get(i).member_id)) {
-                                    if (friend.list.get(i).member_id != null) {
+                                    if (attention.list.get(i).member_id != null) {
                                         if (attention.list.get(i).member_id.equals(selectList.get(j).member_id)) {
                                             a++;
                                         }
@@ -292,7 +293,7 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                         for (int i = 0; i < fans.list.size(); i++) {
                             int a = 0;
                             for (int j = 0; j < selectList.size(); j++) {
-                                if (friend.list.get(i).member_id != null) {
+                                if (fans.list.get(i).member_id != null) {
                                     if (fans.list.get(i).member_id.equals(selectList.get(j).member_id)) {
                                         a++;
                                     }
@@ -315,7 +316,7 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                         for (int i = 0; i < chat.list.size(); i++) {
                             int a = 0;
                             for (int j = 0; j < selectList.size(); j++) {
-                                if (friend.list.get(i).member_id != null) {
+                                if (chat.list.get(i).member_id != null) {
                                     if (chat.list.get(i).member_id.equals(selectList.get(j).member_id)) {
                                         a++;
                                     }
@@ -329,6 +330,11 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                             chat.sss_adapter.setList(chat.list);
                         }
                         break;
+                }
+                for (int i = 0; i < selectList.size(); i++) {
+                    if (selectList.get(i).member_id==null|selectList.get(i).face==null){
+                        selectList.remove(i);
+                    }
                 }
                 sss_adapter.setList(selectList);
             }
@@ -344,6 +350,11 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                 finish();
                 break;
             case R.id.right_button_top:
+                for (int i = 0; i < selectList.size(); i++) {
+                    if (selectList.get(i).member_id==null){
+                        selectList.remove(i);
+                    }
+                }
                 if (create_group == getIntent().getExtras().getInt("type")) {
                     if (selectList.size() > 0) {
                         JSONArray jsonArray = new JSONArray();
@@ -404,8 +415,18 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                     } else {
                         ToastUtils.showShortToast(getBaseActivityContext(), "您没有选择任何人");
                     }
+                } else if (shop_service == getIntent().getExtras().getInt("type")) {
+                    if (selectList.size() > 0) {
+                        JSONArray jsonArray = new JSONArray();
+                        for (int i = 0; i < selectList.size(); i++) {
+                            jsonArray.put(selectList.get(i).member_id);
+                        }
+                        set_relation("5", jsonArray);
+                    } else {
+                        ToastUtils.showShortToast(getBaseActivityContext(), "您没有选择任何人");
+                    }
                 } else if (send == getIntent().getExtras().getInt("type")) {
-                    if (selectList.size()==0){
+                    if (selectList.size() == 0) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "您没有选择任何人");
                         return;
                     }
@@ -465,9 +486,6 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
     }
 
 
-    /**
-     * 设置用户设置资料
-     */
     public void set_relation(String type, JSONArray jsonArray) {
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();

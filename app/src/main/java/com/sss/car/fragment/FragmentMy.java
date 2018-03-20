@@ -583,7 +583,7 @@ public class FragmentMy extends BaseFragment {
                                         if ("0".equals(jsonObject.getJSONObject("data").getString("member_id"))) {
                                             ToastUtils.showShortToast(getBaseFragmentActivityContext(), "目前暂无客服在线");
                                         } else {
-                                            RongYunUtils.startConversation(getBaseFragmentActivityContext(), Conversation.ConversationType.PRIVATE, jsonObject.getJSONObject("data").getString("member_id"), "6");//客服传6，商品详情客服传3，群组传5
+                                            RongYunUtils.startConversation(getBaseFragmentActivityContext(), Conversation.ConversationType.PRIVATE, jsonObject.getJSONObject("data").getString("member_id"), "6");//客服传6，商品详情客服传2，群组传5
                                         }
                                     } else {
                                         ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));

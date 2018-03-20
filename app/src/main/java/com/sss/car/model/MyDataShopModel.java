@@ -12,4 +12,5 @@ public class MyDataShopModel {
     public String address;
     public String business_hours;
     public String describe;
+    public String member_id;
 }

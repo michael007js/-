@@ -182,7 +182,6 @@ public class BannerViewPager extends ViewPager implements View.OnTouchListener {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            LogUtils.e("bottomLayout"+list.size());
             View view = mInflater.inflate(layoutid,null);
             this.listener.getItemView(view, this.list.get(position%this.list.size()));
             container.addView(view,0);

@@ -25,6 +25,7 @@ import com.sss.car.EventBusModel.ChangedWalletModel;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.model.BankModel;
+import com.sss.car.view.ActivityBangCardBind;
 import com.sss.car.view.ActivityWeb;
 import com.sss.car.view.WalletAddBank;
 
@@ -149,10 +150,13 @@ public class WalletBankList extends BaseActivity {
                 finish();
                 break;
             case R.id.right_button_top:
-                if (getBaseActivityContext() != null) {
-                    startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
-                            .putExtra("type",ActivityWeb.BANK_BIND));
-                }
+                startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
+//                if (getBaseActivityContext() != null) {
+//                    startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
+//                            .putExtra("type",ActivityWeb.BANK_BIND));
+//                }
+
+
                 //                        if (getBaseActivityContext() != null) {
 //                            startActivity(new Intent(getBaseActivityContext(), WalletAddBank.class));
 //                        }

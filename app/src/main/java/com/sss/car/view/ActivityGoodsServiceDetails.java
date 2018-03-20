@@ -160,7 +160,7 @@ public class ActivityGoodsServiceDetails extends BaseActivity implements UserCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_service_details);
         ButterKnife.bind(this);
-        customInit(activityGoodsServiceDetails, false, false, true);
+        customInit(activityGoodsServiceDetails, false, true, true);
         if (getIntent() == null || getIntent().getExtras() == null) {
             ToastUtils.showShortToast(getBaseActivityContext(), "数据传递失败");
             finish();

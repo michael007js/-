@@ -11,9 +11,9 @@ import java.util.List;
 
 
 public class ViewPagerAdpter extends PagerAdapter {
-    private List<PhotoView> mViews;
+    private List<View> mViews;
 
-    public ViewPagerAdpter(List<PhotoView> mViews) {
+    public ViewPagerAdpter(List<View> mViews) {
         super();
         this.mViews = mViews;
     }

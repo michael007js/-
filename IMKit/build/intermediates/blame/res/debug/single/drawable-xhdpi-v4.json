@@ -376,12 +376,12 @@
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\u263a.png"
     },
     {
-        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_ad_list_pdf_icon.png",
-        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ad_list_pdf_icon.png"
-    },
-    {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_voice_unread.png",
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_voice_unread.png"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_ad_list_pdf_icon.png",
+        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ad_list_pdf_icon.png"
     },
     {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_keyboard_hover.png",
@@ -732,12 +732,12 @@
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_emotion_toggle.png"
     },
     {
-        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_cs_resolved.png",
-        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_resolved.png"
-    },
-    {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_receive_voice_two.png",
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_receive_voice_two.png"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_cs_resolved.png",
+        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_resolved.png"
     },
     {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_icon_rt_message_left.png",
@@ -912,12 +912,12 @@
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_send_toggle.png"
     },
     {
-        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_default_portrait.png",
-        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_default_portrait.png"
-    },
-    {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_ac_file_preview.png",
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ac_file_preview.png"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_default_portrait.png",
+        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_default_portrait.png"
     },
     {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_ext_indicator_hover.png",

@@ -28,6 +28,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedAttentionList;
 import com.sss.car.EventBusModel.ChangedBlackList;
+import com.sss.car.EventBusModel.ChangedList;
 import com.sss.car.EventBusModel.ChangedPostsModel;
 import com.sss.car.EventBusModel.HideOrShow;
 import com.sss.car.EventBusModel.Remark;
@@ -532,6 +533,15 @@ public class ActivityUserInfo extends BaseFragmentActivity {
         getUserInfo();
     }
 
+    /**
+     *
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangedList event) {
+        getUserInfo();
+    }
 
     /**
      * 设置好友备注
@@ -623,6 +633,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                     JSONObject jsonObject = new JSONObject(response);
                                     if ("1".equals(jsonObject.getString("status"))) {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                        userinfoModel.stranger=jsonObject.getJSONObject("data").getString("code");
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                     }
@@ -687,7 +698,8 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                             jsonObject.getJSONObject("data").getString("is_special"),
                                             jsonObject.getJSONObject("data").getString("remark"),
                                             jsonObject.getJSONObject("data").getString("status"),//1相互关注2已关注3为拉黑状态
-                                            jsonObject.getJSONObject("data").getString("sex")
+                                            jsonObject.getJSONObject("data").getString("sex"),
+                                            jsonObject.getJSONObject("data").getString("stranger")
                                     );
                                     init();
                                     LogUtils.e(userinfoModel.toString());
@@ -723,12 +735,8 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                         rightSearchTopImage.setVisibility(View.INVISIBLE);
                                         attentionTextActivityUserInfo.setVisibility(View.INVISIBLE);
                                     }
-                                    if (StringUtils.isEmpty(userinfoModel.remark)) {
-                                        nikenameActivityUserInfo.setText("昵称：" + userinfoModel.username);
-                                    } else {
-                                        nikenameActivityUserInfo.setText("昵称：" + userinfoModel.remark);
-                                    }
-                                    username.setText(userinfoModel.username);
+                                    nikenameActivityUserInfo.setText("昵称：" + userinfoModel.username);
+                                    username.setText(userinfoModel.remark);
                                     sex.setText("性别：" + userinfoModel.sex);
                                     accountActivityUserInfo.setText("用户ID：" + userinfoModel.account);
 
@@ -739,6 +747,12 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                         shopImageActivityUserInfo.setVisibility(View.VISIBLE);
                                         shopTextActivityUserInfo.setVisibility(View.VISIBLE);
                                     }
+
+//                                    if ("1".equals(userinfoModel.stranger)){
+//                                        chatActivityUserInfo.setVisibility(View.GONE);
+//                                    }else {
+//                                        chatActivityUserInfo.setVisibility(View.VISIBLE);
+//                                    }
 
                                     typeActivityUserInfo.setText(userinfoModel.auth_type);
                                     scoreActivityUserInfo.setText(userinfoModel.credit);

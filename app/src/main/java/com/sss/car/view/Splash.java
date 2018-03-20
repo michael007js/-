@@ -22,6 +22,7 @@ import com.sss.car.AdvertisementManager;
 import com.sss.car.Config;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.WebViewActivity;
 import com.sss.car.custom.Advertisement.AdvertisementViewPagerHelper;
 import com.sss.car.custom.Advertisement.Model.AdvertisementModel;
 
@@ -29,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,6 +113,7 @@ public class Splash extends BaseActivity {
         if (advertisementViewPagerHelper != null) {
             advertisementViewPagerHelper.onPause();
         }
+
     }
 
     /**
@@ -153,7 +156,15 @@ public class Splash extends BaseActivity {
                                                 .setData(getBaseActivity(),
                                                         getWindowManager().getDefaultDisplay().getWidth(),
                                                         getWindowManager().getDefaultDisplay().getHeight(),
-                                                        list, false);
+                                                        list, false)
+                                                .setOnAdvertisementClickCallBack(new AdvertisementViewPagerHelper.OnAdvertisementClickCallBack() {
+                                                    @Override
+                                                    public void onClick(String url) {
+                                                        Config.tempUrl= url;
+                                                        onViewClicked();
+                                                        isFinishByUser=true;
+                                                    }
+                                                });
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -165,6 +176,8 @@ public class Splash extends BaseActivity {
             e.printStackTrace();
         }
     }
+
+    boolean isFinishByUser = false;
 
     @Override
     protected void onDestroy() {
@@ -182,16 +195,18 @@ public class Splash extends BaseActivity {
 
     @OnClick(R.id.count_time_splash)
     public void onViewClicked() {
-        if (spUtils == null) {
-            spUtils = new SPUtils(getBaseActivityContext(), Config.defaultFileName, Context.MODE_PRIVATE);
-        }
-        if (!StringUtils.isEmpty(spUtils.getString("account")) && !StringUtils.isEmpty(spUtils.getString("password"))) {
-            startActivity(new Intent(getBaseActivityContext(), Main.class)
-                    .putExtra("where","fromSplash"));
-        }else {
-            startActivity(intent);
+        if (isFinishByUser == false) {
+            if (spUtils == null) {
+                spUtils = new SPUtils(getBaseActivityContext(), Config.defaultFileName, Context.MODE_PRIVATE);
+            }
+            if (!StringUtils.isEmpty(spUtils.getString("account")) && !StringUtils.isEmpty(spUtils.getString("password"))) {
+                startActivity(new Intent(getBaseActivityContext(), Main.class)
+                        .putExtra("where", "fromSplash"));
+            } else {
+                startActivity(intent);
 
+            }
+            finish();
         }
-        finish();
     }
 }

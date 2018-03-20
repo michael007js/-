@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="ratingbar-1.3.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../快速开发框架/build/intermediates/exploded-aar/com.azhon/ratingbar/1.3.0/res" />
+      <root url="jar://$PROJECT_DIR$/../快速开发框架/build/intermediates/exploded-aar/com.azhon/ratingbar/1.3.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.azhon/ratingbar/1.3.0/311896cbba134c3de24a5b32a84e68627185c068/ratingbar-1.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

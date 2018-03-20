@@ -144,7 +144,7 @@ public class ConversationChat extends BaseFragmentActivity implements RongIM.OnS
 
 
         messageType = getIntent().getData().getQueryParameter("title");//客服传6，商品详情客服传2，群组传5
-        if ("6".equals(messageType)){
+        if ("6".equals(messageType)||"2".equals(messageType)){
             logoRight.setVisibility(View.INVISIBLE);
         }
         //会话类型

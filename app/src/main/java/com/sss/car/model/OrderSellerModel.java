@@ -11,6 +11,7 @@ import java.util.List;
  */
 
 public class OrderSellerModel implements Parcelable {
+    public String express_id;
     public String order_id;
     public String mobile;
     public String recipients;
@@ -50,13 +51,14 @@ public class OrderSellerModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.express_id);
         dest.writeString(this.order_id);
         dest.writeString(this.mobile);
         dest.writeString(this.recipients);
         dest.writeString(this.address);
         dest.writeString(this.vehicle_name);
-        dest.writeString(this.remark);
         dest.writeString(this.order_code);
+        dest.writeString(this.remark);
         dest.writeString(this.delivery_time);
         dest.writeString(this.damages);
         dest.writeString(this.total);
@@ -87,13 +89,14 @@ public class OrderSellerModel implements Parcelable {
     }
 
     protected OrderSellerModel(Parcel in) {
+        this.express_id = in.readString();
         this.order_id = in.readString();
         this.mobile = in.readString();
         this.recipients = in.readString();
         this.address = in.readString();
         this.vehicle_name = in.readString();
-        this.remark = in.readString();
         this.order_code = in.readString();
+        this.remark = in.readString();
         this.delivery_time = in.readString();
         this.damages = in.readString();
         this.total = in.readString();

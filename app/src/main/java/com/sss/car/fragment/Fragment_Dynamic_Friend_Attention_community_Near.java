@@ -515,7 +515,6 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
             show_praise_item_share_dynamic_adapter_dynamic.setText(list.get(position).likes);
             show_comment_item_share_dynamic_adapter_dynamic.setText(list.get(position).comment_count);
             show_share_item_share_dynamic_adapter_dynamic.setText(list.get(position).transmit);
-
             nine_view_item_share_dynamic_adapter_dynamic.setNumColumns(3);
             nine_view_item_share_dynamic_adapter_dynamic.setHorizontalSpacing(2);
             nine_view_item_share_dynamic_adapter_dynamic.setVerticalSpacing(2);
@@ -574,7 +573,6 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
                         getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivityDymaicDetails.class)
                                 .putExtra("id", shareDynamicModel.trends_id));
                     }
-
                 }
             });
             listFragmentDynamicFriendAttentionCommunityNear.addData(view);
@@ -635,9 +633,7 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
                 bg_item_share_dynamic_adapter_goods.setVisibility(View.GONE);
                 pic_item_share_dynamic_adapter_goods.setVisibility(View.VISIBLE);
             }
-            loacation_item_share_dynamic_adapter_goods.equals(shareDynamicModel.goods_data.size());
             if (shareDynamicModel.goods_data.size() > 0) {
-
 //                listview.setAdapter(new SSS_Adapter<ShareDynamic_GoodsModel>(getBaseFragmentActivityContext(), R.layout.item_goods_service, shareDynamicModel.goods_data) {
 //                    @Override
 //                    protected void setView(SSS_HolderHelper helper, int position, final ShareDynamic_GoodsModel bean, SSS_Adapter instance) {
@@ -665,8 +661,6 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
 //
 //                    }
 //                });
-
-
                 recyclerView.setLayoutManager(new ExStaggeredGridLayoutManager(1,OrientationHelper.VERTICAL));
                 recyclerView.setNestedScrollingEnabled(false);
                 recyclerView.setAdapter(new SSS_RVAdapter<ShareDynamic_GoodsModel>(recyclerView,R.layout.item_goods_service,shareDynamicModel.goods_data) {

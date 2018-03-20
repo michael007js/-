@@ -28,12 +28,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.R;
+import com.blankj.utilcode.customwidget.RichView.RichTextView;
+import com.blankj.utilcode.customwidget.RichView.RichViewUtils;
+import com.blankj.utilcode.customwidget.RichView.listener.SpanUrlCallBack;
 import com.blankj.utilcode.customwidget.update.listener.OnUpdateListener;
 import com.blankj.utilcode.customwidget.update.pojo.UpdateInfo;
 import com.blankj.utilcode.customwidget.update.utils.HttpRequest;
 import com.blankj.utilcode.customwidget.update.utils.JSONHandler;
 import com.blankj.utilcode.customwidget.update.utils.NetWorkUtils;
 import com.blankj.utilcode.customwidget.update.utils.URLUtils;
+import com.blankj.utilcode.util.IntentUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -202,8 +206,19 @@ public class UpdateHelper {
             final Dialog dialog = new Dialog(mContext, R.style.RcDialog);
             View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_update, null);
             TextView title = (TextView) view.findViewById(R.id.title_dialog_update);
-            TextView content = (TextView) view.findViewById(R.id.content_dialog_update);
+            RichTextView content = (RichTextView) view.findViewById(R.id.content_dialog_update);
             TextView yes = (TextView) view.findViewById(R.id.yes_dialog_update);
+            RichViewUtils.resolveRichShow(content, "", null, null, null, null, new SpanUrlCallBack() {
+                @Override
+                public void phone(View view, String phone) {
+
+                }
+
+                @Override
+                public void url(View view, String url) {
+                   view.getContext().startActivity(IntentUtils.getBrowserIntent(url));
+                }
+            });
             TextView cancel = (TextView) view.findViewById(R.id.cancel_dialog_update);
             title.setText(updateInfo.getUpdateTips() + "(" + updateInfo.getVersionName() + ")");
             content.setText(updateInfo.getChangeLog());

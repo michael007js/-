@@ -21,9 +21,7 @@ import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.QRCodeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.google.zxing.WriterException;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangeInfoModel;
 import com.sss.car.EventBusModel.ChangedGroupList;
@@ -45,7 +43,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,8 +52,6 @@ import butterknife.OnClick;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import okhttp3.Call;
-
-import static android.R.id.list;
 
 
 /**
@@ -109,6 +104,8 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
     GroupSettingMemberAdapter groupSettingMemberAdapter;
 
     List<GroupMemberModel> memberList = new ArrayList<>();
+    @BindView(R.id.remark)
+    TextView remark;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -148,10 +145,13 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
         clickReportActivityGroupSetting = null;
         clickClearActivityGroupSetting = null;
         clickDeleteAndExitActivityGroupSetting = null;
-        activityGroupSetting = null;jsonArray=null;
+        activityGroupSetting = null;
+        jsonArray = null;
 
     }
-    JSONArray jsonArray=new JSONArray();
+
+    JSONArray jsonArray = new JSONArray();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,7 +171,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             public void toggleToOn(SwitchButton view) {
                 view.setOpened(true);
                 try {
-                    setGroupInfo(new JSONObject().put("shield", "1"), "群免打扰", "DontDisturb", "1",view);
+                    setGroupInfo(new JSONObject().put("shield", "1"), "群免打扰", "DontDisturb", "1", view);
                 } catch (JSONException e) {
                     if (getBaseActivityContext() != null) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:set group info-0");
@@ -184,7 +184,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             public void toggleToOff(SwitchButton view) {
                 view.setOpened(false);
                 try {
-                    setGroupInfo(new JSONObject().put("shield", "0"), "群免打扰", "DontDisturb", "0",view);
+                    setGroupInfo(new JSONObject().put("shield", "0"), "群免打扰", "DontDisturb", "0", view);
                 } catch (JSONException e) {
                     if (getBaseActivityContext() != null) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:set group info-0");
@@ -199,7 +199,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             public void toggleToOn(SwitchButton view) {
                 view.setOpened(true);
                 try {
-                    setGroupInfo(new JSONObject().put("records", "1"), "群保存到通讯录", "save", "1",view);
+                    setGroupInfo(new JSONObject().put("records", "1"), "群保存到通讯录", "save", "1", view);
                 } catch (JSONException e) {
                     if (getBaseActivityContext() != null) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:set group info-0");
@@ -212,7 +212,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             public void toggleToOff(SwitchButton view) {
                 view.setOpened(false);
                 try {
-                    setGroupInfo(new JSONObject().put("records", "0"), "群保存到通讯录", "save", "0",view);
+                    setGroupInfo(new JSONObject().put("records", "0"), "群保存到通讯录", "save", "0", view);
                 } catch (JSONException e) {
                     if (getBaseActivityContext() != null) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:set group info-0");
@@ -227,7 +227,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             public void toggleToOn(SwitchButton view) {
                 view.setOpened(true);
                 try {
-                    setGroupInfo(new JSONObject().put("name_show", "1"), "显示群成员昵称", "showNikename", "1",view);
+                    setGroupInfo(new JSONObject().put("name_show", "1"), "显示群成员昵称", "showNikename", "1", view);
                 } catch (JSONException e) {
                     if (getBaseActivityContext() != null) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:set group info-0");
@@ -240,7 +240,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             public void toggleToOff(SwitchButton view) {
                 view.setOpened(false);
                 try {
-                    setGroupInfo(new JSONObject().put("name_show", "0"), "显示群成员昵称", "showNikename", "0",view);
+                    setGroupInfo(new JSONObject().put("name_show", "0"), "显示群成员昵称", "showNikename", "0", view);
                 } catch (JSONException e) {
                     if (getBaseActivityContext() != null) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:set group info-0");
@@ -254,29 +254,28 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
         listActivityGroupSetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                if (groupModel!=null){
-                    if (Config.member_id.equals(groupModel.member_id)){
+                if (groupModel != null) {
+                    if (Config.member_id.equals(groupModel.member_id)) {
                         APPOftenUtils.createAskDialog(getBaseActivityContext(), "是否移除" + memberList.get(position).remark + "?", new OnAskDialogCallBack() {
                             @Override
                             public void onOKey(Dialog dialog) {
                                 jsonArray.put(memberList.get(position).member_id);
                                 remove_member(jsonArray);
                                 dialog.dismiss();
-                                dialog=null;
+                                dialog = null;
                             }
 
                             @Override
                             public void onCancel(Dialog dialog) {
                                 dialog.dismiss();
-                                dialog=null;
+                                dialog = null;
                             }
                         });
-                    }else {
+                    } else {
                         startActivity(new Intent(getBaseActivityContext(), ActivityUserInfo.class)
                                 .putExtra("id", memberList.get(position).member_id));
                     }
                 }
-
 
 
             }
@@ -300,18 +299,18 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityChangeInfo.class)
                             .putExtra("type", "groupName")
-                            .putExtra("canChange",true)
+                            .putExtra("canChange", true)
                             .putExtra("extra", groupModel.name));
                 }
                 break;
             case R.id.click_group_qr_activity_group_setting:
-                if (groupModel==null){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"群信息获取中，请稍候...");
+                if (groupModel == null) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "群信息获取中，请稍候...");
                     return;
                 }
                 if (getBaseActivityContext() != null) {
-                    List<String> temp=new ArrayList<>();
-                    temp.add(Config.url+groupModel.code);
+                    List<String> temp = new ArrayList<>();
+                    temp.add(Config.url + groupModel.code);
                     startActivity(new Intent(getBaseActivityContext(), ActivityImages.class)
                             .putStringArrayListExtra("data", (ArrayList<String>) temp)
                             .putExtra("current", 0));
@@ -388,7 +387,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             case "groupName":
                 try {
                     setGroupInfo(new JSONObject()
-                            .put("name", event.msg), "设置群名称", "groupName", event.msg,null);
+                            .put("name", event.msg), "设置群名称", "groupName", event.msg, null);
                 } catch (JSONException e) {
                     if (getBaseActivityContext() != null) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:set group info-0");
@@ -399,7 +398,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             case "groupAnnouncement":
                 try {
                     setGroupInfo(new JSONObject()
-                            .put("notice", event.msg), "设置群公告", "groupAnnouncement", event.msg,null);
+                            .put("notice", event.msg), "设置群公告", "groupAnnouncement", event.msg, null);
                 } catch (JSONException e) {
                     if (getBaseActivityContext() != null) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:set group info-0");
@@ -443,8 +442,9 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             clickDeleteAndExitActivityGroupSetting.setText("退出");
             clickDeleteAndExitActivityGroupSetting.setVisibility(View.VISIBLE);
         }
-        imageGroupQrActivityGroupSetting.setTag(R.id.glide_tag,Config.url+groupModel.code);
-        addImageViewList(GlidUtils.downLoader(false,imageGroupQrActivityGroupSetting,getBaseActivityContext()));
+        remark.setText(groupModel.remark);
+        imageGroupQrActivityGroupSetting.setTag(R.id.glide_tag, Config.url + groupModel.code);
+        addImageViewList(GlidUtils.downLoader(false, imageGroupQrActivityGroupSetting, getBaseActivityContext()));
 
         LogUtils.e(groupModel.toString());
     }
@@ -453,6 +453,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
      * 退出群
      */
     JSONObject jsonObject;
+
     public void exitGroup() {
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
@@ -481,9 +482,9 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
                                 ywLoadingDialog.disMiss();
                             }
                             try {
-                                  jsonObject = new JSONObject(response);
+                                jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
-                                    RongYunUtils.removeConversation(Conversation.ConversationType.GROUP,getIntent().getExtras().getString("group_id"), new RongIMClient.ResultCallback() {
+                                    RongYunUtils.removeConversation(Conversation.ConversationType.GROUP, getIntent().getExtras().getString("group_id"), new RongIMClient.ResultCallback() {
                                                 @Override
                                                 public void onSuccess(Object o) {
                                                     try {
@@ -497,7 +498,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
 
                                                 @Override
                                                 public void onError(RongIMClient.ErrorCode errorCode) {
-                                                    ToastUtils.showShortToast(getBaseActivityContext(), "error:"+errorCode);
+                                                    ToastUtils.showShortToast(getBaseActivityContext(), "error:" + errorCode);
                                                 }
                                             }
                                     );
@@ -536,10 +537,10 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
                             .toString(), meaning, new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
-                            if (switchButton!=null){
-                                if (switchButton.isOpened()){
+                            if (switchButton != null) {
+                                if (switchButton.isOpened()) {
                                     switchButton.setOpened(false);
-                                }else {
+                                } else {
                                     switchButton.setOpened(true);
                                 }
                             }
@@ -579,20 +580,20 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
 
                                 } else {
-                                    if (switchButton!=null){
-                                        if (switchButton.isOpened()){
+                                    if (switchButton != null) {
+                                        if (switchButton.isOpened()) {
                                             switchButton.setOpened(false);
-                                        }else {
+                                        } else {
                                             switchButton.setOpened(true);
                                         }
                                     }
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }
                             } catch (JSONException e) {
-                                if (switchButton!=null){
-                                    if (switchButton.isOpened()){
+                                if (switchButton != null) {
+                                    if (switchButton.isOpened()) {
                                         switchButton.setOpened(false);
-                                    }else {
+                                    } else {
                                         switchButton.setOpened(true);
                                     }
                                 }
@@ -602,10 +603,10 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
                         }
                     })));
         } catch (JSONException e) {
-            if (switchButton!=null){
-                if (switchButton.isOpened()){
+            if (switchButton != null) {
+                if (switchButton.isOpened()) {
                     switchButton.setOpened(false);
-                }else {
+                } else {
                     switchButton.setOpened(true);
                 }
             }
@@ -649,6 +650,12 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
+                                    for (int i = 0; i < memberList.size(); i++) {
+                                        if (memberList.get(i).member_id.equals(Config.member_id)) {
+                                            memberList.get(i).remark = remark;
+                                        }
+                                    }
+                                    groupSettingMemberAdapter.refresh(memberList);
                                     groupModel.notice = remark;
                                     RongYunUtils.refreshGroupUserInfoCache(groupModel.group_id, Config.member_id, remark);
                                     getGroupInfo();
@@ -800,6 +807,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             e.printStackTrace();
         }
     }
+
     /**
      * 移除群成员
      */
@@ -815,7 +823,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.remove_member(
                     new JSONObject().put("member_id", Config.member_id)
-                            .put("member",member)
+                            .put("member", member)
                             .put("group_id", getIntent().getExtras().getString("group_id"))
                             .toString(), new StringCallback() {
                         @Override
@@ -850,6 +858,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
             e.printStackTrace();
         }
     }
+
     /**
      * 图片被载入
      *
@@ -869,7 +878,7 @@ public class ActivityGroupSetting extends BaseActivity implements LoadImageCallB
      */
     @Override
     public void onClickGroupMember(int postion, GroupMemberModel memberModel, List<GroupMemberModel> list) {
-        if (getBaseActivityContext()!=null){
+        if (getBaseActivityContext() != null) {
             startActivity(new Intent(getBaseActivityContext(), ActivityUserInfo.class)
                     .putExtra("id", memberModel.member_id));
         }

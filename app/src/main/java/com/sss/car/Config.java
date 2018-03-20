@@ -47,4 +47,6 @@ public class Config {
     public static int flash = 5000;
 
     public static String app_id = "1";
+
+    public static String tempUrl="";
 }

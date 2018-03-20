@@ -52,6 +52,7 @@ import com.sss.car.model.DymaicDetailsCommentModel;
 import com.sss.car.model.DymaicDetailsModel;
 import com.sss.car.model.DymaicDetailsPraiseModel;
 import com.sss.car.model.DymaicModel;
+import com.sss.car.utils.ShareUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -65,6 +66,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import okhttp3.Call;
+
+import static com.sss.car.R.id.share;
 
 
 /**
@@ -245,7 +248,6 @@ public class ActivityDymaicDetails extends BaseActivity implements LoadImageCall
 
     }
 
-
     void setClick() {
         back_top.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,17 +276,16 @@ public class ActivityDymaicDetails extends BaseActivity implements LoadImageCall
         share_activity_dymaic_details_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transmitDymaic(dymaicDetailsModel.trends_id);
+                ShareUtils.prepareShare(ywLoadingDialog, getBaseActivity(), "trends", dymaicDetailsModel.trends_id);
             }
         });
         share_number_activity_dymaic_details_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transmitDymaic(dymaicDetailsModel.trends_id);
+                ShareUtils.prepareShare(ywLoadingDialog, getBaseActivity(), "trends", dymaicDetailsModel.trends_id);
             }
         });
     }
-
 
     /**
      * 动态点赞
@@ -529,8 +530,8 @@ public class ActivityDymaicDetails extends BaseActivity implements LoadImageCall
 
                                         if (jsonArray2.length() > 0) {
                                             if (p == 1) {
-                                                if (dymaicDetailsModel!=null){
-                                                    if (dymaicDetailsModel.comment_list!=null){
+                                                if (dymaicDetailsModel != null) {
+                                                    if (dymaicDetailsModel.comment_list != null) {
                                                         dymaicDetailsModel.comment_list.clear();
                                                     }
                                                 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.InputType;
+import android.text.method.NumberKeyListener;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.custom.HideShowButton;
 import com.sss.car.rongyun.RongYunUtils;
+import com.sss.car.utils.CarUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -112,12 +114,14 @@ public class LoginAndRegister extends BaseActivity implements CustomExceptionCal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CarUtils.startAdvertisement(getBaseActivityContext());
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         if (getIntent() == null || getIntent().getExtras() == null) {
             ToastUtils.showShortToast(getBaseActivityContext(), "数据传递错误");
             finish();
         }
+
         spUtils = new SPUtils(getBaseActivityContext(), Config.defaultFileName, Context.MODE_PRIVATE);
         if (getIntent().getExtras().getBoolean("isClearUserInfo")) {
             spUtils.put("password", "");
@@ -498,8 +502,6 @@ public class LoginAndRegister extends BaseActivity implements CustomExceptionCal
                 LogUtils.e("onGuarantee" + permission + position);
             }
         });
-
-
     }
 
 

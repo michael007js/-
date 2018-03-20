@@ -240,7 +240,15 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="我在本群的昵称"/>
-
+                <TextView
+                    android:id="@+id/remark"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:singleLine="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text=""/>
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     xmlns:fresco="http://schemas.android.com/apk/res-auto"

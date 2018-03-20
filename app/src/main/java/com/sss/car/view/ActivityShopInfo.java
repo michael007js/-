@@ -78,6 +78,7 @@ public class ActivityShopInfo extends BaseActivity {
     LinearLayout activityShopInfo;
 
     View view;
+    LinearLayout click;
     SimpleDraweeView pic_activity_shop_info_head;
     TextView shop_name_activity_shop_info_head;
     TextView auth_type_activity_shop_info_head;
@@ -113,7 +114,7 @@ public class ActivityShopInfo extends BaseActivity {
 
 
     int currentPager = 1;
-    boolean isRequested=false;
+    boolean isRequested = false;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -228,6 +229,7 @@ public class ActivityShopInfo extends BaseActivity {
         if (view == null) {
             view = LayoutInflater.from(getBaseActivityContext()).inflate(R.layout.activity_shop_info_head, null);
             advertisement = $.f(view, R.id.advertisement);
+            click = $.f(view, R.id.click);
             shop_name_activity_shop_info_head = $.f(view, R.id.shop_name_activity_shop_info_head);
             pic_activity_shop_info_head = $.f(view, R.id.pic_activity_shop_info_head);
             auth_type_activity_shop_info_head = $.f(view, R.id.auth_type_activity_shop_info_head);
@@ -252,7 +254,7 @@ public class ActivityShopInfo extends BaseActivity {
                     }
                     if (list.size() < 1) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "该店铺没有优惠券");
-                    }else {
+                    } else {
                         menuDialog.createGoodsBottomCouponDialog(getBaseActivityContext(), sss_adapter);
                     }
 
@@ -298,6 +300,17 @@ public class ActivityShopInfo extends BaseActivity {
 
             linearLayoutActivityShopInfo.addView(view);
         }
+        click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getBaseActivityContext() != null) {
+                    if (goodsDetailsShopModel != null)
+                        startActivity(new Intent(getBaseActivityContext(), ActivityUserInfo.class)
+                                .putExtra("id", goodsDetailsShopModel.member_id));
+
+                }
+            }
+        });
     }
 
     @OnClick({R.id.back_activity_shop_info, R.id.attention_activity_shop_info, R.id.share_activity_shop_info, R.id.top_activity_shop_info})
@@ -310,7 +323,7 @@ public class ActivityShopInfo extends BaseActivity {
                 shop_collect();
                 break;
             case R.id.share_activity_shop_info:
-                ShareUtils.prepareShare(ywLoadingDialog,getBaseActivity(),"shop",getIntent().getExtras().getString("shop_id"));
+                ShareUtils.prepareShare(ywLoadingDialog, getBaseActivity(), "shop", getIntent().getExtras().getString("shop_id"));
                 break;
             case R.id.top_activity_shop_info:
                 scollViewActivityShopInfo.getRefreshableView().smoothScrollTo(0, 0);
@@ -360,7 +373,7 @@ public class ActivityShopInfo extends BaseActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
-                                    isRequested=true;
+                                    isRequested = true;
                                     goodsDetailsShopModel.shop_id = jsonObject.getJSONObject("data").getString("shop_id");
                                     goodsDetailsShopModel.name = jsonObject.getJSONObject("data").getString("name");
                                     goodsDetailsShopModel.logo = jsonObject.getJSONObject("data").getString("logo");
@@ -377,7 +390,7 @@ public class ActivityShopInfo extends BaseActivity {
                                     JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("picture");
                                     List<String> pic = new ArrayList<>();
                                     for (int i = 0; i < jsonArray.length(); i++) {
-                                        pic.add(Config.url+jsonArray.getString(i));
+                                        pic.add(Config.url + jsonArray.getString(i));
                                     }
                                     goodsDetailsShopModel.picture = pic;
                                     showShopData();
@@ -407,7 +420,7 @@ public class ActivityShopInfo extends BaseActivity {
             advertisement
                     .setImages(goodsDetailsShopModel.picture)
                     .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-                    .setDelayTime(5000)
+                    .setDelayTime(Config.flash)
                     .setImageLoader(new ImageLoaderInterface() {
                         @Override
                         public void displayImage(Context context, Object path, View imageView) {
@@ -438,13 +451,13 @@ public class ActivityShopInfo extends BaseActivity {
         auth_type_activity_shop_info_head.setText(goodsDetailsShopModel.auth_type);
         login_time_activity_shop_info_head.setText(goodsDetailsShopModel.last_time + "");
         open_time_activity_shop_info_head.setText(goodsDetailsShopModel.business_hours + "");
-        score_activity_shop_info_head.setText("+"+goodsDetailsShopModel.credit + "");
+        score_activity_shop_info_head.setText("+" + goodsDetailsShopModel.credit + "");
         location_path_activity_shop_info_head.setText(goodsDetailsShopModel.address + "");
         distance_activity_shop_info_head.setText(goodsDetailsShopModel.distance + "");
-        if ("1".equals(goodsDetailsShopModel.is_collect)){
-            addImageViewList(GlidUtils.glideLoad(false,attentionActivityShopInfo,getBaseActivityContext(),R.mipmap.logo_attention));
-        }else {
-            addImageViewList(GlidUtils.glideLoad(false,attentionActivityShopInfo,getBaseActivityContext(),R.mipmap.logo_attention_no));
+        if ("1".equals(goodsDetailsShopModel.is_collect)) {
+            addImageViewList(GlidUtils.glideLoad(false, attentionActivityShopInfo, getBaseActivityContext(), R.mipmap.logo_attention));
+        } else {
+            addImageViewList(GlidUtils.glideLoad(false, attentionActivityShopInfo, getBaseActivityContext(), R.mipmap.logo_attention_no));
         }
     }
 
@@ -484,10 +497,10 @@ public class ActivityShopInfo extends BaseActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
-                                    if ("1".equals(jsonObject.getJSONObject("data").getString("code"))){
-                                        addImageViewList(GlidUtils.glideLoad(false,attentionActivityShopInfo,getBaseActivityContext(),R.mipmap.logo_attention));
-                                    }else {
-                                        addImageViewList(GlidUtils.glideLoad(false,attentionActivityShopInfo,getBaseActivityContext(),R.mipmap.logo_attention_no));
+                                    if ("1".equals(jsonObject.getJSONObject("data").getString("code"))) {
+                                        addImageViewList(GlidUtils.glideLoad(false, attentionActivityShopInfo, getBaseActivityContext(), R.mipmap.logo_attention));
+                                    } else {
+                                        addImageViewList(GlidUtils.glideLoad(false, attentionActivityShopInfo, getBaseActivityContext(), R.mipmap.logo_attention_no));
                                     }
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 } else {
@@ -595,7 +608,7 @@ public class ActivityShopInfo extends BaseActivity {
                         if (getBaseActivityContext() != null) {
                             startActivity(new Intent(getBaseActivityContext(), ActivityCoupon.class)
                                     .putExtra("coupon_id", list.get(position).coupon_id)
-                                    .putExtra("money",list.get(position).money)
+                                    .putExtra("money", list.get(position).money)
                                     .putExtra("mode", "details")
                             );
                         }
@@ -604,6 +617,7 @@ public class ActivityShopInfo extends BaseActivity {
             }
         });
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.Glid.GlidUtils;
 import com.blankj.utilcode.activity.BaseActivity;
@@ -22,6 +23,7 @@ import com.blankj.utilcode.customwidget.PhotoDraweeView.PhotoDraweeView;
 import com.blankj.utilcode.customwidget.ViewPager.AnimationViewPager;
 import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.util.$;
+import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
@@ -49,7 +51,6 @@ import butterknife.OnClick;
 * */
 
 /**
- *
  * Created by leilei on 2017/8/29.
  */
 
@@ -116,51 +117,33 @@ public class ActivityImages extends BaseActivity {
         addImageViewList(GlidUtils.glideLoad(false, back, getBaseActivityContext(), R.mipmap.back));
 
 
-
         for (int i = 0; i < list.size(); i++) {
             final View view = LayoutInflater.from(getBaseActivityContext()).inflate(R.layout.item_activity_images, null);
-
             PhotoDraweeView photoView = $.f(view, R.id.pic_item_activity_images);
+            TextView save = $.f(view, R.id.save);
             photoView.setZoomTransitionDuration(500);//设置 动画持续时间
             photoView.setScale(3f);// 获取/设置 最大缩放倍数
             LogUtils.e(list.get(i));
-//            Glide.with(getBaseActivityContext())
-//                    .load(Config.url + list.get(i))
-//                    .asBitmap()
-//                    .dontAnimate()
-//                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-//                        @Override
-//                        public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-//                            int imageWidth = resource.getWidth();
-//                            int imageHeight = resource.getHeight();
-//                            if (imageHeight > 4096) {
-//                                imageHeight = 4096;
-//                            }
-//                            double precent = 1.0 * imageWidth / imageHeight;
-//                            LogUtils.e(precent);
-//
-//                            ViewPager.LayoutParams para = (ViewPager.LayoutParams) view.getLayoutParams();
-//                            if (para!=null){
-//                                if ( getWindowManager()!=null){
-//                                    if (getWindowManager().getDefaultDisplay()!=null){
-//                                        para.width = getWindowManager().getDefaultDisplay().getWidth();
-//                                        para.height = (int) (getWindowManager().getDefaultDisplay().getWidth() / precent);
-//                                        view.setLayoutParams(para);
-//                                        LogUtils.e(imageHeight);
-//                                    }
-//                                }
-//                            }
-//                        }
-//
-//                    });
             photoViewList.add(view);
 //            addImageViewList(GlidUtils.downLoader(false, photoView, getBaseActivityContext()));
-            if (list.get(i).startsWith("/storage/")){
-                photoView.setPhotoUri( Uri.fromFile(new File(list.get(i))));
-            }else {
+            if (list.get(i).startsWith("/storage/")) {
+                photoView.setPhotoUri(Uri.fromFile(new File(list.get(i))));
+            } else {
                 photoView.setPhotoUri(Uri.parse(list.get(i)));
 
             }
+            final int finalI = i;
+
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (APPOftenUtils.saveImageToGallery(getBaseActivityContext(), FrescoUtils.returnBitmap(Uri.parse(list.get(finalI))))) {
+                        ToastUtils.showShortToast(getBaseActivityContext(), "保存成功");
+                    } else {
+                        ToastUtils.showShortToast(getBaseActivityContext(), "保存失败");
+                    }
+                }
+            });
         }
         viewpagerActivityImage.setAdapter(new ViewPagerObjAdpter(photoViewList));
         viewpagerActivityImage.setCurrentItem(getIntent().getExtras().getInt("current"));

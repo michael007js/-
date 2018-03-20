@@ -137,7 +137,7 @@ public class FragmentGoodsParent extends BaseFragment {
 //        }
     }
 
-    public void init(){
+    public void init() {
         new Thread() {
             @Override
             public void run() {
@@ -148,20 +148,24 @@ public class FragmentGoodsParent extends BaseFragment {
                         @Override
                         public void run() {
                             if ("2".equals(type)) {
-                                topMessage.setVisibility(View.GONE);
+                                if (topMessage != null) {
+                                    topMessage.setVisibility(View.GONE);
+                                }
                             } else {
-                                topMessage.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (getBaseFragmentActivityContext() != null) {
-                                            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityUnReadMessage.class));
+                                if (topMessage != null) {
+                                    topMessage.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (getBaseFragmentActivityContext() != null) {
+                                                startActivity(new Intent(getBaseFragmentActivityContext(), ActivityUnReadMessage.class));
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }
                             }
-                            if (fragmentAdapter!=null){
+                            if (fragmentAdapter != null) {
                                 for (int i = 0; i < fragmentAdapter.getmFragments().size(); i++) {
-                                    ((FragmentGoodsServiceChild)fragmentAdapter.getmFragments().get(i)).onDestroy();
+                                    ((FragmentGoodsServiceChild) fragmentAdapter.getmFragments().get(i)).onDestroy();
                                 }
                                 fragmentAdapter.clearFragment();
                             }

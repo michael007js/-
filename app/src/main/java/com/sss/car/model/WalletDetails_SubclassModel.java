@@ -10,6 +10,8 @@ public class WalletDetails_SubclassModel {
     public String order_code;
     public String money;
     public String integral;
+    public String rate_price;
+    public String total;
     public String create_time;
     public String type;
 

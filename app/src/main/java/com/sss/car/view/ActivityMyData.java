@@ -1,5 +1,6 @@
 package com.sss.car.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.BitmapUtils;
 import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
@@ -212,15 +214,21 @@ public class ActivityMyData extends BaseActivity {
                         e.printStackTrace();
                     }
                     break;
+
                 case "mobile":
                     try {
-                        save("mobile", event.msg, "手机号");
+                        requestUserInfo();
                     } catch (JSONException e) {
-                        if (getBaseActivityContext() != null) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:mobile-0");
-                        }
                         e.printStackTrace();
                     }
+//                    try {
+//                        save("mobile", event.msg, "手机号");
+//                    } catch (JSONException e) {
+//                        if (getBaseActivityContext() != null) {
+//                            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:mobile-0");
+//                        }
+//                        e.printStackTrace();
+//                    }
                     break;
             }
         }
@@ -523,6 +531,7 @@ public class ActivityMyData extends BaseActivity {
                                         case "mobile":
                                             Config.mobile = jsonObject.getJSONObject("data").getString("value");
                                             mobileShowActivityMyData.setText(Config.mobile);
+                                            new SPUtils(getBaseActivityContext(),Config.defaultFileName, Context.MODE_PRIVATE).put("account",Config.mobile);
                                             break;
                                     }
                                     requestUserInfo();

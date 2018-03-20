@@ -324,8 +324,10 @@ public class ActivitySearchGoodsShopUserListPublic extends BaseActivity {
                                             for (int i = 0; i < jsonArray.length(); i++) {
                                                 userList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), SearchGoodsShopUserListPublic_User.class));
                                             }
-
                                         }
+                                    }
+                                    if (userAdapter==null){
+                                        return;
                                     }
                                     userAdapter.setList(userList);
                                     EventBus.getDefault().post(new SearchModel(getIntent().getExtras().getString("type"), input.getText().toString().trim()));

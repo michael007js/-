@@ -205,10 +205,14 @@ public class NewOrderFragmentBuyer extends BaseFragment implements CustomListVie
                                         }
                                         listNewOrderFragment.setList(getBaseFragmentActivityContext(), list, what);
                                     }
-                                    if (list.size() > 0) {
-                                        emptyView.setVisibility(View.GONE);
-                                    }else {
-                                        emptyView.setVisibility(View.VISIBLE);
+                                    if (list != null) {
+                                        if (list.size() > 0) {
+                                            emptyView.setVisibility(View.GONE);
+                                            listNewOrderFragment.setVisibility(View.VISIBLE);
+                                        } else {
+                                            emptyView.setVisibility(View.VISIBLE);
+                                            listNewOrderFragment.setVisibility(View.GONE);
+                                        }
                                     }
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
@@ -578,9 +582,12 @@ public class NewOrderFragmentBuyer extends BaseFragment implements CustomListVie
 
     /**
      * 待签收
+     *
+     * @param target_id
+     * @param target_name
      */
     @Override
-    public void onWaitForSign() {
+    public void onWaitForSign(String target_id, String target_name) {
 
     }
 

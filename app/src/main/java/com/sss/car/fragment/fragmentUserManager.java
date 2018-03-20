@@ -55,6 +55,7 @@ public class fragmentUserManager extends BaseFragment {
     Unbinder unbinder;
     OnSelectCallBack onSelectCallBack;
     boolean is_create_private;
+    boolean is_create_shop_service;
 
     public fragmentUserManager() {
     }
@@ -78,8 +79,9 @@ public class fragmentUserManager extends BaseFragment {
         super.onDestroy();
     }
 
-    public fragmentUserManager(boolean is_create_private,String type, OnSelectCallBack onSelectCallBack) {
+    public fragmentUserManager(boolean is_create_private,boolean is_create_shop_service,String type, OnSelectCallBack onSelectCallBack) {
         this.is_create_private=is_create_private;
+        this.is_create_shop_service=is_create_shop_service;
         this.type = type;
         this.onSelectCallBack = onSelectCallBack;
     }
@@ -179,7 +181,7 @@ public class fragmentUserManager extends BaseFragment {
     }
 
     /**
-     * 好友关系-获取好友,关注,粉丝,最近聊天
+     * 好友关系-获取好友,关注,粉丝,最近聊天，客服
      *
      * @throws JSONException
      */
@@ -193,9 +195,14 @@ public class fragmentUserManager extends BaseFragment {
             ywLoadingDialog = new YWLoadingDialog(getBaseFragmentActivityContext());
             ywLoadingDialog.show();
         }
+        String temp=null;
+        if (is_create_shop_service){
+            temp="1";
+        }
         addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.friendRelation(
                 new JSONObject().put("type", type)
-                        .put("member_id", Config.member_id).toString(), type + "1好友列表  2关注列表  3粉丝列表   4最近聊天列表", new StringCallback() {
+                        .put("is_service",temp)
+                        .put("member_id", Config.member_id).toString(), type + "1好友列表  2关注列表  3粉丝列表   4最近聊天列表   5客服", new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         if (ywLoadingDialog != null) {

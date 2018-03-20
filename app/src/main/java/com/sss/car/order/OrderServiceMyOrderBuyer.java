@@ -525,7 +525,7 @@ public class OrderServiceMyOrderBuyer extends BaseActivity {
             showOrderTimeOrderGoodsMyOrderBuyer.setText(orderSellerModel.delivery_time);
             showPenalSumOrderGoodsMyOrderBuyer.setText(orderSellerModel.damages);
             showOtherOrderGoodsMyOrderBuyer.setText(orderSellerModel.remark);
-
+            showCouponOrderGoodsMyOrderBuyer.setText(orderSellerModel.coupon_name);
             listOrderGoodsMyOrderBuyer.setData(getBaseActivityContext(), orderSellerModel);
 
         }

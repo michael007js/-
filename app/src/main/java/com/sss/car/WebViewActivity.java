@@ -7,25 +7,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.chanjet.yqpay.util.MsgUtil;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class WebViewActivity extends Activity {
 
     private static final int RESULTCODE = 200;
+    @BindView(R.id.title)
+    TextView title;
 
     private String url = "http://yqpay.chanpay.com:9708/";
 
     private LJWebView mLJWebView;
 
-    public static void startActionForResult(Activity act, String url, int requestCode) {
+    public static void startActionForResult(Activity act, String url, int requestCode,String title) {
         Intent it = new Intent(act, WebViewActivity.class);
-        it.putExtra("url", url);
+        it.putExtra("url", url)
+        .putExtra("title",title);
         act.startActivityForResult(it, requestCode);
     }
 
@@ -34,6 +42,7 @@ public class WebViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_webview);
+        ButterKnife.bind(this);
         initData();
         initView();
     }
@@ -42,8 +51,10 @@ public class WebViewActivity extends Activity {
         Intent intent = getIntent();
         if (intent.getStringExtra("url") != null) {
             this.url = intent.getStringExtra("url");
-//			this.url = "http://www.baidu.com";
+        } else {
+            this.url = "http://www.baidu.com";
         }
+        title.setText(getIntent().getExtras().getString("title"));
     }
 
     private void initView() {
@@ -88,13 +99,13 @@ public class WebViewActivity extends Activity {
                             startActivity(intent);
                         } catch (Exception e) {
                         }
-                    } else if (url.startsWith("tel:")){
+                    } else if (url.startsWith("tel:")) {
 //                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));//直接拨打电话
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_DIAL);//携带号码到拨号盘，用户选择是否拨号
                         intent.setData(Uri.parse(url));
                         startActivity(intent);
-                    }else {
+                    } else {
                         view.loadUrl(url);
                     }
                     return true;
@@ -139,7 +150,7 @@ public class WebViewActivity extends Activity {
 
     // js通信接口
     class scriptInterface {
-        @android.webkit.JavascriptInterface
+        @JavascriptInterface
         public void closeWindow() {
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -151,7 +162,7 @@ public class WebViewActivity extends Activity {
     }
 
     // 注入js函数监听
-    @android.webkit.JavascriptInterface
+    @JavascriptInterface
     private void addImageClickListner() {
         // 这段js函数的功能就是，遍历所有的closeme几点，并添加onclick函数
         mLJWebView.loadUrl("javascript:(function(){" +

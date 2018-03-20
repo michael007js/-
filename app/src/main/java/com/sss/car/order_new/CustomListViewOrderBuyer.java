@@ -104,7 +104,7 @@ public class CustomListViewOrderBuyer extends LinearLayout {
             TextView two_order_custom_listview_order = $.f(view, R.id.two_order_custom_listview_order);
             TextView three_order_custom_listview_order = $.f(view, R.id.three_order_custom_listview_order);
             TextView four_order_custom_listview_order = $.f(view, R.id.four_order_custom_listview_order);
-            order_code_custom_listview_order.setText(list.get(finalI).order_code);
+            order_code_custom_listview_order.setText("订单编号"+list.get(finalI).order_code);
             order_date_custom_listview_order.setText(list.get(finalI).create_time);
             state_custom_listview_order.setText(list.get(finalI).status_name);
             if (what == 1) {
@@ -303,22 +303,22 @@ public class CustomListViewOrderBuyer extends LinearLayout {
 
                     break;
                 case Constant.Changed://已换货
-                    if ("1".equals(list.get(finalI).exchange_status)) {
-                        addLine(one_order_custom_listview_order, "待签收").setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                            }
-                        });
-                    } else if ("3".equals(list.get(finalI).exchange_status)) {
-                        addLine(one_order_custom_listview_order, "已签收").setOnClickListener(new OnClickListener() {
+                    if ("3".equals(list.get(finalI).exchange_status)) {
+                        addLine(one_order_custom_listview_order, "确认收货").setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
                             }
                         });
                     } else if ("4".equals(list.get(finalI).exchange_status)) {
-                        addLine(one_order_custom_listview_order, "确认收货").setOnClickListener(new OnClickListener() {
+                        addLine(one_order_custom_listview_order, "待发货").setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
+                    } else if ("5".equals(list.get(finalI).exchange_status)) {
+                        addLine(one_order_custom_listview_order, "已完成").setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (onListViewOrderCallBack != null) {
@@ -326,11 +326,13 @@ public class CustomListViewOrderBuyer extends LinearLayout {
                                 }
                             }
                         });
-                    } else if ("5".equals(list.get(finalI).exchange_status)) {
-                        addLine(one_order_custom_listview_order, "已完成").setOnClickListener(new OnClickListener() {
+                    } else if ("6".equals(list.get(finalI).exchange_status)) {
+                        addLine(one_order_custom_listview_order, "待签收").setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                if (onListViewOrderCallBack != null) {
+                                    onListViewOrderCallBack.onConfirmReceipt(list.get(finalI).target_id);
+                                }
                             }
                         });
                     }
@@ -544,8 +546,10 @@ public class CustomListViewOrderBuyer extends LinearLayout {
 
         /**
          * 待签收
+         * @param target_id
+         * @param target_name
          */
-        void onWaitForSign();
+        void onWaitForSign(String target_id, String target_name);
 
         /**
          * 立即评论

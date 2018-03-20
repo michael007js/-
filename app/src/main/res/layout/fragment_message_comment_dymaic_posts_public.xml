@@ -5,7 +5,7 @@
 
     <com.blankj.utilcode.pullToRefresh.PullToRefreshListView
         android:layout_width="match_parent"
-        android:divider="@color/line"
+        android:divider="@null"
         android:id="@+id/listview_fragment_message_comment_dymaic_posts_public"
         android:layout_height="match_parent">
 

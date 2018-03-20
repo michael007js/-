@@ -281,12 +281,13 @@ public class FragmentGoodsServicePublic extends BaseFragment implements RefreshL
                             list, true)
                     .setOnAdvertisementClickCallBack(new AdvertisementViewPagerHelper.OnAdvertisementClickCallBack() {
                         @Override
-                        public void onClick() {
+                        public void onClick(String url) {
                             if (getBaseFragmentActivityContext() != null) {
                                 getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivitySaleAndSeckill.class)
                                         .putExtra("type", type));
                             }
                         }
+
                     });
 //            viewpager_up_fragment_goods_head
 //                    .setImages(list)
@@ -324,7 +325,7 @@ public class FragmentGoodsServicePublic extends BaseFragment implements RefreshL
             viewpager_down_fragment_goods_head
                     .setImages(list2)
                     .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-                    .setDelayTime(3000)
+                    .setDelayTime(Config.flash)
                     .setImageLoader(new ImageLoaderInterface() {
                         @Override
                         public void displayImage(Context context, Object path, View imageView) {

@@ -845,6 +845,10 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onClick(View v) {
                         sex = String.valueOf(position);
+                        etSex.setText(bean);
+                        if (bottomSheetDialog != null) {
+                            bottomSheetDialog.dismiss();
+                        }
                     }
                 });
             }

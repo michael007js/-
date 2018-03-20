@@ -12,9 +12,11 @@ import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
+import com.sss.car.EventBusModel.ChangedList;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -142,7 +144,7 @@ public class ActivityPrivacy extends BaseActivity {
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
                                     if ("1".equals(jsonObject.getString("status"))) {
-
+                                        EventBus.getDefault().post(new ChangedList());
                                     } else {
                                         if (switchButton.isOpened()){
                                             switchButton.setOpened(false);

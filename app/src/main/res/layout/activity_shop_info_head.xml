@@ -12,6 +12,7 @@
     </com.blankj.utilcode.customwidget.ViewPager.BannerVariation>
 
     <LinearLayout
+        android:id="@+id/click"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:background="#fff"

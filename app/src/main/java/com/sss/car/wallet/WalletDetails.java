@@ -290,6 +290,8 @@ public class WalletDetails extends BaseActivity implements RefreshLoadMoreLayout
                                                 walletDetails_subclassMode.remark = jsonArray1.getJSONObject(j).getString("remark");
                                                 walletDetails_subclassMode.order_code = jsonArray1.getJSONObject(j).getString("order_code");
                                                 walletDetails_subclassMode.money = jsonArray1.getJSONObject(j).getString("money");
+                                                walletDetails_subclassMode.total = jsonArray1.getJSONObject(j).getString("total");
+                                                walletDetails_subclassMode.rate_price = jsonArray1.getJSONObject(j).getString("rate_price");
                                                 walletDetails_subclassMode.integral = jsonArray1.getJSONObject(j).getString("integral");
                                                 walletDetails_subclassMode.create_time = jsonArray1.getJSONObject(j).getString("create_time");
                                                 walletDetails_subclassMode.type = jsonArray1.getJSONObject(j).getString("type");

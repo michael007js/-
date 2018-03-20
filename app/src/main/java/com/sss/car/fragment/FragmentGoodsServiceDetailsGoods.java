@@ -367,7 +367,6 @@ public class FragmentGoodsServiceDetailsGoods extends BaseFragment {
         });
     }
 
-
     @OnClick({R.id.top_shop, R.id.click_praise_fragment_goods_service_detalis_goods, R.id.click_share_fragment_goods_service_detalis_goods, R.id.click_shop_fragment_goods_service_detalis_goods, R.id.click_size_fragment_goods_service_detalis_goods, R.id.click_coupon_fragment_goods_service_detalis_goods})
     public void onViewClicked(View view) {
         switch (view.getId()) {

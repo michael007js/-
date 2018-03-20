@@ -244,7 +244,7 @@ public class OrderSOSDetails extends BaseActivity {
                                     penalSumOrderSOSAcceptFromSeller.setText(jsonObject1.getString("vehicle_name"));
                                     helpTypeOrderSOSAcceptFromSeller.setText(jsonObject1.getString("type"));
                                     showAddressOrderSOSAcceptFromSeller.setText(jsonObject1.getString("address"));
-                                    priceOrderSOSDetails.setText(jsonObject1.getString("price"));
+                                    priceOrderSOSDetails.setText("¥" +jsonObject1.getString("price"));
                                     showServiceTimeOrderSOSAcceptFromSeller.setText(jsonObject1.getString("service_time"));
                                     showOtherOrderSOSAcceptFromSeller.setText(jsonObject1.getString("remark"));
                                     faultOrderSosAcceptFromSeller.setText(jsonObject1.getString("title"));

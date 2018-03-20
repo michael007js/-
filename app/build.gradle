@@ -8,8 +8,8 @@ android {
         applicationId "com.sss.car"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 65
-        versionName "6.5"
+        versionCode 75
+        versionName "7.5"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
@@ -29,6 +29,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+
     }
 }
 
@@ -65,4 +70,5 @@ dependencies {
     compile files('libs/libammsdk.jar')
     compile files('libs/commons-httpclient-3.0-rc2.jar')
     compile files('libs/SocialSDK_Sina_Simplify.jar')
+
 }
