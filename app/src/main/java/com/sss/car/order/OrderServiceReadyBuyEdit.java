@@ -35,6 +35,7 @@ import com.sss.car.model.OrderEdit_GoodsData;
 import com.sss.car.model.ShoppingCart;
 import com.sss.car.model.ShoppingCart_Data;
 import com.sss.car.model.ShoppingCart_Data_Options;
+import com.sss.car.utils.C;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.view.ActivityChangeInfo;
 import com.sss.car.view.ActivityMyDataCarGarage;
@@ -216,14 +217,17 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                     @Override
                     public void onAdd(NumberSelectEdit numberSelectEdit, int currentNumber) {
                         totalPrice = String.valueOf(currentNumber);
-                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + currentNumber);
+                        Double d= C.D(list, Double.valueOf(totalPrice), coupon_id);
+                        OrderServiceReadyBuyEdit.this.totalPrice = String.valueOf(d);
+                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + totalPrice);
                     }
 
                     @Override
                     public void onSubtract(NumberSelectEdit numberSelectEdit, int currentNumber) {
-                        LogUtils.e(currentNumber);
                         totalPrice = String.valueOf(currentNumber);
-                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + currentNumber);
+                        Double d= C.D(list, Double.valueOf(totalPrice), coupon_id);
+                        OrderServiceReadyBuyEdit.this.totalPrice = String.valueOf(d);
+                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + totalPrice);
                     }
 
                     @Override
@@ -234,8 +238,10 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
 
                     @Override
                     public void onEditChanged(NumberSelectEdit numberSelectEdit, int currentNumber) {
-                        totalPrice = String.valueOf(numberSelectEdit.getCurrentNumber());
-                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + numberSelectEdit.getCurrentNumber());
+                        totalPrice = String.valueOf(currentNumber);
+                        Double d= C.D(list, Double.valueOf(totalPrice), coupon_id);
+                        OrderServiceReadyBuyEdit.this.totalPrice = String.valueOf(d);
+                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + totalPrice);
                     }
                 });
 

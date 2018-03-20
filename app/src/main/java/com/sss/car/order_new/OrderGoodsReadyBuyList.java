@@ -185,7 +185,6 @@ public class OrderGoodsReadyBuyList extends BaseActivity {
                         operation(1);
                     } else {
                         try {
-
                             LogUtils.e(Double.valueOf(orderSellerModel.damages.substring(0, orderSellerModel.damages.length() - 1)));
                             String pen = PriceUtils.formatBy2Scale(Double.valueOf(orderSellerModel.damages.substring(0, orderSellerModel.damages.length() - 1)) / 100, 1);
                             LogUtils.e(pen);

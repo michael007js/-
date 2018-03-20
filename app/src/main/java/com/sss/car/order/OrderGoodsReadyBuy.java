@@ -30,6 +30,7 @@ import com.sss.car.model.ShoppingCart;
 import com.sss.car.model.ShoppingCart_Data;
 import com.sss.car.model.ShoppingCart_Data_Options;
 import com.sss.car.order_new.NewOrderBuyer;
+import com.sss.car.utils.C;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.view.ActivityChangeInfo;
 import com.sss.car.view.ActivityMyDataAdress;
@@ -192,9 +193,11 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        OrderGoodsReadyBuy.this.totalPrice = String.valueOf(totalPrice);
+                        Double d=C.D(list, Double.valueOf(totalPrice), coupon_id);
+                        OrderGoodsReadyBuy.this.totalPrice = String.valueOf(d);
                         totalPriceOrderGoodsReadyBuy.setText("¥" + totalPrice);
-                        priceOrderGoodsReadyBuy.setCurrentNumber(totalPrice);
+                        priceOrderGoodsReadyBuy.setCurrentNumber(
+                                (int)Double.parseDouble(OrderGoodsReadyBuy.this.totalPrice));
                     }
                 });
             }
@@ -202,6 +205,7 @@ public class OrderGoodsReadyBuy extends BaseActivity {
             @Override
             public void onTotalCount(int totalCount) {
                 number = String.valueOf(totalCount);
+
             }
         });
 
@@ -226,26 +230,34 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                     @Override
                     public void onAdd(NumberSelectEdit numberSelectEdit, int currentNumber) {
                         totalPrice = String.valueOf(currentNumber);
-                        totalPriceOrderGoodsReadyBuy.setText("¥" + currentNumber);
+                        Double d=C.D(list, Double.valueOf(totalPrice), coupon_id);
+                        OrderGoodsReadyBuy.this.totalPrice = String.valueOf(d);
+                        totalPriceOrderGoodsReadyBuy.setText("¥" + totalPrice);
+
                     }
 
                     @Override
                     public void onSubtract(NumberSelectEdit numberSelectEdit, int currentNumber) {
-                        LogUtils.e(currentNumber);
                         totalPrice = String.valueOf(currentNumber);
-                        totalPriceOrderGoodsReadyBuy.setText("¥" + currentNumber);
+                        Double d=C.D(list, Double.valueOf(totalPrice), coupon_id);
+                        OrderGoodsReadyBuy.this.totalPrice = String.valueOf(d);
+                        totalPriceOrderGoodsReadyBuy.setText("¥" + totalPrice);
                     }
 
                     @Override
                     public void onZero(NumberSelectEdit numberSelectEdit) {
                         totalPrice = String.valueOf(numberSelectEdit.getCurrentNumber());
-                        totalPriceOrderGoodsReadyBuy.setText("¥" + numberSelectEdit.getCurrentNumber());
+                        Double d=C.D(list, Double.valueOf(totalPrice), coupon_id);
+                        OrderGoodsReadyBuy.this.totalPrice = String.valueOf(d);
+                        totalPriceOrderGoodsReadyBuy.setText("¥" + totalPrice);
                     }
 
                     @Override
                     public void onEditChanged(NumberSelectEdit numberSelectEdit, int currentNumber) {
                         totalPrice = String.valueOf(numberSelectEdit.getCurrentNumber());
-                        totalPriceOrderGoodsReadyBuy.setText("¥" + numberSelectEdit.getCurrentNumber());
+                        Double d=C.D(list, Double.valueOf(totalPrice), coupon_id);
+                        OrderGoodsReadyBuy.this.totalPrice = String.valueOf(d);
+                        totalPriceOrderGoodsReadyBuy.setText("¥" + totalPrice);
                     }
                 });
 
@@ -270,7 +282,7 @@ public class OrderGoodsReadyBuy extends BaseActivity {
         /***********************************************************************************************************/
         sss_adapter = new SSS_Adapter<CouponModel3>(getBaseActivityContext(), R.layout.item_dialog_coupons) {
             @Override
-            protected void setView(SSS_HolderHelper helper, int position, CouponModel3 bean,SSS_Adapter instance) {
+            protected void setView(SSS_HolderHelper helper, int position, CouponModel3 bean, SSS_Adapter instance) {
                 switch (bean.type) {
                     case "1":
                         helper.setText(R.id.type_item_dialog_coupons, "满减券");//type 1满减券，2现金券，3折扣券
@@ -323,7 +335,7 @@ public class OrderGoodsReadyBuy extends BaseActivity {
         /*******************************************************************************************************/
         integrityMoneyAdapter = new SSS_Adapter<IntegrityMoneyModel>(getBaseActivityContext(), R.layout.item_dialog_coupons) {
             @Override
-            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean,SSS_Adapter instance) {
+            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean, SSS_Adapter instance) {
 
                 helper.setText(R.id.name_item_dialog_coupons, bean.name);
                 if ("1".equals(bean.is_check)) {
@@ -364,7 +376,7 @@ public class OrderGoodsReadyBuy extends BaseActivity {
         /********************************************************************************************************************/
         orderTimeAdapter = new SSS_Adapter<IntegrityMoneyModel>(getBaseActivityContext(), R.layout.item_dialog_coupons) {
             @Override
-            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean,SSS_Adapter instance) {
+            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean, SSS_Adapter instance) {
 
                 helper.setText(R.id.name_item_dialog_coupons, bean.name);
                 if ("1".equals(bean.is_check)) {
@@ -401,7 +413,7 @@ public class OrderGoodsReadyBuy extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.back_top, R.id.right_button_top,R.id.click_choose_car_order_goods_ready_buy, R.id.click_coupon_order_goods_ready_buy, R.id.click_order_time_order_service, R.id.click_penal_sum_order_goods_ready_buy, R.id.click_other_sum_order_goods_ready_buy, R.id.click_submit_order_goods_ready_buy})
+    @OnClick({R.id.back_top, R.id.right_button_top, R.id.click_choose_car_order_goods_ready_buy, R.id.click_coupon_order_goods_ready_buy, R.id.click_order_time_order_service, R.id.click_penal_sum_order_goods_ready_buy, R.id.click_other_sum_order_goods_ready_buy, R.id.click_submit_order_goods_ready_buy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_top:
@@ -416,11 +428,11 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                 }
                 break;
             case R.id.click_coupon_order_goods_ready_buy:
-               if (StringUtils.isEmpty(shop_id)){
-                 ToastUtils.showLongToast(getBaseActivityContext(),"信息获取中");
-               }else {
-                   coupon(true);
-               }
+                if (StringUtils.isEmpty(shop_id)) {
+                    ToastUtils.showLongToast(getBaseActivityContext(), "信息获取中");
+                } else {
+                    coupon(true);
+                }
                 break;
             case R.id.click_order_time_order_service:
                 orderAttrTime(true);
@@ -442,8 +454,8 @@ public class OrderGoodsReadyBuy extends BaseActivity {
 //                } else {
 //                    submitOrder();
 //                }
-                if (StringUtils.isEmpty(mobile)||StringUtils.isEmpty(recipients)||StringUtils.isEmpty(address)){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请设置您的个人信息");
+                if (StringUtils.isEmpty(mobile) || StringUtils.isEmpty(recipients) || StringUtils.isEmpty(address)) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请设置您的个人信息");
                     return;
                 }
 
@@ -452,9 +464,6 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                     return;
                 }
                 submitOrder();
-
-
-
 
 
                 break;
@@ -771,9 +780,10 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                 showCouponOrderGoodsReadyBuy.setTextColor(getResources().getColor(R.color.black));
                 if ("1".equals(couponModel3.is_check)) {
                     showCouponOrderGoodsReadyBuy.setText(couponModel3.name);
+                    coupon_id=couponModel3.coupon_id;
                 }
             }
-        }else {
+        } else {
             showCouponOrderGoodsReadyBuy.setText("无可用优惠券");
             showCouponOrderGoodsReadyBuy.setTextColor(getResources().getColor(R.color.grayness));
         }
@@ -1089,7 +1099,7 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                             .put("member_id", Config.member_id)
                             .put("sid", sid)
                             .put("num", num)
-                            .put("price",price)
+                            .put("price", price)
                             .put("options", options)
                             .put("type", "order")//购物车（cart）预购（pre_order）订单（order）
                             .toString(), new StringCallback() {
@@ -1203,7 +1213,7 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                             .put("damages", penalSum)//	违约金比例
                             .put("remark", other)//备注
                             .put("type", "1")//1车品2车服
-                            .put("price",price)
+                            .put("price", price)
                             .put("shop_id", shop_id)//店铺ID
                             .put("member_id", Config.member_id)//用户Id
                             .put("mobile", mobile)
@@ -1228,10 +1238,10 @@ public class OrderGoodsReadyBuy extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
-                                    if (getIntent()==null||getIntent().getExtras()==null){
+                                    if (getIntent() == null || getIntent().getExtras() == null) {
                                         startActivity(new Intent(getBaseActivityContext(), NewOrderBuyer.class));
-                                    }else {
-                                        if (!"fromActivityOrderSynthesize".equals(getIntent().getExtras().getString("where"))){
+                                    } else {
+                                        if (!"fromActivityOrderSynthesize".equals(getIntent().getExtras().getString("where"))) {
                                             startActivity(new Intent(getBaseActivityContext(), NewOrderBuyer.class));
                                         }
                                     }

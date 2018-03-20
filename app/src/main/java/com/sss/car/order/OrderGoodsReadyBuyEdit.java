@@ -31,6 +31,7 @@ import com.sss.car.model.CouponModel3;
 import com.sss.car.model.IntegrityMoneyModel;
 import com.sss.car.model.OrderEdit;
 import com.sss.car.model.ShoppingCart;
+import com.sss.car.utils.C;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.view.ActivityChangeInfo;
 import com.sss.car.view.ActivityMyDataAdress;
@@ -183,8 +184,12 @@ public class OrderGoodsReadyBuyEdit extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        OrderGoodsReadyBuyEdit.this.totalPrice = String.valueOf(price);
-                        totalPriceOrderGoodsReadyBuyEdit.setText("¥" + price);
+
+                        Double d= C.D(list, Double.valueOf(totalPrice), coupon_id);
+                        OrderGoodsReadyBuyEdit.this.totalPrice = String.valueOf(d);
+                        totalPriceOrderGoodsReadyBuyEdit.setText("¥" + totalPrice);
+                        priceOrderGoodsReadyBuyEdit.setCurrentNumber(
+                                (int)Double.parseDouble(OrderGoodsReadyBuyEdit.this.totalPrice));
                     }
                 });
 
@@ -221,14 +226,20 @@ public class OrderGoodsReadyBuyEdit extends BaseActivity {
             priceOrderGoodsReadyBuyEdit.setNumberSelectEditOperationCakkBack(new NumberSelectEdit.NumberSelectEditOperationCakkBack() {
                 @Override
                 public void onAdd(NumberSelectEdit numberSelectEdit, int currentNumber) {
-                    totalPriceOrderGoodsReadyBuyEdit.setText("¥" + currentNumber);
                     number = currentNumber + "";
+                    totalPrice = String.valueOf(currentNumber);
+                    Double d=C.D(list, Double.valueOf(totalPrice), coupon_id);
+                    OrderGoodsReadyBuyEdit.this.totalPrice = String.valueOf(d);
+                    totalPriceOrderGoodsReadyBuyEdit.setText("¥" + totalPrice);
                 }
 
                 @Override
                 public void onSubtract(NumberSelectEdit numberSelectEdit, int currentNumber) {
-                    totalPriceOrderGoodsReadyBuyEdit.setText("¥" + currentNumber);
                     number = currentNumber + "";
+                    totalPrice = String.valueOf(currentNumber);
+                    Double d=C.D(list, Double.valueOf(totalPrice), coupon_id);
+                    OrderGoodsReadyBuyEdit.this.totalPrice = String.valueOf(d);
+                    totalPriceOrderGoodsReadyBuyEdit.setText("¥" + totalPrice);
                 }
 
                 @Override
@@ -239,8 +250,11 @@ public class OrderGoodsReadyBuyEdit extends BaseActivity {
 
                 @Override
                 public void onEditChanged(NumberSelectEdit numberSelectEdit, int currentNumber) {
-                    totalPriceOrderGoodsReadyBuyEdit.setText("¥" + currentNumber);
                     number = currentNumber + "";
+                    totalPrice = String.valueOf(currentNumber);
+                    Double d=C.D(list, Double.valueOf(totalPrice), coupon_id);
+                    OrderGoodsReadyBuyEdit.this.totalPrice = String.valueOf(d);
+                    totalPriceOrderGoodsReadyBuyEdit.setText("¥" + totalPrice);
                 }
             });
         } else {
@@ -743,6 +757,7 @@ public class OrderGoodsReadyBuyEdit extends BaseActivity {
                 showCouponOrderGoodsReadyBuyEdit.setTextColor(getResources().getColor(R.color.black));
                 if ("1".equals(couponModel3.is_check)) {
                     showCouponOrderGoodsReadyBuyEdit.setText(couponModel3.name);
+                    coupon_id=couponModel3.coupon_id;
                 }
             }
         }else {

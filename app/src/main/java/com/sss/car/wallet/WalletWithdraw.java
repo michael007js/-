@@ -14,6 +14,7 @@ import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
@@ -42,6 +43,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+import static com.sss.car.R.id.bank_name;
+
 /**
  * 我的资金==>提现
  * Created by leilei on 2017/10/26.
@@ -64,7 +67,7 @@ public class WalletWithdraw extends BaseActivity {
     YWLoadingDialog ywLoadingDialog;
     BankModel bankModel;
     int expendable = 0;
-    @BindView(R.id.bank_name)
+    @BindView(bank_name)
     TextView bankName;
     @BindView(R.id.bank)
     LinearLayout bank;
@@ -231,7 +234,11 @@ public class WalletWithdraw extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     bankModel = new Gson().fromJson(jsonObject.getJSONObject("data").toString(), BankModel.class);
-                                    bankName.setText(bankModel.bank_name);
+                                    if (StringUtils.isEmpty(bankModel.bank_name)){
+                                        bankName.setText("绑定银行卡");
+                                    }else {
+                                        bankName.setText(bankModel.bank_name);
+                                    }
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }

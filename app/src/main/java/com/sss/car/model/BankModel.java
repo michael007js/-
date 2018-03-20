@@ -17,5 +17,19 @@ public class BankModel {
     public String card_num;
     public String bank_name;
     public String bank_logo;
+    public String card_beg;
+    public String card_end;
 
+    @Override
+    public String toString() {
+        return "BankModel{" +
+                "is_default='" + is_default + '\'' +
+                ", card_id='" + card_id + '\'' +
+                ", card_num='" + card_num + '\'' +
+                ", bank_name='" + bank_name + '\'' +
+                ", bank_logo='" + bank_logo + '\'' +
+                ", card_beg='" + card_beg + '\'' +
+                ", card_end='" + card_end + '\'' +
+                '}';
+    }
 }

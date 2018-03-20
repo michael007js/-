@@ -134,11 +134,11 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
     BottomSheetDialog bottomSheetDialog;
 
     //一级菜单集合与适配器
-    List<PopularizeCateModel> categoryList = new ArrayList<>();
-    SSS_Adapter categoryAdapter;
-    //二级菜单集合与适配器
     List<PopularizeCateModel> typeList = new ArrayList<>();
     SSS_Adapter typeAdapter;
+    //二级菜单集合与适配器
+    List<PopularizeCateModel> categoryList = new ArrayList<>();
+    SSS_Adapter categoryAdapter;
     //三级菜单集合与适配器
     List<PopularizeCateModel> oneList = new ArrayList<>();
     SSS_Adapter oneAdapter;
@@ -166,12 +166,12 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
     String endTime;//结束时间
     String number;//数量
     String totalPrice;//总价
+    boolean twoCanClick = false;//二级菜单能否点击
     boolean threeCanClick = false;//三级菜单能否点击
     boolean fourCanClick = false;//四级菜单能否点击
     boolean isCoupon = false;//优惠券模式
     boolean isActivity = false;//活动模式
     boolean isGround = false;//地推人员模式
-
     boolean canOperation = true;
 
 
@@ -353,9 +353,10 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.et_category:
                 if (canOperation) {
-                    if (StringUtils.isEmpty(type)) {
+                    if (twoCanClick == false) {
                         return;
                     }
+
                     if (menuDialog == null) {
                         menuDialog = new MenuDialog(getBaseActivity());
                     }
@@ -533,6 +534,12 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                 subject_id = null;
                 city_id = null;
                 etCity.setText("");
+                categoryList.clear();
+                categoryAdapter.setList(categoryList);
+                oneList.clear();
+                oneAdapter.setList(oneList);
+                twoList.clear();
+                twoAdapter.setList(twoList);
                 break;
             case 2:
                 one = null;
@@ -542,12 +549,18 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                 tipOne.setTextColor(getResources().getColor(R.color.edittext_stop));
                 tipTwo.setTextColor(getResources().getColor(R.color.edittext_stop));
                 subject_id = null;
+                oneList.clear();
+                oneAdapter.setList(oneList);
+                twoList.clear();
+                twoAdapter.setList(twoList);
                 break;
             case 3:
                 two = null;
                 etTwo.setText("");
                 tipTwo.setTextColor(getResources().getColor(R.color.edittext_stop));
                 coupon_id = null;
+                twoList.clear();
+                twoAdapter.setList(twoList);
                 break;
         }
 
@@ -964,10 +977,10 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                             break;
                                     }
                                     init();
-                                    JSONArray picture=jsonObject1.getJSONArray("picture");
-                                        for (int i = 0; i <picture.length() ; i++) {
-                                          temp.add(  Config.url+picture.getString(i));
-                                        }
+                                    JSONArray picture = jsonObject1.getJSONArray("picture");
+                                    for (int i = 0; i < picture.length(); i++) {
+                                        temp.add(Config.url + picture.getString(i));
+                                    }
 
                                     PopularizeEdit.this.picture.setList(temp);
 
@@ -1033,6 +1046,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                             categoryList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), PopularizeCateModel.class));
                                         }
                                         categoryAdapter.setList(categoryList);
+                                        twoCanClick = jsonArray.length() > 0;
                                     } else if (where == 3) {
                                         oneList.clear();
                                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -1538,7 +1552,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     if (!"4".equals(status)) {
-                                        PayUtils.requestPayment(ywLoadingDialog, "0",jsonObject.getJSONObject("data").getString("popularize_id"), 4, 1, totalPrice, getBaseActivity());
+                                        PayUtils.requestPayment(ywLoadingDialog, "0", jsonObject.getJSONObject("data").getString("popularize_id"), 4, 1, totalPrice, getBaseActivity());
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                     }
