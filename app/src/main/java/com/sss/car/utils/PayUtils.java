@@ -216,9 +216,9 @@ public class PayUtils {
 
                 }
                 if (is_deposit == 0) {//
-                    click_dialog_payment_bottom.setVisibility(View.GONE);
-                } else if (is_deposit == 1) {
                     click_dialog_payment_bottom.setVisibility(View.VISIBLE);
+                } else if (is_deposit == 1) {
+                    click_dialog_payment_bottom.setVisibility(View.GONE);
                 }
                 LinearLayout click_score = $.f(view, R.id.click_score);
                 money_dialog_payment_bottom.setText(money + "");

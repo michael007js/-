@@ -336,7 +336,7 @@ public class ActivityMyDataSynthesizeSetting extends BaseActivity {
             @Override
             public void toggleToOn(SwitchButton view) {
                 view.setOpened(true);
-                RongYunUtils.setNotificationQuietHours(new RongIMClient.OperationCallback() {
+                RongYunUtils.removeNotificationQuietHours(new RongIMClient.OperationCallback() {
                     @Override
                     public void onSuccess() {
 
@@ -354,7 +354,7 @@ public class ActivityMyDataSynthesizeSetting extends BaseActivity {
             @Override
             public void toggleToOff(SwitchButton view) {
                 view.setOpened(false);
-                RongYunUtils.removeNotificationQuietHours(new RongIMClient.OperationCallback() {
+                RongYunUtils.setNotificationQuietHours(new RongIMClient.OperationCallback() {
                     @Override
                     public void onSuccess() {
 

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView;
+import com.blankj.utilcode.customwidget.JingDongCountDownView.base.OnCountDownTimerListener;
 import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
 import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
@@ -21,6 +23,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+import com.rey.material.app.BottomSheetDialog;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedOrderModel;
 import com.sss.car.P;
@@ -34,7 +37,6 @@ import com.sss.car.order_new.Constant;
 import com.sss.car.order_new.OrderCommentBuyer;
 import com.sss.car.order_new.OrderCommentSeller;
 import com.sss.car.order_new.OrderModel;
-import com.sss.car.utils.CarUtils;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.utils.OrderUtils;
 import com.sss.car.utils.PayUtils;
@@ -55,8 +57,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
-
-import static com.sss.car.R.id.company_parent;
 
 
 /**
@@ -123,9 +123,15 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
     EditText company;
     @BindView(R.id.expressage_code)
     EditText expressageCode;
-    @BindView(company_parent)
-    LinearLayout companyParent;
     MenuDialog menuDialog;
+    @BindView(R.id.countdown)
+    SecondDownTimerView countdown;
+    @BindView(R.id.parent_expressage_code)
+    LinearLayout parentExpressageCode;
+    @BindView(R.id.company_parent)
+    LinearLayout companyParent;
+    @BindView(R.id.parent_countdown)
+    LinearLayout parentCountdown;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -136,14 +142,18 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (countdown != null) {
+            countdown.cancelDownTimer();
+        }
+        countdown = null;
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
         ywLoadingDialog = null;
-        if (menuDialog!=null){
+        if (menuDialog != null) {
             menuDialog.clear();
         }
-        menuDialog=null;
+        menuDialog = null;
         backTop = null;
         titleTop = null;
         peopleNameOrderGoodsMyOrderBuyer = null;
@@ -183,7 +193,19 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
             }
         });
         titleTop.setText("实物订单详情");
+        countdown.setDownTimerListener(new OnCountDownTimerListener() {
+            @Override
+            public void onTick(long millisUntilFinished) {
 
+            }
+
+            @Override
+            public void onFinish() {
+                ToastUtils.showShortToast(getBaseActivityContext(), "该订单已经过期");
+                EventBus.getDefault().post(new ChangedOrderModel());
+                finish();
+            }
+        });
 
         getOrderDetailsSeller();
     }
@@ -237,7 +259,7 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
                             public void onOKey(Dialog dialog) {
                                 dialog.dismiss();
                                 dialog = null;
-                                PayUtils.requestPayment(ywLoadingDialog,"0", orderModel.order_id, 2, 0, PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total), 2), getBaseActivity());
+                                PayUtils.requestPayment(ywLoadingDialog, "0", orderModel.order_id, 2, 0, PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total), 2), getBaseActivity());
 //                                if (ywLoadingDialog != null) {
 //                                    ywLoadingDialog.dismiss();
 //                                }
@@ -304,10 +326,10 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
                 clicks.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (getIntent().getExtras().getBoolean("isIncome")){
+                        if (getIntent().getExtras().getBoolean("isIncome")) {
                             startActivity(new Intent(getBaseActivityContext(), OrderCommentSeller.class)
                                     .putExtra("order_id", getIntent().getExtras().getString("order_id")));
-                        }else {
+                        } else {
                             startActivity(new Intent(getBaseActivityContext(), OrderCommentBuyer.class)
                                     .putExtra("order_id", getIntent().getExtras().getString("order_id")));
                         }
@@ -363,8 +385,8 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
                                                 }
                                                 menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
                                                     @Override
-                                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
-                                                        P.r(ywLoadingDialog, Config.member_id, password,getBaseActivity(), new P.r() {
+                                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final BottomSheetDialog bottomSheetDialog) {
+                                                        P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
                                                             @Override
                                                             public void match() {
                                                                 bottomSheetDialog.dismiss();
@@ -641,6 +663,12 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
                                         list.add(orderSellerModel_order_goods);
                                     }
                                     orderSellerModel.goods_data = list;
+                                    int start_time = jsonObject.getJSONObject("data").getInt("start_time");
+                                    if (start_time > 0) {
+                                        countdown.setDownTime(Long.valueOf(start_time*1000));
+                                        countdown.startDownTimer();
+                                        parentCountdown.setVisibility(View.VISIBLE);
+                                    }
                                     showData();
                                     getInfo();
 

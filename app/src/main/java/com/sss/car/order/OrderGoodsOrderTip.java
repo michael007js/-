@@ -11,12 +11,15 @@ import android.widget.TextView;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView;
+import com.blankj.utilcode.customwidget.JingDongCountDownView.base.OnCountDownTimerListener;
 import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.sss.car.EventBusModel.ChangedOrderModel;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.custom.ListViewOrderSellerDetails;
@@ -26,6 +29,7 @@ import com.sss.car.order_new.Constant;
 import com.sss.car.utils.OrderUtils;
 import com.sss.car.view.ActivityShopInfo;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -99,7 +103,10 @@ public class OrderGoodsOrderTip extends BaseActivity {
     EditText expressageCode;
     @BindView(R.id.parent)
     LinearLayout parent;
-
+    @BindView(R.id.countdown)
+    SecondDownTimerView countdown;
+    @BindView(R.id.parent_countdown)
+    LinearLayout parentCountdown;
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
 
@@ -109,7 +116,10 @@ public class OrderGoodsOrderTip extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        if (countdown != null) {
+            countdown.cancelDownTimer();
+        }
+        countdown = null;
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
@@ -153,6 +163,20 @@ public class OrderGoodsOrderTip extends BaseActivity {
         });
 
         initView();
+        countdown.setDownTimerListener(new OnCountDownTimerListener() {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                ToastUtils.showShortToast(getBaseActivityContext(), "该订单已经过期");
+                EventBus.getDefault().post(new ChangedOrderModel());
+                finish();
+            }
+        });
+
         getOrderDetailsSeller();
     }
 
@@ -267,6 +291,12 @@ public class OrderGoodsOrderTip extends BaseActivity {
                                         list.add(orderSellerModel_order_goods);
                                     }
                                     orderSellerModel.goods_data = list;
+                                    int start_time = jsonObject.getJSONObject("data").getInt("start_time");
+                                    if (start_time > 0) {
+                                        countdown.setDownTime(Long.valueOf(start_time*1000));
+                                        countdown.startDownTimer();
+                                        parentCountdown.setVisibility(View.VISIBLE);
+                                    }
                                     showData();
 
                                 } else {

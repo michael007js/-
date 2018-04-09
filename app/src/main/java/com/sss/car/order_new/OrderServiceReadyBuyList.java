@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView;
+import com.blankj.utilcode.customwidget.JingDongCountDownView.base.OnCountDownTimerListener;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PriceUtils;
@@ -100,7 +102,10 @@ public class OrderServiceReadyBuyList extends BaseActivity {
     TextView clickYesOrderServiceReadyBuyList;
     @BindView(R.id.order_service_ready_buy_list_list)
     LinearLayout orderServiceReadyBuyListList;
-
+    @BindView(R.id.countdown)
+    SecondDownTimerView countdown;
+    @BindView(R.id.parent_countdown)
+    LinearLayout parentCountdown;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -113,6 +118,12 @@ public class OrderServiceReadyBuyList extends BaseActivity {
             ywLoadingDialog.disMiss();
         }
         ywLoadingDialog = null;
+        if (countdown != null) {
+            countdown.cancelDownTimer();
+        }
+        countdown = null;
+
+
         backTop = null;
         titleTop = null;
         listOrderServiceReadyBuy = null;
@@ -156,6 +167,21 @@ public class OrderServiceReadyBuyList extends BaseActivity {
             }
         });
         titleTop.setText("服务订单详情");
+        countdown.setDownTimerListener(new OnCountDownTimerListener() {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                ToastUtils.showShortToast(getBaseActivityContext(), "该订单已经过期");
+                EventBus.getDefault().post(new ChangedOrderModel());
+                finish();
+            }
+        });
+
+
         getOrderDetailsSeller();
         orderTip();
     }
@@ -331,6 +357,12 @@ public class OrderServiceReadyBuyList extends BaseActivity {
                                         list.add(orderSellerModel_order_goods);
                                     }
                                     orderSellerModel.goods_data = list;
+                                    int start_time = jsonObject.getJSONObject("data").getInt("start_time");
+                                    if (start_time > 0) {
+                                        countdown.setDownTime(Long.valueOf(start_time*1000));
+                                        countdown.startDownTimer();
+                                        parentCountdown.setVisibility(View.VISIBLE);
+                                    }
                                     showData();
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));

@@ -164,10 +164,10 @@ public class WalletMyMoney extends BaseActivity {
                                     float[] x = {(float) cash_deposit / total, (float) freeze / total, (float) expendable / total};
                                     String[] y = {"#fba62f", "#f26956", "#2466b0"};
                                     calcPriceWalletMyMoney.initSrc(x, y);
-                                    oneWalletMyMoney.setText(cash_deposit + "");
-                                    twoWalletMyMoney.setText(freeze + "");
-                                    threeWalletMyMoney.setText(expendable + "");
-                                    totalWalletMyMoney.setText(total + "");
+                                    oneWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("cash_deposit"));
+                                    twoWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("freeze"));
+                                    threeWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("expendable"));
+                                    totalWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("balance"));
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }

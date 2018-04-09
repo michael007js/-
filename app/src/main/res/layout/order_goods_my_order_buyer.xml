@@ -55,18 +55,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:textColor="@color/black"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="收货人:"/>
+                                android:text="收货人:"
+                                android:textColor="@color/black"/>
 
                             <TextView
-                                android:textColor="@color/black"
                                 android:id="@+id/people_name_order_goods_my_order_buyer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:maxLines="1"/>
+                                android:maxLines="1"
+                                android:textColor="@color/black"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -74,11 +74,11 @@
                                 android:layout_weight="1"/>
 
                             <TextView
-                                android:textColor="@color/black"
                                 android:id="@+id/mobile_name_order_goods_my_order_buyer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:maxLines="1"/>
+                                android:maxLines="1"
+                                android:textColor="@color/black"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -89,18 +89,18 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:textColor="@color/black"
                                 android:id="@+id/address_or_car"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="收货地址:"/>
+                                android:text="收货地址:"
+                                android:textColor="@color/black"/>
 
                             <TextView
-                                android:textColor="@color/black"
                                 android:id="@+id/content_order_goods_my_order_buyer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"/>
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/black"/>
 
 
                         </LinearLayout>
@@ -124,6 +124,31 @@
                     android:layout_height="10dp"
                     android:background="@color/line"/>
 
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/parent_countdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="该订单距过期还剩余"/>
+
+                    <com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView
+                        android:id="@+id/countdown"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="wrap_content">
+                    </com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView>
+
+                </LinearLayout>
+
+
                 <com.sss.car.custom.ListViewOrderSellerDetails
                     android:id="@+id/list_order_goods_my_order_buyer"
                     android:layout_width="match_parent"
@@ -137,22 +162,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="购买价格"/>
+                        android:text="购买价格"
+                        android:textColor="@color/black"/>
 
                     <TextView
-                        android:textColor="@color/black"
                         android:id="@+id/price_order_goods_my_order_buyer"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="10dp"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black">
 
                     </TextView>
                 </LinearLayout>
@@ -180,12 +205,12 @@
                         android:textColor="@color/mainColor"/>
 
                     <TextView
-                        android:textColor="@color/black"
                         android:id="@+id/show_coupon_order_goods_my_order_buyer"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="right|center"
-                        android:paddingRight="10dp"/>
+                        android:paddingRight="10dp"
+                        android:textColor="@color/black"/>
 
 
                 </LinearLayout>
@@ -213,12 +238,12 @@
                         android:textColor="@color/mainColor"/>
 
                     <TextView
-                        android:textColor="@color/black"
                         android:id="@+id/show_order_time_order_goods_my_order_buyer"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="right|center"
-                        android:paddingRight="10dp"/>
+                        android:paddingRight="10dp"
+                        android:textColor="@color/black"/>
 
 
                 </LinearLayout>
@@ -246,12 +271,12 @@
                         android:textColor="@color/mainColor"/>
 
                     <TextView
-                        android:textColor="@color/black"
                         android:id="@+id/show_penal_sum_order_goods_my_order_buyer"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="right|center"
-                        android:paddingRight="10dp"/>
+                        android:paddingRight="10dp"
+                        android:textColor="@color/black"/>
 
                 </LinearLayout>
 
@@ -278,29 +303,31 @@
                         android:textColor="@color/mainColor"/>
 
                     <TextView
-                        android:textColor="@color/black"
                         android:id="@+id/show_other_order_goods_my_order_buyer"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="right|center"
                         android:paddingRight="10dp"
-                        android:text=""/>
+                        android:text=""
+                        android:textColor="@color/black"/>
 
 
                 </LinearLayout>
 
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/company_parent"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
                     <TextView
                         android:id="@+id/line"
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:background="@color/line"/>
+
                     <LinearLayout
                         android:id="@+id/parent_company"
                         android:layout_width="match_parent"
@@ -319,21 +346,23 @@
                             android:textColor="@color/black"/>
 
                         <EditText
-                            android:textColor="@color/black"
-                            android:enabled="false"
-                            android:background="@null"
                             android:id="@+id/company"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:enabled="false"
                             android:gravity="center_vertical"
                             android:hint=""
+                            android:textColor="@color/black"
                             android:textSize="13.8sp"/>
                     </LinearLayout>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/line"/>
+
                     <LinearLayout
                         android:id="@+id/parent_expressage_code"
                         android:layout_width="match_parent"
@@ -353,15 +382,15 @@
 
                         <EditText
 
-                            android:background="@null"
                             android:id="@+id/expressage_code"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:enabled="false"
                             android:gravity="center_vertical"
                             android:hint=""
                             android:textColor="@color/black"
-                            android:enabled="false"
                             android:textSize="13.8sp"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -378,17 +407,15 @@
         android:background="@color/line"/>
 
 
-
-        <TextView
-            android:id="@+id/click_s"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/mainColor"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text=""
-            android:textColor="#fff"/>
-
+    <TextView
+        android:id="@+id/click_s"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/mainColor"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text=""
+        android:textColor="#fff"/>
 
 
     <LinearLayout
@@ -401,10 +428,10 @@
         android:paddingLeft="10dp">
 
         <TextView
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="合计: "/>
+            android:text="合计: "
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/total_price_order_goods_my_order_buyer"
@@ -412,9 +439,9 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:textColor="@color/mainColor"
             android:gravity="center_vertical"
-            android:text="¥0"/>
+            android:text="¥0"
+            android:textColor="@color/mainColor"/>
 
         <TextView
             android:id="@+id/click_submit_order_goods_my_order_buyer"

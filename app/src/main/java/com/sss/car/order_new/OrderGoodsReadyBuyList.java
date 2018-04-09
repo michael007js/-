@@ -9,8 +9,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView;
+import com.blankj.utilcode.customwidget.JingDongCountDownView.base.OnCountDownTimerListener;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
-import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PriceUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -41,8 +42,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
-
-import static com.sss.car.R.id.price;
 
 
 /**
@@ -103,6 +102,10 @@ public class OrderGoodsReadyBuyList extends BaseActivity {
     TextView clickYesOrderServiceReadyBuyList;
     @BindView(R.id.order_goods_ready_buy_list)
     LinearLayout orderServiceReadyBuyListList;
+    @BindView(R.id.countdown)
+    SecondDownTimerView countdown;
+    @BindView(R.id.parent_countdown)
+    LinearLayout parentCountdown;
 
 
     @Override
@@ -112,6 +115,10 @@ public class OrderGoodsReadyBuyList extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        if (countdown != null) {
+            countdown.cancelDownTimer();
+        }
+        countdown = null;
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
@@ -159,6 +166,19 @@ public class OrderGoodsReadyBuyList extends BaseActivity {
             }
         });
         titleTop.setText("实物订单详情");
+        countdown.setDownTimerListener(new OnCountDownTimerListener() {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                ToastUtils.showShortToast(getBaseActivityContext(), "该订单已经过期");
+                EventBus.getDefault().post(new ChangedOrderModel());
+                finish();
+            }
+        });
         getOrderDetailsSeller();
         orderTip();
     }
@@ -191,7 +211,7 @@ public class OrderGoodsReadyBuyList extends BaseActivity {
                             double price = PriceUtils.multiply(Double.valueOf(pen), Double.valueOf(orderSellerModel.total), 2);
                             LogUtils.e(price);
 
-                            PayUtils.requestPayment(ywLoadingDialog, "0",orderSellerModel.order_id, 2, 1, String.valueOf(price), getBaseActivity());
+                            PayUtils.requestPayment(ywLoadingDialog, "0", orderSellerModel.order_id, 2, 1, String.valueOf(price), getBaseActivity());
                         } catch (IndexOutOfBoundsException e) {
                             ToastUtils.showShortToast(getBaseActivityContext(), "违约金解析错误");
                         }
@@ -334,6 +354,12 @@ public class OrderGoodsReadyBuyList extends BaseActivity {
                                         list.add(orderSellerModel_order_goods);
                                     }
                                     orderSellerModel.goods_data = list;
+                                    int start_time = jsonObject.getJSONObject("data").getInt("start_time");
+                                    if (start_time > 0) {
+                                        countdown.setDownTime(Long.valueOf(start_time*1000));
+                                        countdown.startDownTimer();
+                                        parentCountdown.setVisibility(View.VISIBLE);
+                                    }
                                     showData();
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));

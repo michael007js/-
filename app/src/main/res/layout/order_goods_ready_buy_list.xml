@@ -117,6 +117,30 @@
                     android:layout_height="10dp"
                     android:background="@color/line"/>
 
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/parent_countdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="该订单距过期还剩余"/>
+
+                    <com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView
+                        android:id="@+id/countdown"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="wrap_content">
+                    </com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView>
+
+                </LinearLayout>
+
                 <com.sss.car.custom.ListViewOrderSellerDetails
                     android:id="@+id/list_order_goods_ready_buy_list"
                     android:layout_width="match_parent"

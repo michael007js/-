@@ -347,8 +347,9 @@ public class ActivityShareInteractionManageSettingPeopleManage extends BaseActiv
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     p = 1;
-                                    friend_into();
                                     friend_id = null;
+                                    friend_into();
+
 
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
