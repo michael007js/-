@@ -161,7 +161,6 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
         setContentView(R.layout.main);
         ButterKnife.bind(this);
         requestAPPLicense();
-        SettingUtils.enterWhiteListSetting(getBaseActivityContext());
     }
 
 
