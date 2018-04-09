@@ -61,12 +61,14 @@ public class SettingUtils {
                 }
                 break;
             case "meizu":
-                componentName = new ComponentName("com.meizu.safe",
-                        "com.meizu.safe.permission.SmartBGActivity");
+                if ( ActivityUtils.isActivityExists(context,"com.meizu.safe", "com.meizu.safe.permission.SmartBGActivity")){
+                    componentName = new ComponentName("com.meizu.safe", "com.meizu.safe.permission.SmartBGActivity");
+                }
                 break;
             case "oneplus":
-                componentName = new ComponentName("com.oneplus.security",
-                        "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity");
+                if ( ActivityUtils.isActivityExists(context,"com.oneplus.security", "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity")){
+                    componentName = new ComponentName("com.oneplus.security", "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity");
+                }
                 break;
             default:
                 break;
