@@ -115,7 +115,10 @@ public class ActivityOrderChooseTime extends BaseActivity {
                             if (changeInfoModel == null) {
                                 changeInfoModel = new ChangeInfoModel();
                             }
-
+                            if (System.currentTimeMillis()> TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "所选时间必须大于当前时间");
+                                return;
+                            }
                             start = year + "-" + month + "-" + day;
                             changeInfoModel.type = getIntent().getExtras().getString("type");
                             changeInfoModel.msg = start + "-" + end;
@@ -125,6 +128,10 @@ public class ActivityOrderChooseTime extends BaseActivity {
                             return;
                         }
                     }
+                    if (System.currentTimeMillis()> TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
+                        ToastUtils.showShortToast(getBaseActivityContext(), "所选时间必须大于当前时间");
+                        return;
+                    }
                     start = year + "-" + month + "-" + day;
                     fromActivitActivityOrderChooseTime.setText("从" + start);
                 } else {
@@ -132,6 +139,10 @@ public class ActivityOrderChooseTime extends BaseActivity {
                         if (TimeUtils.string2Millis(year + "-" + month + "-" + day , "yyyy-MM-dd") > TimeUtils.string2Millis(start, "yyyy-MM-dd")) {
                             if (changeInfoModel == null) {
                                 changeInfoModel = new ChangeInfoModel();
+                            }
+                            if (System.currentTimeMillis()> TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "所选时间必须大于当前时间");
+                                return;
                             }
                             end = year + "-" + month + "-" + day;
                             changeInfoModel.type = getIntent().getExtras().getString("type");
@@ -141,6 +152,10 @@ public class ActivityOrderChooseTime extends BaseActivity {
                             ToastUtils.showShortToast(getBaseActivityContext(), "结束时间必须大于开始时间");
                             return;
                         }
+                    }
+                    if (System.currentTimeMillis()> TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
+                        ToastUtils.showShortToast(getBaseActivityContext(), "所选时间必须大于当前时间");
+                        return;
                     }
                     end = year + "-" + month + "-" + day;
                     toActivitActivityOrderChooseTime.setText("至" + end);

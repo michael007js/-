@@ -272,8 +272,8 @@ public class FragmentGoodsServicePublic extends BaseFragment implements RefreshL
 
             List<AdvertisementModel> list = new ArrayList<>();
             String a = "http://180.97.222.16/youku/67737554FCD4B81E24638D4074/03000801005A17BA97B8AB456691039ACA2CFA-28C7-2777-932C-4272709941F9.mp4?sid=051185900138812f892a6&ctype=12&ccode=0508&duration=248&expire=18000&psid=88c9d6111cd51f2f4e43c5f6dd466f23&ups_client_netip=731c5c42&ups_ts=1511859001&ups_userid=&utid=WhCkElv8tQkCAXMcXELpPaE3&vkey=Aff97ca47ccd494c37f40b4d0428270b2&vid=XMzE4MTAxNTk5Mg%3D%3D";
-            list.add(new AdvertisementModel("", a, true));
-            list.add(new AdvertisementModel("", "https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2699494154,1003505126&fm=173&s=F9B4099844803FF914A5D28C0300F085&w=640&h=449&img.JPG", false));
+            list.add(new AdvertisementModel("", a, "1   "));
+            list.add(new AdvertisementModel("", "https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2699494154,1003505126&fm=173&s=F9B4099844803FF914A5D28C0300F085&w=640&h=449&img.JPG", "0"));
             advertisementViewPagerHelper.setView(upBannerViewPager, upZoomIndicator)
                     .setData(getActivity()
                             , getActivity().getWindowManager().getDefaultDisplay().getWidth(),

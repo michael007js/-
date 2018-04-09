@@ -14,11 +14,9 @@ import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
-import com.rey.material.app.BottomSheetDialog;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.BindCardModel;
 import com.sss.car.EventBusModel.ChangedWalletModel;
@@ -29,8 +27,8 @@ import com.sss.car.dao.OnPayPasswordVerificationCallBack;
 import com.sss.car.model.BankModel;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.view.ActivityBangCardBind;
-import com.sss.car.view.ActivityWeb;
-import com.sss.car.view.WalletAddBank;
+import com.sss.car.view.ActivityMyDataSetPassword;
+import com.sss.car.view.ActivityMyDataSynthesizSettingSetPayPassword;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -71,6 +69,7 @@ public class WalletWithdraw extends BaseActivity {
     TextView bankName;
     @BindView(R.id.bank)
     LinearLayout bank;
+    String content;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -131,11 +130,18 @@ public class WalletWithdraw extends BaseActivity {
                 if ("0".equals(s)) {
                     inputWalletWithdraw.setText("");
                 }
+                if (StringUtils.isEmpty(s.toString())) {
+                    canWalletWithdraw.setText("可用于提现的金额:  " + expendable + "元");
+                } else {
+                    canWalletWithdraw.setText(content);
+                }
             }
         });
         get_default();
         my_balance();
+        terrace_withdraw();
     }
+
     @OnClick({R.id.back_top, R.id.next_wallet_withdraw, R.id.bank})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -145,7 +151,7 @@ public class WalletWithdraw extends BaseActivity {
                         if (getBaseActivityContext() != null) {
                             startActivity(new Intent(getBaseActivityContext(), WalletBankList.class));
                         }
-                    }else {
+                    } else {
                         if (getBaseActivityContext() != null) {
 //                            startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
 //                                    .putExtra("type",ActivityWeb.BANK_BIND));
@@ -173,35 +179,95 @@ public class WalletWithdraw extends BaseActivity {
                     return;
                 }
                 if (StringUtils.isEmpty(bankModel.card_id)) {
-                    ToastUtils.showLongToast(getBaseActivityContext(), "银行卡信息获取中Err-4");
+                    ToastUtils.showLongToast(getBaseActivityContext(), "请绑定银行卡");
+                    startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
                     return;
                 }
                 if (StringUtils.isEmpty(inputWalletWithdraw.getText().toString().trim())) {
                     ToastUtils.showLongToast(getBaseActivityContext(), "请填写提现金额");
                     return;
                 }
-                if (menuDialog == null) {
-                    menuDialog = new MenuDialog(getBaseActivity());
-                }
-                menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
+
+                P.e(ywLoadingDialog, Config.member_id, getBaseActivity(), new P.p() {
                     @Override
-                    public void onVerificationPassword(final String password, final PassWordKeyboard passWordKeyboard, final BottomSheetDialog bottomSheetDialog) {
-                        P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
+                    public void exist() {
+                        if (menuDialog == null) {
+                            menuDialog = new MenuDialog(getBaseActivity());
+                        }
+                        menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
                             @Override
-                            public void match() {
-                                bottomSheetDialog.dismiss();
-                                passWordKeyboard.setStatus(true);
-                                withdraw();
+                            public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+                                P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
+                                    @Override
+                                    public void match() {
+                                        bottomSheetDialog.dismiss();
+                                        passWordKeyboard.setStatus(true);
+                                        withdraw();
+                                    }
+
+                                    @Override
+                                    public void mismatches() {
+                                        passWordKeyboard.setStatus(false);
+                                    }
+                                });
                             }
 
-                            @Override
-                            public void mismatches() {
-                                passWordKeyboard.setStatus(false);
-                            }
                         });
+                    }
+
+                    @Override
+                    public void nonexistence() {
+                        if (getBaseActivityContext() != null) {
+                            startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSynthesizSettingSetPayPassword.class)
+                                    .putExtra("mode",ActivityMyDataSynthesizSettingSetPayPassword.set));
+                        }
                     }
                 });
                 break;
+        }
+    }
+
+    public void terrace_withdraw() {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
+        ywLoadingDialog.show();
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.terrace_withdraw(
+                    new JSONObject()
+                            .put("member_id", Config.member_id)
+                            .toString(), new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(getBaseActivityContext(), e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    content = jsonObject.getJSONObject("data").getString("contents");
+                                } else {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
+                                e.printStackTrace();
+                            }
+                        }
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
+            e.printStackTrace();
         }
     }
 
@@ -234,9 +300,9 @@ public class WalletWithdraw extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     bankModel = new Gson().fromJson(jsonObject.getJSONObject("data").toString(), BankModel.class);
-                                    if (StringUtils.isEmpty(bankModel.bank_name)){
+                                    if (StringUtils.isEmpty(bankModel.bank_name)) {
                                         bankName.setText("绑定银行卡");
-                                    }else {
+                                    } else {
                                         bankName.setText(bankModel.bank_name);
                                     }
                                 } else {
@@ -284,7 +350,7 @@ public class WalletWithdraw extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     expendable = jsonObject.getJSONObject("data").getInt("expendable");
-                                    canWalletWithdraw.setText(expendable + "");
+                                    canWalletWithdraw.setText("可用于提现的金额:  " + expendable + "元");
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }

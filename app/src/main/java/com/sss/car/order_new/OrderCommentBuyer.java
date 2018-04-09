@@ -147,7 +147,7 @@ public class OrderCommentBuyer extends BaseActivity implements LoadImageCallBack
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     orderModel=new Gson().fromJson(jsonObject.getJSONObject("data").toString(),OrderModel.class);
-                                    contentActivityOrderComment.setList(getBaseActivityContext(), orderModel, getIntent().getExtras().getString("targetPic"));
+                                    contentActivityOrderComment.setList(getBaseActivityContext(), orderModel, orderModel.picture);
 
 
                                 } else {

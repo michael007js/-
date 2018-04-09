@@ -319,7 +319,8 @@ public class FragmentGoodsParent extends BaseFragment {
     }
 
     private void initLocation() {
-        clickLocationFragmentGoodsParent.setText(Config.city);
+        if (clickLocationFragmentGoodsParent != null)
+            clickLocationFragmentGoodsParent.setText(Config.city);
     }
 
     @Override

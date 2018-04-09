@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,8 +14,6 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.geocoder.GeocodeResult;
-import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.blankj.utilcode.activity.BaseActivity;
@@ -26,7 +24,6 @@ import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.EditText.NumberSelectEdit;
 import com.blankj.utilcode.customwidget.GalleryHorizontalListView.GalleryHorizontalListView;
-import com.blankj.utilcode.customwidget.ListView.HorizontalListView;
 import com.blankj.utilcode.dao.LocationStatusListener;
 import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.model.TargetInfoModel;
@@ -43,12 +40,10 @@ import com.sss.car.EventBusModel.CarDelete;
 import com.sss.car.EventBusModel.CarName;
 import com.sss.car.EventBusModel.ChangeInfoModel;
 import com.sss.car.EventBusModel.ChooseAdress;
-import com.sss.car.MyApplication;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.gaode.Geocoding;
 import com.sss.car.gaode.LocationConfig;
-import com.sss.car.gaode.SSS_GeocodingListener;
 import com.sss.car.model.CouponModel3;
 import com.sss.car.model.IntegrityMoneyModel;
 import com.sss.car.utils.MenuDialog;
@@ -71,8 +66,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.model.PhotoInfo;
 import okhttp3.Call;
 
 
@@ -81,6 +74,7 @@ import okhttp3.Call;
  * Created by leilei on 2017/10/19.
  */
 
+@SuppressWarnings("ALL")
 public class OrderSOSPublish extends BaseActivity {
     @BindView(R.id.back_top)
     LinearLayout backTop;
@@ -157,13 +151,11 @@ public class OrderSOSPublish extends BaseActivity {
     String sendLai, sengLng;
 
     MenuDialog menuDialog;
-    @BindView(R.id.show_fault_order_sos_publish)
-    TextView showFaultOrderSosPublish;
-    @BindView(R.id.click_fault_order_sos_publish)
-    LinearLayout clickFaultOrderSosPublish;
 
     Geocoding geocoding;
     LocationConfig locationConfig;
+    @BindView(R.id.input)
+    EditText input;
 
 
     @Override
@@ -184,7 +176,6 @@ public class OrderSOSPublish extends BaseActivity {
         locationConfig = null;
         geocoding = null;
         backTop = null;
-        clickFaultOrderSosPublish = null;
         titleTop = null;
         noExistOrderSosPublish = null;
         rightButtonTop = null;
@@ -281,9 +272,6 @@ public class OrderSOSPublish extends BaseActivity {
         if ("other".equals(event.type)) {
             showOtherOrderSosPublish.setText(event.msg);
         }
-        if ("fault".equals(event.type)) {
-            showFaultOrderSosPublish.setText(event.msg);
-        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -293,7 +281,7 @@ public class OrderSOSPublish extends BaseActivity {
         showAddressOrderSosPublish.setText(event.adress);
     }
 
-    @OnClick({R.id.back_top, R.id.no_exist_order_sos_publish, R.id.right_button_top, R.id.click_fault_order_sos_publish, R.id.click_one_key_write_car_order_sos_publish, R.id.click_one_key_location_order_sos_publish, R.id.click_one_key_write_address_order_sos_publish, R.id.click_choose_car_order_sos_publish, R.id.click_type_order_sos_publish, R.id.click_address_order_sos_publish, R.id.click_time_order_sos_publish, R.id.click_penal_sum_order_sos_publish, R.id.click_other_sum_order_sos_publish, R.id.click_submit_order_sos_publish})
+    @OnClick({R.id.back_top, R.id.no_exist_order_sos_publish, R.id.right_button_top, R.id.click_one_key_write_car_order_sos_publish, R.id.click_one_key_location_order_sos_publish, R.id.click_one_key_write_address_order_sos_publish, R.id.click_choose_car_order_sos_publish, R.id.click_type_order_sos_publish, R.id.click_address_order_sos_publish, R.id.click_time_order_sos_publish, R.id.click_penal_sum_order_sos_publish, R.id.click_other_sum_order_sos_publish, R.id.click_submit_order_sos_publish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_top:
@@ -343,14 +331,6 @@ public class OrderSOSPublish extends BaseActivity {
             case R.id.click_one_key_write_address_order_sos_publish://手工填写定位地址
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityInputAddressForOrder.class));
-                }
-                break;
-            case R.id.click_fault_order_sos_publish:
-                if (getBaseActivityContext() != null) {
-                    startActivity(new Intent(getBaseActivityContext(), ActivityChangeInfo.class)
-                            .putExtra("type", "fault")
-                            .putExtra("canChange", true)
-                            .putExtra("extra", showFaultOrderSosPublish.getText().toString()));
                 }
                 break;
             case R.id.no_exist_order_sos_publish:
@@ -717,7 +697,7 @@ public class OrderSOSPublish extends BaseActivity {
 //            }
 //        });
 //        photo.setAdapter(sss_adapter);
-        List<String> temp=new ArrayList<>();
+        List<String> temp = new ArrayList<>();
         temp.add(GalleryHorizontalListView.Holder);
         photo.setList(temp);
         photo.setOnGalleryHorizontalListViewCallBack(new GalleryHorizontalListView.OnGalleryHorizontalListViewCallBack() {
@@ -1101,7 +1081,7 @@ public class OrderSOSPublish extends BaseActivity {
             return;
         }
 
-        if (StringUtils.isEmpty(showFaultOrderSosPublish.getText().toString().trim())) {
+        if (StringUtils.isEmpty(input.getText().toString().trim())) {
             ToastUtils.showShortToast(getBaseActivityContext(), " 请填写您的求助故障");
             return;
         }
@@ -1144,7 +1124,7 @@ public class OrderSOSPublish extends BaseActivity {
                             .put("recipients", peopleNameOrderSosPublish.getText().toString().trim())
                             .put("vehicle_name", carOrderSosPublish.getText().toString().trim())
                             .put("member_id", Config.member_id)
-                            .put("title", showFaultOrderSosPublish.getText().toString().trim())
+                            .put("title", input.getText().toString().trim())
                             .put("type", showTypeOrderSosPublish.getText().toString().trim())
                             .put("gps", sendLai + "," + sengLng)
                             .put("price", priceOrderSosPublish.getCurrentNumber())
@@ -1218,7 +1198,7 @@ public class OrderSOSPublish extends BaseActivity {
                             .put("recipients", peopleNameOrderSosPublish.getText().toString().trim())
                             .put("vehicle_name", carOrderSosPublish.getText().toString().trim())
                             .put("member_id", Config.member_id)
-                            .put("title", showFaultOrderSosPublish.getText().toString().trim())
+                            .put("title", input.getText().toString().trim())
                             .put("type", showTypeOrderSosPublish.getText().toString().trim())
                             .put("gps", sendLai + "," + sengLng)
                             .put("price", priceOrderSosPublish.getCurrentNumber())

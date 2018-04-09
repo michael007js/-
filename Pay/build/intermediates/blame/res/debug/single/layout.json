@@ -44,16 +44,16 @@
         "source": "C:\\JuXiangChe\\Pay\\src\\main\\res\\layout\\activity_authentication.xml"
     },
     {
-        "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\debug\\layout\\activity_request_pay.xml",
-        "source": "C:\\JuXiangChe\\Pay\\src\\main\\res\\layout\\activity_request_pay.xml"
-    },
-    {
         "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\debug\\layout\\list_view_simple_item.xml",
         "source": "C:\\JuXiangChe\\Pay\\src\\main\\res\\layout\\list_view_simple_item.xml"
     },
     {
         "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\debug\\layout\\progress_horizontal.xml",
         "source": "C:\\JuXiangChe\\Pay\\src\\main\\res\\layout\\progress_horizontal.xml"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\debug\\layout\\activity_request_pay.xml",
+        "source": "C:\\JuXiangChe\\Pay\\src\\main\\res\\layout\\activity_request_pay.xml"
     },
     {
         "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\debug\\layout\\activity_entry.xml",

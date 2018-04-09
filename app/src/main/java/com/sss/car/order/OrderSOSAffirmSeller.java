@@ -20,6 +20,7 @@ import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sss.car.Config;
@@ -93,6 +94,9 @@ public class OrderSOSAffirmSeller extends BaseActivity {
 
     String friend_id;
 
+    String lat,lng;
+    String address;
+
     boolean canClick = false;
     @BindView(R.id.total_price_order_order_sos_affirm_seller)
     TextView totalPriceOrderOrderSOSAffirmSeller;
@@ -153,6 +157,12 @@ public class OrderSOSAffirmSeller extends BaseActivity {
             @Override
             public void onClick(View v) {
 //                APPOftenUtils.navigation(getBaseActivityContext(),Config.latitude,Config.longitude,);
+                if (StringUtils.isEmpty(lat)||StringUtils.isEmpty(lng)) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "服务器GPS返回错误");
+                    return;
+
+                }
+                APPOftenUtils.navigation(getBaseActivityContext(), Config.latitude, Config.longitude, address, lat,lng);
             }
         });
         initAdapter();
@@ -265,6 +275,9 @@ public class OrderSOSAffirmSeller extends BaseActivity {
                                     canClick = true;
                                     JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                                     friend_id = jsonObject1.getString("member_id");
+                                    lat=jsonObject1.getString("lat");
+                                    lng=jsonObject1.getString("lng");
+                                    address=jsonObject1.getString("address");
                                     peopleNameOrderOrderSOSAffirmSeller.setText(jsonObject1.getString("recipients"));
                                     mobileNameOrderOrderSOSAffirmSeller.setText(jsonObject1.getString("mobile"));
                                     car_order_sos_affirm_seller.setText(jsonObject1.getString("vehicle_name"));

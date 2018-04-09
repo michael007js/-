@@ -74,7 +74,7 @@ public class FragmentMessageCommentDymaicPostsPublic extends BaseFragment {
     OnListViewCallBack onListViewCallBack;
     String type;// trends动态，community帖子，order交易信息
 
-    int p = 1;
+    public int p = 1;
     String is_read;//	未读消息参数为1
 
     List<MessageCommentModel> list = new ArrayList<>();

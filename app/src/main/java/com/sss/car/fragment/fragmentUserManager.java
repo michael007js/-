@@ -185,7 +185,7 @@ public class fragmentUserManager extends BaseFragment {
      *
      * @throws JSONException
      */
-    void friendRelation() throws JSONException {
+    public void friendRelation() throws JSONException {
 
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();

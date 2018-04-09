@@ -515,9 +515,9 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
                 dialog.dismiss();
                 dialog = null;
                 if (Constant.Changed == orderModel.status) {
-                    OrderUtils.exchange_goods(baseActivity, ywLoadingDialog, true, orderModel.order_id, orderModel.exchange_id);
+                    OrderUtils.exchange_goods(baseActivity, ywLoadingDialog, false, orderModel.order_id, orderModel.exchange_id);
                 } else if (Constant.Returns == orderModel.status) {
-                    OrderUtils.confirm_goods(baseActivity, ywLoadingDialog, true, orderModel.order_id, orderModel.exchange_id);
+                    OrderUtils.confirm_goods(baseActivity, ywLoadingDialog, false, orderModel.order_id, orderModel.exchange_id);
                 }
             }
 

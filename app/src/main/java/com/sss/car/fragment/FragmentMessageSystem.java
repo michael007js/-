@@ -231,13 +231,13 @@ public class FragmentMessageSystem extends BaseFragment {
                             .setDelayTime(Config.flash)
                             .setImageLoader(new ImageLoaderInterface() {
                                 @Override
-                                public void displayImage(Context context, Object path, View imageView) {
+                                public void displayImage(Context context, final Object path, View imageView) {
                                     imageView.setTag(R.id.glide_tag, ((AdvertisementModel) path).picture);
                                     addImageViewList(GlidUtils.downLoader(false, (ImageView) imageView, context));
                                     imageView.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-
+                                            AdvertisementManager.jump(((AdvertisementModel) path),getBaseFragmentActivityContext());
                                         }
                                     });
                                 }
@@ -685,8 +685,8 @@ public class FragmentMessageSystem extends BaseFragment {
 
         }else if ("10".equals(model.target)) {
             if (getBaseFragmentActivityContext() != null) {
-                startActivity(new Intent(getBaseFragmentActivityContext(), ActivityShareInteractionManage.class)
-                        .putExtra("mode", "3"));
+                startActivity(new Intent(getBaseFragmentActivityContext(), ActivityUserInfo.class)
+                        .putExtra("id", model.friend_id));
             }
         }
     }

@@ -45,6 +45,7 @@ import com.blankj.utilcode.xrichtext.RichTextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedPostsModel;
+import com.sss.car.EventBusModel.ChangedUserInfo;
 import com.sss.car.EventBusModel.Posts;
 import com.sss.car.EventBusModel.Praise;
 import com.sss.car.R;
@@ -319,6 +320,12 @@ public class ActivitySharePostDetails extends BaseActivity implements
             postsComment(model.content);
         }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangedUserInfo changedUserInfo) {
+        postsDetails(false);
+        p=1;
+        postsList();
+    }
 
 
     @OnClick({R.id.back_top_image, R.id.right_search_top_image, R.id.top_activity_share_post_details, R.id.comment, R.id.collect_show_bottom, R.id.share_bottom})
@@ -429,7 +436,6 @@ public class ActivitySharePostDetails extends BaseActivity implements
      * 添加头部
      */
     void initHead() {
-
         view = LayoutInflater.from(getBaseActivityContext()).inflate(R.layout.activity_share_post_details_head, null);
         collect_show = $.f(view, R.id.collect_show);
         content_share_post_details_head = $.f(view, R.id.content_share_post_details_head);

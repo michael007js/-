@@ -737,29 +737,28 @@ public final class ConvertUtils {
      */
     public static String bitmapToBase64(Bitmap bitmap) {
 
-        String result = null;
-        ByteArrayOutputStream baos = null;
+        String result="";
+        ByteArrayOutputStream bos=null;
         try {
-            if (bitmap != null) {
-                baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            if(null!=bitmap){
+                bos=new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bos);//将bitmap放入字节数组流中
 
-                baos.flush();
-                baos.close();
+                bos.flush();//将bos流缓存在内存中的数据全部输出，清空缓存
+                bos.close();
 
-                byte[] bitmapBytes = baos.toByteArray();
-                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+                byte []bitmapByte=bos.toByteArray();
+                result=Base64.encodeToString(bitmapByte, Base64.DEFAULT);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (baos != null) {
-                    baos.flush();
-                    baos.close();
+        }finally{
+            if(null!=null){
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
         return result;

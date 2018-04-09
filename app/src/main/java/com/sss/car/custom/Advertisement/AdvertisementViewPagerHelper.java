@@ -30,6 +30,7 @@ import com.sss.car.custom.Advertisement.Model.AdvertisementModel;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.R.attr.data;
 import static com.sss.car.Config.url;
 
 
@@ -76,6 +77,7 @@ step2:
  * Created by leilei on 2017/11/27.
  */
 
+@SuppressWarnings("ALL")
 public class AdvertisementViewPagerHelper implements JCBuriedPointStandard {
     private BannerViewPager bannerViewPager;
     private ZoomIndicator zoomIndicator;
@@ -160,8 +162,10 @@ public class AdvertisementViewPagerHelper implements JCBuriedPointStandard {
                 public void getItemView(View view, final Object data) {
 //                    LogUtils.e(((AdvertisementModel) data).picture);
                     SimpleDraweeView simpleDraweeView = $.f(view, R.id.pic_item_advertisement);
-                    if (!((AdvertisementModel) data).is_video) {
+//                    final JCVideoPlayerStandard jcVideoPlayerStandard = $.f(view, R.id.video_item_advertisement);
+//                    if ("1".equals(((AdvertisementModel) data).is_video)) {
                         simpleDraweeView.setVisibility(View.VISIBLE);
+//                        jcVideoPlayerStandard.setVisibility(View.GONE);
                         FrescoUtils.showImage(false, width, height, Uri.parse(((AdvertisementModel) data).picture), simpleDraweeView, 0f);
                         simpleDraweeView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -171,33 +175,33 @@ public class AdvertisementViewPagerHelper implements JCBuriedPointStandard {
                                 }
                             }
                         });
-                    } else {
-                        final JCVideoPlayerStandard jcVideoPlayerStandard = $.f(view, R.id.video_item_advertisement);
-                        jcVideoPlayerStandard.setVisibility(View.VISIBLE);
-                        //设置视频地址、缩略图地址、标题
-                        jcVideoPlayerStandard.setUp(((AdvertisementModel) data).picture, "");
-                        threadPoolUtils.submit(new Runnable() {
-                            @Override
-                            public void run() {
-                                createVideoThumbnail(((AdvertisementModel) data).picture,
-                                        activity.getWindowManager().getDefaultDisplay().getWidth(),
-                                        activity.getWindowManager().getDefaultDisplay().getHeight(), new OnCreateVideoThumbnailCallBack() {
-                                            @Override
-                                            public void onBitmap(final Bitmap bitmap) {
-                                                activity.runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        jcVideoPlayerStandard.thumbImageView.setImageBitmap(bitmap);
-                                                    }
-                                                });
-                                            }
-                                        });
-                            }
-                        });
-                        if (isAutoPlay) {
-                            jcVideoPlayerStandard.performClick();
-                        }
-                    }
+//                    } else {
+//                        simpleDraweeView.setVisibility(View.GONE);
+//                        jcVideoPlayerStandard.setVisibility(View.VISIBLE);
+//                        //设置视频地址、缩略图地址、标题
+//                        jcVideoPlayerStandard.setUp(((AdvertisementModel) data).picture, "");
+//                        threadPoolUtils.submit(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                createVideoThumbnail(((AdvertisementModel) data).picture,
+//                                        activity.getWindowManager().getDefaultDisplay().getWidth(),
+//                                        activity.getWindowManager().getDefaultDisplay().getHeight(), new OnCreateVideoThumbnailCallBack() {
+//                                            @Override
+//                                            public void onBitmap(final Bitmap bitmap) {
+//                                                activity.runOnUiThread(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
+//                                                        jcVideoPlayerStandard.thumbImageView.setImageBitmap(bitmap);
+//                                                    }
+//                                                });
+//                                            }
+//                                        });
+//                            }
+//                        });
+//                        if (isAutoPlay) {
+//                            jcVideoPlayerStandard.performClick();
+//                        }
+//                    }
                 }
             });
             bannerViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

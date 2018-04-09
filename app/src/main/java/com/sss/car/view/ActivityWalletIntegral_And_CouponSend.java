@@ -220,22 +220,39 @@ public class ActivityWalletIntegral_And_CouponSend extends BaseActivity implemen
                     if (menuDialog == null) {
                         menuDialog = new MenuDialog(getBaseActivity());
                     }
-                    menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
+                    P.e(ywLoadingDialog, Config.member_id, getBaseActivity(), new P.p() {
                         @Override
-                        public void onVerificationPassword(final String password, final PassWordKeyboard passWordKeyboard, final BottomSheetDialog bottomSheetDialog) {
-                            P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
+                        public void exist() {
+                            if (menuDialog == null) {
+                                menuDialog = new MenuDialog(getBaseActivity());
+                            }
+                            menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
                                 @Override
-                                public void match() {
-                                    bottomSheetDialog.dismiss();
-                                    passWordKeyboard.setStatus(true);
-                                    give_coupon();
+                                public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+                                    P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
+                                        @Override
+                                        public void match() {
+                                            bottomSheetDialog.dismiss();
+                                            passWordKeyboard.setStatus(true);
+                                            give_coupon();
+                                        }
+
+                                        @Override
+                                        public void mismatches() {
+                                            passWordKeyboard.setStatus(false);
+                                        }
+                                    });
                                 }
 
-                                @Override
-                                public void mismatches() {
-                                    passWordKeyboard.setStatus(false);
-                                }
                             });
+                        }
+
+
+                        @Override
+                        public void nonexistence() {
+                            if (getBaseActivityContext() != null) {
+                                startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSetPassword.class));
+                            }
                         }
                     });
 

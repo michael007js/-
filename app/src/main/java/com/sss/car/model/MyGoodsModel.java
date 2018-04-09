@@ -13,6 +13,7 @@ public class MyGoodsModel {
     public String price;
     public String number;
     public String sell;
+    public String is_payment;
     public String member_id;
     public String is_popularize;//0未推广 1已推广  2审核中
     public String classify_id;

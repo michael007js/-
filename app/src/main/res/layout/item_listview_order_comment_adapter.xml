@@ -16,8 +16,8 @@
         <com.facebook.drawee.view.SimpleDraweeView
             xmlns:fresco="http://schemas.android.com/apk/res-auto"
             android:id="@+id/pic_item_listview_order_comment_adapter"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             fresco:actualImageScaleType="centerInside"/>
 
         <TextView

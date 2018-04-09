@@ -33,6 +33,8 @@ import com.sss.car.model.ShoppingCart_Data;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.maxLength;
+
 
 /**
  * Created by leilei on 2017/9/29.
@@ -95,7 +97,7 @@ public class ListviewOrderServiceGoodsList extends LinearLayout {
             SSS_RVAdapter sss_rvAdapter = new SSS_RVAdapter<ShoppingCart_Data>(listview_listview_order_service_goods_list, R.layout.item_listview_order_service_goods_list_adapter) {
 
                 @Override
-                protected void setView(SSS_HolderHelper helper, final int position, ShoppingCart_Data bean) {
+                protected void setView(final SSS_HolderHelper helper, final int position, ShoppingCart_Data bean) {
                     helper.getView(R.id.parent_item_listview_order_service_goods_list_adapter).setLayoutParams(new LayoutParams(activity.getWindowManager().getDefaultDisplay().getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT));
                     LogUtils.e(bean.num);
                     helper.setText(R.id.edit_item_listview_order_service_goods_list_adapter, bean.num);
@@ -106,10 +108,11 @@ public class ListviewOrderServiceGoodsList extends LinearLayout {
                         helper.setVisibility(R.id.edit_item_listview_order_service_goods_list_adapter, View.VISIBLE);
                         helper.setVisibility(R.id.add_item_listview_order_service_goods_list_adapter, View.VISIBLE);
 
+                        final String[] a = {""};
                         ((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                                a[0] = ((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).getText().toString().trim();
                             }
 
                             @Override
@@ -119,7 +122,15 @@ public class ListviewOrderServiceGoodsList extends LinearLayout {
 
                             @Override
                             public void afterTextChanged(Editable s) {
-                                shoppingCartOrderlist.get(finalI).data.get(position).num = s.toString();
+
+                                if (!StringUtils.isEmpty( ((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).getText().toString().trim())) {
+                                    if ( ((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).getText().toString().length() < maxLength - 1) {
+                                        shoppingCartOrderlist.get(finalI).data.get(position).num = s.toString();
+                                    }
+
+                                } else {
+                                    ((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).setText(a[0]);
+                                }
                                 totalCount();
                                 totalPrice();
                             }

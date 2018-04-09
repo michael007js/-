@@ -36,7 +36,7 @@ import java.util.List;
 
 @SuppressWarnings("ALL")
 public class FragmentMessageComment extends BaseFragment {
-    FragmentMessageCommentDymaicPostsPublic fragmentMessageCommentDymaicPostsPubli;
+   public FragmentMessageCommentDymaicPostsPublic fragmentMessageCommentDymaicPostsPubli;
 
     @Override
     protected int setContentView() {
@@ -181,13 +181,13 @@ public class FragmentMessageComment extends BaseFragment {
                             .setDelayTime(Config.flash)
                             .setImageLoader(new ImageLoaderInterface() {
                                 @Override
-                                public void displayImage(Context context, Object path, View imageView) {
+                                public void displayImage(Context context, final Object path, View imageView) {
                                     imageView.setTag(R.id.glide_tag, ((AdvertisementModel) path).picture);
                                     addImageViewList(GlidUtils.downLoader(false, (ImageView) imageView, context));
                                     imageView.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-
+                                            AdvertisementManager.jump(((AdvertisementModel) path),getBaseFragmentActivityContext());
                                         }
                                     });
                                 }

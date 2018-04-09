@@ -87,10 +87,10 @@ public class ListViewOrderEdit extends LinearLayout {
 //                            helper.setVisibility(R.id.edit_item_listview_order_edit_adapter, GONE);
 
                             helper.setVisibility(R.id.number_listview_order_edit_adapter_, GONE);
-                            helper.setVisibility(R.id.subtract_item_listview_order_edit_adapter_, GONE);
+                            helper.setVisibility(R.id.subtract_item_listview_order_edit_adapter_, VISIBLE);
                             helper.setVisibility(R.id.price_item_listview_order_edit_adapter, VISIBLE);
-                            helper.setVisibility(R.id.add_item_listview_order_edit_adapter_, GONE);
-                            helper.setVisibility(R.id.edit_item_listview_order_edit_adapter, GONE);
+                            helper.setVisibility(R.id.add_item_listview_order_edit_adapter_, VISIBLE);
+                            helper.setVisibility(R.id.edit_item_listview_order_edit_adapter, VISIBLE);
                         }else {
                             helper.setVisibility(R.id.number_listview_order_edit_adapter_, GONE);
                             helper.setVisibility(R.id.subtract_item_listview_order_edit_adapter_, VISIBLE);

@@ -16,12 +16,12 @@
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable\\rc_ic_star_selector.xml"
     },
     {
-        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable\\rc_plugin_toggle_selector.xml",
-        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable\\rc_plugin_toggle_selector.xml"
-    },
-    {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable\\rc_ic_yes_selector.xml",
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable\\rc_ic_yes_selector.xml"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable\\rc_plugin_toggle_selector.xml",
+        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable\\rc_plugin_toggle_selector.xml"
     },
     {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable\\rc_bg_item.xml",

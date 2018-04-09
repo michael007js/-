@@ -876,12 +876,12 @@
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_mebmer_delete.png"
     },
     {
-        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_realtime_default_avatar.png",
-        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_realtime_default_avatar.png"
-    },
-    {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_cs_group_ok_disabled.png",
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_group_ok_disabled.png"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_realtime_default_avatar.png",
+        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_realtime_default_avatar.png"
     },
     {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f61a.png",

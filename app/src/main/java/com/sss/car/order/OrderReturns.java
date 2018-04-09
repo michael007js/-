@@ -442,6 +442,7 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
             photo.setList(temp);
         } else {
             photo.setCanOperation(true);
+            photo.hideClose(true);
         }
 
         photo.setOnGalleryHorizontalListViewCallBack(new GalleryHorizontalListView.OnGalleryHorizontalListViewCallBack() {
@@ -621,7 +622,7 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
         ywLoadingDialog.show();
 
         try {
-            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.deliver_goods(
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.complete(
                     new JSONObject()
                             .put("order_id", orderModel.order_id)
                             .put("exchange_id", orderModel.exchange_id)

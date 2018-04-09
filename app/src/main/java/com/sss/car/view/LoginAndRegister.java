@@ -325,6 +325,7 @@ public class LoginAndRegister extends BaseActivity implements CustomExceptionCal
                                 }
                             });
                         } else {
+                            spUtils.put("password","");
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

@@ -1,6 +1,5 @@
 package com.sss.car.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.Fragment.BaseFragment;
@@ -18,24 +16,17 @@ import com.blankj.utilcode.Glid.GlidUtils;
 import com.blankj.utilcode.adapter.FragmentAdapter;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
-import com.blankj.utilcode.customwidget.Layout.LayoutRefresh.RefreshLoadMoreLayout;
 import com.blankj.utilcode.customwidget.ScollView.InCludeLandscapeScrollView;
 import com.blankj.utilcode.customwidget.Tab.tab.ScrollTab;
 import com.blankj.utilcode.customwidget.ViewPager.AutofitViewPager;
-import com.blankj.utilcode.customwidget.banner.BannerConfig;
-import com.blankj.utilcode.customwidget.banner.loader.ImageLoaderInterface;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.sss.car.AdvertisementManager;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedMessage;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
-import com.sss.car.custom.Advertisement.Model.AdvertisementModel;
-import com.sss.car.dao.OnLoadOver;
 import com.sss.car.dao.OnOneKeyReadCallBack;
-import com.sss.car.model.MessageSystemModel;
 import com.sss.car.model.TopTabModel;
 import com.sss.car.rongyun.RongYunUtils;
 import com.sss.car.utils.MenuDialog;
@@ -60,11 +51,6 @@ import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import okhttp3.Call;
-
-import static android.R.attr.order;
-import static android.R.id.list;
-import static com.amap.api.mapcore2d.q.t;
-import static com.sss.car.R.id.comment;
 
 /**
  * 消息改版后
@@ -461,6 +447,9 @@ public class FragmentMessageParent extends BaseFragment {
                                         }
                                     } else if (type == 2) {
                                         List<Conversation> conversations = RongIM.getInstance().getConversationList();
+                                        if (conversations==null){
+                                            return;
+                                        }
                                         for (int i = 0; i < conversations.size(); i++) {
                                             RongYunUtils.clearMessagesUnreadStatus(conversations.get(i).getConversationType(), conversations.get(i).getTargetId(), new RongIMClient.ResultCallback<Boolean>() {
                                                 @Override

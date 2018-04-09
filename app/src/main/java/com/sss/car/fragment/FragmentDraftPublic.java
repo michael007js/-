@@ -334,7 +334,13 @@ public class FragmentDraftPublic extends BaseFragment {
             listviewDraftPopularize.setOnListviewDraftGoodsCallBack(new ListviewDraftPopularize.OnListviewDraftPopularizeCallBack() {
                 @Override
                 public void onClickFromPopularize(DrapPopularize popularize) {
-
+                    startActivity(new Intent(getBaseFragmentActivityContext(), PopularizeEdit.class)
+                            .putExtra("canOperation", true)
+                            .putExtra("title", popularize.title)
+                            .putExtra("type","edit")
+                            .putExtra("classify_name", popularize.classify_name)
+                            .putExtra("popularize_id", popularize.popularize_id)
+                            .putExtra("goods_id", popularize.goods_id));
                 }
 
                 @Override
@@ -342,6 +348,7 @@ public class FragmentDraftPublic extends BaseFragment {
                     startActivity(new Intent(getBaseFragmentActivityContext(), PopularizeEdit.class)
                             .putExtra("canOperation", true)
                             .putExtra("title", popularize.title)
+                            .putExtra("type","edit")
                             .putExtra("classify_name", popularize.classify_name)
                             .putExtra("popularize_id", popularize.popularize_id)
                             .putExtra("goods_id", popularize.goods_id));

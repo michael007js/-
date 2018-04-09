@@ -88,10 +88,10 @@ public class OrderSendGoodsSeller extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (ywLoadingDialog!=null){
+        if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
-        ywLoadingDialog=null;
+        ywLoadingDialog = null;
 
         if (bottomSheetDialog != null) {
             bottomSheetDialog.dismiss();
@@ -118,13 +118,13 @@ public class OrderSendGoodsSeller extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent()==null||getIntent().getExtras()==null){
-            ToastUtils.showShortToast(getBaseActivityContext(),"数据传递错误!");
+        if (getIntent() == null || getIntent().getExtras() == null) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据传递错误!");
             return;
         }
         setContentView(R.layout.order_send_goods_seller);
         ButterKnife.bind(this);
-        customInit(orderSendGoodsSeller,false,true,false);
+        customInit(orderSendGoodsSeller, false, true, false);
         titleTop.setText("发货填写");
         List<OrderModel> list = new ArrayList<>();
         orderModel = getIntent().getParcelableExtra("data");
@@ -132,15 +132,16 @@ public class OrderSendGoodsSeller extends BaseActivity {
         express_company();
         list.add(orderModel);
         orderCode.setText("" + orderModel.order_code);
-        listview.setList(getBaseActivityContext(), list,false);
+        listview.setList(getBaseActivityContext(), list, false);
         listview.setListViewOrderCallBack(new OrderGoodsList.ListViewOrderCallBack() {
             @Override
             public void onName(String targetPic, String targetName, String targetId) {
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityShopInfo.class)
-                            .putExtra("shop_id",targetId));
+                            .putExtra("shop_id", targetId));
                 }
             }
+
             @Override
             public void onQR(String QR) {
             }
@@ -157,10 +158,10 @@ public class OrderSendGoodsSeller extends BaseActivity {
                 if (menuDialog == null) {
                     menuDialog = new MenuDialog(getBaseActivity());
                 }
-                if (bottomSheetDialog!=null){
+                if (bottomSheetDialog != null) {
                     bottomSheetDialog.dismiss();
                 }
-                bottomSheetDialog=null;
+                bottomSheetDialog = null;
                 bottomSheetDialog = menuDialog.createExpressBottomDialog(getBaseActivityContext(), expressAdapter);
                 expressAdapter.setList(expressList);
             }
@@ -179,10 +180,10 @@ public class OrderSendGoodsSeller extends BaseActivity {
                         express_id = bean.express_id;
                         company.setText(bean.name);
                         company.setTextColor(getResources().getColor(R.color.black));
-                        if (bottomSheetDialog!=null){
+                        if (bottomSheetDialog != null) {
                             bottomSheetDialog.dismiss();
                         }
-                        bottomSheetDialog=null;
+                        bottomSheetDialog = null;
                     }
                 });
             }
@@ -256,19 +257,78 @@ public class OrderSendGoodsSeller extends BaseActivity {
                 finish();
                 break;
             case R.id.click:
-                if (StringUtils.isEmpty(express_id)){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请选择快递公司");
+                if (StringUtils.isEmpty(express_id)) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请选择快递公司");
                     return;
                 }
-                if (StringUtils.isEmpty(expressageCode.getText().toString().trim())){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请输入快递单号");
+                if (StringUtils.isEmpty(expressageCode.getText().toString().trim())) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请输入快递单号");
                     return;
                 }
-                deliver(orderModel.order_id);
+                LogUtils.e(orderModel.status);
+                if (8==orderModel.status) {
+                    deliver_goods(orderModel.order_id);
+                } else {
+                    deliver(orderModel.order_id);
+                }
                 break;
         }
     }
+    /**
+     * 立即发货
+     */
+    public void deliver_goods(final String order_id) {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
+        ywLoadingDialog.show();
+        LogUtils.e(order_id);
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.deliver_goods(
+                    new JSONObject()
+                            .put("express_id", express_id)
+                            .put("exchange_id", orderModel.exchange_id)
+                            .put("waybill", expressageCode.getText().toString().trim())
+                            .put("member_id", Config.member_id)
+                            .put("remark", reason.getText().toString().trim())
+                            .put("order_id", order_id)
+                            .toString()
+                    , new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(getBaseActivityContext(), e.getMessage());
+                        }
 
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    EventBus.getDefault().post(new ChangedOrderModel());
+                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                    finish();
+                                } else {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
+                                e.printStackTrace();
+                            }
+                        }
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
+            e.printStackTrace();
+        }
+    }
     /**
      * 立即发货
      */
@@ -283,10 +343,11 @@ public class OrderSendGoodsSeller extends BaseActivity {
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.deliver(
                     new JSONObject()
-                            .put("express_id",express_id)
-                            .put("waybill",expressageCode.getText().toString().trim())
+                            .put("express_id", express_id)
+                            .put("exchange_id", orderModel.exchange_id)
+                            .put("waybill", expressageCode.getText().toString().trim())
                             .put("member_id", Config.member_id)
-                            .put("remark",reason.getText().toString().trim())
+                            .put("remark", reason.getText().toString().trim())
                             .put("order_id", order_id)
                             .toString()
                     , new StringCallback() {

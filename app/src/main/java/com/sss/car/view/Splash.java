@@ -43,6 +43,7 @@ import okhttp3.Call;
  * Created by leilei on 2017/8/8.
  */
 
+@SuppressWarnings("ALL")
 public class Splash extends BaseActivity {
     @BindView(R.id.count_time_splash)
     TextView countTimeSplash;
@@ -141,30 +142,28 @@ public class Splash extends BaseActivity {
                                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             AdvertisementModel advertisementModel = new AdvertisementModel();
-                                            if ("1".equals(jsonArray.getJSONObject(i).getString("is_video"))) {
-                                                advertisementModel.is_video = true;
-                                                advertisementModel.picture = Config.url + jsonArray.getJSONObject(i).getString("picture");
-                                            } else if ("0".equals(jsonArray.getJSONObject(i).getString("is_video"))) {
-                                                advertisementModel.is_video = false;
-                                                advertisementModel.picture = Config.url + jsonArray.getJSONObject(i).getString("picture");
-                                            }
+                                            advertisementModel.picture = Config.url + jsonArray.getJSONObject(i).getString("picture");
                                             advertisementModel.link_url = jsonArray.getJSONObject(i).getString("link_url");
                                             list.add(advertisementModel);
                                         }
-                                        advertisementViewPagerHelper
-                                                .setView(banner, bottomZoomArc)
-                                                .setData(getBaseActivity(),
-                                                        getWindowManager().getDefaultDisplay().getWidth(),
-                                                        getWindowManager().getDefaultDisplay().getHeight(),
-                                                        list, false)
-                                                .setOnAdvertisementClickCallBack(new AdvertisementViewPagerHelper.OnAdvertisementClickCallBack() {
-                                                    @Override
-                                                    public void onClick(String url) {
-                                                        Config.tempUrl= url;
-                                                        onViewClicked();
-                                                        isFinishByUser=true;
-                                                    }
-                                                });
+                                        if (list.size() > 0) {
+                                            advertisementViewPagerHelper
+                                                    .setView(banner, bottomZoomArc)
+                                                    .setData(getBaseActivity(),
+                                                            getWindowManager().getDefaultDisplay().getWidth(),
+                                                            getWindowManager().getDefaultDisplay().getHeight(),
+                                                            list, false)
+                                                    .setOnAdvertisementClickCallBack(new AdvertisementViewPagerHelper.OnAdvertisementClickCallBack() {
+                                                        @Override
+                                                        public void onClick(String url) {
+                                                            Config.tempUrl = url;
+                                                            onViewClicked();
+                                                            isFinishByUser = true;
+                                                        }
+                                                    });
+                                        }else {
+                                            onViewClicked();
+                                        }
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

@@ -143,7 +143,7 @@ public class ActivityChangeInfo extends BaseActivity {
             case "expressageCode":
                 titleTop.setText("快递单号");
                 editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
-                editActivityChangeInfo. setKeyListener(new  NumberKeyListener() {
+                editActivityChangeInfo.setKeyListener(new NumberKeyListener() {
 
                     @Override
                     public int getInputType() {
@@ -213,6 +213,22 @@ public class ActivityChangeInfo extends BaseActivity {
                 break;
             case "returnAndChangeReason_Company":
                 titleTop.setText("快递公司");
+                editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
+                break;
+            case "year":
+                titleTop.setText("生产年份");
+                editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
+                break;
+            case "displacement":
+                titleTop.setText("发动机排量");
+                editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
+                break;
+            case "style":
+                titleTop.setText("车款");
+                editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
+                break;
+            case "service_username":
+                titleTop.setText("设置备注名");
                 editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
                 break;
 

@@ -13,6 +13,7 @@ import com.blankj.utilcode.adapter.sssAdapter.SSS_Adapter;
 import com.blankj.utilcode.adapter.sssAdapter.SSS_HolderHelper;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
 import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
@@ -24,9 +25,11 @@ import com.google.gson.Gson;
 import com.rey.material.app.BottomSheetDialog;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedOrderModel;
+import com.sss.car.P;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.custom.ListViewOrderSellerDetails;
+import com.sss.car.dao.OnPayPasswordVerificationCallBack;
 import com.sss.car.model.ExpressModel;
 import com.sss.car.model.OrderSellerModel;
 import com.sss.car.model.OrderSellerModel_Order_Goods;
@@ -36,6 +39,7 @@ import com.sss.car.order_new.OrderReturnsChangeApplyForAndCompleteDataSeller;
 import com.sss.car.order_new.OrderServiceReadyBuyList;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.utils.OrderUtils;
+import com.sss.car.view.ActivityMyDataSetPassword;
 import com.sss.car.view.ActivityShopInfo;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -207,7 +211,7 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
 
     void initView() {
 
-        LogUtils.e(getIntent().getExtras().getInt("status")+"---"+getIntent().getExtras().getString("exchange_status"));
+        LogUtils.e(getIntent().getExtras().getInt("status") + "---" + getIntent().getExtras().getString("exchange_status"));
         switch (getIntent().getExtras().getInt("status")) {
             case Constant.Have_Already_Paid_Awating_Delivery:
                 send();
@@ -221,9 +225,9 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
 
                 break;
             case Constant.Changed:
-                if ("4".equals(getIntent().getExtras().getString("exchange_status"))) {
+                if ("3".equals(getIntent().getExtras().getString("exchange_status"))||"6".equals(getIntent().getExtras().getString("exchange_status"))) {
                     changed();
-                } else {
+                }  else {
                     send();
                 }
                 break;
@@ -299,7 +303,43 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
                     public void onOKey(Dialog dialog) {
                         dialog.dismiss();
                         dialog = null;
-                        OrderUtils.confirm_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
+                        P.e(ywLoadingDialog, Config.member_id, getBaseActivity(), new P.p() {
+                            @Override
+                            public void exist() {
+                                if (menuDialog == null) {
+                                    menuDialog = new MenuDialog(getBaseActivity());
+                                }
+                                menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
+                                    @Override
+                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+                                        P.r(ywLoadingDialog, Config.member_id, password,getBaseActivity(), new P.r() {
+                                            @Override
+                                            public void match() {
+                                                bottomSheetDialog.dismiss();
+                                                passWordKeyboard.setStatus(true);
+                                                OrderUtils.confirm_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
+                                            }
+
+                                            @Override
+                                            public void mismatches() {
+
+                                                passWordKeyboard.setStatus(false);
+                                            }
+                                        });
+                                    }
+
+                                });
+                            }
+
+
+                            @Override
+                            public void nonexistence() {
+                                if (getBaseActivityContext() != null) {
+                                    startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSetPassword.class));
+                                }
+                            }
+                        });
+
 
                     }
 
@@ -332,7 +372,43 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
                     public void onOKey(Dialog dialog) {
                         dialog.dismiss();
                         dialog = null;
-                        OrderUtils.exchange_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
+
+                        P.e(ywLoadingDialog, Config.member_id, getBaseActivity(), new P.p() {
+                            @Override
+                            public void exist() {
+                                if (menuDialog == null) {
+                                    menuDialog = new MenuDialog(getBaseActivity());
+                                }
+                                menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
+                                    @Override
+                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+                                        P.r(ywLoadingDialog, Config.member_id, password,getBaseActivity(), new P.r() {
+                                            @Override
+                                            public void match() {
+                                                bottomSheetDialog.dismiss();
+                                                passWordKeyboard.setStatus(true);
+                                                OrderUtils.exchange_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
+                                            }
+
+                                            @Override
+                                            public void mismatches() {
+
+                                                passWordKeyboard.setStatus(false);
+                                            }
+                                        });
+                                    }
+
+                                });
+                            }
+
+
+                            @Override
+                            public void nonexistence() {
+                                if (getBaseActivityContext() != null) {
+                                    startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSetPassword.class));
+                                }
+                            }
+                        });
 
                     }
 

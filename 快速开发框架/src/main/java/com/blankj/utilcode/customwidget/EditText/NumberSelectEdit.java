@@ -62,6 +62,8 @@ public class NumberSelectEdit extends LinearLayout {
     int mWidth = 100;
 
 
+    int maxLength = 8;
+
     float mTextSize = 13f;
 
     /*允许长按*/
@@ -92,11 +94,11 @@ public class NumberSelectEdit extends LinearLayout {
      */
     public NumberSelectEdit init(Context context, boolean isEditMode) {
         mContext = context;
-        mView= LayoutInflater.from(context).inflate(R.layout.number_select_edit,null);
+        mView = LayoutInflater.from(context).inflate(R.layout.number_select_edit, null);
         mIsEditMode = isEditMode;
-        mSubtract = $.f(mView,R.id.subtract_item_listview_order_service_goods_list_adapter);
-        mEditText  = $.f(mView,R.id.edit_item_listview_order_service_goods_list_adapter);
-        mAdd = $.f(mView,R.id.add_item_listview_order_service_goods_list_adapter);
+        mSubtract = $.f(mView, R.id.subtract_item_listview_order_service_goods_list_adapter);
+        mEditText = $.f(mView, R.id.edit_item_listview_order_service_goods_list_adapter);
+        mAdd = $.f(mView, R.id.add_item_listview_order_service_goods_list_adapter);
         initViews();
         initShortListener();
         return this;
@@ -125,9 +127,6 @@ public class NumberSelectEdit extends LinearLayout {
     }
 
 
-
-
-
     /**
      * 初始化点击监听
      */
@@ -149,7 +148,7 @@ public class NumberSelectEdit extends LinearLayout {
 
         initLongListener();
     }
-
+    String a ="";
     /**
      * 初始化长按监听
      */
@@ -213,11 +212,12 @@ public class NumberSelectEdit extends LinearLayout {
                 }
             });
         }
-        if (mEditText!=null){
+        if (mEditText != null) {
+
             mEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                    a = mEditText.getText().toString().trim();
                 }
 
                 @Override
@@ -227,12 +227,17 @@ public class NumberSelectEdit extends LinearLayout {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    if (StringUtils.isEmpty(mEditText.getText().toString())){
-                        mEditText.setText("0");
-                    }
-                    if (mNumberSelectEditOperationCakkBack != null) {
-                        mCurrentNumber = Integer.valueOf(mEditText.getText().toString());
-                        mNumberSelectEditOperationCakkBack.onEditChanged(NumberSelectEdit.this, mCurrentNumber);
+
+                    if (!StringUtils.isEmpty(mEditText.getText().toString().trim())) {
+                        if (mEditText.getText().toString().length() < maxLength - 1) {
+                            if (mNumberSelectEditOperationCakkBack != null) {
+                                mCurrentNumber = Integer.valueOf(mEditText.getText().toString());
+                                mNumberSelectEditOperationCakkBack.onEditChanged(NumberSelectEdit.this, mCurrentNumber);
+                            }
+                        }
+
+                    } else {
+                        mEditText.setText(a);
                     }
 
                 }
@@ -245,9 +250,10 @@ public class NumberSelectEdit extends LinearLayout {
 
     /**
      * 是否可以弹出键盘
+     *
      * @param with
      */
-    public NumberSelectEdit withKeyBoard(boolean with){
+    public NumberSelectEdit withKeyBoard(boolean with) {
         mEditText.setEnabled(with);
         return this;
     }
@@ -259,7 +265,7 @@ public class NumberSelectEdit extends LinearLayout {
      */
     public NumberSelectEdit defaultNumber(int number) {
         this.mCurrentNumber = number;
-        if (mEditText!=null){
+        if (mEditText != null) {
             mEditText.setText(this.mCurrentNumber + "");
         }
         return this;
@@ -329,8 +335,6 @@ public class NumberSelectEdit extends LinearLayout {
     public int getCurrentNumber() {
         return mCurrentNumber;
     }
-
-
 
 
     /**
@@ -481,7 +485,6 @@ public class NumberSelectEdit extends LinearLayout {
         this.mNumberSelectEditOperationCakkBack = numberSelectEditOperationCakkBack;
         return this;
     }
-
 
 
     public interface NumberSelectEditOperationCakkBack {

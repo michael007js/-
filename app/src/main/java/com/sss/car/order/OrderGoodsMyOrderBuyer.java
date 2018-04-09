@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
 import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
@@ -22,9 +23,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedOrderModel;
+import com.sss.car.P;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.custom.ListViewOrderSellerDetails;
+import com.sss.car.dao.OnPayPasswordVerificationCallBack;
 import com.sss.car.model.OrderSellerModel;
 import com.sss.car.model.OrderSellerModel_Order_Goods;
 import com.sss.car.order_new.Constant;
@@ -32,8 +35,10 @@ import com.sss.car.order_new.OrderCommentBuyer;
 import com.sss.car.order_new.OrderCommentSeller;
 import com.sss.car.order_new.OrderModel;
 import com.sss.car.utils.CarUtils;
+import com.sss.car.utils.MenuDialog;
 import com.sss.car.utils.OrderUtils;
 import com.sss.car.utils.PayUtils;
+import com.sss.car.view.ActivityMyDataSetPassword;
 import com.sss.car.view.ActivityShopInfo;
 
 import org.greenrobot.eventbus.EventBus;
@@ -120,6 +125,7 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
     EditText expressageCode;
     @BindView(company_parent)
     LinearLayout companyParent;
+    MenuDialog menuDialog;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -134,6 +140,10 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
             ywLoadingDialog.disMiss();
         }
         ywLoadingDialog = null;
+        if (menuDialog!=null){
+            menuDialog.clear();
+        }
+        menuDialog=null;
         backTop = null;
         titleTop = null;
         peopleNameOrderGoodsMyOrderBuyer = null;
@@ -343,9 +353,44 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
                                 APPOftenUtils.createAskDialog(getBaseActivityContext(), "是否确定要收货?", new OnAskDialogCallBack() {
                                     @Override
                                     public void onOKey(Dialog dialog) {
-                                        OrderUtils.sureOrderGoods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"));
                                         dialog.dismiss();
                                         dialog = null;
+                                        P.e(ywLoadingDialog, Config.member_id, getBaseActivity(), new P.p() {
+                                            @Override
+                                            public void exist() {
+                                                if (menuDialog == null) {
+                                                    menuDialog = new MenuDialog(getBaseActivity());
+                                                }
+                                                menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
+                                                    @Override
+                                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+                                                        P.r(ywLoadingDialog, Config.member_id, password,getBaseActivity(), new P.r() {
+                                                            @Override
+                                                            public void match() {
+                                                                bottomSheetDialog.dismiss();
+                                                                passWordKeyboard.setStatus(true);
+                                                                OrderUtils.sureOrderGoods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"));
+                                                            }
+
+                                                            @Override
+                                                            public void mismatches() {
+
+                                                                passWordKeyboard.setStatus(false);
+                                                            }
+                                                        });
+                                                    }
+
+                                                });
+                                            }
+
+
+                                            @Override
+                                            public void nonexistence() {
+                                                if (getBaseActivityContext() != null) {
+                                                    startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSetPassword.class));
+                                                }
+                                            }
+                                        });
                                     }
 
                                     @Override

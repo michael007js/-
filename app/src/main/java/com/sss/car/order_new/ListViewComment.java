@@ -79,6 +79,7 @@ public class ListViewComment extends LinearLayout {
             final EditText input_item_listview_order_comment_adapter = $.f(view, R.id.input_item_listview_order_comment_adapter);
             HorizontalListView HorizontalListView_item_listview_order_comment_adapter = $.f(view, R.id.HorizontalListView_item_listview_order_comment_adapter);
             input_item_listview_order_comment_adapter.setText(data.goods_data.get(finalI).customContent);
+            LogUtils.e(targetPic);
             if (StringUtils.isEmpty(targetPic)) {
                 FrescoUtils.showImage(false, 80, 80, Uri.parse("res://" + context.getPackageName() + "/" + R.mipmap.logo_shop_no), pic_item_listview_order_comment_adapter, 0f);
             } else {

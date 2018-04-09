@@ -28,6 +28,7 @@ import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.model.MyGoodsModel;
 import com.sss.car.popularize.PopularizeEdit;
+import com.sss.car.utils.PayUtils;
 import com.sss.car.view.ActivityGoodsServiceEdit;
 
 import org.greenrobot.eventbus.EventBus;
@@ -68,7 +69,7 @@ public class FragmentPopularizeList extends BaseFragment {
     public void reRequest(String classify_id) {
         p = 1;
         this.classify_id = classify_id;
-        my_goods();
+        popularize();
     }
 
     @Override
@@ -110,16 +111,16 @@ public class FragmentPopularizeList extends BaseFragment {
                                     @Override
                                     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                                         p = 1;
-                                        my_goods();
+                                        popularize();
                                     }
 
                                     @Override
                                     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                                        my_goods();
+                                        popularize();
                                     }
                                 });
                                 initAdapter();
-                                my_goods();
+                                popularize();
                             }
                         });
                     } catch (InterruptedException e) {
@@ -154,12 +155,31 @@ public class FragmentPopularizeList extends BaseFragment {
     void initAdapter() {
         sss_adapter = new SSS_Adapter<MyGoodsModel>(getBaseFragmentActivityContext(), R.layout.item_fragment_popularize_list, list) {
             @Override
-            protected void setView(SSS_HolderHelper helper, int position, MyGoodsModel bean, SSS_Adapter instance) {
+            protected void setView(SSS_HolderHelper helper, int position, final MyGoodsModel bean, SSS_Adapter instance) {
                 helper.setText(R.id.title_item_fragment_popularize_list, bean.title);
                 helper.setText(R.id.slogan_item_fragment_popularize_list, bean.slogan);
                 addImageViewList(FrescoUtils.showImage(false, 100, 100, Uri.parse(Config.url + bean.master_map), ((SimpleDraweeView) helper.getView(R.id.pic_item_fragment_popularize_list)), 3f));
                 helper.setVisibility(R.id.view_item_fragment_popularize_list, View.VISIBLE);
                 helper.setVisibility(R.id.cancel_popularize_item_fragment_popularize_list, View.VISIBLE);
+                if ("1".equals(bean.is_payment)) {
+                    helper.setVisibility(R.id.payment, View.VISIBLE);
+                    helper.getView(R.id.payment).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getBaseFragmentActivityContext(), PopularizeEdit.class)
+                                    .putExtra("canOperation",true)
+                                    .putExtra("title",  bean.title)
+                                    .putExtra("type","edit")
+                                    .putExtra("classify_name",  bean.classify_name)
+                                    .putExtra("popularize_id",Integer.valueOf(bean.popularize_id))
+                                    .putExtra("goods_id", bean.goods_id));
+                        }
+                    });
+                } else {
+                    helper.setVisibility(R.id.payment, View.GONE);
+                    helper.getView(R.id.payment).setOnClickListener(null);
+                }
+
             }
 
             @Override
@@ -176,11 +196,11 @@ public class FragmentPopularizeList extends BaseFragment {
                     case R.id.click_item_fragment_popularize_list:
                         if (getBaseFragmentActivityContext() != null) {
                             startActivity(new Intent(getBaseFragmentActivityContext(), PopularizeEdit.class)
-                                    .putExtra("canOperation",false)
+                                    .putExtra("canOperation", false)
                                     .putExtra("title", list.get(position).title)
                                     .putExtra("classify_name", list.get(position).classify_name)
                                     .putExtra("goods_id", list.get(position).goods_id)
-                                    .putExtra("popularize_id",list.get(position).popularize_id)
+                                    .putExtra("popularize_id",Integer.valueOf(list.get(position).popularize_id))
                                     .putExtra("type", "edit"));
                         }
                         break;
@@ -188,11 +208,11 @@ public class FragmentPopularizeList extends BaseFragment {
                         ((SwipeMenuLayout) holder.getView(R.id.scoll_item_fragment_popularize_list)).smoothClose();
                         if (getBaseFragmentActivityContext() != null) {
                             startActivity(new Intent(getBaseFragmentActivityContext(), PopularizeEdit.class)
-                                    .putExtra("canOperation",false)
+                                    .putExtra("canOperation", false)
                                     .putExtra("title", list.get(position).title)
                                     .putExtra("classify_name", list.get(position).classify_name)
                                     .putExtra("goods_id", list.get(position).goods_id)
-                                    .putExtra("popularize_id",list.get(position).popularize_id)
+                                    .putExtra("popularize_id", list.get(position).popularize_id)
                                     .putExtra("type", "edit"));
                         }
 
@@ -212,7 +232,7 @@ public class FragmentPopularizeList extends BaseFragment {
     /**
      * 我的商品
      */
-    void my_goods() {
+    void popularize() {
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
@@ -220,7 +240,7 @@ public class FragmentPopularizeList extends BaseFragment {
         ywLoadingDialog = new YWLoadingDialog(getBaseFragmentActivityContext());
         ywLoadingDialog.show();
         try {
-            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.my_goods(
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.popularize(
                     new JSONObject()
                             .put("member_id", Config.member_id)
                             .put("type", type)
@@ -268,6 +288,7 @@ public class FragmentPopularizeList extends BaseFragment {
                                             myGoodsModel.price = jsonArray.getJSONObject(i).getString("price");
                                             myGoodsModel.number = jsonArray.getJSONObject(i).getString("number");
                                             myGoodsModel.sell = jsonArray.getJSONObject(i).getString("sell");
+                                            myGoodsModel.is_payment = jsonArray.getJSONObject(i).getString("is_payment");
                                             myGoodsModel.member_id = jsonArray.getJSONObject(i).getString("member_id");
                                             myGoodsModel.is_popularize = jsonArray.getJSONObject(i).getString("is_popularize");
                                             myGoodsModel.classify_id = jsonArray.getJSONObject(i).getString("classify_id");

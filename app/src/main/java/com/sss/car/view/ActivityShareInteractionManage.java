@@ -27,6 +27,7 @@ import com.sss.car.EventBusModel.ChangedBlackList;
 import com.sss.car.EventBusModel.ChangedGroupList;
 import com.sss.car.EventBusModel.ChangedList;
 import com.sss.car.EventBusModel.ChangedPostsList;
+import com.sss.car.EventBusModel.ChangedUserInfo;
 import com.sss.car.EventBusModel.ExitGroup;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
@@ -364,6 +365,20 @@ public class ActivityShareInteractionManage extends BaseActivity {
                 }
 
                 break;
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangedUserInfo changedUserInfo) {
+        if (friend!=null){
+            friend. request();
+        }
+        if (attention!=null){
+            attention. request();
+        }
+        if (fans!=null){
+            fans. request();
         }
     }
 

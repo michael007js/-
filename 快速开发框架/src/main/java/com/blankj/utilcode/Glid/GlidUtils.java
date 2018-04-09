@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -52,6 +53,31 @@ public class GlidUtils {
     }
 
 
+    /**
+     * 获取图片的宽高
+     * @param context
+     * @param imageView
+     * @param imgUrl
+     * @param onWidthAndHeightCallBack
+     */
+    public static void getWidthAndHeight(Context context, ImageView imageView, final String imgUrl, final OnWidthAndHeightCallBack onWidthAndHeightCallBack) {
+        //获取图片真正的宽高
+        Glide.with(context).load(imgUrl).asBitmap().into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
+                if (onWidthAndHeightCallBack!=null){
+                    onWidthAndHeightCallBack.onCallBack(imgUrl,bitmap.getWidth(), bitmap.getHeight());
+                }
+            }
+        });
+    }
+
+    public interface OnWidthAndHeightCallBack {
+        void onCallBack(String imgUrl, int width, int height);
+    }
+
+
+
     public static ImageView downloadWithAutoSize(final String url, final ImageView imageview, final Context context) {
         Glide.with(context)
                 .load(url)
@@ -91,10 +117,12 @@ public class GlidUtils {
 
     public interface GlidUtilsCallBack {
         void onBitmap(Bitmap bitmap);
+
     }
 
     /**
      * 下载Bitmap(须在线程中执行)
+     *
      * @param url
      * @param context
      * @param glidUtilsCallBack
@@ -103,9 +131,9 @@ public class GlidUtils {
         Glide.with(context).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-               if (glidUtilsCallBack!=null){
-                   glidUtilsCallBack.onBitmap(resource);
-               }
+                if (glidUtilsCallBack != null) {
+                    glidUtilsCallBack.onBitmap(resource);
+                }
             }
         });
 

@@ -18,6 +18,7 @@ import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ThreadPoolUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.sss.car.Config;
@@ -57,6 +58,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+import static cn.jiguang.api.JCoreInterface.init;
 import static com.sss.car.Config.address;
 import static com.sss.car.Config.member_id;
 
@@ -124,7 +126,7 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
 
     DatePicker datePicker;
 
-    String totalPrice;
+    String totalPrice = "0";
     String date;
     String other;
     String number;
@@ -141,14 +143,19 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
     @BindView(R.id.write_order_service_ready_buy_edit)
     TextView writeOrderServiceReadyBuyEdit;
     OrderEdit orderEdit;
-    Gson gson=new Gson();
+    Gson gson = new Gson();
+
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
 
     }
-
+    ThreadPoolUtils threadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.FixedThread, 1);
     @Override
     protected void onDestroy() {
+        if (threadPoolUtils!=null){
+            threadPoolUtils.shutDownNow();
+        }
+        threadPoolUtils=null;
         if (datePicker != null) {
             datePicker.dismiss();
         }
@@ -208,6 +215,27 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
         APPOftenUtils.underLineOfTextView(rightButtonTop).setText("保存");
         rightButtonTop.setTextColor(getResources().getColor(R.color.mainColor));
 
+        listViewOrderEdit.setListener(new ListViewOrderEdit.OnListViewOrderEditCallBack() {
+            @Override
+            public void onPriceChanged(int price) {
+                priceOrderServiceReadyBuyEdit.setCurrentNumber(price);
+            }
+
+            @Override
+            public void onShopName(String shop_id) {
+                if (getBaseActivityContext() != null) {
+                    startActivity(new Intent(getBaseActivityContext(), ActivityShopInfo.class)
+                            .putExtra("shop_id", shop_id));
+                }
+            }
+
+            @Override
+            public void onTotalCount(int totalCount) {
+                number = String.valueOf(totalCount);
+                setClick(true);
+            }
+        });
+
         priceOrderServiceReadyBuyEdit
                 .init(getBaseActivityContext(), true)
                 .isNegativeNumber(false)
@@ -217,31 +245,27 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                     @Override
                     public void onAdd(NumberSelectEdit numberSelectEdit, int currentNumber) {
                         totalPrice = String.valueOf(currentNumber);
-                        Double d= C.D(list, Double.valueOf(totalPrice), coupon_id);
-                        OrderServiceReadyBuyEdit.this.totalPrice = String.valueOf(d);
-                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + totalPrice);
+                        coupon_id = null;
+                        setClick(false);
                     }
 
                     @Override
                     public void onSubtract(NumberSelectEdit numberSelectEdit, int currentNumber) {
+                        LogUtils.e(currentNumber);
                         totalPrice = String.valueOf(currentNumber);
-                        Double d= C.D(list, Double.valueOf(totalPrice), coupon_id);
-                        OrderServiceReadyBuyEdit.this.totalPrice = String.valueOf(d);
-                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + totalPrice);
+                        coupon_id = null;
+                        setClick(false);
                     }
 
                     @Override
                     public void onZero(NumberSelectEdit numberSelectEdit) {
                         totalPrice = String.valueOf(numberSelectEdit.getCurrentNumber());
-                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + numberSelectEdit.getCurrentNumber());
                     }
 
                     @Override
                     public void onEditChanged(NumberSelectEdit numberSelectEdit, int currentNumber) {
-                        totalPrice = String.valueOf(currentNumber);
-                        Double d= C.D(list, Double.valueOf(totalPrice), coupon_id);
-                        OrderServiceReadyBuyEdit.this.totalPrice = String.valueOf(d);
-                        totalPriceOrderServiceReadyBuyEdit.setText("¥" + totalPrice);
+                        totalPrice = String.valueOf(numberSelectEdit.getCurrentNumber());
+                        requestPrice();
                     }
                 });
 
@@ -253,6 +277,7 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
         coupon(false);
         orderAttr(false);
         orderTip();
+        setClick(true);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -328,6 +353,7 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                             }
                         }
                         sss_adapter.setList(list);
+                        requestPrice();
                         break;
                 }
             }
@@ -377,7 +403,7 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
 
     }
 
-    @OnClick({R.id.back_top, R.id.click_choose_car_order_service_ready_buy_edit, R.id.click_coupon_order_service_ready_buy_edit, R.id.right_button_top,
+    @OnClick({R.id.back_top, R.id.click_choose_car_order_service_ready_buy_edit, R.id.right_button_top,
             R.id.click_order_time_order_service, R.id.click_penal_sum_order_service_ready_buy_edit, R.id.write_order_service_ready_buy_edit,
             R.id.click_other_sum_order_service_ready_buy_edit, R.id.click_submit_order_service_ready_buy_edit})
     public void onViewClicked(View view) {
@@ -386,11 +412,11 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                 finish();
                 break;
             case R.id.right_button_top:
-                if (orderEdit==null){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"订单获取中...");
+                if (orderEdit == null) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "订单获取中...");
                     return;
                 }
-                update_order("0",orderEdit.goods_data);
+                update_order("0", orderEdit.goods_data);
                 break;
             case R.id.write_order_service_ready_buy_edit:
                 if (getBaseActivityContext() != null) {
@@ -401,9 +427,6 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityMyDataCarGarage.class));
                 }
-                break;
-            case R.id.click_coupon_order_service_ready_buy_edit:
-                coupon(true);
                 break;
             case R.id.click_order_time_order_service:
                 if (getBaseActivityContext() != null) {
@@ -450,21 +473,81 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
 //                } else {
 //
 //                }
-                if (StringUtils.isEmpty(mobile)||StringUtils.isEmpty(recipients)||StringUtils.isEmpty(address)){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"请设置您的个人信息");
+                if (StringUtils.isEmpty(mobile) || StringUtils.isEmpty(recipients) ) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请设置您的个人信息");
                     return;
                 }
                 if (StringUtils.isEmpty(date) || StringUtils.isEmpty(penalSum)) {
                     ToastUtils.showShortToast(getBaseActivityContext(), "请选择预约时间或违约金比例");
                     return;
                 }
-                if (orderEdit==null){
-                    ToastUtils.showShortToast(getBaseActivityContext(),"订单获取中...");
+                if (orderEdit == null) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "订单获取中...");
                     return;
                 }
-                update_order("11",orderEdit.goods_data);
+                update_order("11", orderEdit.goods_data);
                 break;
         }
+    }
+
+
+    private void setClick(boolean enable) {
+        if (enable) {
+            coupon(false);
+            clickCouponOrderServiceReadyBuyEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (StringUtils.isEmpty(shop_id)) {
+                        ToastUtils.showLongToast(getBaseActivityContext(), "信息获取中");
+                    } else {
+                        coupon(true);
+                    }
+                }
+            });
+        } else {
+            coupon_id = null;
+            showCouponOrderServiceReadyBuyEdit.setTextColor(getResources().getColor(R.color.grayness));
+            showCouponOrderServiceReadyBuyEdit.setText("优惠券不可用");
+            clickCouponOrderServiceReadyBuyEdit.setOnClickListener(null);
+        }
+    }
+
+    private void requestPrice() {
+        threadPoolUtils.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.coupon_price(
+                            new JSONObject()
+                                    .put("money", totalPrice)
+                                    .put("member_id", Config.member_id)
+                                    .put("coupon_id", coupon_id)
+                                    .put("shop_id", shop_id)
+                                    .toString(), new StringCallback() {
+                                @Override
+                                public void onError(Call call, Exception e, int id) {
+                                }
+
+                                @Override
+                                public void onResponse(String response, int id) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(response);
+                                        if ("1".equals(jsonObject.getString("status"))) {
+                                            String a = "¥" + jsonObject.getJSONObject("data").getString("total");
+                                            if (totalPriceOrderServiceReadyBuyEdit!=null) {
+                                                totalPriceOrderServiceReadyBuyEdit.setText(a);
+                                            }
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            })));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     /**
@@ -543,7 +626,7 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
             showPenalSumOrderServiceReadyBuyEdit.setText(orderEdit.damages);
             showOtherOrderServiceReadyBuyEdit.setText(orderEdit.remark);
             listViewOrderEdit.setWhere("fromDraft");
-            listViewOrderEdit.setList(getBaseActivityContext(), orderEdit, getIntent().getExtras().getString("type"));
+            listViewOrderEdit.setList(getBaseActivityContext(), orderEdit, "1");
 
         }
     }
@@ -621,7 +704,8 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                 try {
                     addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.coupon(
                             new JSONObject()
-                                    .put("member_id", member_id)
+                                    .put("member_id", Config.member_id)
+                                    .put("money", totalPrice)
                                     .put("shop_id", shop_id)
                                     .toString(), new StringCallback() {
                                 @Override
@@ -652,6 +736,7 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                                                 ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                             }
                                         }
+                                        requestPrice();
                                     } catch (JSONException e) {
                                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
                                         e.printStackTrace();
@@ -673,7 +758,8 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
             try {
                 addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.coupon(
                         new JSONObject()
-                                .put("member_id", member_id)
+                                .put("member_id", Config.member_id)
+                                .put("money", totalPrice)
                                 .put("shop_id", shop_id)
                                 .toString(), new StringCallback() {
                             @Override
@@ -709,6 +795,7 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                                             ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                         }
                                     }
+                                    requestPrice();
                                 } catch (JSONException e) {
                                     ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
                                     e.printStackTrace();
@@ -742,12 +829,12 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                 list.add(couponModel3);
                 showCouponOrderServiceReadyBuyEdit.setTextColor(getResources().getColor(R.color.black));
                 LogUtils.e((couponModel3.is_check));
-                if ("1".equals(couponModel3.is_check)) {
-                    showCouponOrderServiceReadyBuyEdit.setText(couponModel3.name);
-                    coupon_id = couponModel3.id;
-                }
+//                if ("1".equals(couponModel3.is_check)) {
+//                    showCouponOrderServiceReadyBuyEdit.setText(couponModel3.name);
+//                    coupon_id = couponModel3.id;
+//                }
             }
-        }else {
+        } else {
             showCouponOrderServiceReadyBuyEdit.setText("无可用优惠券");
             showCouponOrderServiceReadyBuyEdit.setTextColor(getResources().getColor(R.color.grayness));
         }

@@ -20,6 +20,7 @@ import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sss.car.Config;
@@ -27,6 +28,7 @@ import com.sss.car.EventBusModel.ChangedMessageOrderList;
 import com.sss.car.EventBusModel.ChangedSOSList;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.rongyun.RongYunUtils;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.view.ActivityImages;
 
@@ -42,7 +44,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imlib.model.Conversation;
 import okhttp3.Call;
+
+import static com.sss.car.Config.address;
 
 
 /**
@@ -275,8 +280,19 @@ public class OrderSOSAffirmBuyer extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     canClick = true;
-                                    JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                                    final JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                                     friend_id = jsonObject1.getString("member_id");
+                                    rightButtonTop.setText(jsonObject1.getString("recipients"));
+                                    rightButtonTop.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            try {
+                                                RongYunUtils.startConversation(getBaseActivityContext(), Conversation.ConversationType.PRIVATE,friend_id,jsonObject1.getString("recipients"));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
                                     peopleNameOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("recipients"));
                                     mobileNameOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("mobile"));
                                     car_order_sos_affirm_buyer.setText(jsonObject1.getString("vehicle_name"));

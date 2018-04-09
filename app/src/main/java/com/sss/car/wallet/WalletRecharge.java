@@ -17,6 +17,7 @@ import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.PriceUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -26,6 +27,7 @@ import com.sss.car.EventBusModel.BindCardModel;
 import com.sss.car.EventBusModel.ChangedWalletModel;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.dao.OnDefaultBankCardCallBack;
 import com.sss.car.model.BankModel;
 import com.sss.car.utils.PayUtils;
 import com.sss.car.view.ActivityBangCardBind;
@@ -149,7 +151,7 @@ public class WalletRecharge extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.back_top, R.id.next_wallet_recharge,R.id.click})
+    @OnClick({R.id.back_top, R.id.next_wallet_recharge, R.id.click})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.click:
@@ -177,10 +179,9 @@ public class WalletRecharge extends BaseActivity {
                 break;
             case R.id.next_wallet_recharge:
                 if (StringUtils.isEmpty(inputWalletRecharge.getText().toString().trim()) || "0".equals(inputWalletRecharge.getText().toString().trim())) {
-//                    ToastUtils.showLongToast(getBaseActivityContext(), "请填写充值金额");
+                    ToastUtils.showLongToast(getBaseActivityContext(), "请填写充值金额");
                     return;
                 }
-
 
                 if ("bank".equals(getIntent().getExtras().getString("type"))) {
                     if (bankModel == null) {
@@ -188,25 +189,23 @@ public class WalletRecharge extends BaseActivity {
                         return;
                     }
                     if (StringUtils.isEmpty(bankModel.card_id)) {
-                        ToastUtils.showLongToast(getBaseActivityContext(), "银行卡信息获取中Err-4");
-                        return;
-                    }
-                    if (getBaseActivityContext() != null) {
-//                        startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
-//                                .putExtra("type", ActivityWeb.BANK_RECHANGE)
-//                                .putExtra("money",inputWalletRecharge.getText().toString().trim())
-//                                .putExtra("card_id",bankModel.card_id));
-                        startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
-                    }
+                        if (getBaseActivityContext() != null) {
+                            startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
+                        }
+                    }else {
 
+                        PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "4", 0, bankModel);
+//                        PayUtils.createPaymentDialog(ywLoadingDialog, "0", Config.member_id, 5, 0, inputWalletRecharge.getText().toString().trim(), (float) 0, getBaseActivity());
+                    }
                 } else if ("wx".equals(getIntent().getExtras().getString("type"))) {
-                    PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "2",0);
+                    PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "2", 0, null);
                 } else if ("zfb".equals(getIntent().getExtras().getString("type"))) {
-                    PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "3",0);
+                    PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "3", 0, null);
                 }
                 break;
         }
     }
+
     public void get_default() {
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
@@ -236,9 +235,9 @@ public class WalletRecharge extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     bankModel = new Gson().fromJson(jsonObject.getJSONObject("data").toString(), BankModel.class);
-                                    if (StringUtils.isEmpty(bankModel.bank_name)){
+                                    if (StringUtils.isEmpty(bankModel.bank_name)) {
                                         name.setText("绑定银行卡");
-                                    }else {
+                                    } else {
                                         name.setText(bankModel.bank_name);
                                     }
 

@@ -77,4 +77,15 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"/>
+
+    <TextView
+        android:padding="10dp"
+        android:visibility="gone"
+        android:id="@+id/payment"
+        android:text="未付款"
+        android:background="@color/grayness"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
 </com.blankj.utilcode.customwidget.Layout.SwipeMenuLayout>

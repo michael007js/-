@@ -135,6 +135,34 @@
 
                 </com.facebook.drawee.view.SimpleDraweeView>
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="手持身份证照"
+                android:textColor="@color/black"/>
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/click_hold"
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/add_photo"
+                    fresco:placeholderImageScaleType="fitCenter">
+
+
+                </com.facebook.drawee.view.SimpleDraweeView>
+            </LinearLayout>
             
             <TextView
                 android:id="@+id/click_save"

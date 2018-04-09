@@ -262,6 +262,12 @@ public class CarUtils {
                                 .putExtra("order_id", ids)
                                 .putExtra("grayness", true)
                                 .putExtra("buttonTitle", "未同意"));
+                    }else {
+                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("order_id", ids)
+                                .putExtra("grayness", true)
+                                .putExtra("buttonTitle", "待处理"));
                     }
                 }
 
@@ -272,9 +278,18 @@ public class CarUtils {
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("exchange_id", exchange_id)
                             .putExtra("order_id", ids)
-                            .putExtra("exchange_status",exchange_status)
+                            .putExtra("exchange_status", exchange_status)
                             .putExtra("status", status));
-                } else {
+                } else if ("0".equals(exchange_status)){
+//                   context.startActivity(new Intent(context, ActivityWeb.class)
+//                            .putExtra("type", ActivityWeb.LOGISTICS)
+//                            .putExtra("order_id", ids));
+                    context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra("order_id", ids)
+                            .putExtra("grayness", true)
+                            .putExtra("buttonTitle", "待签收"));
+                }else {
                     context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
@@ -285,18 +300,41 @@ public class CarUtils {
 
             case Constant.Changed:
                 if (isIncome) {
-                    context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .putExtra("order_id", ids)
-                            .putExtra("exchange_id", exchange_id)
-                            .putExtra("exchange_status",exchange_status)
-                            .putExtra("status", status));
+                    if (!"4".equals(exchange_status)) {
+                        context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("order_id", ids)
+                                .putExtra("exchange_id", exchange_id)
+                                .putExtra("exchange_status", exchange_status)
+                                .putExtra("status", status));
+                    }
                 } else {
-                    context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .putExtra("order_id", ids)
-                            .putExtra("grayness", true)
-                            .putExtra("buttonTitle", "待签收"));
+                    if ("3".equals(exchange_status)) {
+                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("order_id", ids)
+                                .putExtra("grayness", true)
+                                .putExtra("buttonTitle", "待收货"));
+                    } else  if ("6".equals(exchange_status)){
+                            context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
+                                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    .putExtra("order_id", ids)
+                                    .putExtra("exchange_id", exchange_id)
+                                    .putExtra("exchange_status", exchange_status)
+                                    .putExtra("status", status));
+                    }else  if ("4".equals(exchange_status)){
+                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("order_id", ids)
+                                .putExtra("grayness", true)
+                                .putExtra("buttonTitle", "待发货"));
+                    }else  {
+                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("order_id", ids)
+                                .putExtra("grayness", true)
+                                .putExtra("buttonTitle", "待签收"));
+                    }
                 }
                 break;
             case Constant.Refunded:

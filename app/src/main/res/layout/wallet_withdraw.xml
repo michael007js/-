@@ -95,28 +95,24 @@
         android:paddingRight="10dp">
 
         <TextView
+            android:id="@+id/can_wallet_withdraw"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="可用于提现的金额:  "/>
 
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/can_wallet_withdraw"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:gravity="center_vertical"/>
+
     </LinearLayout>
 
-    <TextView
+  <TextView
+
         android:id="@+id/next_wallet_withdraw"
         android:gravity="center"
         android:background="@drawable/bg_button_small_ra"
         android:text="提现"
         android:textColor="#fff"
-        android:layout_margin="30dp"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
 </LinearLayout>

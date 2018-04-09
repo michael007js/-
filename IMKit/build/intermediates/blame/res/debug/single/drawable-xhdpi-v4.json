@@ -732,12 +732,12 @@
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_emotion_toggle.png"
     },
     {
-        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_receive_voice_two.png",
-        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_receive_voice_two.png"
-    },
-    {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_cs_resolved.png",
         "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_resolved.png"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_receive_voice_two.png",
+        "source": "C:\\JuXiangChe\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_receive_voice_two.png"
     },
     {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_icon_rt_message_left.png",

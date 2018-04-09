@@ -151,8 +151,7 @@ public class FragmentOther extends BaseFragment implements RefreshLoadMoreLayout
 
             @Override
             protected void setItemListener(SSS_HolderHelper helper) {
-                helper.setItemChildClickListener(R.id.click_item_activity_adapter);
-                helper.setItemChildClickListener(R.id.get_item_activity_adapter);
+                helper.setItemChildClickListener(R.id.title_item_activity_adapter);
             }
         };
 
@@ -160,14 +159,12 @@ public class FragmentOther extends BaseFragment implements RefreshLoadMoreLayout
             @Override
             public void onItemChildClick(View view, int position, SSS_HolderHelper holder) {
                 switch (view.getId()) {
-                    case R.id.click_item_activity_adapter:
+                    case R.id.title_item_activity_adapter:
                         if (getBaseFragmentActivityContext() != null) {
                             getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivityWeb.class)
                                     .putExtra("type", ActivityWeb.ACTIVITY)
                                     .putExtra("id", list.get(position).subject_id));
                         }
-                        break;
-                    case R.id.get_item_activity_adapter:
                         break;
                 }
             }

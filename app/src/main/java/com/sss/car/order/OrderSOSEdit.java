@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,8 +15,6 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.geocoder.GeocodeResult;
-import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.blankj.utilcode.activity.BaseActivity;
@@ -48,7 +47,6 @@ import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.gaode.Geocoding;
 import com.sss.car.gaode.LocationConfig;
-import com.sss.car.gaode.SSS_GeocodingListener;
 import com.sss.car.model.CouponModel3;
 import com.sss.car.model.IntegrityMoneyModel;
 import com.sss.car.utils.MenuDialog;
@@ -75,14 +73,13 @@ import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 import okhttp3.Call;
 
-import static com.sss.car.R.id.car_order_sos_details;
-
 
 /**
  * 草稿箱==>sos订单详情
  * Created by leilei on 2017/10/19.
  */
 
+@SuppressWarnings("ALL")
 public class OrderSOSEdit extends BaseActivity {
     @BindView(R.id.back_top)
     LinearLayout backTop;
@@ -160,13 +157,11 @@ public class OrderSOSEdit extends BaseActivity {
 
 
     MenuDialog menuDialog;
-    @BindView(R.id.show_fault_order_goods_ready_buy_edit)
-    TextView showFaultOrderSOSEdit;
-    @BindView(R.id.click_fault_order_goods_ready_buy_edit)
-    LinearLayout clickFaultOrderSOSEdit;
 
     Geocoding geocoding;
     LocationConfig locationConfig;
+    @BindView(R.id.input)
+    EditText input;
 
 
     @Override
@@ -187,7 +182,6 @@ public class OrderSOSEdit extends BaseActivity {
         locationConfig = null;
         geocoding = null;
         backTop = null;
-        clickFaultOrderSOSEdit = null;
         titleTop = null;
         noExistOrderSOSEdit = null;
         rightButtonTop = null;
@@ -271,6 +265,7 @@ public class OrderSOSEdit extends BaseActivity {
         sengLng = Config.longitude;
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CarModel event) {
         carOrderSOSEdit.setText(event.name);
@@ -279,6 +274,7 @@ public class OrderSOSEdit extends BaseActivity {
         mobileNameOrderSOSEdit.setText(Config.mobile);
         isExistOrderSOSEdit.setVisibility(View.VISIBLE);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CarName event) {
 //        carOrderSOSEdit.setText(event.carName);
@@ -295,9 +291,6 @@ public class OrderSOSEdit extends BaseActivity {
         if ("other".equals(event.type)) {
             showOtherOrderSOSEdit.setText(event.msg);
         }
-        if ("fault".equals(event.type)) {
-            showFaultOrderSOSEdit.setText(event.msg);
-        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -307,7 +300,7 @@ public class OrderSOSEdit extends BaseActivity {
         showAddressOrderSOSEdit.setText(event.adress);
     }
 
-    @OnClick({R.id.back_top, R.id.no_exist_order_goods_ready_buy_edit, R.id.right_button_top, R.id.click_fault_order_goods_ready_buy_edit, R.id.click_one_key_write_car_order_goods_ready_buy_edit, R.id.click_one_key_location_order_goods_ready_buy_edit, R.id.click_one_key_write_address_order_goods_ready_buy_edit, R.id.click_choose_car_order_goods_ready_buy_edit, R.id.click_type_order_goods_ready_buy_edit, R.id.click_address_order_goods_ready_buy_edit, R.id.click_time_order_goods_ready_buy_edit, R.id.click_penal_sum_order_goods_ready_buy_edit, R.id.click_other_sum_order_goods_ready_buy_edit, R.id.click_submit_order_goods_ready_buy_edit})
+    @OnClick({R.id.back_top, R.id.no_exist_order_goods_ready_buy_edit, R.id.right_button_top, R.id.click_one_key_write_car_order_goods_ready_buy_edit, R.id.click_one_key_location_order_goods_ready_buy_edit, R.id.click_one_key_write_address_order_goods_ready_buy_edit, R.id.click_choose_car_order_goods_ready_buy_edit, R.id.click_type_order_goods_ready_buy_edit, R.id.click_address_order_goods_ready_buy_edit, R.id.click_time_order_goods_ready_buy_edit, R.id.click_penal_sum_order_goods_ready_buy_edit, R.id.click_other_sum_order_goods_ready_buy_edit, R.id.click_submit_order_goods_ready_buy_edit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_top:
@@ -319,7 +312,7 @@ public class OrderSOSEdit extends BaseActivity {
             case R.id.click_choose_car_order_goods_ready_buy_edit://选择车辆
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityMyDataCarGarage.class)
-                            .putExtra("where","fromSOS"));
+                            .putExtra("where", "fromSOS"));
                 }
                 break;
             case R.id.click_type_order_goods_ready_buy_edit://服务类型
@@ -350,7 +343,7 @@ public class OrderSOSEdit extends BaseActivity {
             case R.id.click_one_key_write_car_order_goods_ready_buy_edit://手工填写车辆信息
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityMyDataCarGarage.class)
-                            .putExtra("where","fromSOS"));
+                            .putExtra("where", "fromSOS"));
                 }
                 break;
             case R.id.click_one_key_location_order_goods_ready_buy_edit://一键定位
@@ -359,21 +352,14 @@ public class OrderSOSEdit extends BaseActivity {
             case R.id.click_one_key_write_address_order_goods_ready_buy_edit://手工填写定位地址
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityInputAddressForOrder.class)
-                   );
+                    );
                 }
                 break;
-            case R.id.click_fault_order_goods_ready_buy_edit:
-                if (getBaseActivityContext() != null) {
-                    startActivity(new Intent(getBaseActivityContext(), ActivityChangeInfo.class)
-                            .putExtra("type", "fault")
-                            .putExtra("canChange", true)
-                            .putExtra("extra", showFaultOrderSOSEdit.getText().toString()));
-                }
-                break;
+
             case R.id.no_exist_order_goods_ready_buy_edit:
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityMyDataCarGarage.class)
-                            .putExtra("where","fromSOS"));
+                            .putExtra("where", "fromSOS"));
                 }
                 break;
         }
@@ -417,16 +403,20 @@ public class OrderSOSEdit extends BaseActivity {
                                     peopleNameOrderSOSEdit.setText(jsonObject1.getString("recipients"));
                                     mobileNameOrderSOSEdit.setText(jsonObject1.getString("mobile"));
                                     carOrderSOSEdit.setText(jsonObject1.getString("vehicle_name"));
-                                    showPenalSumOrderSOSEdit.setText(jsonObject1.getString("vehicle_name"));
+                                    showPenalSumOrderSOSEdit.setText(jsonObject1.getString("damages"));
                                     showTypeOrderSOSEdit.setText(jsonObject1.getString("type"));
                                     showAddressOrderSOSEdit.setText(jsonObject1.getString("address"));
                                     totalPriceOrderSOSEdit.setText(jsonObject1.getString("price"));
                                     showTimeOrderSOSEdit.setText(jsonObject1.getString("service_time"));
                                     showOtherOrderSOSEdit.setText(jsonObject1.getString("remark"));
-                                    showFaultOrderSOSEdit.setText(jsonObject1.getString("title"));
-                                    String a=jsonObject1.getString("price");
-                                    if (!StringUtils.isEmpty(a)){
-                                        priceOrderSOSEdit.setCurrentNumber((int)Double.parseDouble(a));
+                                    input.setText(jsonObject1.getString("title"));
+                                    String a = jsonObject1.getString("price");
+                                    if (!StringUtils.isEmpty(carOrderSOSEdit.getText().toString().trim())){
+                                        noExistOrderSOSEdit.setVisibility(View.GONE);
+                                        isExistOrderSOSEdit.setVisibility(View.VISIBLE);
+                                    }
+                                    if (!StringUtils.isEmpty(a)) {
+                                        priceOrderSOSEdit.setCurrentNumber((int) Double.parseDouble(a));
                                     }
 
                                     JSONArray jsonArray = jsonObject1.getJSONArray("picture");
@@ -434,6 +424,9 @@ public class OrderSOSEdit extends BaseActivity {
                                         listPhoto.add(jsonArray.getString(i));
                                     }
                                     sss_adapter.setList(listPhoto);
+
+
+
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }
@@ -626,7 +619,7 @@ public class OrderSOSEdit extends BaseActivity {
 
         integrityMoneyAdapter = new SSS_Adapter<IntegrityMoneyModel>(getBaseActivityContext(), R.layout.item_dialog_coupons) {
             @Override
-            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean,SSS_Adapter instance) {
+            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean, SSS_Adapter instance) {
 
                 helper.setText(R.id.name_item_dialog_coupons, bean.name);
                 if ("1".equals(bean.is_check)) {
@@ -665,7 +658,7 @@ public class OrderSOSEdit extends BaseActivity {
         /*******************************************************************************************************/
         serviceTimeAdapter = new SSS_Adapter<IntegrityMoneyModel>(getBaseActivityContext(), R.layout.item_dialog_coupons) {
             @Override
-            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean,SSS_Adapter instance) {
+            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean, SSS_Adapter instance) {
 
                 helper.setText(R.id.name_item_dialog_coupons, bean.name);
                 if ("1".equals(bean.is_check)) {
@@ -704,7 +697,7 @@ public class OrderSOSEdit extends BaseActivity {
         /*******************************************************************************************************/
         serviceTypeAdapter = new SSS_Adapter<IntegrityMoneyModel>(getBaseActivityContext(), R.layout.item_dialog_coupons) {
             @Override
-            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean,SSS_Adapter instance) {
+            protected void setView(SSS_HolderHelper helper, int position, IntegrityMoneyModel bean, SSS_Adapter instance) {
 
                 helper.setText(R.id.name_item_dialog_coupons, bean.name);
                 if ("1".equals(bean.is_check)) {
@@ -746,7 +739,7 @@ public class OrderSOSEdit extends BaseActivity {
     void initPhotoAdapter() {
         sss_adapter = new SSS_Adapter<String>(getBaseActivityContext(), R.layout.item_image, listPhoto) {
             @Override
-            protected void setView(SSS_HolderHelper helper, int position, String bean,SSS_Adapter instance) {
+            protected void setView(SSS_HolderHelper helper, int position, String bean, SSS_Adapter instance) {
                 if ("default".equals(bean)) {
                     FrescoUtils.showImage(false, 80, 80, Uri.parse("res://" + getBaseActivityContext().getPackageName() + "/" + R.mipmap.logo_add_image), ((SimpleDraweeView) helper.getView(R.id.pic_item_image)), 0f);
                 } else {
@@ -1172,7 +1165,7 @@ public class OrderSOSEdit extends BaseActivity {
             return;
         }
 
-        if (StringUtils.isEmpty(showFaultOrderSOSEdit.getText().toString().trim())) {
+        if (StringUtils.isEmpty(input.getText().toString().trim())) {
             ToastUtils.showShortToast(getBaseActivityContext(), " 请填写您的求助故障");
             return;
         }
@@ -1215,7 +1208,7 @@ public class OrderSOSEdit extends BaseActivity {
                             .put("recipients", peopleNameOrderSOSEdit.getText().toString().trim())
                             .put("vehicle_name", carOrderSOSEdit.getText().toString().trim())
                             .put("member_id", Config.member_id)
-                            .put("title", showFaultOrderSOSEdit.getText().toString().trim())
+                            .put("title", input.getText().toString().trim())
                             .put("type", showTypeOrderSOSEdit.getText().toString().trim())
                             .put("gps", sendLai + "," + sengLng)
                             .put("price", priceOrderSOSEdit.getCurrentNumber())
@@ -1245,7 +1238,7 @@ public class OrderSOSEdit extends BaseActivity {
                                     ToastUtils.showShortToast(getBaseActivityContext(), "发布成功");
                                     if (getBaseActivityContext() != null) {
                                         startActivity(new Intent(getBaseActivityContext(), OrderSOSGrabList.class)
-                                                .putExtra("sos_id",jsonObject.getJSONObject("data").getString("sos_id")));
+                                                .putExtra("sos_id", jsonObject.getJSONObject("data").getString("sos_id")));
                                     }
                                     finish();
                                 } else {
@@ -1265,7 +1258,6 @@ public class OrderSOSEdit extends BaseActivity {
 
     /**
      * 保存订单
-     *
      */
     public void saveSOS() {
         if (ywLoadingDialog != null) {
@@ -1290,7 +1282,7 @@ public class OrderSOSEdit extends BaseActivity {
                             .put("recipients", peopleNameOrderSOSEdit.getText().toString().trim())
                             .put("vehicle_name", carOrderSOSEdit.getText().toString().trim())
                             .put("member_id", Config.member_id)
-                            .put("title", showFaultOrderSOSEdit.getText().toString().trim())
+                            .put("title", input.getText().toString().trim())
                             .put("type", showTypeOrderSOSEdit.getText().toString().trim())
                             .put("gps", sendLai + "," + sengLng)
                             .put("price", priceOrderSOSEdit.getCurrentNumber())

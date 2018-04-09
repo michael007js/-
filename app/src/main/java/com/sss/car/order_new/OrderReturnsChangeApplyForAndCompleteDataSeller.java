@@ -13,6 +13,7 @@ import com.blankj.utilcode.adapter.sssAdapter.SSS_Adapter;
 import com.blankj.utilcode.adapter.sssAdapter.SSS_HolderHelper;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.customwidget.GalleryHorizontalListView.GalleryHorizontalListView;
 import com.blankj.utilcode.customwidget.ListView.HorizontalListView;
 import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
@@ -30,6 +31,7 @@ import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.custom.ListViewOrderRetuenOrChange;
 import com.sss.car.fragment.FragmentOrder;
+import com.sss.car.view.ActivityImages;
 import com.sss.car.view.ActivityShopInfo;
 import com.sss.car.view.ActivityUserInfo;
 
@@ -62,7 +64,6 @@ public class OrderReturnsChangeApplyForAndCompleteDataSeller extends BaseActivit
     List<String> listSpinner = new ArrayList<>();
     List<String> listPhoto = new ArrayList<>();
 
-    SSS_Adapter sss_adapter;
 
     boolean isFromBusy = false;
     YWLoadingDialog ywLoadingDialog;
@@ -92,7 +93,7 @@ public class OrderReturnsChangeApplyForAndCompleteDataSeller extends BaseActivit
     @BindView(R.id.click_reason)
     LinearLayout clickReason;
     @BindView(R.id.photo)
-    HorizontalListView photo;
+    GalleryHorizontalListView photo;
     @BindView(R.id.click_yes)
     TextView clickYes;
     @BindView(R.id.click_no)
@@ -147,27 +148,23 @@ public class OrderReturnsChangeApplyForAndCompleteDataSeller extends BaseActivit
 
 
     void initPhotoAdapter() {
-        sss_adapter = new SSS_Adapter<String>(getBaseActivityContext(), R.layout.item_image) {
+        photo.setCanOperation(true);
+        photo.hideClose(true);
+        photo.setOnGalleryHorizontalListViewCallBack(new GalleryHorizontalListView.OnGalleryHorizontalListViewCallBack() {
             @Override
-            protected void setView(SSS_HolderHelper helper, int position, String bean, SSS_Adapter instance) {
-                if ("default".equals(bean)) {
-                    FrescoUtils.showImage(false, 80, 80, Uri.parse("res://" + getBaseActivityContext().getPackageName() + "/" + R.mipmap.logo_add_image), ((SimpleDraweeView) helper.getView(R.id.pic_item_image)), 0f);
-                } else {
-                    if (bean.startsWith("/storage/")) {
-                        FrescoUtils.showImage(false, 80, 80, Uri.fromFile(new File(bean)), ((SimpleDraweeView) helper.getView(R.id.pic_item_image)), 0f);
-                    } else {
-                        FrescoUtils.showImage(false, 80, 80, Uri.parse( bean), ((SimpleDraweeView) helper.getView(R.id.pic_item_image)), 0f);
-                    }
+            public void onClickImage(SimpleDraweeView simpleDraweeView, int position, List<String> list) {
+                if (getBaseActivityContext() != null) {
+                    startActivity(new Intent(getBaseActivityContext(), ActivityImages.class)
+                            .putStringArrayListExtra("data", (ArrayList<String>) list)
+                            .putExtra("current", position));
                 }
             }
 
             @Override
-            protected void setItemListener(SSS_HolderHelper helper) {
+            public void onClose(int position, List<String> list) {
 
             }
-        };
-        sss_adapter.setList(listPhoto);
-        photo.setAdapter(sss_adapter);
+        });
 
     }
 
@@ -265,13 +262,13 @@ public class OrderReturnsChangeApplyForAndCompleteDataSeller extends BaseActivit
                                         applyForType.setText("换货");
                                     }
 
-                                    JSONObject jsonObject1=jsonObject.getJSONObject("data");
-                                    JSONArray jsonArray=jsonObject1.getJSONArray("picture");
+                                    JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                                    JSONArray jsonArray = jsonObject1.getJSONArray("picture");
                                     for (int i = 0; i < jsonArray.length(); i++) {
-                                        listPhoto.add(Config.url+jsonArray.getString(i));
+                                        listPhoto.add(Config.url + jsonArray.getString(i));
                                     }
 
-                                    sss_adapter.setList(listPhoto);
+                                    photo.setList(listPhoto);
                                     reason.setText(jsonObject.getJSONObject("data").getString("cause"));
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
@@ -309,7 +306,7 @@ public class OrderReturnsChangeApplyForAndCompleteDataSeller extends BaseActivit
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.status_exchange(
                     new JSONObject()
                             .put("exchange_id", orderModel.exchange_id)
-                            .put("feedback",feedback.getText().toString().trim())
+                            .put("feedback", feedback.getText().toString().trim())
                             .put("member_id", Config.member_id)
                             .put("status", status)
                             .toString()

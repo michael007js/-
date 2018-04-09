@@ -52,7 +52,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="@color/black"
-            android:text="金额"/>
+            android:text="金额    "/>
 
         <EditText
             android:id="@+id/input_wallet_recharge"

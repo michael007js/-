@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.rey.material.app.BottomSheetDialog;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangeInfoModel;
+import com.sss.car.EventBusModel.ChangedDraftGoods;
 import com.sss.car.EventBusModel.ChangedGoodsList;
 import com.sss.car.MyApplication;
 import com.sss.car.R;
@@ -941,6 +942,7 @@ public class ActivityGoodsServiceEdit extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     EventBus.getDefault().post(new ChangedGoodsList());
+                                    EventBus.getDefault().post(new ChangedDraftGoods());
                                     ToastUtils.showLongToast(getBaseActivityContext(), jsonObject.getString("message"));
                                     finish();
                                 } else {
@@ -1070,6 +1072,8 @@ public class ActivityGoodsServiceEdit extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     ToastUtils.showLongToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                    EventBus.getDefault().post(new ChangedGoodsList());
+                                    EventBus.getDefault().post(new ChangedDraftGoods());
                                     finish();
                                 } else {
                                     ToastUtils.showLongToast(getBaseActivityContext(), jsonObject.getString("message"));

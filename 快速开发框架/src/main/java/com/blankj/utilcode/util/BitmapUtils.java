@@ -39,7 +39,7 @@ public class BitmapUtils {
      * @param imageView
      */
     public static void releaseImageViewResouce(ImageView imageView) {
-        if (imageView!=null){
+        if (imageView != null) {
             Drawable drawable = imageView.getDrawable();
             if (drawable != null && drawable instanceof BitmapDrawable) {
                 BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
@@ -55,6 +55,7 @@ public class BitmapUtils {
 
     /**
      * 清除背景
+     *
      * @param view
      */
     public static void recycleBackgroundBitMap(ImageView view) {
@@ -68,8 +69,10 @@ public class BitmapUtils {
             }
         }
     }
+
     /**
      * 清除背景
+     *
      * @param imageView
      */
     public static void recycleImageViewBitMap(ImageView imageView) {
@@ -85,19 +88,15 @@ public class BitmapUtils {
     }
 
 
-
-    public static Bitmap getBitmapFromImageView(ImageView imageView){
+    public static Bitmap getBitmapFromImageView(ImageView imageView) {
         if (imageView != null) {
             imageView.setDrawingCacheEnabled(true);
             Bitmap obmp = Bitmap.createBitmap(imageView.getDrawingCache());
             imageView.setDrawingCacheEnabled(false);
-                return obmp;
+            return obmp;
         }
         return null;
     }
-
-
-
 
 
     public static Bitmap getBitmapFromRes(Context context, int id) {
@@ -157,17 +156,6 @@ public class BitmapUtils {
         }
     }
 
-    /**
-     * 旋转图像
-     */
-    public static Bitmap rotateBitmap(Bitmap bmp, int degrees) {
-        if (degrees != 0) {
-            Matrix matrix = new Matrix();
-            matrix.postRotate(degrees);
-            return Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-        }
-        return bmp;
-    }
 
     /**
      * 获取 图片旋转度
@@ -244,10 +232,63 @@ public class BitmapUtils {
         BitmapFactory.decodeFile(pathName, options);
         options = getBestOptions(options, reqWidth, reqHeight);
         Bitmap src = BitmapFactory.decodeFile(pathName, options);
-        return createScaleBitmap(src, mDesiredWidth, mDesiredHeight);
+        return rotateBitmap(createScaleBitmap(src, mDesiredWidth, mDesiredHeight), readPictureDegree(pathName, ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL));
     }
+
+    /**
+     * 读取图片属性：旋转的角度
+     *
+     * @param path         图片绝对路径
+     * @param tag          要获取的属性 详见 https://blog.csdn.net/liu_jing_hui/article/details/62416876
+     * @param defaultValue 默认fan会的属性值
+     * @return degree旋转的角度
+     */
+    public static int readPictureDegree(String path, String tag, int defaultValue) {
+        int degree = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(path);
+            int orientation = exifInterface.getAttributeInt(tag, defaultValue);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return degree;
+        }
+        return degree;
+    }
+
+    /**
+     * 旋转图片，使图片保持正确的方向。
+     *
+     * @param bitmap  原始图片
+     * @param degrees 原始图片的角度
+     * @return Bitmap 旋转后的图片
+     */
+    public static Bitmap rotateBitmap(Bitmap bitmap, int degrees) {
+        if (degrees == 0 || null == bitmap) {
+            return bitmap;
+        }
+        Matrix matrix = new Matrix();
+        matrix.setRotate(degrees, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+        Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        if (null != bitmap) {
+            bitmap.recycle();
+        }
+        return bmp;
+    }
+
     /**
      * 从SD卡上加载图片
+     *
      * @param path
      * @param w
      * @param h
@@ -270,10 +311,11 @@ public class BitmapUtils {
         }
         opts.inJustDecodeBounds = false;
         float scale = Math.max(scaleWidth, scaleHeight);
-        opts.inSampleSize = (int)scale;
+        opts.inSampleSize = (int) scale;
         WeakReference<Bitmap> weak = new WeakReference<Bitmap>(BitmapFactory.decodeFile(path, opts));
         return Bitmap.createScaledBitmap(weak.get(), w, h, true);
     }
+
     /**
      * 计算目标宽度，目标高度，inSampleSize
      *
@@ -414,7 +456,6 @@ public class BitmapUtils {
         matrix.postScale(scaleWidth, scaleHeight);
         return Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, true);
     }
-
 
 
 }

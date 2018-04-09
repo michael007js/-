@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.ActivityManagerUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ProcessUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.networkbench.agent.impl.NBSAppAgent;
 import com.sss.car.view.LoginAndRegister;
 import com.umeng.commonsdk.UMConfigure;
@@ -98,6 +99,7 @@ public class MyApplication extends UtilCodeApplication {
                     case NETWORK_UNAVAILABLE://网络不可用。
                         break;
                     case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
+                        new SPUtils(context,Config.defaultFileName,MODE_PRIVATE).put("password","");
                         ActivityManagerUtils.getActivityManager().finishAllActivity();
                         startActivity(new Intent(context, LoginAndRegister.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)

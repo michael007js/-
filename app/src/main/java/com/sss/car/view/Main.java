@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -24,10 +25,12 @@ import com.blankj.utilcode.dao.Webbiz;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.BadgerUtils;
+import com.blankj.utilcode.util.BitmapUtils;
 import com.blankj.utilcode.util.CountDownTimerUtils;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.SettingUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
@@ -39,6 +42,7 @@ import com.sss.car.EventBusModel.ChangedMessageOrderList;
 import com.sss.car.EventBusModel.ChangedMessageType;
 import com.sss.car.EventBusModel.ChangedOrderModel;
 import com.sss.car.EventBusModel.ChangedPostsModel;
+import com.sss.car.EventBusModel.ChangedUserInfo;
 import com.sss.car.EventBusModel.JiGuangModel;
 import com.sss.car.EventBusModel.Posts;
 import com.sss.car.EventBusModel.Praise;
@@ -62,9 +66,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.RongIMClient;
@@ -73,6 +80,8 @@ import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
+
+import static android.R.id.list;
 
 
 /**
@@ -152,11 +161,13 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
         setContentView(R.layout.main);
         ButterKnife.bind(this);
         requestAPPLicense();
+        SettingUtils.enterWhiteListSetting(getBaseActivityContext());
     }
 
 
     /**
      * 请求APP许可
+     *
      * @param isLogin
      */
     public void requestAPPLicense() {
@@ -191,7 +202,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
                                 run();
                             }
                         } else {
-                            startActivity(new Intent(getBaseActivityContext(),LoginAndRegister.class));
+                            startActivity(new Intent(getBaseActivityContext(), LoginAndRegister.class));
                             ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                             finish();
                         }
@@ -200,7 +211,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
                         e.printStackTrace();
                     }
                 }
-            },null));
+            }, null));
 
         } catch (JSONException e) {
             dissmissLoading();
@@ -212,6 +223,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
             e.printStackTrace();
         }
     }
+
     void run() {
         if (StringUtils.isEmpty(Config.member_id)) {//当检测到三星之类的手机调整系统字体尺寸后Activity重启后时用户ID为空时重启
             ToastUtils.showShortToast(getBaseActivityContext(), "检测到系统异常，正在重启...");
@@ -276,7 +288,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
                                     }
                                 });
                             } else {
-                                startActivity(new Intent(getBaseActivityContext(),LoginAndRegister.class)
+                                startActivity(new Intent(getBaseActivityContext(), LoginAndRegister.class)
                                         .putExtra("isShowBack", false));
                                 ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 finish();
@@ -433,7 +445,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
                         break;
                     case 4:
                         navMenuLayoutMain.setSelected(4);
-                        break;
+
                 }
 
             }
@@ -485,6 +497,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
             }
         });
         unread(RongYunUtils.getUnreadCount(conversationTypes));
+
     }
 
 
@@ -651,6 +664,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
             }
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(JiGuangModel model) {
         unread(RongYunUtils.getUnreadCount(conversationTypes));
@@ -684,7 +698,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
     public boolean onReceived(Message message, int i) {
         parseMessage("onReceived", message);
         getUnreadMessageCount();
-        BadgerUtils.applyCount(getBaseActivityContext(),1);
+        BadgerUtils.applyCount(getBaseActivityContext(), 1);
         EventBus.getDefault().post(new ChangedMessageList());
         return false;
     }
@@ -714,6 +728,41 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
         );
 
         notif();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangedUserInfo changedUserInfo) {
+        if (fragmentMessage != null) {
+            if (fragmentMessage.fragmentMessageInteraction != null) {
+                fragmentMessage.fragmentMessageInteraction.loadList();
+            }
+            if (fragmentMessage.fragmentMessageComment != null) {
+                if (fragmentMessage.fragmentMessageComment.fragmentMessageCommentDymaicPostsPubli != null) {
+                    fragmentMessage.fragmentMessageComment.fragmentMessageCommentDymaicPostsPubli.p = 1;
+                    fragmentMessage.fragmentMessageComment.fragmentMessageCommentDymaicPostsPubli.managementOfMessageEvaluation();
+                }
+            }
+            if (fragmentShare != null) {
+                if (fragmentShare.fragmentShareDynamic != null) {
+                    if (fragmentShare.fragmentShareDynamic.fragment_dynamic_friend_attention_community_near != null) {
+                        fragmentShare.fragmentShareDynamic.fragment_dynamic_friend_attention_community_near.p = 1;
+                        try {
+                            fragmentShare.fragmentShareDynamic.fragment_dynamic_friend_attention_community_near.getDymaic();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                if (fragmentShare.fragmentShareCommunity != null) {
+                    if (fragmentShare.fragmentShareCommunity.fragmentCommunity_userinfo_posts != null) {
+                        fragmentShare.fragmentShareCommunity.fragmentCommunity_userinfo_posts.p = 1;
+                        fragmentShare.fragmentShareCommunity.fragmentCommunity_userinfo_posts.communityArticle(null);
+                    }
+                }
+            }
+        }
     }
 
 
@@ -854,6 +903,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
         });
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -29,6 +29,7 @@ import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedGroupList;
 import com.sss.car.EventBusModel.ChangedGroupMember;
 import com.sss.car.EventBusModel.ChangedList;
+import com.sss.car.EventBusModel.ChangedUserInfo;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.fragment.fragmentUserManager;
@@ -36,6 +37,8 @@ import com.sss.car.model.CreateGroupFriendAttentionFansRecentlyChatPublicModel;
 import com.sss.car.rongyun.RongYunUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -190,7 +193,7 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
         }
 
 
-        customInit(activityCreateGroupInviteGroupSend, false, true, false);
+        customInit(activityCreateGroupInviteGroupSend, false, true, true);
         titleTop.setText("选择联系人");
         rightButtonTop.setText("下一步");
         rightButtonTop.setTextColor(getResources().getColor(R.color.black));
@@ -198,10 +201,10 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
         fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), title);
 
 
-        friend = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),shop_service == getIntent().getExtras().getInt("type"), "1", this);
-        fans = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"), shop_service == getIntent().getExtras().getInt("type"),"2", this);
-        attention = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),shop_service == getIntent().getExtras().getInt("type"), "3", this);
-        chat = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"),shop_service == getIntent().getExtras().getInt("type"), "4", this);
+        friend = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"), shop_service == getIntent().getExtras().getInt("type"), "1", this);
+        fans = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"), shop_service == getIntent().getExtras().getInt("type"), "2", this);
+        attention = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"), shop_service == getIntent().getExtras().getInt("type"), "3", this);
+        chat = new fragmentUserManager(create_private == getIntent().getExtras().getInt("type"), shop_service == getIntent().getExtras().getInt("type"), "4", this);
 
         fragmentAdapter.addFragment(friend);
         fragmentAdapter.addFragment(attention);
@@ -332,7 +335,7 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                         break;
                 }
                 for (int i = 0; i < selectList.size(); i++) {
-                    if (selectList.get(i).member_id==null|selectList.get(i).face==null){
+                    if (selectList.get(i).member_id == null | selectList.get(i).face == null) {
                         selectList.remove(i);
                     }
                 }
@@ -340,6 +343,38 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
             }
         });
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangedUserInfo changedUserInfo) {
+        if (friend != null) {
+            try {
+                friend.friendRelation();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if (fans != null) {
+            try {
+                fans.friendRelation();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if (attention != null) {
+            try {
+                attention.friendRelation();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if (chat != null) {
+            try {
+                chat.friendRelation();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -351,7 +386,7 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                 break;
             case R.id.right_button_top:
                 for (int i = 0; i < selectList.size(); i++) {
-                    if (selectList.get(i).member_id==null){
+                    if (selectList.get(i).member_id == null) {
                         selectList.remove(i);
                     }
                 }

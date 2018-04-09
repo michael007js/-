@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.adapter.FragmentAdapter;
 import com.blankj.utilcode.customwidget.Tab.tab.ScrollTab;
+import com.sss.car.EventBusModel.ChangedDraftGoods;
 import com.sss.car.EventBusModel.ChangedDraftOrder;
 import com.sss.car.EventBusModel.ChangedPopularizeModel;
 import com.sss.car.R;
@@ -82,6 +83,14 @@ public class ActivityDraftMy extends BaseActivity {
         if (popularize != null) {
             popularize.p = 1;
             popularize.drafts_popularize();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangedDraftGoods changedDraftGoods) {
+        if (goods != null) {
+            goods.p = 1;
+            goods.drafts_goods();
         }
     }
 

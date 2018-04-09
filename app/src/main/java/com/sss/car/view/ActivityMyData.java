@@ -566,27 +566,15 @@ public class ActivityMyData extends BaseActivity {
                         ToastUtils.showShortToast(getBaseActivityContext(), "照片获取出错!");
                     }
                 } else {
-                    GalleryFinal.openCrop(reqeustCode, resultList.get(0).getPhotoPath(), new GalleryFinal.OnHanlderResultCallback() {
-                        @Override
-                        public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
-                            picShowActivityMyData.setTag(R.id.glide_tag, resultList.get(0).getPhotoPath());
-                            try {
-                                convert2Base64(resultList.get(0).getPhotoPath());
-                            } catch (JSONException e) {
-                                if (getBaseActivityContext() != null) {
-                                    ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:convert2Base64-0");
-                                }
-                                e.printStackTrace();
-                            }
+                    picShowActivityMyData.setTag(R.id.glide_tag, resultList.get(0).getPhotoPath());
+                    try {
+                        convert2Base64(resultList.get(0).getPhotoPath());
+                    } catch (JSONException e) {
+                        if (getBaseActivityContext() != null) {
+                            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:convert2Base64-0");
                         }
-
-                        @Override
-                        public void onHanlderFailure(int requestCode, String errorMsg) {
-                            if (getBaseActivityContext() != null) {
-                                ToastUtils.showShortToast(getBaseActivityContext(), "照片获取出错err:" + errorMsg);
-                            }
-                        }
-                    });
+                        e.printStackTrace();
+                    }
                 }
             }
 

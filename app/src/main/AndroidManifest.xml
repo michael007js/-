@@ -28,7 +28,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
+M3C3BHSSBC
     <!-- 读取联系人权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <!-- 拨打电话权限 -->
@@ -49,9 +49,22 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="juxiangche.com"
+                    android:scheme="com.sss.car" />
+                <!--<a href="[scheme]://[host]/[path]?[query]">启动应用程序</a>-->
+            </intent-filter>
+
 
         </activity>
         <activity

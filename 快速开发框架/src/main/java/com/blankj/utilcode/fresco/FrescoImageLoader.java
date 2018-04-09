@@ -12,6 +12,13 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
+import com.blankj.utilcode.R;
+import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.drawable.ProgressBarDrawable;
@@ -45,61 +52,35 @@ public class FrescoImageLoader implements cn.finalteam.galleryfinal.ImageLoader 
 
     @Override
     public void displayImage(Activity activity, String path, final GFImageView imageView, final Drawable defaultDrawable, int width, int height) {
-        Resources resources = context.getResources();
-        GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(resources)
-                .setFadeDuration(300)
-                .setPlaceholderImage(defaultDrawable)
-                .setFailureImage(defaultDrawable)
-                .setProgressBarImage(new ProgressBarDrawable())
-                .build();
+        LogUtils.e(path);
+        Glide.with(activity)
+                .load("file://" + path)
+                .placeholder(defaultDrawable)
+                .error(defaultDrawable)
+                .override(width, height)
+                .diskCacheStrategy(DiskCacheStrategy.NONE) //不缓存到SD卡
+                .skipMemoryCache(true)
+                //.centerCrop()
+                .into(new ImageViewTarget<GlideDrawable>(imageView) {
+                    @Override
+                    protected void setResource(GlideDrawable resource) {
+                        imageView.setImageDrawable(resource);
+                    }
 
-        final DraweeHolder<GenericDraweeHierarchy> draweeHolder = DraweeHolder.create(hierarchy, context);
-        imageView.setOnImageViewListener(new GFImageView.OnImageViewListener() {
-            @Override
-            public void onDetach() {
-                draweeHolder.onDetach();
-            }
+                    @Override
+                    public void setRequest(Request request) {
+                        imageView.setTag(R.id.glide_tag, request);
+                    }
 
-            @Override
-            public void onAttach() {
-                draweeHolder.onAttach();
-            }
-
-            @Override
-            public boolean verifyDrawable(Drawable dr) {
-                if (dr == draweeHolder.getHierarchy().getTopLevelDrawable()) {
-                    return true;
-                }
-                return false;
-            }
-
-            @Override
-            public void onDraw(Canvas canvas) {
-                Drawable drawable = draweeHolder.getHierarchy().getTopLevelDrawable();
-                if (drawable == null) {
-                    imageView.setImageDrawable(defaultDrawable);
-                } else {
-                    imageView.setImageDrawable(drawable);
-                }
-            }
-        });
-        Uri uri = new Uri.Builder()
-                .scheme(UriUtil.LOCAL_FILE_SCHEME)
-                .path(path)
-                .build();
-        ImageRequest imageRequest = ImageRequestBuilder
-                .newBuilderWithSource(uri)
-                .setResizeOptions(new ResizeOptions(width, height))//图片目标大小
-                .build();
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setOldController(draweeHolder.getController())
-                .setImageRequest(imageRequest)
-                .build();
-        draweeHolder.setController(controller);
+                    @Override
+                    public Request getRequest() {
+                        return (Request) imageView.getTag(R.id.glide_tag);
+                    }
+                });
     }
 
     @Override
     public void clearMemoryCache() {
-
+        LogUtils.e("clearMemoryCache");
     }
 }

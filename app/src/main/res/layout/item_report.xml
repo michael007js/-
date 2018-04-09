@@ -5,6 +5,7 @@
               android:layout_height="wrap_content">
 
     <LinearLayout
+        android:paddingLeft="10dp"
         android:id="@+id/click_report"
         android:orientation="horizontal"
         android:background="#fff"

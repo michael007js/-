@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.AdressDataChoose.AddressPicker;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -44,6 +45,10 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
     TextView select;
     String lat, lng;
     boolean isChanged = false;
+    @BindView(R.id.title_address)
+    TextView titleAddress;
+    AddressPicker addressPicker;
+    String province_city_district;
 
 
     @Override
@@ -53,6 +58,10 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        if (addressPicker != null) {
+            addressPicker.dismiss();
+        }
+        addressPicker = null;
         super.onDestroy();
     }
 
@@ -98,9 +107,11 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
         select.setText(event.adress);
         editActivityChangeInfoShopAddress.setText(event.adress);
         isChanged = true;
+        province_city_district=event.province+event.city+event.district;
+        titleAddress.setText(province_city_district);
     }
 
-    @OnClick({R.id.back_top, R.id.right_button_top, R.id.select})
+    @OnClick({R.id.back_top, R.id.right_button_top, R.id.select, R.id.click_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_top:
@@ -111,15 +122,20 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
                     ToastUtils.showShortToast(getBaseActivityContext(), "您未修改任何内容!");
                     return;
                 }
+                if (StringUtils.isEmpty(province_city_district)) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "请选择省市区!");
+                    return;
+                }
                 ChangeInfoModel changeUserInfoModel = new ChangeInfoModel();
                 changeUserInfoModel.msg = editActivityChangeInfoShopAddress.getText().toString().trim();
+                changeUserInfoModel.province_city_district=province_city_district;
                 changeUserInfoModel.type = getIntent().getExtras().getString("type");
-                if (StringUtils.isEmpty(lat)||StringUtils.isEmpty(lng)){
+                if (StringUtils.isEmpty(lat) || StringUtils.isEmpty(lng)) {
                     changeUserInfoModel.lat = Config.latitude;
-                    changeUserInfoModel.lng= Config.longitude;
-                }else {
+                    changeUserInfoModel.lng = Config.longitude;
+                } else {
                     changeUserInfoModel.lat = lat;
-                    changeUserInfoModel.lng= lng;
+                    changeUserInfoModel.lng = lng;
                 }
                 EventBus.getDefault().post(changeUserInfoModel);
                 finish();
@@ -128,6 +144,19 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityChooseAdress.class));
                 }
+                break;
+            case R.id.click_address:
+                if (addressPicker== null) {
+                    addressPicker = new AddressPicker(getBaseActivityContext());
+                }
+                addressPicker.setAddressListener(new AddressPicker.OnAddressListener() {
+                    @Override
+                    public void onAddressSelected(String province, String city, String district) {
+                        province_city_district=province+city+district;
+                        titleAddress.setText(province_city_district);
+                    }
+                });
+                addressPicker.show();
                 break;
         }
     }

@@ -20,6 +20,7 @@ public class TargetInfoModel implements Parcelable {
     public String provinceName;
     public String provinceCode;
     public String cityName;
+    public String district;
     public int distance;
     public String cityCode;
     public String typeDes;
@@ -41,35 +42,33 @@ public class TargetInfoModel implements Parcelable {
     public String title;
     public String website;
 
-
-
-
     @Override
     public String toString() {
         return "TargetInfoModel{" +
-                "\nprovinceName='" + provinceName + '\'' +
-                "\ndistance='" + distance + '\'' +
-                "\n provinceCode='" + provinceCode + '\'' +
-                "\n cityName='" + cityName + '\'' +
-                "\n cityCode='" + cityCode + '\'' +
-                "\n typeDes='" + typeDes + '\'' +
-                "\n typeCode='" + typeCode + '\'' +
-                "\n parkingType='" + parkingType + '\'' +
-                "\n businessArea='" + businessArea + '\'' +
-                "\n email='" + email + '\'' +
-                "\n enter=" + enter +
-                "\n exit=" + exit +
-                "\n indoorData=" + indoorData +
-                "\n latLonPoint=" + latLonPoint +
-                "\n photo=" + photo +
-                "\n poiExtension=" + poiExtension +
-                "\n postCode='" + postCode + '\'' +
-                "\n subPois=" + subPois +
-                "\n shopId='" + shopId + '\'' +
-                "\n snippet='" + snippet + '\'' +
-                "\n tel='" + tel + '\'' +
-                "\n title='" + title + '\'' +
-                "\n website='" + website + '\'' +
+                "provinceName='" + provinceName + '\'' +
+                ", provinceCode='" + provinceCode + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", district='" + district + '\'' +
+                ", distance=" + distance +
+                ", cityCode='" + cityCode + '\'' +
+                ", typeDes='" + typeDes + '\'' +
+                ", typeCode='" + typeCode + '\'' +
+                ", parkingType='" + parkingType + '\'' +
+                ", businessArea='" + businessArea + '\'' +
+                ", email='" + email + '\'' +
+                ", enter=" + enter +
+                ", exit=" + exit +
+                ", indoorData=" + indoorData +
+                ", latLonPoint=" + latLonPoint +
+                ", photo=" + photo +
+                ", poiExtension=" + poiExtension +
+                ", postCode='" + postCode + '\'' +
+                ", subPois=" + subPois +
+                ", shopId='" + shopId + '\'' +
+                ", snippet='" + snippet + '\'' +
+                ", tel='" + tel + '\'' +
+                ", title='" + title + '\'' +
+                ", website='" + website + '\'' +
                 '}';
     }
 
@@ -83,6 +82,7 @@ public class TargetInfoModel implements Parcelable {
         dest.writeString(this.provinceName);
         dest.writeString(this.provinceCode);
         dest.writeString(this.cityName);
+        dest.writeString(this.district);
         dest.writeInt(this.distance);
         dest.writeString(this.cityCode);
         dest.writeString(this.typeDes);
@@ -112,6 +112,7 @@ public class TargetInfoModel implements Parcelable {
         this.provinceName = in.readString();
         this.provinceCode = in.readString();
         this.cityName = in.readString();
+        this.district = in.readString();
         this.distance = in.readInt();
         this.cityCode = in.readString();
         this.typeDes = in.readString();

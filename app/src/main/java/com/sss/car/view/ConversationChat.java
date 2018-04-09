@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.Glid.GlidUtils;
 import com.blankj.utilcode.activity.BaseFragmentActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
@@ -24,9 +25,11 @@ import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedAttentionList;
 import com.sss.car.EventBusModel.ChangedBlackList;
 import com.sss.car.EventBusModel.ChangedGroupName;
+import com.sss.car.EventBusModel.ChangedUserInfo;
 import com.sss.car.EventBusModel.ExitGroup;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.model.UserinfoModel;
 import com.sss.car.rongyun.RongYunUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,6 +38,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -46,6 +51,8 @@ import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import okhttp3.Call;
+
+import static com.sss.car.R.id.sex;
 
 
 /**
@@ -276,6 +283,20 @@ public class ConversationChat extends BaseFragmentActivity implements RongIM.OnS
     }
 
     /**
+     * 用户名被改变
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangedUserInfo event) {
+        try {
+            getUserInfo();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 群名被改变
      *
      * @param event
@@ -333,27 +354,49 @@ public class ConversationChat extends BaseFragmentActivity implements RongIM.OnS
     }
 
     private void getUserInfo() throws JSONException {
-        RequestWeb.getUserInfo(new JSONObject()
-                .put("member_id", targetId)
-                .toString(), new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
 
-            }
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.trends_member(
+                    new JSONObject()
+                            .put("member_id", Config.member_id)
+                            .put("friend_id", targetId)
+                            .toString(), new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(getBaseActivityContext(), e.getMessage());
+                        }
 
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    if (titleTop!=null){
-                        titleTop.setText(jsonObject.getJSONObject("data").getString("username"));
-                    }
-                    RongYunUtils.refreshUserinfo(targetId, jsonObject.getJSONObject("data").getString("username"), Uri.parse(Config.url + jsonObject.getJSONObject("data").getString("face")));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    if (titleTop!=null){
+                                        titleTop.setText(jsonObject.getJSONObject("data").getString("remark"));
+                                    }
+                                    RongYunUtils.refreshUserinfo(targetId, jsonObject.getJSONObject("data").getString("remark"), Uri.parse(Config.url + jsonObject.getJSONObject("data").getString("face")));
+
+                                } else {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:user info-0");
+                                e.printStackTrace();
+                            }
+                        }
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:user info-0");
+            e.printStackTrace();
+        }
+
     }
 
     private void getGroupInfo() {

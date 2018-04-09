@@ -106,6 +106,7 @@ public class FragmentMoveMapAdressChoose extends TextureSupportMapFragment imple
                         TargetInfoModel targetInfoModel = new TargetInfoModel();
                         targetInfoModel.provinceName = poiResult.getPois().get(j).getProvinceName();
                         targetInfoModel.provinceCode = poiResult.getPois().get(j).getProvinceCode();
+                        targetInfoModel.district=poiResult.getPois().get(j).getAdName();
                         targetInfoModel.distance = poiResult.getPois().get(j).getDistance();
                         targetInfoModel.cityName = poiResult.getPois().get(j).getCityName();
                         targetInfoModel.cityCode = poiResult.getPois().get(j).getCityCode();

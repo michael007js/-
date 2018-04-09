@@ -1,14 +1,20 @@
 package com.sss.car;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 
-import com.blankj.utilcode.ViewpagerHelper.indicator.ZoomIndicator;
-import com.blankj.utilcode.ViewpagerHelper.view.BannerViewPager;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.sss.car.custom.Advertisement.AdvertisementViewPagerHelper;
+import com.google.gson.Gson;
 import com.sss.car.custom.Advertisement.Model.AdvertisementModel;
+import com.sss.car.utils.CarUtils;
+import com.sss.car.view.ActivityDymaicDetails;
+import com.sss.car.view.ActivityGoodsServiceDetails;
+import com.sss.car.view.ActivitySharePostDetails;
+import com.sss.car.view.ActivityShopInfo;
+import com.sss.car.view.ActivityUserInfo;
+import com.sss.car.view.ActivityWeb;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +34,7 @@ public class AdvertisementManager {
     /**
      * 广告
      */
-   public static void advertisement(String site_id, String classify_id, final OnAdvertisementCallBack onAdvertisementCallBack) {
+    public static void advertisement(String site_id, String classify_id, final OnAdvertisementCallBack onAdvertisementCallBack) {
         final List<AdvertisementModel> list = new ArrayList<>();
         try {
             RequestWeb.advertisement(new JSONObject()
@@ -52,22 +58,20 @@ public class AdvertisementManager {
                                     if ("1".equals(jsonObject.getString("status"))) {
                                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                                         for (int i = 0; i < jsonArray.length(); i++) {
-                                            AdvertisementModel advertisementModel = new AdvertisementModel();
-                                            if ("1".equals(jsonArray.getJSONObject(i).getString("is_video"))) {
-                                                advertisementModel.is_video = true;
-                                                advertisementModel.picture = Config.url + jsonArray.getJSONObject(i).getString("picture");
-                                            } else if ("0".equals(jsonArray.getJSONObject(i).getString("is_video"))) {
-                                                advertisementModel.is_video = false;
-                                                advertisementModel.picture = Config.url + jsonArray.getJSONObject(i).getString("picture");
-                                            }
-                                            advertisementModel.link_url = jsonArray.getJSONObject(i).getString("link_url");
+                                            AdvertisementModel advertisementModel=new AdvertisementModel();
+                                            advertisementModel.ad_id=jsonArray.getJSONObject(i).getString("ad_id");
+                                            advertisementModel.goods_type=jsonArray.getJSONObject(i).getString("goods_type");
+                                            advertisementModel. ids=jsonArray.getJSONObject(i).getString("ids");
+                                            advertisementModel.city_id=jsonArray.getJSONObject(i).getString("city_id");
+                                            advertisementModel.link_url=jsonArray.getJSONObject(i).getString("link_url");
+                                            advertisementModel.picture=Config.url + jsonArray.getJSONObject(i).getString("picture");
+                                            advertisementModel. is_video=jsonArray.getJSONObject(i).getString("is_video");
+                                            advertisementModel.type=jsonArray.getJSONObject(i).getString("type");
                                             list.add(advertisementModel);
                                         }
-                                        if (onAdvertisementCallBack!=null){
+                                        if (onAdvertisementCallBack != null) {
                                             onAdvertisementCallBack.onSuccessCallBack(list);
                                         }
-                                    }else {
-
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -80,8 +84,30 @@ public class AdvertisementManager {
         }
     }
 
+    public static void jump(AdvertisementModel model, Context context) {
+        //0默认，1商品，2店铺，3动态，4帖子，5用户，6外接，7活动专题
+        if ("1".equals(model.type)) {
+            context.startActivity(new Intent(context, ActivityGoodsServiceDetails.class)
+                    .putExtra("type", model.goods_type).putExtra("goods_id", model.ids));
+        } else if ("2".equals(model.type)) {
+            context.startActivity(new Intent(context, ActivityShopInfo.class).putExtra("shop_id", model.ids));
+        } else if ("3".equals(model.type)) {
+            context.startActivity(new Intent(context, ActivityDymaicDetails.class).putExtra("id", model.ids));
+        } else if ("4".equals(model.type)) {
+            context.startActivity(new Intent(context, ActivitySharePostDetails.class) .putExtra("community_id", model.ids).putExtra("is_show_keyboard", false));
+        } else if ("5".equals(model.type)) {
+            context.startActivity(new Intent(context, ActivityUserInfo.class).putExtra("id", model.ids));
+        } else if ("6".equals(model.type)) {
+            Config.tempUrl=model.link_url;
+            CarUtils.startAdvertisement(context);
+        } else if ("7".equals(model.type)) {
+            context.startActivity(new Intent(context, ActivityWeb.class) .putExtra("type", ActivityWeb.ACTIVITY) .putExtra("id", model.ids));
+        }
 
-    public interface OnAdvertisementCallBack{
+    }
+
+
+    public interface OnAdvertisementCallBack {
         void onSuccessCallBack(List<AdvertisementModel> list);
     }
 

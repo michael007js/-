@@ -668,12 +668,12 @@
         "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_audio_toggle.png"
     },
     {
-        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_send_toggle_hover.png",
-        "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_send_toggle_hover.png"
-    },
-    {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_plugin_default.png",
         "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_plugin_default.png"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_send_toggle_hover.png",
+        "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_send_toggle_hover.png"
     },
     {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_image_error.png",
@@ -816,12 +816,12 @@
         "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ic_def_rich_content.png"
     },
     {
-        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_group_check.png",
-        "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_cs_group_check.png"
-    },
-    {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ad_list_other_icon.png",
         "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ad_list_other_icon.png"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_group_check.png",
+        "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_cs_group_check.png"
     },
     {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ic_bubble_no_left.9.png",

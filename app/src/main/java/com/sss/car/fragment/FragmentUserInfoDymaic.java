@@ -67,7 +67,7 @@ public class FragmentUserInfoDymaic extends BaseFragment implements LoadImageCal
     Unbinder unbinder;
     YWLoadingDialog ywLoadingDialog;
     DymaicAdapter dymaicAdapter;
-    int p = 1;
+    public int p = 1;
     List<DymaicModel> list = new ArrayList<>();
     String targetId = "";
 

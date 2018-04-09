@@ -6,16 +6,20 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.constant.RequestModel;
+import com.blankj.utilcode.customwidget.Button.CountDownButton;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.$;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PriceUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chanjet.yqpay.IYQPayCallback;
 import com.chanjet.yqpay.YQPayApi;
@@ -26,9 +30,14 @@ import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedCouponModel;
 import com.sss.car.EventBusModel.ChangedOrderModel;
 import com.sss.car.EventBusModel.ChangedPopularizeModel;
+import com.sss.car.EventBusModel.ChangedWalletModel;
 import com.sss.car.P;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.dao.OnDefaultBankCardCallBack;
+import com.sss.car.dao.OnVerCallBack;
+import com.sss.car.model.BankModel;
+import com.sss.car.view.ActivityBangCardBind;
 import com.sss.car.view.ActivityMyDataSynthesizSettingSetPayPassword;
 import com.sss.car.view.ActivityPayInfo;
 
@@ -40,6 +49,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 import okhttp3.Call;
+
+import static com.sss.car.R.id.click_dialog_payment_bottom;
 
 /**
  * Created by leilei on 2018/1/16.
@@ -104,7 +115,7 @@ public class PayUtils {
      * @param activity
      */
     public static void requestPayment(final YWLoadingDialog ywLoadingDialog, final String friend_id, final String ids, final int title_type, final int is_deposit, final String money, final Activity activity) {
-        LogUtils.e("ids:" + ids + "    title_type:" + title_type + "    money:" + money + "    is_deposit:"+is_deposit);
+        LogUtils.e("ids:" + ids + "    title_type:" + title_type + "    money:" + money + "    is_deposit:" + is_deposit);
         try {
             RequestWeb.payment_integral(
                     new JSONObject()
@@ -134,7 +145,7 @@ public class PayUtils {
                                 }
                                 double b = Double.valueOf(a);
                                 if ("0".equals(money) || "0.0".equals(money) || "0.00".equals(money)) {
-                                    createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money, 0, title_type, ids, "1", is_deposit);
+                                    createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money, 0, title_type, ids, "1", is_deposit, null);
                                 } else {
                                     createPaymentDialog(ywLoadingDialog, friend_id, ids, title_type, is_deposit, money, (float) b, activity);
                                 }
@@ -163,75 +174,96 @@ public class PayUtils {
      * @param score           积分抵兑金额
      * @param activity
      */
-    private static void createPaymentDialog(final YWLoadingDialog ywLoadingDialog, final String friend_id, final String ids, final int title_type, final int is_deposit, final String money, final float score, final Activity activity) {
+    public static void createPaymentDialog(final YWLoadingDialog ywLoadingDialog, final String friend_id, final String ids, final int title_type, final int is_deposit, final String money, final float score, final Activity activity) {
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
-        View view = LayoutInflater.from(activity).inflate(R.layout.dialog_payment_bottom, null);
-        TextView close_dialog_payment_bottom = $.f(view, R.id.close_dialog_payment_bottom);
-        final TextView money_dialog_payment_bottom = $.f(view, R.id.money_dialog_payment_bottom);
-        TextView click_dialog_payment_bottom = $.f(view, R.id.click_dialog_payment_bottom);
-        TextView score_dialog_payment_bottom_score = $.f(view, R.id.score_dialog_payment_bottom_score);
-        final TextView cancel_dialog_payment_bottom_score = $.f(view, R.id.cancel_dialog_payment_bottom_score);
-        TextView click_next_dialog_payment_bottom = $.f(view, R.id.click_next_dialog_payment_bottom);
-        final LinearLayout click_balance_dialog_payment_bottom = $.f(view, R.id.click_balance_dialog_payment_bottom);
-        final LinearLayout click_wx_dialog_payment_bottom = $.f(view, R.id.click_wx_dialog_payment_bottom);
-        final LinearLayout click_zfb_dialog_payment_bottom = $.f(view, R.id.click_zfb_dialog_payment_bottom);
-        final CheckBox cb_balance_dialog_payment_bottom = $.f(view, R.id.cb_balance_dialog_payment_bottom);
-        final CheckBox cb_wx_dialog_payment_bottom = $.f(view, R.id.cb_wx_dialog_payment_bottom);
-        final CheckBox cb_zfb_dialog_payment_bottom = $.f(view, R.id.cb_zfb_dialog_payment_bottom);
-        final CheckBox cb_score_dialog_payment_bottom_score = $.f(view, R.id.cb_score_dialog_payment_bottom_score);
-        final LinearLayout parent_dialog_payment_bottom_score = $.f(view, R.id.parent_dialog_payment_bottom_score);
-        final TextView zfb_name=$.f(view,R.id.zfb_name);
-        final TextView wx_name=$.f(view,R.id.wx_name);
-        if (is_deposit == 0) {//
-            click_dialog_payment_bottom.setVisibility(View.GONE);
-        } else if (is_deposit == 1) {
-            click_dialog_payment_bottom.setVisibility(View.VISIBLE);
-        }
-        LinearLayout click_score = $.f(view, R.id.click_score);
-        money_dialog_payment_bottom.setText(money + "");
-        score_dialog_payment_bottom_score.setText(score + "");
-        click_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+        getDefaultBankCard(ywLoadingDialog, activity, new OnDefaultBankCardCallBack() {
             @Override
-            public void onClick(View v) {
-                parent_dialog_payment_bottom_score.setVisibility(View.VISIBLE);
-            }
-        });
+            public void onDefaultCallBack(final BankModel bankModel) {
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
+                View view = LayoutInflater.from(activity).inflate(R.layout.dialog_payment_bottom, null);
+                TextView close_dialog_payment_bottom = $.f(view, R.id.close_dialog_payment_bottom);
+                final TextView money_dialog_payment_bottom = $.f(view, R.id.money_dialog_payment_bottom);
+                TextView click_dialog_payment_bottom = $.f(view, R.id.click_dialog_payment_bottom);
+                TextView bank_name = $.f(view, R.id.bank_name);
+                TextView score_dialog_payment_bottom_score = $.f(view, R.id.score_dialog_payment_bottom_score);
+                final TextView cancel_dialog_payment_bottom_score = $.f(view, R.id.cancel_dialog_payment_bottom_score);
+                TextView click_next_dialog_payment_bottom = $.f(view, R.id.click_next_dialog_payment_bottom);
+                final LinearLayout click_balance_dialog_payment_bottom = $.f(view, R.id.click_balance_dialog_payment_bottom);
+                final LinearLayout click_wx_dialog_payment_bottom = $.f(view, R.id.click_wx_dialog_payment_bottom);
+                final LinearLayout click_zfb_dialog_payment_bottom = $.f(view, R.id.click_zfb_dialog_payment_bottom);
+                final LinearLayout click_bank_dialog_payment_bottom = $.f(view, R.id.click_bank_dialog_payment_bottom);
+                final CheckBox cb_balance_dialog_payment_bottom = $.f(view, R.id.cb_balance_dialog_payment_bottom);
+                final CheckBox cb_wx_dialog_payment_bottom = $.f(view, R.id.cb_wx_dialog_payment_bottom);
+                final CheckBox cb_zfb_dialog_payment_bottom = $.f(view, R.id.cb_zfb_dialog_payment_bottom);
+                final CheckBox cb_bank_dialog_payment_bottom = $.f(view, R.id.cb_bank_dialog_payment_bottom);
+                final CheckBox cb_score_dialog_payment_bottom_score = $.f(view, R.id.cb_score_dialog_payment_bottom_score);
+                final LinearLayout parent_dialog_payment_bottom_score = $.f(view, R.id.parent_dialog_payment_bottom_score);
+                final TextView zfb_name = $.f(view, R.id.zfb_name);
+                final TextView wx_name = $.f(view, R.id.wx_name);
 
-
-        click_score.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_score_dialog_payment_bottom_score.isChecked()) {
-                    cb_score_dialog_payment_bottom_score.setChecked(false);
-
+                if (bankModel.card_id != null) {
+                    bank_name.setText(bankModel.bank_name);
                 } else {
-                    cb_score_dialog_payment_bottom_score.setChecked(true);
-                }
+                    bank_name.setText("绑定银行卡");
+                    cb_bank_dialog_payment_bottom.setVisibility(View.GONE);
+                    bank_name.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            activity.startActivity(new Intent(activity, ActivityBangCardBind.class));
+                            bottomSheetDialog.dismiss();
+                        }
+                    });
 
-                if (cb_score_dialog_payment_bottom_score.isChecked()) {
-                    double a = (PriceUtils.subtract(Double.valueOf(money), Double.valueOf(score), 2));
-                    if (a <= 0) {
-                        click_wx_dialog_payment_bottom.setEnabled(false);
-                        click_zfb_dialog_payment_bottom.setEnabled(false);
-                        wx_name.setTextColor(Color.parseColor("#787878"));
-                        zfb_name.setTextColor(Color.parseColor("#787878"));
-                    } else {
-                        click_wx_dialog_payment_bottom.setEnabled(true);
-                        click_zfb_dialog_payment_bottom.setEnabled(true);
-                        wx_name.setTextColor(Color.parseColor("#000000"));
-                        zfb_name.setTextColor(Color.parseColor("#000000"));
+                }
+                if (is_deposit == 0) {//
+                    click_dialog_payment_bottom.setVisibility(View.GONE);
+                } else if (is_deposit == 1) {
+                    click_dialog_payment_bottom.setVisibility(View.VISIBLE);
+                }
+                LinearLayout click_score = $.f(view, R.id.click_score);
+                money_dialog_payment_bottom.setText(money + "");
+                score_dialog_payment_bottom_score.setText(score + "");
+                click_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        parent_dialog_payment_bottom_score.setVisibility(View.VISIBLE);
                     }
-                    money_dialog_payment_bottom.setText(a + "");
-                    cancel_dialog_payment_bottom_score.setText("确定");
-                } else {
+                });
 
-                    money_dialog_payment_bottom.setText(money + "");
-                    cancel_dialog_payment_bottom_score.setText("取消");
-                }
-            }
-        });
-        cb_score_dialog_payment_bottom_score.setEnabled(false);
+
+                click_score.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (cb_score_dialog_payment_bottom_score.isChecked()) {
+                            cb_score_dialog_payment_bottom_score.setChecked(false);
+
+                        } else {
+                            cb_score_dialog_payment_bottom_score.setChecked(true);
+                        }
+
+                        if (cb_score_dialog_payment_bottom_score.isChecked()) {
+                            double a = (PriceUtils.subtract(Double.valueOf(money), Double.valueOf(score), 2));
+                            if (a <= 0) {
+                                click_wx_dialog_payment_bottom.setEnabled(false);
+                                click_zfb_dialog_payment_bottom.setEnabled(false);
+                                wx_name.setTextColor(Color.parseColor("#787878"));
+                                zfb_name.setTextColor(Color.parseColor("#787878"));
+                            } else {
+                                click_wx_dialog_payment_bottom.setEnabled(true);
+                                click_zfb_dialog_payment_bottom.setEnabled(true);
+                                wx_name.setTextColor(Color.parseColor("#000000"));
+                                zfb_name.setTextColor(Color.parseColor("#000000"));
+                            }
+                            money_dialog_payment_bottom.setText(a + "");
+                            cancel_dialog_payment_bottom_score.setText("确定");
+                        } else {
+
+                            money_dialog_payment_bottom.setText(money + "");
+                            cancel_dialog_payment_bottom_score.setText("取消");
+                        }
+                    }
+                });
+                cb_score_dialog_payment_bottom_score.setEnabled(false);
 //        cb_score_dialog_payment_bottom_score.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -253,101 +285,187 @@ public class PayUtils {
 //        });
 
 
-        cancel_dialog_payment_bottom_score.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ("确定".equals(cancel_dialog_payment_bottom_score.getText().toString().trim())) {
-                    parent_dialog_payment_bottom_score.setVisibility(View.GONE);
-                } else {
-                    money_dialog_payment_bottom.setText(money + "");
-                    parent_dialog_payment_bottom_score.setVisibility(View.GONE);
-                }
-            }
-        });
-        click_balance_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cb_balance_dialog_payment_bottom.setChecked(true);
-                cb_wx_dialog_payment_bottom.setChecked(false);
-                cb_zfb_dialog_payment_bottom.setChecked(false);
-            }
-        });
-        click_wx_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cb_balance_dialog_payment_bottom.setChecked(false);
-                cb_wx_dialog_payment_bottom.setChecked(true);
-                cb_zfb_dialog_payment_bottom.setChecked(false);
-            }
-        });
-        click_zfb_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cb_balance_dialog_payment_bottom.setChecked(false);
-                cb_wx_dialog_payment_bottom.setChecked(false);
-                cb_zfb_dialog_payment_bottom.setChecked(true);
-            }
-        });
-        cb_balance_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cb_balance_dialog_payment_bottom.setChecked(true);
-                cb_wx_dialog_payment_bottom.setChecked(false);
-                cb_zfb_dialog_payment_bottom.setChecked(false);
-            }
-        });
-        cb_wx_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cb_balance_dialog_payment_bottom.setChecked(false);
-                cb_wx_dialog_payment_bottom.setChecked(true);
-                cb_zfb_dialog_payment_bottom.setChecked(false);
-            }
-        });
-        cb_zfb_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cb_balance_dialog_payment_bottom.setChecked(false);
-                cb_wx_dialog_payment_bottom.setChecked(false);
-                cb_zfb_dialog_payment_bottom.setChecked(true);
-            }
-        });
+                cancel_dialog_payment_bottom_score.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if ("确定".equals(cancel_dialog_payment_bottom_score.getText().toString().trim())) {
+                            parent_dialog_payment_bottom_score.setVisibility(View.GONE);
+                        } else {
+                            money_dialog_payment_bottom.setText(money + "");
+                            parent_dialog_payment_bottom_score.setVisibility(View.GONE);
+                        }
+                    }
+                });
+                click_balance_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cb_balance_dialog_payment_bottom.setChecked(true);
+                        cb_wx_dialog_payment_bottom.setChecked(false);
+                        cb_zfb_dialog_payment_bottom.setChecked(false);
+                        cb_bank_dialog_payment_bottom.setChecked(false);
+                    }
+                });
+                click_wx_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cb_balance_dialog_payment_bottom.setChecked(false);
+                        cb_wx_dialog_payment_bottom.setChecked(true);
+                        cb_zfb_dialog_payment_bottom.setChecked(false);
+                        cb_bank_dialog_payment_bottom.setChecked(false);
+                    }
+                });
+                click_zfb_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cb_balance_dialog_payment_bottom.setChecked(false);
+                        cb_wx_dialog_payment_bottom.setChecked(false);
+                        cb_zfb_dialog_payment_bottom.setChecked(true);
+                        cb_bank_dialog_payment_bottom.setChecked(false);
+                    }
+                });
+                click_bank_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cb_balance_dialog_payment_bottom.setChecked(false);
+                        cb_wx_dialog_payment_bottom.setChecked(false);
+                        cb_zfb_dialog_payment_bottom.setChecked(false);
+                        cb_bank_dialog_payment_bottom.setChecked(true);
+                    }
+                });
 
-        close_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
+
+                cb_balance_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cb_balance_dialog_payment_bottom.setChecked(true);
+                        cb_wx_dialog_payment_bottom.setChecked(false);
+                        cb_zfb_dialog_payment_bottom.setChecked(false);
+                        cb_bank_dialog_payment_bottom.setChecked(false);
+                    }
+                });
+                cb_wx_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cb_balance_dialog_payment_bottom.setChecked(false);
+                        cb_wx_dialog_payment_bottom.setChecked(true);
+                        cb_zfb_dialog_payment_bottom.setChecked(false);
+                        cb_bank_dialog_payment_bottom.setChecked(false);
+                    }
+                });
+                cb_zfb_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cb_balance_dialog_payment_bottom.setChecked(false);
+                        cb_wx_dialog_payment_bottom.setChecked(false);
+                        cb_zfb_dialog_payment_bottom.setChecked(true);
+                        cb_bank_dialog_payment_bottom.setChecked(false);
+                    }
+                });
+                cb_bank_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cb_balance_dialog_payment_bottom.setChecked(false);
+                        cb_wx_dialog_payment_bottom.setChecked(false);
+                        cb_zfb_dialog_payment_bottom.setChecked(false);
+                        cb_bank_dialog_payment_bottom.setChecked(true);
+                    }
+                });
+                close_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+                click_next_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!cb_balance_dialog_payment_bottom.isChecked() && !cb_wx_dialog_payment_bottom.isChecked() && !cb_zfb_dialog_payment_bottom.isChecked() && !cb_bank_dialog_payment_bottom.isChecked()) {
+                            ToastUtils.showShortToast(activity, "请选择支付方式");
+                            return;
+                        }
+                        int is_integral = 0;
+                        if (cb_score_dialog_payment_bottom_score.isChecked()) {
+                            is_integral = 1;
+                        } else {
+                            is_integral = 0;
+                        }
+                        if (cb_balance_dialog_payment_bottom.isChecked()) {
+                            createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "1", is_deposit, null);
+                        } else if (cb_wx_dialog_payment_bottom.isChecked()) {
+                            payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "2", is_deposit, null);
+                        } else if (cb_zfb_dialog_payment_bottom.isChecked()) {
+                            payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "3", is_deposit, null);
+                        } else if (cb_bank_dialog_payment_bottom.isChecked()) {
+                            if (bankModel.card_id != null) {
+                                createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "4", is_deposit, bankModel);
+                            }
+                        }
+                        bottomSheetDialog.dismiss();
+
+                    }
+                });
+
+                bottomSheetDialog.setContentView(view);
+                bottomSheetDialog.setCanceledOnTouchOutside(false);
+                bottomSheetDialog.show();
             }
         });
-        click_next_dialog_payment_bottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!cb_balance_dialog_payment_bottom.isChecked() && !cb_wx_dialog_payment_bottom.isChecked() && !cb_zfb_dialog_payment_bottom.isChecked()) {
-                    ToastUtils.showShortToast(activity, "请选择支付方式");
-                    return;
-                }
-                int is_integral = 0;
-                if (cb_score_dialog_payment_bottom_score.isChecked()) {
-                    is_integral = 1;
-                } else {
-                    is_integral = 0;
-                }
-                if (cb_balance_dialog_payment_bottom.isChecked()) {
-                    createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "1", is_deposit);
-                } else if (cb_wx_dialog_payment_bottom.isChecked()) {
-                    payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "2", is_deposit);
-                } else if (cb_zfb_dialog_payment_bottom.isChecked()) {
-                    payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "3", is_deposit);
-                }
-                bottomSheetDialog.dismiss();
-
-            }
-        });
-
-        bottomSheetDialog.setContentView(view);
-        bottomSheetDialog.setCanceledOnTouchOutside(false);
-        bottomSheetDialog.show();
     }
+
+    /**
+     * 获取默认银行卡
+     *
+     * @param ywLoadingDialog
+     * @param activity
+     * @param onDefaultBankCardCallBack
+     */
+    private static void getDefaultBankCard(YWLoadingDialog ywLoadingDialog, final Activity activity, final OnDefaultBankCardCallBack onDefaultBankCardCallBack) {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        ywLoadingDialog = new YWLoadingDialog(activity);
+        ywLoadingDialog.show();
+        try {
+            final YWLoadingDialog finalYwLoadingDialog = ywLoadingDialog;
+            RequestWeb.get_default(
+                    new JSONObject()
+                            .put("member_id", Config.member_id)
+                            .toString(), new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (finalYwLoadingDialog != null) {
+                                finalYwLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(activity, e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (finalYwLoadingDialog != null) {
+                                finalYwLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    if (onDefaultBankCardCallBack != null) {
+                                        onDefaultBankCardCallBack.onDefaultCallBack(new Gson().fromJson(jsonObject.getJSONObject("data").toString(), BankModel.class));
+                                    }
+                                } else {
+                                    ToastUtils.showShortToast(activity, jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(activity, "数据解析错误Err:order-0");
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(activity, "数据解析错误Err:order-0");
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * 弹出密码输入框
@@ -359,11 +477,12 @@ public class PayUtils {
      * @param is_integral     是否使用积分：1使用。0不使用
      * @param title_type      1SOS订单支付，2订单支付，3优惠券支付，4推广订单支付，5账户充值
      * @param ids             商品类型ID
-     * @param payment_mode    1余额，2，支付宝，3微信
+     * @param payment_mode    1余额，2，支付宝，3微信，4银行卡
      * @param is_deposit      是否是缴纳保证金  1是  0否
+     * @param bankModel       如果是由银行卡支付调起的，这里需要银行卡，其他的可以为空
      */
     private static void createPasswordInputDialog(final YWLoadingDialog ywLoadingDialog, final String friend_id, final Activity activity, final String money,
-                                                  final int is_integral, final int title_type, final String ids, final String payment_mode, final int is_deposit) {
+                                                  final int is_integral, final int title_type, final String ids, final String payment_mode, final int is_deposit, final BankModel bankModel) {
 
         P.e(ywLoadingDialog, Config.member_id, activity, new P.p() {
             @Override
@@ -386,7 +505,7 @@ public class PayUtils {
                                     public void match() {
                                         bottomSheetDialog.dismiss();
                                         PassWordKeyboard.setStatus(true);
-                                        payment_into(ywLoadingDialog, friend_id, activity, money, is_integral, title_type, ids, payment_mode, is_deposit);
+                                        payment_into(ywLoadingDialog, friend_id, activity, money, is_integral, title_type, ids, payment_mode, is_deposit, bankModel);
                                     }
 
                                     @Override
@@ -422,6 +541,8 @@ public class PayUtils {
 
 
     /**
+     * 生成统一订单
+     *
      * @param ywLoadingDialog
      * @param friend_id       如果是SOS订单支付时才有用，其他支付可以无视
      * @param activity
@@ -429,8 +550,9 @@ public class PayUtils {
      * @param is_integral     是否使用积分：1使用。0不使用
      * @param title_type      1SOS订单支付，2订单支付，3优惠券支付，4推广订单支付，5账户充值
      * @param ids             商品类型ID
-     * @param payment_mode    1余额，2，支付宝，3微信       @throws JSONException
+     * @param payment_mode    1余额，2，支付宝，3微信，4银行卡
      * @param is_deposit      是否是缴纳保证金  1是  0否
+     * @param bankModel       如果是由银行卡支付调起的，这里需要银行卡，其他的可以为空
      */
     public static void payment_into(
             final YWLoadingDialog ywLoadingDialog,
@@ -441,22 +563,25 @@ public class PayUtils {
             final int title_type,
             String ids,
             final String payment_mode,
-            final int is_deposit) {
+            final int is_deposit, final BankModel bankModel) {
         final YWLoadingDialog ywLoadingDialog1 = showToast(ywLoadingDialog, activity, "正在生成订单");
         try {
-            RequestWeb.payment_into(
-                    new JSONObject()
-                            .put("money", money)
-                            .put("type", title_type)
-                            .put("ids", ids)
-                            .put("lat",Config.latitude)
-                            .put("lng",Config.longitude)
-                            .put("is_deposit", is_deposit)
-                            .put("friend_id", friend_id)
-                            .put("is_integral", is_integral)
-                            .put("payment_mode", payment_mode)
-                            .put("member_id", Config.member_id)
-                            .toString(), new StringCallback() {
+            JSONObject jsonObject=  new JSONObject()
+                    .put("money", money)
+                    .put("type", title_type)
+                    .put("ids", ids)
+                    .put("lat", Config.latitude)
+                    .put("lng", Config.longitude)
+                    .put("is_deposit", is_deposit)
+                    .put("friend_id", friend_id)
+                    .put("is_integral", is_integral)
+                    .put("payment_mode", payment_mode)
+                    .put("member_id", Config.member_id);
+            if (bankModel!=null){
+                jsonObject .put("card_id", bankModel.card_id);
+            }
+            RequestWeb.payment_into(jsonObject.toString()
+                  , new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
                             if (ywLoadingDialog != null) {
@@ -473,10 +598,11 @@ public class PayUtils {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
+                                    if (ywLoadingDialog1 != null) {
+                                        ywLoadingDialog1.disMiss();
+                                    }
                                     if ("1".equals(payment_mode)) {
-                                        if (ywLoadingDialog1 != null) {
-                                            ywLoadingDialog1.disMiss();
-                                        }
+
                                         if (title_type == 1 || title_type == 2) {
                                             ToastUtils.showShortToast(activity, jsonObject.getString("message"));
                                             EventBus.getDefault().post(new ChangedOrderModel());
@@ -491,6 +617,8 @@ public class PayUtils {
                                         wxPay(ywLoadingDialog1, title_type, jsonObject, activity);
                                     } else if ("3".equals(payment_mode)) {
                                         aliPay(ywLoadingDialog1, title_type, jsonObject, activity);
+                                    } else if ("4".equals(payment_mode)) {
+                                        createCodeDialog(ywLoadingDialog1, activity, jsonObject.getJSONObject("data").getString("TrxId"), jsonObject.getJSONObject("data").getString("order_code"), title_type);
                                     }
 
                                 } else {
@@ -523,6 +651,177 @@ public class PayUtils {
                 ywLoadingDialog1.disMiss();
             }
             ToastUtils.showShortToast(activity, "统一订单数据解析错误Err -1");
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 弹出验证码输入框
+     *
+     * @param ywLoadingDialog1
+     * @param activity
+     * @param bankModel        如果是由银行卡支付调起的，这里需要银行卡，其他的可以为空
+     */
+    public static void createCodeDialog(final YWLoadingDialog ywLoadingDialog1, final Activity activity, final String TrxId, final String order_code, final int title_type) {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
+        View view = LayoutInflater.from(activity).inflate(R.layout.activity_bank_code, null);
+        final EditText code = $.f(view, R.id.code);
+        final CountDownButton get_code = $.f(view, R.id.get_code);
+        TextView sure = $.f(view, R.id.sure);
+        get_code.millisInFuture(60000)
+                .countDownInterval(1000)
+                .createCountTimer()
+                .start();
+        get_code.setOnOperationCallBack(new CountDownButton.CountDownButtonOperationCallBack() {
+            @Override
+            public void onFinish() {
+                get_code.setText("获取验证码");
+            }
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                get_code.setText("剩余" + millisUntilFinished / 1000 + "秒");
+            }
+
+            @Override
+            public void onClickFromUser(boolean isRunning, long millisUntilFinished) {
+                if (isRunning) {
+                    ToastUtils.showShortToast(activity, "请于" + millisUntilFinished / 1000 + "秒后再试");
+                } else {
+                    sms_pay(ywLoadingDialog1, activity, TrxId, new OnVerCallBack() {
+                        @Override
+                        public void onVer() {
+                            get_code.start();
+                        }
+                    });
+                }
+            }
+        });
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (StringUtils.isEmpty(get_code.getText().toString().trim())) {
+                    ToastUtils.showShortToast(activity, "请输入验证码");
+                    return;
+                }
+                payByBankCard(ywLoadingDialog1, TrxId, order_code, title_type, code.getText().toString().trim(), activity,bottomSheetDialog);
+            }
+        });
+
+        bottomSheetDialog.setCanceledOnTouchOutside(false);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+    }
+
+    private static void sms_pay(YWLoadingDialog ywLoadingDialog, final Activity activity, String TrxId, final OnVerCallBack onVerCallBack) {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        ywLoadingDialog = new YWLoadingDialog(activity);
+        ywLoadingDialog.show();
+        try {
+            final YWLoadingDialog finalYwLoadingDialog = ywLoadingDialog;
+            RequestWeb.sms_pay(
+                    new JSONObject()
+                            .put("TrxId", TrxId)
+                            .put("type", "1")
+                            .put("member_id", Config.member_id)
+                            .toString()
+                    , new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (finalYwLoadingDialog != null) {
+                                finalYwLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(activity, e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (finalYwLoadingDialog != null) {
+                                finalYwLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    if (onVerCallBack != null) {
+                                        onVerCallBack.onVer();
+                                    }
+                                } else {
+                                    ToastUtils.showShortToast(activity, jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(activity, "数据解析错误Err:-0");
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(activity, "数据解析错误Err:-0");
+            e.printStackTrace();
+        }
+    }
+
+    private static void payByBankCard(final YWLoadingDialog ywLoadingDialog, String TrxId, String order_code, final int title_type, String verify_code, final Activity activity, final BottomSheetDialog bottomSheetDialog) {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.show();
+        }
+        try {
+            RequestWeb.confirm_pay(
+                    new JSONObject()
+                            .put("TrxId", TrxId)
+                            .put("order_code", order_code)
+                            .put("member_id", Config.member_id)
+                            .put("verify_code", verify_code)//	1鉴权订单,2支付订单
+                            .toString(), new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(activity, e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    switch (title_type) {//1SOS订单支付，2订单支付，3优惠券支付，4推广订单支付，5账户充值
+                                        case 1:
+                                            EventBus.getDefault().post(new ChangedOrderModel());
+                                            break;
+                                        case 2:
+                                            EventBus.getDefault().post(new ChangedOrderModel());
+                                            break;
+                                        case 3:
+                                            EventBus.getDefault().post(new ChangedCouponModel());
+                                            break;
+                                        case 4:
+                                            EventBus.getDefault().post(new ChangedPopularizeModel());
+                                            break;
+                                        case 5:
+                                            EventBus.getDefault().post(new ChangedWalletModel());
+                                            break;
+
+                                    }
+                                    bottomSheetDialog.dismiss();
+                                } else {
+                                    ToastUtils.showShortToast(activity, jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(activity, "积分数据请求失败Err -0");
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(activity, "积分数据请求失败Err -1");
             e.printStackTrace();
         }
     }

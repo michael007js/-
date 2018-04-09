@@ -46,9 +46,13 @@ import java.util.List;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 
+import static android.R.attr.mode;
+
+
 /**
  * APP开发常用的方法
  */
+@SuppressWarnings("ALL")
 public final class APPOftenUtils {
 
 
@@ -86,7 +90,7 @@ public final class APPOftenUtils {
      * @param packageName
      * @return
      */
-    public static boolean isInstallMaps(Context context, String packageName) {
+    private static boolean isInstallMaps(Context context, String packageName) {
         final PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
         List<String> packageNames = new ArrayList<>();
@@ -94,6 +98,7 @@ public final class APPOftenUtils {
             for (int i = 0; i < packageInfos.size(); i++) {
                 String packName = packageInfos.get(i).packageName;
                 packageNames.add(packName);
+                LogUtils.e(packName);
             }
         }
         //判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
@@ -111,6 +116,7 @@ public final class APPOftenUtils {
     public static void navigation(final Context context, final String mySelfLat, final String myselfLng, final String targetName, final String targetLat, final String targetLng) {
         List<String> mapList = new ArrayList<>();
         mapList.add("com.autonavi.minimap");
+        mapList.add("com.baidu.BaiduMap");
         ArrayList<String> temp = new ArrayList<>();
         for (int i = 0; i < mapList.size(); i++) {
             if (APPOftenUtils.isInstallMaps(context, mapList.get(i))) {
@@ -128,6 +134,8 @@ public final class APPOftenUtils {
         for (int i = 0; i < temp.size(); i++) {
             if ("com.autonavi.minimap".equals(temp.get(i))) {
                 title[i] = "高德地图";
+            } else if ("com.baidu.BaiduMap".equals(temp.get(i))) {
+                title[i] = "百度地图";
             }
         }
 
@@ -147,13 +155,28 @@ public final class APPOftenUtils {
                         if ("高德地图".equals(title[position])) {
                             Intent intent = new Intent();
                             intent.setData(Uri
-                                    .parse("androidamap://route?sourceApplication=我的位置"
-                                            + "&slat=" + mySelfLat + "&slon=" + myselfLng + "&sname=" + targetName + "&dlat=" + targetLat
-                                            + "&dlon=" + targetLng + "&dname=def&dev=0&m=0&t=1&showType=1"));
+                                    .parse("androidamap://route?sourceApplication="+AppUtils.getAppPackageName(context)+"&sname=我的位置"
+                                            + "&slat=" + mySelfLat + "&slon=" + myselfLng  + "&dlat=" + targetLat
+                                            + "&dlon=" + targetLng + "&dname="+targetName+"&dev=0&m=0&t=1&showType=1"));
+                            context.startActivity(intent);
+                        }
+                        dialog.dismiss();
+                        break;
+                    case 1:
+                        if ("百度地图".equals(title[position])) {
+                            Intent intent = new Intent();
+                            intent.setData(Uri.parse(
+
+
+                                    "baidumap://map/direction?destination="+targetLat+","+ targetLng + "&mode=driving"
+
+
+                            ));
 
                             context.startActivity(intent);
                         }
                         dialog.dismiss();
+                        break;
                 }
             }
         });

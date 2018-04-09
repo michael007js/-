@@ -51,7 +51,8 @@ public class ActivityWeb extends BaseActivity {
     @OnClick(R.id.back_top)
     public void onViewClicked() {
         if (web.back() == false) {
-            web.createDialog();
+//            web.createDialog();
+            finish();
         }
     }
 

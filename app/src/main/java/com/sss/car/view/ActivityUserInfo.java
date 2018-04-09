@@ -3,6 +3,7 @@ package com.sss.car.view;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.sss.car.EventBusModel.ChangedAttentionList;
 import com.sss.car.EventBusModel.ChangedBlackList;
 import com.sss.car.EventBusModel.ChangedList;
 import com.sss.car.EventBusModel.ChangedPostsModel;
+import com.sss.car.EventBusModel.ChangedUserInfo;
 import com.sss.car.EventBusModel.HideOrShow;
 import com.sss.car.EventBusModel.Remark;
 import com.sss.car.R;
@@ -192,10 +194,10 @@ public class ActivityUserInfo extends BaseFragmentActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if ("3".equals(userinfoModel.status)){
+                    if ("3".equals(userinfoModel.status)) {
                         friendOperation(new JSONObject().put("friend_id", userinfoModel.member_id)
                                 .put("status", "3"), "拉黑");
-                    }else {
+                    } else {
                         friendOperation(new JSONObject().put("friend_id", userinfoModel.member_id)
                                 .put("status", "1"), "关心");
                     }
@@ -211,12 +213,12 @@ public class ActivityUserInfo extends BaseFragmentActivity {
     }
 
 
-    void init(){
+    void init() {
         fragmentUserInfoDymaic = new FragmentUserInfoDymaic(getIntent().getExtras().getString("id"));
         if (Config.member_id.equals(userinfoModel.member_id)) {
-            fragmentCommunity_userinfo_posts = new FragmentCommunity_Userinfo_Posts(true,true, Config.member_id, null);
+            fragmentCommunity_userinfo_posts = new FragmentCommunity_Userinfo_Posts(true, true, Config.member_id, null);
         } else {
-            fragmentCommunity_userinfo_posts = new FragmentCommunity_Userinfo_Posts(true, true,getIntent().getExtras().getString("id"), null);
+            fragmentCommunity_userinfo_posts = new FragmentCommunity_Userinfo_Posts(true, true, getIntent().getExtras().getString("id"), null);
         }
         fragmentUserInfoReputation = new FragmentUserInfoReputation(getIntent().getExtras().getString("id"));
         viewpager.setOffscreenPageLimit(3);
@@ -248,7 +250,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
         fragmentAdapter.addFragment(fragmentUserInfoReputation);
         scrollTab.setTitles(Arrays.asList(title));
         scrollTab.setViewPager(viewpager);
-        scrollTab.setWidth(getWindowManager().getDefaultDisplay().getWidth()/3);
+        scrollTab.setWidth(getWindowManager().getDefaultDisplay().getWidth() / 3);
         scrollTab.setOnTabListener(new ScrollTab.OnTabListener() {
             @Override
             public void onChange(int position, View v) {
@@ -279,7 +281,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
         }
     }
 
-    @OnClick({R.id.back_top_image, R.id.right_search_top_image, R.id.chat_activity_user_info,R.id.shop_image_activity_user_info,R.id.shop_text_activity_user_info})
+    @OnClick({R.id.back_top_image, R.id.right_search_top_image, R.id.chat_activity_user_info, R.id.shop_image_activity_user_info, R.id.shop_text_activity_user_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shop_image_activity_user_info:
@@ -534,8 +536,6 @@ public class ActivityUserInfo extends BaseFragmentActivity {
     }
 
     /**
-     *
-     *
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -546,7 +546,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
     /**
      * 设置好友备注
      */
-    void set_remark(String remark) {
+    void set_remark(final String remark) {
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
@@ -579,7 +579,17 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
                                     if ("1".equals(jsonObject.getString("status"))) {
+                                        RongYunUtils.refreshUserinfo(userinfoModel.member_id,remark, Uri.parse(Config.url+userinfoModel.face));
                                         getUserInfo();
+                                        EventBus.getDefault().post(new ChangedUserInfo());
+                                        if (fragmentCommunity_userinfo_posts != null) {
+                                            fragmentCommunity_userinfo_posts.p = 1;
+                                            fragmentCommunity_userinfo_posts.communityArticle(null);
+                                        }
+                                        if (fragmentUserInfoDymaic != null) {
+                                            fragmentUserInfoDymaic.p = 1;
+                                            fragmentUserInfoDymaic.dymaicInfo();
+                                        }
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                     }
@@ -633,7 +643,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                     JSONObject jsonObject = new JSONObject(response);
                                     if ("1".equals(jsonObject.getString("status"))) {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
-                                        userinfoModel.stranger=jsonObject.getJSONObject("data").getString("code");
+                                        userinfoModel.stranger = jsonObject.getJSONObject("data").getString("code");
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                     }
@@ -709,8 +719,8 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                         @Override
                                         public void onClick(View v) {
                                             if (getBaseActivityContext() != null) {
-                                                List<String> urlList=new ArrayList<>();
-                                                urlList.add(Config.url+userinfoModel.face);
+                                                List<String> urlList = new ArrayList<>();
+                                                urlList.add(Config.url + userinfoModel.face);
                                                 startActivity(new Intent(getBaseActivityContext(), ActivityImages.class)
                                                         .putStringArrayListExtra("data", (ArrayList<String>) urlList)
                                                         .putExtra("current", 0));

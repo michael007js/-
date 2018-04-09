@@ -8,10 +8,22 @@ public class ChooseAdress {
     public String adress;
     public String lai;
     public String lng;
+    public String province;
+    public String city;
+    public String district;
 
     public ChooseAdress(String adress, String lai, String lng) {
         this.adress = adress;
         this.lai = lai;
         this.lng = lng;
+    }
+
+    public ChooseAdress(String adress, String lai, String lng, String province, String city, String district) {
+        this.adress = adress;
+        this.lai = lai;
+        this.lng = lng;
+        this.province = province;
+        this.city = city;
+        this.district = district;
     }
 }

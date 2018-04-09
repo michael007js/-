@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.Glid.GlidUtils;
 import com.blankj.utilcode.R;
 import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -149,52 +150,45 @@ public class RichTextView extends ScrollView {
     /**
      * 在特定位置添加ImageView
      */
-    public void addImageViewAtIndex(final int index, String imagePath, int width, int height) {
-//        Bitmap bmp = BitmapFactory.decodeFile(imagePath);
-
+    public void addImageViewAtIndex(Context context, final int index, final String imagePath, final int w, final int h) {
         final RelativeLayout imageLayout = createImageLayout();
         final DataImageView imageView = (DataImageView) imageLayout.findViewById(R.id.edit_imageView);
-
         imageList.add(imageView);
-        FrescoUtils.showImage(false, width, height, Uri.parse(imagePath), imageView, 0f);
-//        Glide.with(getContext()).load(imagePath).crossFade().centerCrop().into(imageView);
-        //imageView.setImageBitmap(bmp);//这里改用Glide加载图片
-        //imageView.setBitmap(bmp);//这句去掉，保留下面的图片地址即可，优化图片占用
-        imageView.setAbsolutePath(imagePath);
 
-//        // 调整imageView的高度
-//        int imageHeight = 500;
-//        if (bmp != null) {
-//            imageHeight = allLayout.getWidth() * bmp.getHeight() / bmp.getWidth();
-//            // 使用之后，还是回收掉吧
-//            bmp.recycle();
-//        }
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                width, height);
-        lp.bottomMargin = 5;
-        imageView.setLayoutParams(lp);
-
-        allLayout.addView(imageLayout, index);
-        imageView.setOnClickListener(new OnClickListener() {
+        GlidUtils.getWidthAndHeight(context, imageView, imagePath, new GlidUtils.OnWidthAndHeightCallBack() {
             @Override
-            public void onClick(View v) {
-                if (onImageClickListener != null) {
+            public void onCallBack(String imgUrl, int width, int height) {
+                double percentage = height / width;
+                FrescoUtils.showImage(false, w, (int) (percentage * height), Uri.parse(imgUrl), imageView, 0f);
+                imageView.setAbsolutePath(imgUrl);
 
-                    int a = 0;
-                    for (int j = 0; j < allLayout.getChildCount(); j++) {
-                        if (j <= index) {
-                            if (allLayout.getChildAt(j) instanceof TextView) {
-                                a++;
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                        width, height);
+                lp.bottomMargin = 5;
+                imageView.setLayoutParams(lp);
+
+                allLayout.addView(imageLayout, index);
+                imageView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onImageClickListener != null) {
+
+                            int a = 0;
+                            for (int j = 0; j < allLayout.getChildCount(); j++) {
+                                if (j <= index) {
+                                    if (allLayout.getChildAt(j) instanceof TextView) {
+                                        a++;
+                                    }
+                                }
                             }
+                            LogUtils.e(allLayout.getChildCount() + "---" + index + "---" + a);
+                            onImageClickListener.onClickImage(index - a, img, imageView);
+                            return;
                         }
                     }
-                    LogUtils.e(allLayout.getChildCount() + "---" + index + "---" + a);
-                    onImageClickListener.onClickImage(index - a, img, imageView);
-                    return;
-                }
+                });
             }
         });
-
     }
 
 
@@ -219,7 +213,7 @@ public class RichTextView extends ScrollView {
     public void showEditData(String servelUrl, String content, RichTextView richTextView, Context context, int width, int height, int textSize) throws JSONException {
         allLayout.removeAllViews();
         JSONArray jsonArray = new JSONArray(content);
-        for (int i =0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).has("img")) {
                 img.add(jsonArray.getJSONObject(i).getString("img"));
                 int w;
@@ -232,7 +226,7 @@ public class RichTextView extends ScrollView {
                     w = width;
                     h = height;
                 }
-                addImageViewAtIndex(richTextView.getLastIndex(), servelUrl + jsonArray.getJSONObject(i).getString("img"), w, h);
+                addImageViewAtIndex(context, richTextView.getLastIndex(), servelUrl + jsonArray.getJSONObject(i).getString("img"), w, h);
             } else if (jsonArray.getJSONObject(i).has("text")) {
                 richTextView.addTextViewAtIndex(richTextView.getLastIndex(), jsonArray.getJSONObject(i).getString("text"), textSize);
             }

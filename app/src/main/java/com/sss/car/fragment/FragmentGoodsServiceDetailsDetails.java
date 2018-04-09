@@ -205,8 +205,8 @@ public class FragmentGoodsServiceDetailsDetails extends BaseFragment {
                                             .showEditData(Config.url, jsonObject.getJSONArray("data").toString(),
                                                     content,
                                                     getBaseFragmentActivityContext(),
-                                                    getActivity().getWindowManager().getDefaultDisplay().getWidth(),
-                                                    getActivity().getWindowManager().getDefaultDisplay().getHeight(), 0);
+                                                    0,
+                                                    0, 0);
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
                                 }

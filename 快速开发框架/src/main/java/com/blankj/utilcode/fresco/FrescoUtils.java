@@ -152,6 +152,8 @@ public class FrescoUtils {
      * @param radius           四个角的弧度
      */
     public static SimpleDraweeView showImage(boolean roundAsCircle, int width, int height, Uri uri, SimpleDraweeView simpleDraweeView, float radius) {
+        if (width==0||height==0)
+            return simpleDraweeView;
         if (uri == null || simpleDraweeView == null) {
             return simpleDraweeView;
         }

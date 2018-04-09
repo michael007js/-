@@ -1,6 +1,7 @@
 package com.sss.car.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,10 +19,17 @@ import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
+import com.sss.car.EventBusModel.CarName;
+import com.sss.car.EventBusModel.ChangeInfoModel;
+import com.sss.car.EventBusModel.CreateCarModel;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.view.ActivityChangeInfo;
 import com.sss.car.view.ActivityMyDataCarSetCarInfo;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,7 +65,9 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
     LinearLayout typeFragmentMyDataCarMyCurrentCarInfo;
     Unbinder unbinder;
     YWLoadingDialog ywLoadingDialog;
-    String vehicle_id, ids, name, logo, type,style;
+   public String vehicle_id, ids, name, logo, type, style,displacement, year;
+
+    boolean is_other;
 
     public FragmentMyDataCarMyCurrentCarInfo() {
     }
@@ -84,7 +94,7 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
         name = null;
         logo = null;
         type = null;
-        style=null;
+        style = null;
 
     }
 
@@ -124,16 +134,92 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.displacement_fragment_my_data_car_my_current_car_info:
-                jump("1");
+                if (is_other == false) {
+                    jump("1");
+                }else {
+                    startActivity(new Intent(getBaseFragmentActivityContext(),ActivityChangeInfo.class)
+                            .putExtra("type", "displacement")
+                            .putExtra("canChange", true)
+                            .putExtra("extra",displacement ));
+                }
                 break;
             case R.id.year_fragment_my_data_car_my_current_car_info:
-                jump("2");
+                if (is_other == false) {
+                    jump("2");
+                }else {
+                    startActivity(new Intent(getBaseFragmentActivityContext(),ActivityChangeInfo.class)
+                            .putExtra("type", "year")
+                            .putExtra("canChange", true)
+                            .putExtra("extra",year ));
+                }
                 break;
             case R.id.type_fragment_my_data_car_my_current_car_info:
-                jump("3");
+                if (is_other == false) {
+                    jump("3");
+                }else {
+                    startActivity(new Intent(getBaseFragmentActivityContext(),ActivityChangeInfo.class)
+                            .putExtra("type", "style")
+                            .putExtra("canChange", true)
+                            .putExtra("extra",style ));
+                }
                 break;
         }
     }
+
+
+
+
+    public void add_vehicle() {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.dismiss();
+        }
+        ywLoadingDialog = null;
+        ywLoadingDialog = new YWLoadingDialog(getBaseFragmentActivityContext());
+        ywLoadingDialog.show();
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.add_vehicle(
+                    new JSONObject()
+                            .put("member_id", Config.member_id)
+                            .put("name", name)
+                            .put("type", type)
+                            .put("displacement",displacement)
+                            .put("year", year)
+                            .put("style", style)
+                            .toString()
+                    , new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.dismiss();
+                            }
+                            ToastUtils.showShortToast(getBaseFragmentActivityContext(), e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.dismiss();
+                            }
+                            try {
+                                final JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    myCurrentCarInfo();
+                                } else {
+                                    ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseFragmentActivityContext(), "数据解析错误Err:-2");
+                                e.printStackTrace();
+                            }
+                        }
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseFragmentActivityContext(), "数据解析错误Err:-0");
+            e.printStackTrace();
+        }
+    }
+
+
 
     /**
      * 跳转到选择页面
@@ -194,9 +280,9 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
                                     if ("1".equals(jsonObject.getString("status"))) {
                                         carNameFragmentMyDataCarMyCurrentCarInfo.setText(jsonObject.getJSONObject("data").getString("name") + jsonObject.getJSONObject("data").getString("type"));
                                         carTypeFragmentMyDataCarMyCurrentCarInfo.setText(jsonObject.getJSONObject("data").getString("year")
-                                                + "  "+jsonObject.getJSONObject("data").getString("displacement")
+                                                + "  " + jsonObject.getJSONObject("data").getString("displacement")
                                                 + jsonObject.getJSONObject("data").getString("style")
-                                               );
+                                        );
                                         carLogoFragmentMyDataCarMyCurrentCarInfo.setTag(R.id.glide_tag, Config.url + jsonObject.getJSONObject("data").getString("brand"));
                                         if (getBaseFragmentActivityContext() != null) {
                                             addImageViewList(GlidUtils.downLoader(false, carLogoFragmentMyDataCarMyCurrentCarInfo, getBaseFragmentActivityContext()));
@@ -207,9 +293,12 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
                                         vehicle_id = jsonObject.getJSONObject("data").getString("vehicle_id");
                                         ids = jsonObject.getJSONObject("data").getString("ids");
                                         name = jsonObject.getJSONObject("data").getString("name");
+                                        displacement= jsonObject.getJSONObject("data").getString("displacement");
                                         logo = jsonObject.getJSONObject("data").getString("brand");
+                                        year = jsonObject.getJSONObject("data").getString("year");
                                         type = jsonObject.getJSONObject("data").getString("type");
-                                        style=jsonObject.getJSONObject("data").getString("style");
+                                        style = jsonObject.getJSONObject("data").getString("style");
+                                        is_other = "1".equals(jsonObject.getJSONObject("data").getString("is_other"));
                                     } else {
                                         if (getBaseFragmentActivityContext() != null) {
                                             ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));

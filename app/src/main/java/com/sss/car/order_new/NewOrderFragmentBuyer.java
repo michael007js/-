@@ -13,6 +13,7 @@ import com.blankj.utilcode.Fragment.BaseFragment;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
 import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.pullToRefresh.PullToRefreshBase;
@@ -25,8 +26,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedOrderModel;
+import com.sss.car.P;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.dao.OnPayPasswordVerificationCallBack;
 import com.sss.car.order.OrderReturns;
 import com.sss.car.rongyun.RongYunUtils;
 import com.sss.car.utils.CarUtils;
@@ -34,6 +37,7 @@ import com.sss.car.utils.MenuDialog;
 import com.sss.car.utils.OrderUtils;
 import com.sss.car.utils.PayUtils;
 import com.sss.car.view.ActivityImages;
+import com.sss.car.view.ActivityMyDataSetPassword;
 import com.sss.car.view.ActivityShopInfo;
 import com.sss.car.view.ActivityUserInfo;
 
@@ -58,6 +62,7 @@ import okhttp3.Call;
  * 支出 代付款,待收货,已完成,退换货公用Fragment
  * Created by leilei on 2017/11/9.
  */
+@SuppressWarnings("ALL")
 @SuppressLint("ValidFragment")
 public class NewOrderFragmentBuyer extends BaseFragment implements CustomListViewOrderBuyer.OnListViewOrderCallBack {
     public static final int Type_Payment = 1;//待付款
@@ -626,13 +631,107 @@ public class NewOrderFragmentBuyer extends BaseFragment implements CustomListVie
      * 确认收货
      */
     @Override
-    public void onConfirmReceipt(final String order_id) {
+    public void onConfirmReceipt(final OrderModel orderModel) {
         APPOftenUtils.createAskDialog(getBaseFragmentActivityContext(), "是否确定要收货?", new OnAskDialogCallBack() {
             @Override
             public void onOKey(Dialog dialog) {
                 dialog.dismiss();
                 dialog = null;
-                OrderUtils.sureOrderGoods(baseActivity, ywLoadingDialog, false, order_id);
+
+                P.e(ywLoadingDialog, Config.member_id, baseActivity, new P.p() {
+                    @Override
+                    public void exist() {
+                        if (menuDialog == null) {
+                            menuDialog = new MenuDialog(baseActivity);
+                        }
+                        menuDialog.createPasswordInputDialog("请输入您的支付密码", baseActivity, new OnPayPasswordVerificationCallBack() {
+                            @Override
+                            public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+                                P.r(ywLoadingDialog, Config.member_id, password,baseActivity, new P.r() {
+                                    @Override
+                                    public void match() {
+                                        bottomSheetDialog.dismiss();
+                                        passWordKeyboard.setStatus(true);
+                                        OrderUtils.sureOrderGoods(baseActivity, ywLoadingDialog, false, orderModel.order_id);
+                                    }
+
+                                    @Override
+                                    public void mismatches() {
+
+                                        passWordKeyboard.setStatus(false);
+                                    }
+                                });
+                            }
+
+                        });
+                    }
+
+
+                    @Override
+                    public void nonexistence() {
+                        if (getBaseFragmentActivityContext() != null) {
+                            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityMyDataSetPassword.class));
+                        }
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onCancel(Dialog dialog) {
+                dialog.dismiss();
+                dialog = null;
+            }
+        });
+    }
+    /**
+     * 确认收货(退换货状态)
+     */
+    @Override
+    public void onConfirmReceiptReturns(final OrderModel orderModel) {
+        APPOftenUtils.createAskDialog(getBaseFragmentActivityContext(), "是否确定要收货?", new OnAskDialogCallBack() {
+            @Override
+            public void onOKey(Dialog dialog) {
+                dialog.dismiss();
+                dialog = null;
+                P.e(ywLoadingDialog, Config.member_id, baseActivity, new P.p() {
+                    @Override
+                    public void exist() {
+                        if (menuDialog == null) {
+                            menuDialog = new MenuDialog(baseActivity);
+                        }
+                        menuDialog.createPasswordInputDialog("请输入您的支付密码", baseActivity, new OnPayPasswordVerificationCallBack() {
+                            @Override
+                            public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+                                P.r(ywLoadingDialog, Config.member_id, password,baseActivity, new P.r() {
+                                    @Override
+                                    public void match() {
+                                        bottomSheetDialog.dismiss();
+                                        passWordKeyboard.setStatus(true);
+                                        OrderUtils.exchange_goods(baseActivity, ywLoadingDialog, false, orderModel.order_id,orderModel.exchange_id);
+                                    }
+
+                                    @Override
+                                    public void mismatches() {
+
+                                        passWordKeyboard.setStatus(false);
+                                    }
+                                });
+                            }
+
+                        });
+                    }
+
+
+                    @Override
+                    public void nonexistence() {
+                        if (getBaseFragmentActivityContext() != null) {
+                            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityMyDataSetPassword.class));
+                        }
+                    }
+                });
+
             }
 
             @Override

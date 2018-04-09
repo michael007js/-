@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
+import com.sss.car.EventBusModel.ChangeInfoModel;
 import com.sss.car.EventBusModel.CreateCarModel;
 import com.sss.car.EventBusModel.ShowNullCarModel;
 import com.sss.car.R;
@@ -88,6 +89,29 @@ public class ActivityMyDataCar extends BaseActivity {
 
     }
 
+    /**
+     * 事件被改变
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangeInfoModel event) {
+        switch (event.type) {
+            case "displacement":
+                fragmentMyDataCarMyCurrentCarInfo.displacement = event.msg;
+                fragmentMyDataCarMyCurrentCarInfo.add_vehicle();
+                break;
+            case "year":
+                fragmentMyDataCarMyCurrentCarInfo.year = event.msg;
+                fragmentMyDataCarMyCurrentCarInfo.add_vehicle();
+                break;
+            case "style":
+                fragmentMyDataCarMyCurrentCarInfo.style = event.msg;
+                fragmentMyDataCarMyCurrentCarInfo.add_vehicle();
+                break;
+
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CreateCarModel event) {
@@ -170,8 +194,8 @@ public class ActivityMyDataCar extends BaseActivity {
      * 显示车辆信息
      */
     void showCarInfo() {
-        white .setVisibility(View.VISIBLE);
-        black .setVisibility(View.GONE);
+        white.setVisibility(View.VISIBLE);
+        black.setVisibility(View.GONE);
         FragmentUtils.hideFragments(fragmentManager);
         if (fragmentMyDataCarMyCurrentCarInfo == null) {
             fragmentMyDataCarMyCurrentCarInfo = new FragmentMyDataCarMyCurrentCarInfo();

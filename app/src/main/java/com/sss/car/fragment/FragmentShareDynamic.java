@@ -58,7 +58,7 @@ import static com.sss.car.R.id.viewpager_up_fragment_goods_head;
 @SuppressLint("ValidFragment")
 public class FragmentShareDynamic extends BaseFragment {
     Unbinder unbinder;
-    int p = 1;
+    public int p = 1;
     @BindView(R.id.top_fragment_share_dynamic)
     ImageView topFragmentShareDynamic;
     BannerVariation viewpagerHeadFragmentShareDymaic;
@@ -268,6 +268,7 @@ public class FragmentShareDynamic extends BaseFragment {
             public void onSuccessCallBack(List<AdvertisementModel> list) {
                 advList=list;
                 loadAdv(list,bannerVariation);
+
             }
         });
     }
@@ -282,6 +283,7 @@ public class FragmentShareDynamic extends BaseFragment {
                     public void displayImage(Context context, Object path, View imageView) {
                         imageView.setTag(R.id.glide_tag,((AdvertisementModel) path).picture);
                         addImageViewList(GlidUtils.downLoader(false, (ImageView) imageView, context));
+                        AdvertisementManager.jump(((AdvertisementModel) path),getBaseFragmentActivityContext());
 
                     }
 

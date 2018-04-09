@@ -192,40 +192,44 @@ public class DatePicker extends Dialog implements View.OnClickListener {
      * 设置日
      */
     private void setDay() {
-        boolean isRun = isRunNian(Integer.parseInt(years.get(yearPos)));
-        int dayCount = 0;
-        switch (Integer.parseInt(months.get(monthPos))) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                dayCount = 31;
-                break;
-            case 2:
-                if (isRun) {
-                    dayCount = 29;
-                } else {
-                    dayCount = 28;
-                }
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                dayCount = 30;
-                break;
-        }
-        days.clear();
-        for (int i = 0; i < dayCount; i++) {
-            days.add(format(i + 1));
+        if (years != null&&months!=null&&days!=null) {
+            boolean isRun = isRunNian(Integer.parseInt(years.get(yearPos)));
+            int dayCount = 0;
+            switch (Integer.parseInt(months.get(monthPos))) {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    dayCount = 31;
+                    break;
+                case 2:
+                    if (isRun) {
+                        dayCount = 29;
+                    } else {
+                        dayCount = 28;
+                    }
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    dayCount = 30;
+                    break;
+            }
+            days.clear();
+            for (int i = 0; i < dayCount; i++) {
+                days.add(format(i + 1));
+            }
+
+            mDayWheelView.setItems(days);
+            dayPos = dayPos >= days.size() - 1 ? days.size() - 1 : dayPos;
+            mDayWheelView.setCurrentItem(dayPos);
         }
 
-        mDayWheelView.setItems(days);
-        dayPos = dayPos >= days.size() - 1 ? days.size() - 1 : dayPos;
-        mDayWheelView.setCurrentItem(dayPos);
+
     }
 
     @Override

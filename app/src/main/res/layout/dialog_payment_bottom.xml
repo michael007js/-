@@ -198,6 +198,42 @@
 
         <TextView
             android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"/>
+        <LinearLayout
+            android:id="@+id/click_bank_dialog_payment_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/logo_bank"/>
+
+            <TextView
+                android:id="@+id/bank_name"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:text="银行卡"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1"/>
+
+            <CheckBox
+                android:id="@+id/cb_bank_dialog_payment_bottom"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:button="@drawable/bg_check_box"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="10dp"
             android:background="@color/line"/>
         <TextView

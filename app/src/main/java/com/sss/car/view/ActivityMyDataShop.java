@@ -28,8 +28,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-import static com.sss.car.Config.member_id;
-
 /**
  * Created by leilei on 2017/8/21.
  */
@@ -65,6 +63,10 @@ public class ActivityMyDataShop extends BaseActivity {
     TextView showProActivityMyDataShop;
     @BindView(R.id.click_kefu)
     LinearLayout clickKeFu;
+    @BindView(R.id.show_logo)
+    TextView showLogo;
+    @BindView(R.id.show_pic)
+    TextView showPic;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -151,24 +153,20 @@ public class ActivityMyDataShop extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.back_top, R.id.name_activity_my_data_shop,R.id.click_kefu, R.id.logo_activity_my_data_shop, R.id.pic_activity_my_data_shop, R.id.adress_activity_my_data_shop, R.id.time_activity_my_data_shop, R.id.pro_activity_my_data_shop})
+    @OnClick({R.id.back_top, R.id.name_activity_my_data_shop, R.id.click_kefu, R.id.logo_activity_my_data_shop, R.id.pic_activity_my_data_shop, R.id.adress_activity_my_data_shop, R.id.time_activity_my_data_shop, R.id.pro_activity_my_data_shop})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_top:
                 finish();
                 break;
             case R.id.click_kefu:
-                if (getBaseActivityContext()!=null){
-                    startActivity(new Intent(getBaseActivityContext(),ActivityShareInteractionManageSettingPeopleManage.class)
-                            .putExtra("title","商铺客服设置")
-                            .putExtra("type","5"));
+                if (getBaseActivityContext() != null) {
+                    startActivity(new Intent(getBaseActivityContext(), ActivityShareInteractionManageSettingPeopleManage.class)
+                            .putExtra("title", "商铺客服设置")
+                            .putExtra("type", "5"));
                 }
                 break;
             case R.id.name_activity_my_data_shop:
-                if (StringUtils.isEmpty(myDataShopModel.shop_id)) {
-                    ToastUtils.showShortToast(getBaseActivityContext(), "您的账户尚未通过认证");
-                    return;
-                }
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(),
                             ActivityChangeInfo.class).putExtra("type", "shopName")
@@ -177,19 +175,11 @@ public class ActivityMyDataShop extends BaseActivity {
                 }
                 break;
             case R.id.pic_activity_my_data_shop:
-                if (StringUtils.isEmpty(myDataShopModel.shop_id)) {
-                    ToastUtils.showShortToast(getBaseActivityContext(), "您的账户尚未通过认证");
-                    return;
-                }
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityShopPics.class));
                 }
                 break;
             case R.id.adress_activity_my_data_shop:
-                if (StringUtils.isEmpty(myDataShopModel.shop_id)) {
-                    ToastUtils.showShortToast(getBaseActivityContext(), "您的账户尚未通过认证");
-                    return;
-                }
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityChangeInfoShopAddress.class)
                             .putExtra("canChange", true)
@@ -197,20 +187,12 @@ public class ActivityMyDataShop extends BaseActivity {
                 }
                 break;
             case R.id.time_activity_my_data_shop:
-                if (StringUtils.isEmpty(myDataShopModel.shop_id)) {
-                    ToastUtils.showShortToast(getBaseActivityContext(), "您的账户尚未通过认证");
-                    return;
-                }
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityMyDataShopChooseTime.class)
                             .putExtra("type", "shopTime").putExtra("extra", myDataShopModel.business_hours));
                 }
                 break;
             case R.id.pro_activity_my_data_shop:
-                if (StringUtils.isEmpty(myDataShopModel.shop_id)) {
-                    ToastUtils.showShortToast(getBaseActivityContext(), "您的账户尚未通过认证");
-                    return;
-                }
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityShopIntroduce.class)
                             .putExtra("canChange", true)
@@ -218,10 +200,6 @@ public class ActivityMyDataShop extends BaseActivity {
                 }
                 break;
             case R.id.logo_activity_my_data_shop:
-                if (StringUtils.isEmpty(myDataShopModel.shop_id)) {
-                    ToastUtils.showShortToast(getBaseActivityContext(), "您的账户尚未通过认证");
-                    return;
-                }
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityShopPic.class)
                             .putExtra("canChange", true)
@@ -249,7 +227,7 @@ public class ActivityMyDataShop extends BaseActivity {
 
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.getShop(
                     new JSONObject()
-                            .put("member_id", member_id)
+                            .put("member_id", Config.member_id)
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
@@ -275,13 +253,18 @@ public class ActivityMyDataShop extends BaseActivity {
                                     JSONObject jsonObject = new JSONObject(response);
                                     if ("1".equals(jsonObject.getString("status"))) {
                                         myDataShopModel.shop_id = jsonObject.getJSONObject("data").getString("shop_id");
-                                        myDataShopModel.picture = jsonObject.getJSONObject("data").getString("picture");
                                         myDataShopModel.name = jsonObject.getJSONObject("data").getString("name");
                                         myDataShopModel.logo = jsonObject.getJSONObject("data").getString("logo");
                                         myDataShopModel.address = jsonObject.getJSONObject("data").getString("address");
                                         myDataShopModel.business_hours = jsonObject.getJSONObject("data").getString("business_hours");
                                         myDataShopModel.describe = jsonObject.getJSONObject("data").getString("describe");
                                         myDataShopModel.member_id = jsonObject.getJSONObject("data").getString("member_id");
+                                        if (!StringUtils.isEmpty(myDataShopModel.logo)) {
+                                            showLogo.setText("已设置");
+                                        }
+                                        if ( jsonObject.getJSONObject("data").getJSONArray("picture").length()>0) {
+                                            showPic.setText("已设置");
+                                        }
                                         showNameActivityMyDataShop.setText(myDataShopModel.name);
                                         showAdressActivityMyDataShop.setText(myDataShopModel.address);
                                         String[] a = myDataShopModel.business_hours.split("-");
@@ -289,9 +272,9 @@ public class ActivityMyDataShop extends BaseActivity {
                                             showTimeActivityMyDataShop.setText(a[0] + "-" + a[1]);
                                         }
 
-                                        if (Config.member_id.equals(myDataShopModel.member_id)){
+                                        if (Config.member_id.equals(myDataShopModel.member_id)) {
                                             clickKeFu.setVisibility(View.VISIBLE);
-                                        }else {
+                                        } else {
                                             clickKeFu.setVisibility(View.GONE);
                                         }
 
@@ -334,7 +317,6 @@ public class ActivityMyDataShop extends BaseActivity {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.setShop(
                     jsonObject
                             .put("member_id", Config.member_id)
-                            .put("shop_id", myDataShopModel.shop_id)
                             .toString(), meaning, new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {

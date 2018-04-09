@@ -20,6 +20,7 @@ import com.sss.car.model.OrderSOSGrabModel;
 import com.sss.car.model.PushSOSHelperFromBuyerModel;
 import com.sss.car.order.OrderSOSPopUpWindows;
 import com.sss.car.utils.CarUtils;
+import com.sss.car.view.ActivityGoodsServiceDetails;
 import com.sss.car.view.LoginAndRegister;
 import com.sss.car.view.Main;
 
@@ -30,6 +31,8 @@ import org.json.JSONObject;
 import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
+
+import static android.R.id.list;
 
 
 /**
@@ -51,7 +54,7 @@ public class ReceivedMessage extends BroadcastReceiver {
             LogUtils.e(bundle.getString(JPushInterface.EXTRA_EXTRA));
             add(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
             EventBus.getDefault().post(new JiGuangModel());
-            BadgerUtils.applyCount(context,1);
+            BadgerUtils.applyCount(context, 1);
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
                 LogUtils.e(TAG, "[MyReceiver] 接收Registration Id : " + regId);
@@ -76,8 +79,6 @@ public class ReceivedMessage extends BroadcastReceiver {
 //                //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                context.startActivity(i);
-
-
 
 
 //                if (AppUtils.isBackground(context)) {
@@ -167,7 +168,7 @@ public class ReceivedMessage extends BroadcastReceiver {
 
 
     void parse(String data, Context context) throws JSONException {
-        LogUtils.e("sss"+"---"+data);
+        LogUtils.e("sss" + "---" + data);
         if (!StringUtils.isEmpty(data)) {
             JSONObject jsonObject = new JSONObject(data);
             switch (jsonObject.getString("type")) {
@@ -184,7 +185,7 @@ public class ReceivedMessage extends BroadcastReceiver {
                             jsonObject.getString("exchange_status"));
                     break;
                 case "order":
-                    if ("1".equals(jsonObject.getString("order_type"))){
+                    if ("1".equals(jsonObject.getString("order_type"))) {
                         CarUtils.orderJump(
                                 context,
                                 "goods",
@@ -195,7 +196,7 @@ public class ReceivedMessage extends BroadcastReceiver {
                                 jsonObject.getString("is_comment"),
                                 jsonObject.getString("exchange_id"),
                                 jsonObject.getString("exchange_status"));
-                    }else    if ("2".equals(jsonObject.getString("order_type"))){
+                    } else if ("2".equals(jsonObject.getString("order_type"))) {
                         CarUtils.orderJump(
                                 context,
                                 "service",
@@ -207,6 +208,14 @@ public class ReceivedMessage extends BroadcastReceiver {
                                 jsonObject.getString("exchange_id"),
                                 jsonObject.getString("exchange_status"));
                     }
+                    break;
+                case "goods":
+                    context.startActivity(new Intent(context, ActivityGoodsServiceDetails.class)
+                            .putExtra("goods_id", jsonObject.getString("goods_id"))
+                            .putExtra("showBuyDialog", "false ")
+                            .putExtra("type", jsonObject.getString("goods_type"))
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    ;
                     break;
             }
         }
@@ -238,7 +247,7 @@ public class ReceivedMessage extends BroadcastReceiver {
                                 pushSOSHelperFromBuyerModel.member_id = jsonObject.getJSONObject("data").getString("member_id");
                                 pushSOSHelperFromBuyerModel.lat = jsonObject.getJSONObject("data").getDouble("lat");
                                 pushSOSHelperFromBuyerModel.lng = jsonObject.getJSONObject("data").getDouble("lng");
-                                if (ActivityUtils.isRunning(context, Main.class)){
+                                if (ActivityUtils.isRunning(context, Main.class)) {
                                     if (ActivityManagerUtils.getActivityManager().existActivity("order.OrderSOSPopUpWindows") == null) {
                                         context.startActivity(new Intent(context, OrderSOSPopUpWindows.class)
                                                 .putExtra("data", pushSOSHelperFromBuyerModel).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));

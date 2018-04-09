@@ -1098,7 +1098,15 @@ public class RequestWeb {
     public static Call goods_details(String send, StringCallback stringCallback) {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Goods/details", send, "商品详情信息", stringCallback);
     }
-
+    /**
+     * 获取订单优惠后价格
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call coupon_price(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Order/coupon_price", send, "获取订单优惠后价格", stringCallback);
+    }
 
     /**
      * 获取店铺信息
@@ -1440,7 +1448,7 @@ public class RequestWeb {
      * @param stringCallback
      */
     public static Call orderTip(String send, StringCallback stringCallback) {
-        return Webbiz.requestByString(Config.url + "/index.php/Api/Article/details", send, "获取订单提示", stringCallback);
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Explain/details", send, "获取订单提示", stringCallback);
     }
 
     /**
@@ -1685,6 +1693,15 @@ public class RequestWeb {
     }
 
     /**
+     * 删除SOS订单
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call del_sos(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Sos/del_sos", send, "删除SOS订单", stringCallback);
+    }
+    /**
      * 求救者确认增援的SOS订单
      *
      * @param send
@@ -1818,13 +1835,24 @@ public class RequestWeb {
 
 
     /**
-     * 立即发货(完善资料页面)
+     * 完善资料页面
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call complete(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/order_exchange/complete", send, "完善资料页面", stringCallback);
+    }
+
+
+    /**
+     * 立即发货
      *
      * @param send
      * @param stringCallback
      */
     public static Call deliver_goods(String send, StringCallback stringCallback) {
-        return Webbiz.requestByString(Config.url + "/index.php/Api/order_exchange/complete", send, "立即发货(完善资料页面)", stringCallback);
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Order/deliver_goods", send, "立即发货", stringCallback);
     }
 
     /**
@@ -2087,6 +2115,15 @@ public class RequestWeb {
      */
     public static Call my_goods(String send, StringCallback stringCallback) {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Goods/my_goods", send, "我的商品", stringCallback);
+    }
+    /**
+     * 我的推广
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call popularize(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Goods/popularize", send, "我的推广", stringCallback);
     }
 
     /**
@@ -2733,7 +2770,7 @@ public class RequestWeb {
      * @param stringCallback
      */
     public static Call del_popularize(String send, StringCallback stringCallback) {
-        return Webbiz.requestByString(Config.url + "/index.php/Api/Popularize/del_popularize", send, "删除推广信息", stringCallback);
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Popularize/del_drafts", send, "删除推广信息", stringCallback);
     }
 
     /**
@@ -2769,6 +2806,15 @@ public class RequestWeb {
         return Webbiz.requestByString(Config.url + "/index.php/Api/member_card/get_default", send, "获取默认银行卡", stringCallback);
     }
 
+    /**
+     * 获取提现手续费信息
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call terrace_withdraw(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/chan_pay/terrace_withdraw", send, "获取提现手续费信息", stringCallback);
+    }
 
     /**
      * 银行卡提现
@@ -2777,7 +2823,7 @@ public class RequestWeb {
      * @param stringCallback
      */
     public static Call withdraw(String send, StringCallback stringCallback) {
-        return Webbiz.requestByString(Config.url + "/index.php/Api/member_wallet/withdraw", send, "银行卡提现", stringCallback);
+        return Webbiz.requestByString(Config.url + "/index.php/Api/chan_pay/withdraw", send, "银行卡提现", stringCallback);
     }
 
     /**
@@ -2809,6 +2855,15 @@ public class RequestWeb {
         return Webbiz.requestByString(Config.url + "/index.php/Api/member_card/auth_card", send, "验证银行卡号", stringCallback);
     }
     /**
+     * 重新获取验证码
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call sms_pay(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Sms/pay", send, ".重新获取验证码", stringCallback);
+    }
+    /**
      * 绑定银行卡
      *
      * @param send
@@ -2825,6 +2880,15 @@ public class RequestWeb {
      */
     public static Call del_card(String send, StringCallback stringCallback) {
         return Webbiz.requestByString(Config.url + "/index.php/Api/member_card/del_card", send, "删除已绑定银行卡", stringCallback);
+    }
+    /**
+     * 银行卡支付
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call confirm_pay(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Payment/confirm_pay", send, "银行卡支付", stringCallback);
     }
     /**
      * 随机客服
@@ -2853,6 +2917,16 @@ public class RequestWeb {
      */
     public static Call site(String send, StringCallback stringCallback) {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Member/site", send, "PC端数据信息", stringCallback);
+    }
+
+    /**
+     * PC端数据信息
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call service_remark(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Member/service_remark", send, "设置客服备注", stringCallback);
     }
 
 

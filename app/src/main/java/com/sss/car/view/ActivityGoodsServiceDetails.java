@@ -299,7 +299,7 @@ public class ActivityGoodsServiceDetails extends BaseActivity implements UserCal
                     ToastUtils.showShortToast(getBaseActivityContext(), "刷新中,请稍候...");
                     return;
                 }
-                RongYunUtils.startConversation(getBaseActivityContext(), Conversation.ConversationType.PRIVATE, member_id, "2");//客服传6，商品详情客服传2，群组传5
+                randomService();
                 break;
             case R.id.click_collect_goods_service_details:
                 insert_collect_cancel_collect();
@@ -312,7 +312,63 @@ public class ActivityGoodsServiceDetails extends BaseActivity implements UserCal
                 break;
         }
     }
+    public void randomService() {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        if (getBaseActivityContext() != null) {
+            ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
+            ywLoadingDialog.show();
+        }
+        try {
 
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.randomService(
+                    new JSONObject()
+                            .put("member_id", Config.member_id)
+                            .put("type","1")
+                            .put("ids", Config.member_id)
+                            .toString(), new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            ToastUtils.showShortToast(getBaseActivityContext(), "服务器访问错误");
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            if (StringUtils.isEmpty(response)) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "服务器返回错误");
+                            } else {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    if ("1".equals(jsonObject.getString("status"))) {
+                                        if ("0".equals(jsonObject.getJSONObject("data").getString("member_id"))) {
+                                            ToastUtils.showShortToast(getBaseActivityContext(), "目前暂无客服在线");
+                                        } else {
+                                            RongYunUtils.startConversation(getBaseActivityContext(), Conversation.ConversationType.PRIVATE, jsonObject.getJSONObject("data").getString("member_id"), "2");//客服传6，商品详情客服传2，群组传5
+                                        }
+                                    } else {
+                                        ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                    }
+                                } catch (JSONException e) {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err: user-0");
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err: user-0");
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 点击加入购物车时弹出的商品信息选择框

@@ -416,6 +416,9 @@ public class ActivityShopInfo extends BaseActivity {
 
     void showShopData() {
 
+        if (advertisement == null) {
+            return;
+        }
         if (goodsDetailsShopModel.picture.size() > 0) {
             advertisement
                     .setImages(goodsDetailsShopModel.picture)

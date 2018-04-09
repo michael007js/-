@@ -1,6 +1,7 @@
 package com.sss.car.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -19,6 +20,7 @@ import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.Layout.LayoutRefresh.RefreshLoadMoreLayout;
 import com.blankj.utilcode.customwidget.ListView.InnerListview;
+import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
@@ -240,12 +242,29 @@ public class FragmentOrderSOSSeller extends BaseFragment implements RefreshLoadM
         } else if (status == FragmentOrderSOSSeller_Service_complete) {
             sss_adapter = new SSS_Adapter<SOSSellerOrderModel>(getBaseFragmentActivityContext(), R.layout.item_fragment_order_sos_seller_complete_adapter, list) {
                 @Override
-                protected void setView(SSS_HolderHelper helper, int position, SOSSellerOrderModel bean, SSS_Adapter instance) {
+                protected void setView(SSS_HolderHelper helper, final int position, SOSSellerOrderModel bean, SSS_Adapter instance) {
                     helper.setText(R.id.service_item_fragment_order_sos_seller_adapter, bean.type);
                     helper.setText(R.id.adress_item_fragment_order_sos_seller_adapter, bean.address);
                     helper.setText(R.id.date_item_fragment_order_sos_seller_complete_adapter, bean.create_time);
                     helper.setText(R.id.content_item_fragment_order_sos_seller_complete_adapter, bean.title);
                     addImageViewList(FrescoUtils.showImage(false, 55, 55, Uri.parse(Config.url + bean.face), (SimpleDraweeView) helper.getView(R.id.pic_item_fragment_order_sos_seller_complete_adapter), 0f));
+                    helper.getView(R.id.delete).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            APPOftenUtils.createAskDialog(getBaseFragmentActivityContext(), "是否要删除该订单？", new OnAskDialogCallBack() {
+                                @Override
+                                public void onOKey(Dialog dialog) {
+                                    dialog.dismiss();
+                                    del_sos(list.get(position).sos_id);
+                                }
+
+                                @Override
+                                public void onCancel(Dialog dialog) {
+                                    dialog.dismiss();
+                                }
+                            });
+                        }
+                    });
                 }
 
                 @Override
@@ -294,7 +313,56 @@ public class FragmentOrderSOSSeller extends BaseFragment implements RefreshLoadM
         unbinder.unbind();
         unbinder = null;
     }
+    public void del_sos(final String sos_id) {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        ywLoadingDialog = new YWLoadingDialog(getBaseFragmentActivityContext());
+        ywLoadingDialog.show();
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.del_sos(
+                    new JSONObject()
+                            .put("member_id", Config.member_id)
+                            .put("sos_id", sos_id)
+                            .toString()
+                    , new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(getBaseFragmentActivityContext(), e.getMessage());
+                        }
 
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    for (int i = 0; i < list.size(); i++) {
+                                        if (sos_id.equals(list.get(i).sos_id)){
+                                            list.remove(i);
+                                        }
+                                    }
+                                    sss_adapter.setList(list);
+                                } else {
+                                    ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseFragmentActivityContext(), "数据解析错误Err:order-0");
+                                e.printStackTrace();
+                            }
+                        }
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseFragmentActivityContext(), "数据解析错误Err:order-0");
+            e.printStackTrace();
+        }
+    }
     /**
      * 获取SOS列表信息(卖家版)
      */
@@ -338,11 +406,11 @@ public class FragmentOrderSOSSeller extends BaseFragment implements RefreshLoadM
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
+                                    if (p == 1) {
+                                        list.clear();
+                                    }
                                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                                     if (jsonArray.length() > 0) {
-                                        if (p == 1) {
-                                            list.clear();
-                                        }
                                         p++;
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             SOSSellerOrderModel sosSellerOrderModel = new SOSSellerOrderModel();
@@ -367,7 +435,7 @@ public class FragmentOrderSOSSeller extends BaseFragment implements RefreshLoadM
                                 }
                                 if (list.size() > 0) {
                                     emptyView.setVisibility(View.GONE);
-                                }else {
+                                } else {
                                     emptyView.setVisibility(View.VISIBLE);
                                 }
                             } catch (JSONException e) {

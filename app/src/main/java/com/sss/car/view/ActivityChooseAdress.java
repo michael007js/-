@@ -134,8 +134,8 @@ public class ActivityChooseAdress extends BaseActivity implements FragmentMoveMa
                 ((TextView) helper.getView(R.id.item_map_search_adapter)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EventBus.getDefault().post(new ChooseAdress(bean.provinceName + bean.cityName + bean.snippet, String.valueOf(bean.latLonPoint.getLatitude()),
-                                String.valueOf(bean.latLonPoint.getLongitude())));
+                        EventBus.getDefault().post(new ChooseAdress(bean.snippet, String.valueOf(bean.latLonPoint.getLatitude()),
+                                String.valueOf(bean.latLonPoint.getLongitude()),bean.provinceName,bean.cityName,bean.provinceName));
                         finish();
                     }
                 });

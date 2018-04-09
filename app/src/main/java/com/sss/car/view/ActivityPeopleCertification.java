@@ -66,9 +66,11 @@ public class ActivityPeopleCertification extends BaseActivity {
     @BindView(R.id.title_top)
     TextView titleTop;
     YWLoadingDialog ywLoadingDialog;
-    String front, back;
-    String frontChoose, backChoose;
+    String front, back,hold;
+    String frontChoose, backChoose, holdChoose;
     String state = "-1";////0审核中，1已审核，2未通过
+    @BindView(R.id.click_hold)
+    SimpleDraweeView clickHold;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -106,7 +108,7 @@ public class ActivityPeopleCertification extends BaseActivity {
 
     }
 
-    @OnClick({R.id.back_top, R.id.click_front, R.id.click_back, R.id.click_save})
+    @OnClick({R.id.back_top, R.id.click_front, R.id.click_back, R.id.click_hold, R.id.click_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_top:
@@ -178,6 +180,38 @@ public class ActivityPeopleCertification extends BaseActivity {
                     }
                 }
                 break;
+            case R.id.click_hold:
+                if ("-1".equals(state) || "2".equals(state)) {
+                    APPOftenUtils.createPhotoChooseDialog(0, 1, getBaseActivityContext(), MyApplication.getFunctionConfig(), new GalleryFinal.OnHanlderResultCallback() {
+                        @Override
+                        public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+                            if (resultList == null || resultList.size() == 0) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "未选中图片");
+                                return;
+                            }
+                            holdChoose = resultList.get(0).getPhotoPath();
+                            addImageViewList(FrescoUtils.showImage(false, 80, 80, Uri.fromFile(new File(resultList.get(0).getPhotoPath())), clickHold, 0f));
+                        }
+
+                        @Override
+                        public void onHanlderFailure(int requestCode, String errorMsg) {
+                            ToastUtils.showShortToast(getBaseActivityContext(), errorMsg);
+                        }
+                    });
+                } else {
+                    if (getBaseActivityContext() != null) {
+                        List<String> temp = new ArrayList<>();
+                        if (!StringUtils.isEmpty(holdChoose)) {
+                            temp.add(holdChoose);
+                        } else {
+                            temp.add(Config.url + hold);
+                        }
+                        startActivity(new Intent(getBaseActivityContext(), ActivityImages.class)
+                                .putStringArrayListExtra("data", (ArrayList<String>) temp)
+                                .putExtra("current", 0));
+                    }
+                }
+                break;
             case R.id.click_save:
                 set_personage();
                 break;
@@ -222,6 +256,8 @@ public class ActivityPeopleCertification extends BaseActivity {
                                     addImageViewList(FrescoUtils.showImage(false, 80, 80, Uri.parse(Config.url + front), clickFront, 0f));
                                     back = jsonObject.getJSONObject("data").getString("reverse_card");
                                     addImageViewList(FrescoUtils.showImage(false, 80, 80, Uri.parse(Config.url + back), clickBack, 0f));
+                                    hold = jsonObject.getJSONObject("data").getString("hold_card");
+                                    addImageViewList(FrescoUtils.showImage(false, 80, 80, Uri.parse(Config.url + hold), clickHold, 0f));
                                     state = jsonObject.getJSONObject("data").getString("state");
                                     if ("0".equals(state)) {//0审核中，1已审核，2未通过
                                         clickSave.setText("审核中");
@@ -277,6 +313,12 @@ public class ActivityPeopleCertification extends BaseActivity {
         } else {
             back = ConvertUtils.bitmapToBase64(BitmapUtils.decodeSampledBitmapFromFile(backChoose, getWindowManager().getDefaultDisplay().getWidth(), getWindowManager().getDefaultDisplay().getHeight()));
         }
+        String hold = null;
+        if (StringUtils.isEmpty(holdChoose)) {
+            hold = ActivityPeopleCertification.this.hold;
+        } else {
+            hold = ConvertUtils.bitmapToBase64(BitmapUtils.decodeSampledBitmapFromFile(holdChoose, getWindowManager().getDefaultDisplay().getWidth(), getWindowManager().getDefaultDisplay().getHeight()));
+        }
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.set_personage(
                     new JSONObject()
@@ -285,6 +327,7 @@ public class ActivityPeopleCertification extends BaseActivity {
                             .put("end_time", etThree.getText().toString().trim())
                             .put("front_card", front)
                             .put("reverse_card", back)
+                            .put("hold_card", hold)
                             .put("member_id", Config.member_id)
                             .toString(), new StringCallback() {
                         @Override

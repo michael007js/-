@@ -51,6 +51,7 @@ public class GalleryHorizontalListView extends HorizontalListViewProfession {
     private int width, higth; //图片宽高
     private float radius = 0f;//圆角弧度
     private boolean canOperation = true;//是否允许操作
+    private boolean withClose=false;//是否带关闭按钮
     private List<String> temp = new ArrayList<>();//临时图片列表（点击图片时临时筛选保存的图片集合）
     private OnGalleryHorizontalListViewCallBack onGalleryHorizontalListViewCallBack;
 
@@ -74,6 +75,14 @@ public class GalleryHorizontalListView extends HorizontalListViewProfession {
      */
     public void setCanOperation(boolean canOperation) {
         this.canOperation = canOperation;
+    }
+
+    /**
+     * 是否带关闭按钮
+     * @param close
+     */
+    public void hideClose(boolean close) {
+        this.withClose = close;
     }
 
     /**
@@ -115,6 +124,7 @@ public class GalleryHorizontalListView extends HorizontalListViewProfession {
             @Override
             protected void setView(SSS_HolderHelper helper, final int position, final String bean, SSS_Adapter instance) {
                 helper.getView(R.id.ItemPic).setLayoutParams(new LinearLayout.LayoutParams(width, higth));
+                ((ItemPic) helper.getView(R.id.ItemPic)).hideClose(withClose);
                 showImage(bean, ((ItemPic) helper.getView(R.id.ItemPic)).setPosition(position)
                         .hideClose(Holder.equals(bean))
                         .setPosition(position)

@@ -43,9 +43,11 @@ dependencies {
     //3D地图
     compile 'com.amap.api:3dmap:latest.integration'
     //2D地图
-            compile 'com.amap.api:map2d:latest.integration'//此处注释是为了避免与融云定位冲突
+    compile 'com.amap.api:map2d:latest.integration'
+    //此处注释是为了避免与融云定位冲突
     //搜索
-            compile 'com.amap.api:search:latest.integration'//此处注释是为了避免与融云定位冲突
+    compile 'com.amap.api:search:latest.integration'
+    //此处注释是为了避免与融云定位冲突
     //定位
     compile 'com.amap.api:location:latest.integration'
     //FlycoDialog_Lib对话框
@@ -55,7 +57,7 @@ dependencies {
     //class not found
     compile 'com.networkbench.newlens.agent.android:nbs.newlens.agent:2.7.0'
     //banner   https://github.com/youth5201314/banner
-//    compile 'com.youth.banner:banner:+'
+    //    compile 'com.youth.banner:banner:+'
     //okhttpd
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     //张鸿阳版封装后的okhttp
@@ -72,7 +74,7 @@ dependencies {
     compile files('libs/pinyin4j-2.5.0.jar')
     // https://github.com/FinalTeam/RxGalleryFinal
     //参考地址https://github.com/pengjianbo/GalleryFinal
-    compile 'cn.finalteam:galleryfinal:1.4.8.7'
+        compile 'cn.finalteam:galleryfinal:1.4.8.7'
     //Android图片单选/多选、拍照、裁剪、压缩。视频选择和录制
     //    compile 'cn.finalteam.rxgalleryfinal:library:1.0.9'(不用)
     //canrefresh必须的库↓
@@ -98,28 +100,25 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     //↑
     //角标适配 https://github.com/leolin310148/ShortcutBadger
-    compile "me.leolin:ShortcutBadger:1.1.21@aar"
+    compile 'me.leolin:ShortcutBadger:1.1.21@aar'
     //一个Android TabLayout库   https://github.com/H07000223/FlycoTabLayout/blob/master/README_CN.md↓
     /*
-               <com.flyco.tablayout.SlidingTabLayout
-               xmlns:tl="http://schemas.android.com/apk/res-auto"
-               android:id="@+id/SlidingTabLayout_fragment_message"
-               android:layout_width="match_parent"
-               tl:tl_underline_color="@color/mainColor"
-               tl:tl_textSelectColor="@color/mainColor"
-               tl:tl_textUnselectColor="#aa000000"
-               android:layout_height="40dp"></com.flyco.tablayout.SlidingTabLayout>
-            * */
+                       <com.flyco.tablayout.SlidingTabLayout
+                       xmlns:tl="http://schemas.android.com/apk/res-auto"
+                       android:id="@+id/SlidingTabLayout_fragment_message"
+                       android:layout_width="match_parent"
+                       tl:tl_underline_color="@color/mainColor"
+                       tl:tl_textSelectColor="@color/mainColor"
+                       tl:tl_textUnselectColor="#aa000000"
+                       android:layout_height="40dp"></com.flyco.tablayout.SlidingTabLayout>
+                    * */
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
     //↑
     //    https://github.com/qbaowei/RefreshLoadMoreLayout  refreshloadmorelayout
-
     //https://github.com/azhon/RatingBar
     compile 'com.azhon:ratingbar:1.3.0'
-
-//    //全屏时启动新Activity实现播放器真正的全屏功能   AdvertisementViewPager     https://github.com/JasonChow1989/JieCaoVideoPlayer-develop/blob/master/README-ZH.md
-//    compile 'fm.jiecao:jiecaovideoplayer:3.6.1'
-
+    //    //全屏时启动新Activity实现播放器真正的全屏功能   AdvertisementViewPager     https://github.com/JasonChow1989/JieCaoVideoPlayer-develop/blob/master/README-ZH.md
+    //    compile 'fm.jiecao:jiecaovideoplayer:3.6.1'
 }
 

@@ -26,6 +26,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sss.car.Config;
+import com.sss.car.MyApplication;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.commodity.Commodity;
@@ -57,6 +58,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
 import io.rong.imlib.model.Conversation;
 import okhttp3.Call;
 
@@ -281,6 +283,7 @@ public class FragmentMy extends BaseFragment {
                         RongYunUtils.logout();
                         RongYunUtils.disconnect(true);
                         APPOftenUtils.initRongYunPushService(getBaseFragmentActivityContext());
+                        MyApplication.initJiGuangUser("null", getBaseFragmentActivityContext().getApplicationContext());
                         ActivityManagerUtils.getActivityManager().finishAllActivity();
                         if (getBaseFragmentActivityContext() != null) {
                             startActivity(new Intent(getBaseFragmentActivityContext(), LoginAndRegister.class)
@@ -560,6 +563,8 @@ public class FragmentMy extends BaseFragment {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.randomService(
                     new JSONObject()
                             .put("member_id", Config.member_id)
+                            .put("type","2")
+                            .put("ids", Config.member_id)
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {

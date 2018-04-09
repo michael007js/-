@@ -8,8 +8,8 @@ android {
         applicationId "com.sss.car"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 76
-        versionName "7.6"
+        versionCode 90
+        versionName "9.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
@@ -70,5 +70,4 @@ dependencies {
     compile files('libs/libammsdk.jar')
     compile files('libs/commons-httpclient-3.0-rc2.jar')
     compile files('libs/SocialSDK_Sina_Simplify.jar')
-
 }

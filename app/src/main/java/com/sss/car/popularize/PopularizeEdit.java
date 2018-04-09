@@ -174,6 +174,8 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
     boolean isGround = false;//地推人员模式
     boolean canOperation = true;
 
+    String goods_id;
+
 
     List<String> temp = new ArrayList<>();
 
@@ -296,9 +298,10 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
         rightButtonTop.setOnClickListener(this);
         backTop.setOnClickListener(this);
         tip();
+       goods_id= getIntent().getExtras().getString("goods_id");
         etGoods.setText(getIntent().getExtras().getString("title"));
         if ("edit".equals(getIntent().getExtras().getString("type"))) {
-            get_info(getIntent().getExtras().getString("popularize_id"));
+            get_info(getIntent().getExtras().getInt("popularize_id"));
         } else {
             init();
             popularize_type(null, 1);
@@ -495,6 +498,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
         etCategory.setOnClickListener(this);
         etOne.setOnClickListener(this);
         etTwo.setOnClickListener(this);
+        tvPriceCheck.setOnClickListener(this);
     }
 
     private void stopInput() {
@@ -876,7 +880,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
     /**
      * 获取推广详情信息
      */
-    public void get_info(final String popularize_id) {
+    public void get_info(final int popularize_id) {
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
@@ -907,6 +911,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                                    PopularizeEdit.this.goods_id=jsonObject1.getString("goods_id");
                                     PopularizeEdit.this.popularize_id = jsonObject1.getString("popularize_id");//推广ID
                                     PopularizeEdit.this.coupon_id = jsonObject1.getString("coupon_id");//优惠券ID
                                     PopularizeEdit.this.subject_id = jsonObject1.getString("subject_id"); //活动ID
@@ -936,6 +941,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                                 PopularizeEdit.this.type = jsonArray.getJSONObject(0).getString("cate_id");//一级菜单ID
                                                 etType.setText(jsonArray.getJSONObject(0).getString("name"));
                                                 popularize_type(null, 1);
+                                                twoCanClick = true;//二级菜单能否点击
                                                 break;
                                             case 1:
                                                 PopularizeEdit.this.category = jsonArray.getJSONObject(1).getString("cate_id");//二级菜单ID
@@ -954,6 +960,13 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                                 etTwo.setText(jsonArray.getJSONObject(3).getString("name"));
                                                 popularize_type(PopularizeEdit.this.one, 4);
                                                 break;
+                                        }
+                                    }
+                                    if (jsonArray.length() > 0) {
+                                        if ("0".equals(subject_id) || StringUtils.isEmpty(subject_id)) {
+                                            popularize_amount(jsonArray.getJSONObject(jsonArray.length()-1).getString("cate_id"), 0);
+                                        } else {
+                                            popularize_amount(jsonArray.getJSONObject(jsonArray.length()-1).getString("cate_id"), 4);
                                         }
                                     }
 
@@ -1014,6 +1027,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.popularize_type(
                     new JSONObject()
                             .put("cate_id", cate_id)
+                            .put("where",where)
                             .put("member_id", Config.member_id)
                             .toString()
                     , new StringCallback() {
@@ -1039,26 +1053,30 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             typeList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), PopularizeCateModel.class));
                                         }
-                                        typeAdapter.setList(typeList);
+                                        if (typeAdapter != null)
+                                            typeAdapter.setList(typeList);
                                     } else if (where == 2) {
                                         categoryList.clear();
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             categoryList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), PopularizeCateModel.class));
                                         }
-                                        categoryAdapter.setList(categoryList);
+                                        if (categoryAdapter != null)
+                                            categoryAdapter.setList(categoryList);
                                         twoCanClick = jsonArray.length() > 0;
                                     } else if (where == 3) {
                                         oneList.clear();
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             oneList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), PopularizeCateModel.class));
                                         }
-                                        oneAdapter.setList(oneList);
+                                        if (oneAdapter != null)
+                                            oneAdapter.setList(oneList);
                                     } else if (where == 4) {
                                         twoList.clear();
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             twoList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), PopularizeCateModel.class));
                                         }
-                                        twoAdapter.setList(twoList);
+                                        if (twoAdapter != null)
+                                            twoAdapter.setList(twoList);
                                     }
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
@@ -1486,20 +1504,62 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
      */
     public void popularize_into(final String status) {
         String cate_id = null;
-        if (!"4".equals(status)) {
-            if (!StringUtils.isEmpty(two)) {
-                cate_id = two;
-            } else if (!StringUtils.isEmpty(one)) {
-                cate_id = one;
-            } else if (!StringUtils.isEmpty(category)) {
-                cate_id = category;
-            } else if (!StringUtils.isEmpty(type)) {
-                cate_id = type;
-            } /*else {
+        if (!StringUtils.isEmpty(two)) {
+            cate_id = two;
+        } else if (!StringUtils.isEmpty(one)) {
+            cate_id = one;
+        } else if (!StringUtils.isEmpty(category)) {
+            cate_id = category;
+        } else if (!StringUtils.isEmpty(type)) {
+            cate_id = type;
+        }/* else {
                 ToastUtils.showShortToast(getBaseActivityContext(), "请选择推广类型");
                 return;
             }*/
+        if (!"4".equals(status)) {
+            if (tipInclude.getCurrentTextColor() == getResources().getColor(R.color.black) && StringUtils.isEmpty(etInclude.getText().toString().trim())) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "请完善商品范围");
+                return;
+            }
+            if (tipCity.getCurrentTextColor() == getResources().getColor(R.color.black) && StringUtils.isEmpty(etCity.getText().toString().trim())) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "请选择城市");
+                return;
+            }
+            if (tipSex.getCurrentTextColor() == getResources().getColor(R.color.black) && StringUtils.isEmpty(etSex.getText().toString().trim())) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "请选择性别");
+                return;
+            }
+            if (tipNumber.getCurrentTextColor() == getResources().getColor(R.color.black) && StringUtils.isEmpty(etNumber.getText().toString().trim())) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "请填写推广数量");
+                return;
+            }
+            if ((tipNumber.getCurrentTextColor() == getResources().getColor(R.color.black) && StringUtils.isEmpty(etNumber.getText().toString().trim())) && Integer.valueOf(etNumber.getText().toString().trim()) == 0) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "推广数量错误");
+                return;
+            }
+            if (tipPrice.getCurrentTextColor() == getResources().getColor(R.color.black) && StringUtils.isEmpty(etPrice.getText().toString().trim())) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "请填写推广价格");
+                return;
+            }
+            if ((tipPrice.getCurrentTextColor() == getResources().getColor(R.color.black) && StringUtils.isEmpty(etPrice.getText().toString().trim())) && Float.valueOf(etPrice.getText().toString().trim()) == 0) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "推广价格错误");
+                return;
+            }
+
+            if (tipTime.getCurrentTextColor() == getResources().getColor(R.color.black) && StringUtils.isEmpty(etTime.getText().toString().trim())) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "请完善活动时间");
+                return;
+            }
+            if (tipPicture.getCurrentTextColor() == getResources().getColor(R.color.black) && temp.size() == 0) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "请选择活动图片");
+                return;
+            }
+            if (tipDescribe.getCurrentTextColor() == getResources().getColor(R.color.black) && StringUtils.isEmpty(etDescribe.getText().toString().trim())) {
+                ToastUtils.showShortToast(getBaseActivityContext(), "请完善活动描述");
+                return;
+            }
         }
+
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
@@ -1522,7 +1582,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                             .put("start_time", startTime)
                             .put("end_time", endTime)
                             .put("coupon_id", coupon_id)
-                            .put("goods_id", getIntent().getExtras().getString("goods_id"))
+                            .put("goods_id",goods_id )
                             .put("subject_id", subject_id)
                             .put("city_id", city_id)
                             .put("sex", sex)
@@ -1553,6 +1613,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     if (!"4".equals(status)) {
                                         PayUtils.requestPayment(ywLoadingDialog, "0", jsonObject.getJSONObject("data").getString("popularize_id"), 4, 1, totalPrice, getBaseActivity());
+                                        finish();
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                     }
