@@ -297,7 +297,7 @@ public class OrderSOSEdit extends BaseActivity {
     public void onMessageEvent(ChooseAdress event) {
         sendLai = event.lai;
         sengLng = event.lng;
-        showAddressOrderSOSEdit.setText(event.adress);
+        showAddressOrderSOSEdit.setText(event.province+event.city+event.district+event.adress);
     }
 
     @OnClick({R.id.back_top, R.id.no_exist_order_goods_ready_buy_edit, R.id.right_button_top, R.id.click_one_key_write_car_order_goods_ready_buy_edit, R.id.click_one_key_location_order_goods_ready_buy_edit, R.id.click_one_key_write_address_order_goods_ready_buy_edit, R.id.click_choose_car_order_goods_ready_buy_edit, R.id.click_type_order_goods_ready_buy_edit, R.id.click_address_order_goods_ready_buy_edit, R.id.click_time_order_goods_ready_buy_edit, R.id.click_penal_sum_order_goods_ready_buy_edit, R.id.click_other_sum_order_goods_ready_buy_edit, R.id.click_submit_order_goods_ready_buy_edit})

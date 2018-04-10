@@ -80,7 +80,7 @@ public class FragmentMessageParent extends BaseFragment {
     @BindView(R.id.click_menu)
     ImageView clickMenu;
     @BindView(R.id.CustomCacheViewPager)
-    AutofitViewPager CustomCacheViewPager;
+    public AutofitViewPager CustomCacheViewPager;
     @BindView(R.id.scoll_view_fragment_message)
     InCludeLandscapeScrollView scollViewFragmentMessage;
     @BindView(R.id.click_top)

@@ -21,6 +21,7 @@ import com.blankj.utilcode.customwidget.Tab.tab.ScrollTab;
 import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.$;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -30,6 +31,7 @@ import com.sss.car.EventBusModel.ChangedGroupList;
 import com.sss.car.EventBusModel.ChangedGroupMember;
 import com.sss.car.EventBusModel.ChangedList;
 import com.sss.car.EventBusModel.ChangedUserInfo;
+import com.sss.car.EventBusModel.JumpChat;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.fragment.fragmentUserManager;
@@ -513,7 +515,10 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                         }
                     });
                 }
+                EventBus.getDefault().post(new JumpChat());
+                KeyboardUtils.hideSoftInput(getBaseActivity(),input);
                 dialog.dismiss();
+                finish();
             }
         });
         dialog.setContentView(view);
@@ -657,6 +662,7 @@ public class ActivityCreateGroupInviteGroupSend extends BaseActivity implements 
                                     JSONObject jsonObject = new JSONObject(response);
                                     if ("1".equals(jsonObject.getString("status"))) {
                                         EventBus.getDefault().post(new ChangedGroupList());
+                                        RongYunUtils.startConversation(getBaseActivityContext(), Conversation.ConversationType.GROUP,jsonObject.getJSONObject("data").getString("group_id"),jsonObject.getJSONObject("data").getString("name"));
                                         finish();
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));

@@ -187,6 +187,7 @@ public class FragmentShopInfoAll extends BaseFragment {
             case R.id.click_filter_fragment_shop_info_all:
                 if (getBaseFragmentActivityContext() != null) {
                     startActivity(new Intent(getBaseFragmentActivityContext(), ActivityShopInfoAllFilter.class)
+                            .putExtra("shop_id",shop_id)
                     .putExtra("mode","goods"));
                 }
                 break;

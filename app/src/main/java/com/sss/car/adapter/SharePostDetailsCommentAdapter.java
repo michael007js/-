@@ -31,8 +31,10 @@ public class SharePostDetailsCommentAdapter extends BaseAdapter {
     Context context;
     SharePostDetailsCommentAdapterCallBack sharePostDetailsCommentAdapterCallBack;
     LoadImageCallBack loadImageCallBack;
+    String hold;
 
-    public SharePostDetailsCommentAdapter(List<SharePostDetailsCommentModel> list, Context context, SharePostDetailsCommentAdapterCallBack sharePostDetailsCommentAdapterCallBack, LoadImageCallBack loadImageCallBack) {
+    public SharePostDetailsCommentAdapter(String hold,List<SharePostDetailsCommentModel> list, Context context, SharePostDetailsCommentAdapterCallBack sharePostDetailsCommentAdapterCallBack, LoadImageCallBack loadImageCallBack) {
+        this.hold=hold;
         this.list = list;
         this.context = context;
         this.sharePostDetailsCommentAdapterCallBack = sharePostDetailsCommentAdapterCallBack;
@@ -87,45 +89,53 @@ public class SharePostDetailsCommentAdapter extends BaseAdapter {
             sharePostDetailsCommentAdapterHolder.praise_image_item_share_post_details_comment_adapter = $.f(convertView, R.id.praise_image_item_share_post_details_comment_adapter);
             sharePostDetailsCommentAdapterHolder.praise_number_item_share_post_details_comment_adapter = $.f(convertView, R.id.praise_number_item_share_post_details_comment_adapter);
             sharePostDetailsCommentAdapterHolder.click_comment_item_share_post_details_comment_adapter = $.f(convertView, R.id.click_comment_item_share_post_details_comment_adapter);
+            sharePostDetailsCommentAdapterHolder.is_null = $.f(convertView, R.id.is_null);
+            sharePostDetailsCommentAdapterHolder.no_null = $.f(convertView, R.id.no_null);
             convertView.setTag(sharePostDetailsCommentAdapterHolder);
         } else {
             sharePostDetailsCommentAdapterHolder = (SharePostDetailsCommentAdapterHolder) convertView.getTag();
         }
-
-        if (loadImageCallBack != null) {
-            loadImageCallBack.onLoad(FrescoUtils.showImage(false, 80, 80, Uri.parse(Config.url + list.get(position).face), sharePostDetailsCommentAdapterHolder.pic_item_share_post_details_comment_adapter, 0f));
-            if ("1".equals(list.get(position).is_likes)) {
-                loadImageCallBack.onLoad(FrescoUtils.showImage(false, 40, 40, Uri.parse("res://" + context.getPackageName() + "/" + R.mipmap.logo_praise_yes), sharePostDetailsCommentAdapterHolder.praise_image_item_share_post_details_comment_adapter, 0f));
-            } else {
-                loadImageCallBack.onLoad(FrescoUtils.showImage(false, 40, 40, Uri.parse("res://" + context.getPackageName() + "/" + R.mipmap.logo_praise_no), sharePostDetailsCommentAdapterHolder.praise_image_item_share_post_details_comment_adapter, 0f));
+        if (hold.equals(list.get(position).contents)) {
+            sharePostDetailsCommentAdapterHolder.is_null.setVisibility(View.VISIBLE);
+            sharePostDetailsCommentAdapterHolder.no_null.setVisibility(View.GONE);
+        } else {
+            sharePostDetailsCommentAdapterHolder.no_null.setVisibility(View.VISIBLE);
+            sharePostDetailsCommentAdapterHolder.is_null.setVisibility(View.GONE);
+            if (loadImageCallBack != null) {
+                loadImageCallBack.onLoad(FrescoUtils.showImage(false, 80, 80, Uri.parse(Config.url + list.get(position).face), sharePostDetailsCommentAdapterHolder.pic_item_share_post_details_comment_adapter, 0f));
+                if ("1".equals(list.get(position).is_likes)) {
+                    loadImageCallBack.onLoad(FrescoUtils.showImage(false, 40, 40, Uri.parse("res://" + context.getPackageName() + "/" + R.mipmap.logo_praise_yes), sharePostDetailsCommentAdapterHolder.praise_image_item_share_post_details_comment_adapter, 0f));
+                } else {
+                    loadImageCallBack.onLoad(FrescoUtils.showImage(false, 40, 40, Uri.parse("res://" + context.getPackageName() + "/" + R.mipmap.logo_praise_no), sharePostDetailsCommentAdapterHolder.praise_image_item_share_post_details_comment_adapter, 0f));
+                }
             }
+            sharePostDetailsCommentAdapterHolder.nikename_item_share_post_details_comment_adapter.setText(list.get(position).username);
+            sharePostDetailsCommentAdapterHolder.car_name_dymaic_details_adapter.setText(list.get(position).vehicle_name);
+            sharePostDetailsCommentAdapterHolder.floor_item_share_post_details_comment_adapter.setText((position + 1) + "楼");
+            sharePostDetailsCommentAdapterHolder.content_item_share_post_details_comment_adapter.setText(list.get(position).contents);
+            sharePostDetailsCommentAdapterHolder.date_item_share_post_details_comment_adapter.setText(list.get(position).create_time);
+            sharePostDetailsCommentAdapterHolder.praise_number_item_share_post_details_comment_adapter.setText(list.get(position).likes);
+
+            if (sharePostDetailsCommentAdapterCallBack != null) {
+                final int finalPosition = position;
+                final int finalPosition1 = position;
+                sharePostDetailsCommentAdapterHolder.click_comment_item_share_post_details_comment_adapter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        sharePostDetailsCommentAdapterCallBack.onComment(finalPosition, list, list.get(finalPosition1));
+                    }
+                });
+                sharePostDetailsCommentAdapterHolder.click_praise_item_share_post_details_comment_adapter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sharePostDetailsCommentAdapterCallBack.onPraise(finalPosition, list, list.get(finalPosition1));
+                    }
+                });
+            }
+
+            sharePostDetailsCommentAdapterHolder.list_item_share_post_details_comment_adapter.setAdapter(new SharePostDetailsComment_ReplyListAdapter(context, list.get(position).reply_list));
         }
-        sharePostDetailsCommentAdapterHolder.nikename_item_share_post_details_comment_adapter.setText(list.get(position).username);
-        sharePostDetailsCommentAdapterHolder.car_name_dymaic_details_adapter.setText(list.get(position).vehicle_name);
-        sharePostDetailsCommentAdapterHolder.floor_item_share_post_details_comment_adapter.setText((position + 1) + "楼");
-        sharePostDetailsCommentAdapterHolder.content_item_share_post_details_comment_adapter.setText(list.get(position).contents);
-        sharePostDetailsCommentAdapterHolder.date_item_share_post_details_comment_adapter.setText(list.get(position).create_time);
-        sharePostDetailsCommentAdapterHolder.praise_number_item_share_post_details_comment_adapter.setText(list.get(position).likes);
-
-        if (sharePostDetailsCommentAdapterCallBack != null) {
-            final int finalPosition = position;
-            final int finalPosition1 = position;
-            sharePostDetailsCommentAdapterHolder.click_comment_item_share_post_details_comment_adapter.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    sharePostDetailsCommentAdapterCallBack.onComment(finalPosition, list, list.get(finalPosition1));
-                }
-            });
-            sharePostDetailsCommentAdapterHolder.click_praise_item_share_post_details_comment_adapter.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sharePostDetailsCommentAdapterCallBack.onPraise(finalPosition, list, list.get(finalPosition1));
-                }
-            });
-        }
-
-        sharePostDetailsCommentAdapterHolder.list_item_share_post_details_comment_adapter.setAdapter(new SharePostDetailsComment_ReplyListAdapter(context, list.get(position).reply_list));
         return convertView;
     }
 }
@@ -143,4 +153,6 @@ class SharePostDetailsCommentAdapterHolder {
     SimpleDraweeView praise_image_item_share_post_details_comment_adapter;
     TextView praise_number_item_share_post_details_comment_adapter;
     LinearLayout click_comment_item_share_post_details_comment_adapter;
+    LinearLayout no_null;
+    TextView is_null;
 }

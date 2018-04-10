@@ -44,6 +44,7 @@ import com.sss.car.EventBusModel.ChangedOrderModel;
 import com.sss.car.EventBusModel.ChangedPostsModel;
 import com.sss.car.EventBusModel.ChangedUserInfo;
 import com.sss.car.EventBusModel.JiGuangModel;
+import com.sss.car.EventBusModel.JumpChat;
 import com.sss.car.EventBusModel.Posts;
 import com.sss.car.EventBusModel.Praise;
 import com.sss.car.EventBusModel.SelectCtityModel;
@@ -727,6 +728,18 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
         );
 
         notif();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(JumpChat jumpChat) {
+        if (navMenuLayoutMain!=null){
+            navMenuLayoutMain.setSelected(2);
+            if (fragmentMessage != null) {
+              if (  fragmentMessage.CustomCacheViewPager!=null){
+                  fragmentMessage.CustomCacheViewPager.setCurrentItem(1);
+              }
+            }
+        }
     }
 
 

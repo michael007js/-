@@ -12,16 +12,27 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_marginTop="1dp"
+            android:background="#fff"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <TextView
+                android:padding="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:id="@+id/title_dectionary_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
 
             <TextView
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
                 android:id="@+id/text_dectionary_details"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#fff"
-                android:padding="10dp"/>
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

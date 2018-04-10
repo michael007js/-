@@ -29,5 +29,6 @@ public class ShareCollectModel {
     public String is_collect;
     public String collect_count;
     public String comment_count;
+    public String type;
     public boolean isChoose;
 }

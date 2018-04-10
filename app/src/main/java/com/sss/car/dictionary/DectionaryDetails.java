@@ -1,6 +1,7 @@
 package com.sss.car.dictionary;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.ToastUtils;
+import com.sss.car.Config;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 
@@ -35,6 +37,10 @@ public class DectionaryDetails extends BaseActivity {
     @BindView(R.id.dectionary_details)
     LinearLayout dectionaryDetails;
     YWLoadingDialog ywLoadingDialog;
+    @BindView(R.id.right_button_top)
+    TextView rightButtonTop;
+    @BindView(R.id.title_dectionary_details)
+    TextView titleDectionaryDetails;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -44,10 +50,10 @@ public class DectionaryDetails extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (ywLoadingDialog!=null){
+        if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
-        ywLoadingDialog=null;
+        ywLoadingDialog = null;
         backTop = null;
         titleTop = null;
         textDectionaryDetails = null;
@@ -67,6 +73,14 @@ public class DectionaryDetails extends BaseActivity {
         customInit(dectionaryDetails, false, true, false);
         titleTop.setText(getIntent().getExtras().getString("title"));
         cateArticle();
+        rightButtonTop.setText("收藏");
+        rightButtonTop.setTextColor(getResources().getColor(R.color.mainColor));
+        rightButtonTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dectionaryCollectCancelCollect();
+            }
+        });
     }
 
     /**
@@ -82,6 +96,7 @@ public class DectionaryDetails extends BaseActivity {
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.cateArticle(
                     new JSONObject()
+                            .put("member_id", Config.member_id)
                             .put("article_id", getIntent().getExtras().getString("article_id"))
                             .toString(), new StringCallback() {
                         @Override
@@ -101,6 +116,7 @@ public class DectionaryDetails extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     textDectionaryDetails.setText(jsonObject.getJSONObject("data").getString("contents"));
+                                    titleDectionaryDetails.setText(jsonObject.getJSONObject("data").getString("title"));
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }
@@ -115,6 +131,59 @@ public class DectionaryDetails extends BaseActivity {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * 收藏
+     */
+    public void dectionaryCollectCancelCollect() {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        if (getBaseActivityContext() != null) {
+            ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
+            ywLoadingDialog.show();
+        }
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.dectionaryCollectCancelCollect(
+                    new JSONObject()
+                            .put("type", "book")
+                            .put("collect_id", getIntent().getExtras().getString("article_id"))
+                            .put("member_id", Config.member_id)
+                            .toString(), new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(getBaseActivityContext(), e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                } else {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:shop-0");
+                                e.printStackTrace();
+                            }
+                        }
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:shop-0");
+            e.printStackTrace();
+        }
+    }
+
 
     @OnClick(R.id.back_top)
     public void onViewClicked() {

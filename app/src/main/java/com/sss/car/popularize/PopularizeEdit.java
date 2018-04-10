@@ -152,6 +152,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
     List<String> sexList = new ArrayList<>();
     SSS_Adapter sexAdapter;
 
+
     String popularize_id;//推广ID
 
     String type;//一级菜单ID
@@ -354,6 +355,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                     bottomSheetDialog = menuDialog.createPopularizeDialog(getBaseActivityContext(), typeAdapter);
                 }
                 break;
+
             case R.id.et_category:
                 if (canOperation) {
                     if (twoCanClick == false) {
@@ -806,7 +808,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                         }
                         popularize_rule(two, 0);
                         if (isCoupon) {
-                            coupon_id = bean.coupon_id;
+
                             if ("1".equals(bean.scope)) {//1全场，2品类，3单品
                                 etInclude.setText("全场");
                                 etGoods.setText(getIntent().getExtras().getString("title"));
@@ -821,6 +823,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                 tipGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
                                 etGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
                             }
+                        }else {
                         }
                     }
                 });

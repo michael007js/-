@@ -5,8 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.AdressDataChoose.DatePicker;
-import com.blankj.utilcode.AdressDataChoose.TimePicker;
+import com.blankj.utilcode.TimeProfession.time;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
@@ -20,7 +19,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.sss.car.R.id.from;
 import static com.sss.car.R.id.to;
 
 /**
@@ -39,8 +37,7 @@ public class ActivityPopularizerChooseTime extends BaseActivity {
     TextView toActivityPopularizerChooseTime;
     @BindView(R.id.activity_popularize_choose_time)
     LinearLayout ActivityPopularizerChooseTime;
-    DatePicker datePicker;
-    String start="", end="";
+    String start = "", end = "";
     ChangeInfoModel changeInfoModel;
     @BindView(R.id.right_button_top)
     TextView rightButtonTop;
@@ -52,10 +49,6 @@ public class ActivityPopularizerChooseTime extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (datePicker != null) {
-            datePicker.clear();
-        }
-        datePicker = null;
         backTop = null;
         titleTop = null;
         changeInfoModel = null;
@@ -87,10 +80,10 @@ public class ActivityPopularizerChooseTime extends BaseActivity {
                     ToastUtils.showShortToast(getBaseActivityContext(), "请选择活动时间");
                     return;
                 }
-                changeInfoModel=new ChangeInfoModel();
-                changeInfoModel.type="popularize";
-                changeInfoModel.startTime=start;
-                changeInfoModel.endTime=end;
+                changeInfoModel = new ChangeInfoModel();
+                changeInfoModel.type = "popularize";
+                changeInfoModel.startTime = start;
+                changeInfoModel.endTime = end;
                 EventBus.getDefault().post(changeInfoModel);
                 finish();
             }
@@ -124,42 +117,85 @@ public class ActivityPopularizerChooseTime extends BaseActivity {
     }
 
 
-
     /**
      * 创建时间选择器
      *
      * @param where
      */
     void createDialog(final int where) {
-        if (datePicker != null) {
-            datePicker.clear();
-        }
-        datePicker = null;
-        datePicker = new DatePicker(getBaseActivityContext());
-        datePicker.setDateListener(new DatePicker.OnDateCListener() {
+//ToastUtils.showShortToast(getBaseActivityContext(),year+"---"+month+"---"+day+"---"+hour+"---"+min+"---"+sec);
+
+        time time = new time();
+        time.initContent();
+        time.buttonClick(getBaseActivityContext());
+        time.setOnTimeCallBack(new time.OnTimeCallBack() {
             @Override
-            public void onDateSelected(String year, String month, String day) {
+            public void onCallBack(String year, String month, String day, String hour, String min, String sec) {
+
+
                 if (where == 1) {
-                    if (!StringUtils.isEmpty(end)) {
-                        if (TimeUtils.string2Millis(end, "yyyy-MM-dd") < TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "结束时间必须大于开始时间");
+
+                    if (StringUtils.isEmpty(end)) {
+                        if (TimeUtils.string2Millis(year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec, "yyyy-MM-dd HH:mm:ss") < System.currentTimeMillis()) {
+                            ToastUtils.showShortToast(getBaseActivityContext(), "开始时间必须大于当前时间");
                             return;
                         }
+                        start = year + "-" + month + "-" + day + " " + hour;
+                        fromActivityPopularizerChooseTime.setText("从" + start);
+                    }else {
+                        if (TimeUtils.string2Millis(year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec, "yyyy-MM-dd HH:mm:ss") > TimeUtils.string2Millis(end, "yyyy-MM-dd HH")) {
+                            ToastUtils.showShortToast(getBaseActivityContext(), "开始时间必须小于结束时间");
+                            return;
+                        }
+                        start = year + "-" + month + "-" + day + " " + hour;
+                        fromActivityPopularizerChooseTime.setText("从" + start);
                     }
-                    start = year + "-" + month + "-" + day;
-                    fromActivityPopularizerChooseTime.setText("从"+start);
                 } else {
-                    if (!StringUtils.isEmpty(start)) {
-                        if (TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd") < TimeUtils.string2Millis(start, "yyyy-MM-dd")) {
-                            ToastUtils.showShortToast(getBaseActivityContext(), "结束时间必须大于开始时间");
+                    if (StringUtils.isEmpty(start)) {
+                        if (TimeUtils.string2Millis(year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec, "yyyy-MM-dd HH:mm:ss") < System.currentTimeMillis()) {
+                            ToastUtils.showShortToast(getBaseActivityContext(), "结束时间必须大于当前时间");
                             return;
                         }
+                        end = year + "-" + month + "-" + day + " " + hour;
+                        toActivityPopularizerChooseTime.setText("至" + end);
+                    }else {
+                        if (TimeUtils.string2Millis(year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec, "yyyy-MM-dd HH:mm:ss") < TimeUtils.string2Millis(start, "yyyy-MM-dd HH")) {
+                            ToastUtils.showShortToast(getBaseActivityContext(), "开始时间必须小于结束时间");
+                            return;
+                        }
+                        end = year + "-" + month + "-" + day + " " + hour;
+                        toActivityPopularizerChooseTime.setText("至" + end);
                     }
-                    end = year + "-" + month + "-" + day;
-                    toActivityPopularizerChooseTime.setText("至" + end);
                 }
             }
+
         });
-        datePicker.show();
+
+
+//        datePicker.setDateListener(new DatePicker.OnDateCListener() {
+//            @Override
+//            public void onDateSelected(String year, String month, String day) {
+//                if (where == 1) {
+//                    if (!StringUtils.isEmpty(end)) {
+//                        if (TimeUtils.string2Millis(end, "yyyy-MM-dd") < TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
+//                            ToastUtils.showShortToast(getBaseActivityContext(), "结束时间必须大于开始时间");
+//                            return;
+//                        }
+//                    }
+//                    start = year + "-" + month + "-" + day;
+//                    fromActivityPopularizerChooseTime.setText("从"+start);
+//                } else {
+//                    if (!StringUtils.isEmpty(start)) {
+//                        if (TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd") < TimeUtils.string2Millis(start, "yyyy-MM-dd")) {
+//                            ToastUtils.showShortToast(getBaseActivityContext(), "结束时间必须大于开始时间");
+//                            return;
+//                        }
+//                    }
+//                    end = year + "-" + month + "-" + day;
+//                    toActivityPopularizerChooseTime.setText("至" + end);
+//                }
+//            }
+//        });
+//        datePicker.show();
     }
 }

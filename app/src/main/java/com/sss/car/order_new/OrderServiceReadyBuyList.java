@@ -27,6 +27,7 @@ import com.sss.car.model.ShoppingCart;
 import com.sss.car.utils.CarUtils;
 import com.sss.car.utils.PayUtils;
 import com.sss.car.view.ActivityShopInfo;
+import com.sss.car.view.ActivityUserInfo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +43,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
+
+import static android.R.attr.targetId;
 
 
 /**
@@ -106,6 +109,8 @@ public class OrderServiceReadyBuyList extends BaseActivity {
     SecondDownTimerView countdown;
     @BindView(R.id.parent_countdown)
     LinearLayout parentCountdown;
+    @BindView(R.id.right_button_top)
+    TextView rightButtonTop;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -215,7 +220,7 @@ public class OrderServiceReadyBuyList extends BaseActivity {
                             double price = PriceUtils.multiply(Double.valueOf(pen), Double.valueOf(orderSellerModel.total), 2);
                             LogUtils.e(price);
 
-                            PayUtils.requestPayment(ywLoadingDialog,"0", orderSellerModel.order_id, 2, 1, String.valueOf(price), getBaseActivity());
+                            PayUtils.requestPayment(ywLoadingDialog, "0", orderSellerModel.order_id, 2, 1, String.valueOf(price), getBaseActivity());
                         } catch (IndexOutOfBoundsException e) {
                             ToastUtils.showShortToast(getBaseActivityContext(), "违约金解析错误");
                         }
@@ -298,7 +303,8 @@ public class OrderServiceReadyBuyList extends BaseActivity {
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.getOrderDetailsSeller_detail(
                     new JSONObject()
-                            .put("order_id",getIntent().getExtras().getString("order_id"))
+                            .put("member_id",Config.member_id)
+                            .put("order_id", getIntent().getExtras().getString("order_id"))
                             .toString()
                     , new StringCallback() {
                         @Override
@@ -359,9 +365,20 @@ public class OrderServiceReadyBuyList extends BaseActivity {
                                     orderSellerModel.goods_data = list;
                                     int start_time = jsonObject.getJSONObject("data").getInt("start_time");
                                     if (start_time > 0) {
-                                        countdown.setDownTime(Long.valueOf(start_time*1000));
+                                        countdown.setDownTime(Long.valueOf(start_time * 1000));
                                         countdown.startDownTimer();
                                         parentCountdown.setVisibility(View.VISIBLE);
+                                    }
+                                    if ("1".equals(jsonObject.getJSONObject("data").getString("is_show"))) {
+                                        rightButtonTop.setText(orderSellerModel.recipients);
+                                        rightButtonTop.setTextColor(getResources().getColor(R.color.mainColor));
+                                        rightButtonTop.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                startActivity(new Intent(getBaseActivityContext(), ActivityUserInfo.class)
+                                                        .putExtra("id", orderSellerModel.member_id));
+                                            }
+                                        });
                                     }
                                     showData();
                                 } else {
@@ -392,7 +409,7 @@ public class OrderServiceReadyBuyList extends BaseActivity {
         showPenalSumOrderServiceReadyBuy.setText(orderSellerModel.damages);
         showOtherOrderServiceReadyBuy.setText(orderSellerModel.remark);
         listOrderServiceReadyBuy.setData(getBaseActivityContext(), orderSellerModel);
-        totalPriceOrderServiceReadyBuy.setText("¥"+orderSellerModel.total);
+        totalPriceOrderServiceReadyBuy.setText("¥" + orderSellerModel.total);
     }
 
 

@@ -46,6 +46,7 @@ import com.sss.car.view.ActivityCoupon;
 import com.sss.car.view.ActivityGoodsList;
 import com.sss.car.view.ActivityGoodsServiceDetails;
 import com.sss.car.view.ActivityGoodsServiceListPublic;
+import com.sss.car.view.ActivityImages;
 import com.sss.car.view.ActivityShopInfo;
 import com.sss.car.view.ActivityShoppingCart;
 import com.sss.car.view.Main;
@@ -652,12 +653,28 @@ public class FragmentGoodsServiceDetailsGoods extends BaseFragment {
         priaseNumberFragmentGoodsServiceDetalisGoods.setText(goodsDetailsModel.likes);
         shareNumberFragmentGoodsServiceDetalisGoods.setText(goodsDetailsModel.share);
 
-        List<View> list = new ArrayList<>();
+        final List<View> list = new ArrayList<>();
         for (int i = 0; i < goodsDetailsModel.picture.size(); i++) {
             View view = LayoutInflater.from(getBaseFragmentActivityContext()).inflate(R.layout.item_fragment_goods_service_details_pic, null);
             SimpleDraweeView pic_item_fragment_goods_service_details_pic = $.f(view, R.id.pic_item_fragment_goods_service_details_pic);
             addImageViewList(FrescoUtils.showImage(false, getActivity().getWindowManager().getDefaultDisplay().getWidth(), getActivity().getWindowManager().getDefaultDisplay().getWidth(), Uri.parse(Config.url + goodsDetailsModel.picture.get(i)), pic_item_fragment_goods_service_details_pic, 0f));
             list.add(view);
+            final int finalI = i;
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getBaseFragmentActivityContext() != null) {
+
+                        List<String> temp=new ArrayList<>();
+                        for (int j = 0; j < goodsDetailsModel.picture.size(); j++) {
+                            temp.add(Config.url+goodsDetailsModel.picture.get(j));
+                        }
+                        startActivity(new Intent(getBaseFragmentActivityContext(), ActivityImages.class)
+                                .putStringArrayListExtra("data", (ArrayList<String>) temp)
+                                .putExtra("current", finalI));
+                    }
+                }
+            });
         }
         viewpagerFragmentGoodsServiceDetalisGoods.setAdapter(new ViewPagerObjAdpter(list));
     }

@@ -122,6 +122,10 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
                     ToastUtils.showShortToast(getBaseActivityContext(), "您未修改任何内容!");
                     return;
                 }
+                if (StringUtils.isEmpty(titleAddress.getText().toString().trim())){
+                    ToastUtils.showShortToast(getBaseActivityContext(), "地址不能为空!");
+                    return;
+                }
                 if (StringUtils.isEmpty(province_city_district)) {
                     ToastUtils.showShortToast(getBaseActivityContext(), "请选择省市区!");
                     return;

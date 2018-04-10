@@ -27,6 +27,7 @@ import com.sss.car.model.ShoppingCart;
 import com.sss.car.utils.CarUtils;
 import com.sss.car.utils.PayUtils;
 import com.sss.car.view.ActivityShopInfo;
+import com.sss.car.view.ActivityUserInfo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -106,6 +107,8 @@ public class OrderGoodsReadyBuyList extends BaseActivity {
     SecondDownTimerView countdown;
     @BindView(R.id.parent_countdown)
     LinearLayout parentCountdown;
+    @BindView(R.id.right_button_top)
+    TextView rightButtonTop;
 
 
     @Override
@@ -295,6 +298,7 @@ public class OrderGoodsReadyBuyList extends BaseActivity {
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.getOrderDetailsSeller_detail(
                     new JSONObject()
+                            .put("member_id",Config.member_id)
                             .put("order_id", getIntent().getExtras().getString("order_id"))
                             .toString()
                     , new StringCallback() {
@@ -356,9 +360,20 @@ public class OrderGoodsReadyBuyList extends BaseActivity {
                                     orderSellerModel.goods_data = list;
                                     int start_time = jsonObject.getJSONObject("data").getInt("start_time");
                                     if (start_time > 0) {
-                                        countdown.setDownTime(Long.valueOf(start_time*1000));
+                                        countdown.setDownTime(Long.valueOf(start_time * 1000));
                                         countdown.startDownTimer();
                                         parentCountdown.setVisibility(View.VISIBLE);
+                                    }
+                                    if ("1".equals(jsonObject.getJSONObject("data").getString("is_show"))) {
+                                        rightButtonTop.setText(orderSellerModel.recipients);
+                                        rightButtonTop.setTextColor(getResources().getColor(R.color.mainColor));
+                                        rightButtonTop.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                startActivity(new Intent(getBaseActivityContext(), ActivityUserInfo.class)
+                                                        .putExtra("id", orderSellerModel.member_id));
+                                            }
+                                        });
                                     }
                                     showData();
                                 } else {

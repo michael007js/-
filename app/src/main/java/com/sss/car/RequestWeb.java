@@ -923,7 +923,15 @@ public class RequestWeb {
     public static Call postsCollectCancelCollect(String send, StringCallback stringCallback) {
         return Webbiz.requestByString(Config.url + "/index.php/Api/member_collect/insert_collect", send, " 帖子收藏（取消收藏）", stringCallback);
     }
-
+    /**
+     * 收藏（取消收藏）
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call dectionaryCollectCancelCollect(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/member_collect/insert_collect", send, " 帖子收藏（取消收藏）", stringCallback);
+    }
 
     /**
      * 获取社区分类

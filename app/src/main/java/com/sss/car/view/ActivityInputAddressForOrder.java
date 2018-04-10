@@ -46,12 +46,12 @@ public class ActivityInputAddressForOrder extends BaseActivity {
     EditText inputActivityInputAddressForOrder;
     @BindView(R.id.activity_input_address_for_order)
     LinearLayout activityInputAddressForOrder;
-    Geocoding geocoding;
 
     YWLoadingDialog ywLoadingDialog;
 
     LocationConfig locationConfig;
-    String cityCode, centent;
+    double lat,lng;
+    String province,city,district;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -64,7 +64,6 @@ public class ActivityInputAddressForOrder extends BaseActivity {
             ywLoadingDialog.disMiss();
         }
         ywLoadingDialog = null;
-        geocoding = null;
         if (locationConfig != null) {
             locationConfig.release();
         }
@@ -84,39 +83,6 @@ public class ActivityInputAddressForOrder extends BaseActivity {
         ButterKnife.bind(this);
         titleTop.setText("填写地址");
         rightButtonTop.setText("保存");
-        if (geocoding == null) {
-            geocoding = new Geocoding();
-            geocoding.init(getBaseActivityContext(), new SSS_GeocodingListener() {
-                @Override
-                public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
-                    LogUtils.e(i);
-                    LogUtils.e(regeocodeResult.getRegeocodeAddress().getCity());
-                    if (ywLoadingDialog != null) {
-                        ywLoadingDialog.disMiss();
-                    }
-                    ywLoadingDialog = null;
-
-                }
-
-                @Override
-                public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
-                    if (ywLoadingDialog != null) {
-                        ywLoadingDialog.disMiss();
-                    }
-                    ywLoadingDialog = null;
-                    LogUtils.e(i);
-                    for (int j = 0; j < geocodeResult.getGeocodeAddressList().size(); j++) {
-                        EventBus.getDefault().post(new ChooseAdress(geocodeResult.getGeocodeAddressList().get(j).getCity() + geocodeResult.getGeocodeAddressList().get(j).getFormatAddress(),
-                                        String.valueOf(geocodeResult.getGeocodeAddressList().get(j).getLatLonPoint().getLatitude()),
-                                        String.valueOf(geocodeResult.getGeocodeAddressList().get(j).getLatLonPoint().getLongitude())
-                                )
-                        );
-                    }
-                    finish();
-
-                }
-            });
-        }
 
     }
 
@@ -130,19 +96,18 @@ public class ActivityInputAddressForOrder extends BaseActivity {
                 if (StringUtils.isEmpty(inputActivityInputAddressForOrder.getText().toString())) {
                     ToastUtils.showShortToast(getBaseActivityContext(), "您的输入为空");
                 } else {
-                    centent = inputActivityInputAddressForOrder.getText().toString();
-                    if (StringUtils.isEmpty(cityCode)) {
+                    if (StringUtils.isEmpty(province)) {
                         location();
-                    } else {
-                        if (ywLoadingDialog != null) {
-                            ywLoadingDialog.disMiss();
-                        }
-                        ywLoadingDialog = null;
-                        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
-                        ywLoadingDialog.show();
-                        geocoding.query(centent, cityCode);
-
+                        return;
                     }
+
+                    EventBus.getDefault().post(new ChooseAdress(inputActivityInputAddressForOrder.getText().toString(),
+                                    String.valueOf(lat),
+                                    String.valueOf(lng),
+                            province,city,district
+                            )
+                    );
+                    finish();
                 }
                 break;
         }
@@ -211,14 +176,12 @@ public class ActivityInputAddressForOrder extends BaseActivity {
                      * 建议调整检索条件后重新尝试，例如调整POI关键字，调整POI类型，调整周边搜区域，调整行政区关键字等。
                      */
                     if (aMapLocation.getErrorCode() == 0) {
-                        cityCode = aMapLocation.getCityCode() + "";
-                        if (ywLoadingDialog != null) {
-                            ywLoadingDialog.disMiss();
-                        }
-                        ywLoadingDialog = null;
-                        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
-                        ywLoadingDialog.show();
-                        geocoding.query(centent, cityCode);
+                        lat=aMapLocation.getLatitude();
+                        lng=aMapLocation.getLongitude();
+                        province=aMapLocation.getProvince();
+                        city=aMapLocation.getCity();
+                        district=aMapLocation.getDistrict();
+
                     } else {
                         APPOftenUtils.createLocationErrorTip(weakReference, "网络卡顿,定位失败", new LocationStatusListener() {
                             @Override

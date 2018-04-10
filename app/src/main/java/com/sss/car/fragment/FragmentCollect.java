@@ -16,6 +16,7 @@ import com.blankj.utilcode.adapter.sssAdapter.SSS_Adapter;
 import com.blankj.utilcode.adapter.sssAdapter.SSS_HolderHelper;
 import com.blankj.utilcode.adapter.sssAdapter.SSS_OnItemListener;
 import com.blankj.utilcode.constant.RequestModel;
+import com.blankj.utilcode.customwidget.BezierBannerDot;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.GridView.InnerGridView;
 import com.blankj.utilcode.dao.LoadImageCallBack;
@@ -33,6 +34,7 @@ import com.sss.car.RequestWeb;
 import com.sss.car.adapter.NineAdapter2;
 import com.sss.car.dao.CollectBottomDialogCallaback;
 import com.sss.car.dao.NineAdapter2OperationCallBack;
+import com.sss.car.dictionary.DectionaryDetails;
 import com.sss.car.model.ShareCollectModel;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.view.ActivityCollectLable;
@@ -293,10 +295,16 @@ public class FragmentCollect extends BaseFragment {
                 switch (view.getId()) {
                     case R.id.short_click_item_collect_adapter:
                         if (!isEdit) {
+                            if ("1".equals(list.get(position).type))
                             if (getBaseFragmentActivityContext() != null) {
                                 getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivitySharePostDetails.class)
                                         .putExtra("community_id", list.get(position).community_id)
                                         .putExtra("is_show_keyboard", false));
+                            }else {
+                                startActivity(new Intent(getBaseFragmentActivityContext(), DectionaryDetails.class)
+                                        .putExtra("article_id", list.get(position).community_id)
+                                        .putExtra("title", list.get(position).title)
+                                );
                             }
                         } else {
                             if (list.get(position).isChoose == true) {
@@ -533,6 +541,7 @@ public class FragmentCollect extends BaseFragment {
                                             shareCollectModel.is_collect = jsonArray.getJSONObject(i).getString("is_collect");
                                             shareCollectModel.collect_count = jsonArray.getJSONObject(i).getString("collect_count");
                                             shareCollectModel.comment_count = jsonArray.getJSONObject(i).getString("comment_count");
+                                            shareCollectModel.type = jsonArray.getJSONObject(i).getString("type");
                                             List<String> picture = new ArrayList<>();
                                             JSONArray jsonArray1 = jsonArray.getJSONObject(i).getJSONArray("picture");
                                             for (int j = 0; j < jsonArray1.length(); j++) {

@@ -572,7 +572,7 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
                 if (hasFocus == false) {
                     if (StringUtils.isEmpty(codeActivityRegister.getText().toString().trim()) ||
                             StringUtils.isEmpty(code) ||
-                            code.equals(StringUtils.isEmpty(codeActivityRegister.getText().toString().trim())) || codeActivityRegister.getText().toString().trim().length() < 6) {
+                            !code.equals(codeActivityRegister.getText().toString().trim()) || codeActivityRegister.getText().toString().trim().length() < 6) {
                         showCode.setVisibility(View.VISIBLE);
                         showCode.wrong(60, 60, getBaseActivityContext());
                     } else {

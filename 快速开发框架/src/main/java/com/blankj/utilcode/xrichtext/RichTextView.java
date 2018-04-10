@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -46,7 +47,11 @@ public class RichTextView extends ScrollView {
     private List<TextView> textList = new ArrayList();
     private List<SimpleDraweeView> imageList = new ArrayList();
     private OnImageClickListener onImageClickListener;
+    private OnHeightCallBack onHeightCallBack;
 
+    public void setOnHeightCallBack(OnHeightCallBack onHeightCallBack) {
+        this.onHeightCallBack = onHeightCallBack;
+    }
 
     public RichTextView(Context context) {
         this(context, null);
@@ -145,7 +150,14 @@ public class RichTextView extends ScrollView {
                 break;
         }
         allLayout.addView(textView, index);
+        if (onHeightCallBack!=null){
+            onHeightCallBack.onHeight(allLayout.getLayoutParams().height);
+        }
     }
+
+
+
+
 
     /**
      * 在特定位置添加ImageView
@@ -154,12 +166,19 @@ public class RichTextView extends ScrollView {
         final RelativeLayout imageLayout = createImageLayout();
         final DataImageView imageView = (DataImageView) imageLayout.findViewById(R.id.edit_imageView);
         imageList.add(imageView);
-
         GlidUtils.getWidthAndHeight(context, imageView, imagePath, new GlidUtils.OnWidthAndHeightCallBack() {
             @Override
             public void onCallBack(String imgUrl, int width, int height) {
                 double percentage = height / width;
-                FrescoUtils.showImage(false, w, (int) (percentage * height), Uri.parse(imgUrl), imageView, 0f);
+                int tempH = h;
+                if ((int) (percentage * height) > 0) {
+                    tempH = (int) (percentage * height);
+                }
+
+                FrescoUtils.showImage(false, w, tempH, Uri.parse(imgUrl), imageView, 0f);
+                if (onHeightCallBack!=null){
+                    onHeightCallBack.onHeight(tempH);
+                }
                 imageView.setAbsolutePath(imgUrl);
 
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
@@ -231,6 +250,7 @@ public class RichTextView extends ScrollView {
                 richTextView.addTextViewAtIndex(richTextView.getLastIndex(), jsonArray.getJSONObject(i).getString("text"), textSize);
             }
         }
+
 
     }
 
@@ -304,6 +324,10 @@ public class RichTextView extends ScrollView {
             }
         }
     }*/
+
+    public interface OnHeightCallBack{
+        void onHeight(int h);
+    }
 
 
     public interface OnImageClickListener {

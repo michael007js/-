@@ -137,12 +137,12 @@ public class ActivityShopInfoAllFilter extends BaseActivity implements
             ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
             ywLoadingDialog.show();
         }
-//        try {
+        try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.filtrate(
                     new JSONObject()
 //                            .put("type", type)
-//                            .put("classify_id", classify_id)
-//                            .put("member_id", Config.member_id)
+                            .put("classify_id",  getIntent().getExtras().getString("classify_id"))
+                        .put("shop_id", getIntent().getExtras().getString("shop_id"))
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
@@ -188,10 +188,10 @@ public class ActivityShopInfoAllFilter extends BaseActivity implements
                             }
                         }
                     })));
-//        } catch (JSONException e) {
-//            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:shop-0");
-//            e.printStackTrace();
-//        }
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:shop-0");
+            e.printStackTrace();
+        }
     }
 
     @Override

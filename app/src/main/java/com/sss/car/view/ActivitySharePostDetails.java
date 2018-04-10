@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.ImageView;
@@ -144,6 +145,7 @@ public class ActivitySharePostDetails extends BaseActivity implements
     ListView listviewDialogNumberSharePostDetails;
     SSS_Adapter sss_adapter;
     List<Integer> num = new ArrayList<>();
+    int h = 0;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -204,7 +206,7 @@ public class ActivitySharePostDetails extends BaseActivity implements
         customInit(activitySharePostDetails, false, true, true, false);
         addImageViewList(GlidUtils.glideLoad(false, logoRightSearchTopImage, getBaseActivityContext(), R.mipmap.logo_more));
 
-        sharePostDetailsCommentAdapter = new SharePostDetailsCommentAdapter(list, getBaseActivityContext(), this, this);
+        sharePostDetailsCommentAdapter = new SharePostDetailsCommentAdapter(hold,list, getBaseActivityContext(), this, this);
         listviewActivitySharePostDetails.setAdapter(sharePostDetailsCommentAdapter);
 
         menuDialog = new MenuDialog(this);
@@ -243,6 +245,7 @@ public class ActivitySharePostDetails extends BaseActivity implements
         listviewActivitySharePostDetails.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                h = 0;
                 p = 1;
                 postsList();
             }
@@ -320,10 +323,11 @@ public class ActivitySharePostDetails extends BaseActivity implements
             postsComment(model.content);
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangedUserInfo changedUserInfo) {
         postsDetails(false);
-        p=1;
+        p = 1;
         postsList();
     }
 
@@ -381,7 +385,7 @@ public class ActivitySharePostDetails extends BaseActivity implements
                 postsCollectCancelCollect();
                 break;
             case R.id.share_bottom:
-                ShareUtils.prepareShare(ywLoadingDialog,getBaseActivity(),"community",getIntent().getExtras().getString("community_id"));
+                ShareUtils.prepareShare(ywLoadingDialog, getBaseActivity(), "community", getIntent().getExtras().getString("community_id"));
                 break;
         }
     }
@@ -516,7 +520,7 @@ public class ActivitySharePostDetails extends BaseActivity implements
         click_share_share_post_details_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShareUtils.prepareShare(ywLoadingDialog,getBaseActivity(),"community",getIntent().getExtras().getString("community_id"));
+                ShareUtils.prepareShare(ywLoadingDialog, getBaseActivity(), "community", getIntent().getExtras().getString("community_id"));
             }
         });
         pic_share_post_details_head.setOnClickListener(new View.OnClickListener() {
@@ -527,7 +531,7 @@ public class ActivitySharePostDetails extends BaseActivity implements
             }
         });
     }
-
+String hold="Zz.~!)s$@%/^#$**xxs143/ert($%^&!a*($%S.|/Z~ZZ)$%*^&*(^&-fS.2^&$%dsf--)_+";
     /**
      * 展示服务器返回的数据
      */
@@ -561,11 +565,14 @@ public class ActivitySharePostDetails extends BaseActivity implements
                     content_share_post_details_head,
                     getBaseActivityContext(),
                     width, height, textSize);
+            SharePostDetailsCommentModel sharePostDetailsCommentModel = new SharePostDetailsCommentModel();
+            sharePostDetailsCommentModel.contents =hold ;
+            list.add(sharePostDetailsCommentModel);
+            sharePostDetailsCommentAdapter.refresh(list);
         } catch (JSONException e) {
             ToastUtils.showShortToast(getBaseActivityContext(), "帖子数据解析错误");
             e.printStackTrace();
         }
-
         content_share_post_details_head.setOnImageClickListener(this);
         sharePostDetailsCommentAdapter.refresh(list);
     }
@@ -893,14 +900,18 @@ public class ActivitySharePostDetails extends BaseActivity implements
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
-                                    if (jsonArray.length()>0){
+                                    if ("0".equals(jsonObject.getJSONObject("data").getString("count"))) {
+                                        titleTopImage.setText("详情");
+                                    } else {
+                                        titleTopImage.setText(jsonObject.getJSONObject("data").getString("pager") + "/" + jsonObject.getJSONObject("data").getString("count"));
+                                    }
+                                    if (jsonArray.length() > 0) {
                                         num.clear();
                                         for (int i = 0; i < sharePostDetailsModel.comment_page; i++) {
                                             num.add(i);
                                         }
                                         sss_adapter.setList(num);
                                         list.clear();
-                                        titleTopImage.setText(jsonObject.getJSONObject("data").getString("pager") + "/" + jsonObject.getJSONObject("data").getString("count"));
                                         p++;
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             SharePostDetailsCommentModel sharePostDetailsCommentModel = new SharePostDetailsCommentModel();
@@ -932,7 +943,11 @@ public class ActivitySharePostDetails extends BaseActivity implements
                                             list.add(sharePostDetailsCommentModel);
 
                                         }
-
+                                        for (int i = 0; i < list.size(); i++) {
+                                            if (hold.equals(list.get(i).contents)){
+                                                list.remove(i);
+                                            }
+                                        }
                                         sharePostDetailsCommentAdapter.refresh(list);
                                     }
                                 } else {
@@ -1073,10 +1088,11 @@ public class ActivitySharePostDetails extends BaseActivity implements
                     .putExtra("current", position));
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(getBaseActivityContext()).onActivityResult(requestCode, resultCode, data);
     }
-    
+
 }

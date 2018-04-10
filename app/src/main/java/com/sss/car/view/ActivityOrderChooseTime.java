@@ -40,6 +40,8 @@ public class ActivityOrderChooseTime extends BaseActivity {
     DatePicker datePicker;
     String start, end;
     ChangeInfoModel changeInfoModel;
+    @BindView(R.id.right_button_top)
+    TextView rightButtonTop;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -74,7 +76,17 @@ public class ActivityOrderChooseTime extends BaseActivity {
             ToastUtils.showShortToast(getBaseActivityContext(), "数据传输错误");
             finish();
         }
+        rightButtonTop.setTextColor(getResources().getColor(R.color.mainColor));
+        rightButtonTop.setText("保存");
+        rightButtonTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         titleTop.setText("预约时间");
+        start = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy-MM-dd");
+        fromActivitActivityOrderChooseTime.setText("从" + TimeUtils.millis2String(System.currentTimeMillis(), "yyyy-MM-dd"));
     }
 
     @OnClick({R.id.back_top, R.id.from_activity_order_choose_time, R.id.to_activity_order_choose_time})
@@ -115,7 +127,7 @@ public class ActivityOrderChooseTime extends BaseActivity {
                             if (changeInfoModel == null) {
                                 changeInfoModel = new ChangeInfoModel();
                             }
-                            if (System.currentTimeMillis()> TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
+                            if (System.currentTimeMillis() > TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
                                 ToastUtils.showShortToast(getBaseActivityContext(), "所选时间必须大于当前时间");
                                 return;
                             }
@@ -128,7 +140,7 @@ public class ActivityOrderChooseTime extends BaseActivity {
                             return;
                         }
                     }
-                    if (System.currentTimeMillis()> TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
+                    if (System.currentTimeMillis() > TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "所选时间必须大于当前时间");
                         return;
                     }
@@ -136,11 +148,11 @@ public class ActivityOrderChooseTime extends BaseActivity {
                     fromActivitActivityOrderChooseTime.setText("从" + start);
                 } else {
                     if (!StringUtils.isEmpty(start)) {
-                        if (TimeUtils.string2Millis(year + "-" + month + "-" + day , "yyyy-MM-dd") > TimeUtils.string2Millis(start, "yyyy-MM-dd")) {
+                        if (TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd") > TimeUtils.string2Millis(start, "yyyy-MM-dd")) {
                             if (changeInfoModel == null) {
                                 changeInfoModel = new ChangeInfoModel();
                             }
-                            if (System.currentTimeMillis()> TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
+                            if (System.currentTimeMillis() > TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
                                 ToastUtils.showShortToast(getBaseActivityContext(), "所选时间必须大于当前时间");
                                 return;
                             }
@@ -153,7 +165,7 @@ public class ActivityOrderChooseTime extends BaseActivity {
                             return;
                         }
                     }
-                    if (System.currentTimeMillis()> TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
+                    if (System.currentTimeMillis() > TimeUtils.string2Millis(year + "-" + month + "-" + day, "yyyy-MM-dd")) {
                         ToastUtils.showShortToast(getBaseActivityContext(), "所选时间必须大于当前时间");
                         return;
                     }

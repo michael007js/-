@@ -47,6 +47,7 @@ public class TimePicker extends Dialog implements View.OnClickListener {
     private Calendar nowCalendar;
 
 
+
     public void clear() {
         if (nowCalendar != null) {
             nowCalendar.clear();

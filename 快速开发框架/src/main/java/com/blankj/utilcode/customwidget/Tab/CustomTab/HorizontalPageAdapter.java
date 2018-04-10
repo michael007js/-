@@ -56,7 +56,11 @@ public abstract class HorizontalPageAdapter<T> extends BaseAdapter implements Cl
     }
 
     public int getCount() {
-        return this.data.size() > (this.mIndex + 1) * this.mPagesize?this.mPagesize:this.data.size() - this.mIndex * this.mPagesize;
+        if (data == null) {
+            return 0;
+        } else {
+            return this.data.size() > (this.mIndex + 1) * this.mPagesize ? this.mPagesize : this.data.size() - this.mIndex * this.mPagesize;
+        }
     }
 
     public T getItem(int position) {

@@ -278,7 +278,7 @@ public class OrderSOSPublish extends BaseActivity {
     public void onMessageEvent(ChooseAdress event) {
         sendLai = event.lai;
         sengLng = event.lng;
-        showAddressOrderSosPublish.setText(event.adress);
+        showAddressOrderSosPublish.setText(event.province+event.city+event.district+event.adress);
     }
 
     @OnClick({R.id.back_top, R.id.no_exist_order_sos_publish, R.id.right_button_top, R.id.click_one_key_write_car_order_sos_publish, R.id.click_one_key_location_order_sos_publish, R.id.click_one_key_write_address_order_sos_publish, R.id.click_choose_car_order_sos_publish, R.id.click_type_order_sos_publish, R.id.click_address_order_sos_publish, R.id.click_time_order_sos_publish, R.id.click_penal_sum_order_sos_publish, R.id.click_other_sum_order_sos_publish, R.id.click_submit_order_sos_publish})
