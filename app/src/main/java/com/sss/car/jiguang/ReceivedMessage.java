@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.blankj.utilcode.constant.RequestModel;
+import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.ActivityManagerUtils;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
@@ -14,11 +17,15 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
+import com.sss.car.EventBusModel.ChangedMessage;
 import com.sss.car.EventBusModel.ChangedMessageOrderList;
 import com.sss.car.EventBusModel.JiGuangModel;
+import com.sss.car.RequestWeb;
 import com.sss.car.model.OrderSOSGrabModel;
 import com.sss.car.model.PushSOSHelperFromBuyerModel;
 import com.sss.car.order.OrderSOSPopUpWindows;
+import com.sss.car.rongyun.RongYunUtils;
+import com.sss.car.utils.C;
 import com.sss.car.utils.CarUtils;
 import com.sss.car.view.ActivityGoodsServiceDetails;
 import com.sss.car.view.LoginAndRegister;
@@ -29,10 +36,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import okhttp3.Call;
 
+import static android.R.attr.data;
 import static android.R.id.list;
+import static com.umeng.socialize.utils.DeviceConfig.context;
 
 
 /**
@@ -52,7 +66,7 @@ public class ReceivedMessage extends BroadcastReceiver {
             LogUtils.e(TAG, intent.getAction() + "\n[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
             LogUtils.e(bundle.getString(JPushInterface.EXTRA_EXTRA));
-            add(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
+//            add(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
             EventBus.getDefault().post(new JiGuangModel());
             BadgerUtils.applyCount(context, 1);
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
@@ -73,6 +87,7 @@ public class ReceivedMessage extends BroadcastReceiver {
                 BadgerUtils.removeCount(context);
                 parse(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
                 LogUtils.e(TAG, "[MyReceiver] 用户点击打开了通知");
+                read(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
                 //打开自定义的Activity
 //                Intent i = new Intent(context, Launcher.class);
 //                i.putExtras(bundle);
@@ -105,7 +120,7 @@ public class ReceivedMessage extends BroadcastReceiver {
                 LogUtils.e(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
@@ -166,23 +181,68 @@ public class ReceivedMessage extends BroadcastReceiver {
 //        }
 //    }
 
+    public void read(String data,final Context context) throws JSONException {
+        JSONObject jsonObject = new JSONObject(data);
+        String id = null;
+        switch (jsonObject.getString("type")) {
+            case "sos":
+                id=jsonObject.getJSONObject("data").getString("sos_id");
+                break;
+            case "order":
+                id=jsonObject.getString("ids");
+                break;
+        }
+
+
+        RequestWeb.mark_read(
+                new JSONObject()
+                        .put("member_id", Config.member_id)
+                        .put("ids",  id)
+                        .put("type",  jsonObject.getString("type"))
+
+                        .toString()
+                , new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                        ToastUtils.showShortToast(context, e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+
+                        try {
+                            final JSONObject jsonObject = new JSONObject(response);
+                            if ("1".equals(jsonObject.getString("status"))) {
+
+                                EventBus.getDefault().post(new ChangedMessage());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+    }
 
     void parse(String data, Context context) throws JSONException {
-        LogUtils.e("sss" + "---" + data);
+
         if (!StringUtils.isEmpty(data)) {
             JSONObject jsonObject = new JSONObject(data);
+
             switch (jsonObject.getString("type")) {
                 case "sos":
+                    LogUtils.e("sss---" + jsonObject.getString("type") + "---" + data);
                     CarUtils.orderJump(
                             context,
                             "sos",
                             jsonObject.getInt("status"),
-                            jsonObject.getString("ids"),
+                            jsonObject.getJSONObject("data").getString("sos_id"),
                             false,
-                            jsonObject.getString("goods_comment"),
-                            jsonObject.getString("is_comment"),
-                            jsonObject.getString("exchange_id"),
-                            jsonObject.getString("exchange_status"));
+                            null,
+                            null,
+                            null,
+                            null);
                     break;
                 case "order":
                     if ("1".equals(jsonObject.getString("order_type"))) {

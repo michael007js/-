@@ -20,6 +20,7 @@ public class OrderModel implements Parcelable {
     public String member_id;
     public String is_comment;
     public String goods_comment;
+    public String is_bargain;
     public String type;
     public String total;
     public int status;
@@ -47,6 +48,7 @@ public class OrderModel implements Parcelable {
                 ", member_id='" + member_id + '\'' +
                 ", is_comment='" + is_comment + '\'' +
                 ", goods_comment='" + goods_comment + '\'' +
+                ", is_bargain='" + is_bargain + '\'' +
                 ", type='" + type + '\'' +
                 ", total='" + total + '\'' +
                 ", status=" + status +
@@ -54,6 +56,7 @@ public class OrderModel implements Parcelable {
                 ", name='" + name + '\'' +
                 ", picture='" + picture + '\'' +
                 ", lng='" + lng + '\'' +
+                ", damages='" + damages + '\'' +
                 ", lat='" + lat + '\'' +
                 ", id='" + id + '\'' +
                 ", status_name='" + status_name + '\'' +
@@ -79,6 +82,7 @@ public class OrderModel implements Parcelable {
         dest.writeString(this.member_id);
         dest.writeString(this.is_comment);
         dest.writeString(this.goods_comment);
+        dest.writeString(this.is_bargain);
         dest.writeString(this.type);
         dest.writeString(this.total);
         dest.writeInt(this.status);
@@ -108,6 +112,7 @@ public class OrderModel implements Parcelable {
         this.member_id = in.readString();
         this.is_comment = in.readString();
         this.goods_comment = in.readString();
+        this.is_bargain = in.readString();
         this.type = in.readString();
         this.total = in.readString();
         this.status = in.readInt();
@@ -125,7 +130,7 @@ public class OrderModel implements Parcelable {
         this.goods_data = in.createTypedArrayList(OrderModel_GoodsData.CREATOR);
     }
 
-    public static final Creator<OrderModel> CREATOR = new Creator<OrderModel>() {
+    public static final Parcelable.Creator<OrderModel> CREATOR = new Parcelable.Creator<OrderModel>() {
         @Override
         public OrderModel createFromParcel(Parcel source) {
             return new OrderModel(source);

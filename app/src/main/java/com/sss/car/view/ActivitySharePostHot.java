@@ -174,6 +174,8 @@ public class ActivitySharePostHot extends BaseFragmentActivity {
         parent_posted_activity_share_post_other_head = $.f(view, R.id.parent_posted_activity_share_post_other_head);
         posted_activity_share_post_other_head = $.f(view, R.id.posted_activity_share_post_other_head);
         setListener();
+
+        APPOftenUtils.setBackgroundOfVersion(last_activity_share_post_other_head,getResources().getDrawable(R.color.line));
         return view;
     }
 
@@ -187,6 +189,9 @@ public class ActivitySharePostHot extends BaseFragmentActivity {
                     fragmentCommunity_userinfo_posts.setEssence("0");
                     fragmentCommunity_userinfo_posts.p = 1;
                     fragmentCommunity_userinfo_posts.communityArticle(null);
+                    new_activity_share_post_other_head.setVisibility(View.GONE);
+                    last_activity_share_post_other_head.setVisibility(View.GONE);
+                    isOpen=false;
                 }
 
             }
@@ -200,6 +205,9 @@ public class ActivitySharePostHot extends BaseFragmentActivity {
                     fragmentCommunity_userinfo_posts.setEssence("1");
                     fragmentCommunity_userinfo_posts.p = 1;
                     fragmentCommunity_userinfo_posts.communityArticle(null);
+                    new_activity_share_post_other_head.setVisibility(View.GONE);
+                    last_activity_share_post_other_head.setVisibility(View.GONE);
+                    isOpen=false;
                 }
             }
         });

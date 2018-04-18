@@ -12,6 +12,7 @@ import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.JingDongCountDownView.SecondDownTimerView;
 import com.blankj.utilcode.customwidget.JingDongCountDownView.base.OnCountDownTimerListener;
+import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
 import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
@@ -23,17 +24,21 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedOrderModel;
+import com.sss.car.P;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.custom.ListViewOrderSellerDetails;
+import com.sss.car.dao.OnPayPasswordVerificationCallBack;
 import com.sss.car.model.OrderSellerModel;
 import com.sss.car.model.OrderSellerModel_Order_Goods;
 import com.sss.car.order_new.Constant;
 import com.sss.car.order_new.OrderCommentBuyer;
 import com.sss.car.order_new.OrderModel;
 import com.sss.car.utils.CarUtils;
+import com.sss.car.utils.MenuDialog;
 import com.sss.car.utils.OrderUtils;
 import com.sss.car.utils.PayUtils;
+import com.sss.car.view.ActivityMyDataSetPassword;
 import com.sss.car.view.ActivityShopInfo;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,6 +55,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
+
+import static com.sss.car.R.id.price;
 
 
 /**
@@ -120,6 +127,7 @@ public class OrderServiceMyOrderBuyer extends BaseActivity {
     SecondDownTimerView countdown;
     @BindView(R.id.parent_countdown)
     LinearLayout parentCountdown;
+    MenuDialog menuDialog;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -130,6 +138,10 @@ public class OrderServiceMyOrderBuyer extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (menuDialog!=null){
+            menuDialog.clear();
+        }
+        menuDialog=null;
         if (countdown != null) {
             countdown.cancelDownTimer();
         }
@@ -293,7 +305,7 @@ public class OrderServiceMyOrderBuyer extends BaseActivity {
                             public void onOKey(Dialog dialog) {
                                 dialog.dismiss();
                                 dialog = null;
-                                PayUtils.requestPayment(ywLoadingDialog,"0", orderModel.order_id, 2, 0, PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total),2), getBaseActivity());
+                                PayUtils.requestPayment(ywLoadingDialog,false,"0", orderModel.order_id, 2, 0, PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total),2), getBaseActivity(),null);
 //                                if (ywLoadingDialog != null) {
 //                                    ywLoadingDialog.dismiss();
 //                                }
@@ -354,6 +366,9 @@ public class OrderServiceMyOrderBuyer extends BaseActivity {
                 });
                 break;
             case Constant.Have_Already_Paid_Awating_Delivery:
+                if (orderSellerModel==null){
+                    ToastUtils.showShortToast(getBaseActivityContext(),"订单信息获取中");
+                }
                 clicks.setVisibility(View.VISIBLE);
                 parent.setVisibility(View.GONE);
                 clicks.setText("确认服务");
@@ -365,7 +380,48 @@ public class OrderServiceMyOrderBuyer extends BaseActivity {
                             public void onOKey(Dialog dialog) {
                                 dialog.dismiss();
                                 dialog = null;
-                                OrderUtils.service_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"));
+
+//                                P.e(ywLoadingDialog, Config.member_id, getBaseActivity(), new P.p() {
+//                                    @Override
+//                                    public void exist() {
+//                                        if (menuDialog == null) {
+//                                            menuDialog = new MenuDialog(getBaseActivity());
+//                                        }
+//                                        menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
+//                                            @Override
+//                                            public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+//                                                P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
+//                                                    @Override
+//                                                    public void match() {
+//                                                        bottomSheetDialog.dismiss();
+//                                                        passWordKeyboard.setStatus(true);
+//                                                        if (ywLoadingDialog==null){
+//                                                            ywLoadingDialog=new YWLoadingDialog(getBaseActivityContext());
+//                                                        }
+//                                                        OrderUtils.start(2,menuDialog,getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"),Double.parseDouble(orderSellerModel.total));
+//                                                    }
+//
+//                                                    @Override
+//                                                    public void mismatches() {
+//
+//                                                        passWordKeyboard.setStatus(false);
+//                                                    }
+//                                                });
+//                                            }
+//
+//                                        });
+//                                    }
+//
+//
+//                                    @Override
+//                                    public void nonexistence() {
+//                                        if (getBaseActivityContext() != null) {
+//                                            startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSetPassword.class));
+//                                        }
+//                                    }
+//                                });
+                                OrderUtils.start(2,menuDialog,getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"),Double.parseDouble(orderSellerModel.total));
+
                             }
 
                             @Override

@@ -777,6 +777,7 @@ public class FragmentGoodsServiceDetailsGoods extends BaseFragment {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.shop_coupon(
                     new JSONObject()
                             .put("shop_id", shop_id)
+                            .put("goods_id",goods_id)
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {

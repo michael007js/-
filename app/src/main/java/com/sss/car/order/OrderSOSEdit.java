@@ -297,7 +297,7 @@ public class OrderSOSEdit extends BaseActivity {
     public void onMessageEvent(ChooseAdress event) {
         sendLai = event.lai;
         sengLng = event.lng;
-        showAddressOrderSOSEdit.setText(event.province+event.city+event.district+event.adress);
+        showAddressOrderSOSEdit.setText(event.province + event.city + event.district + event.adress);
     }
 
     @OnClick({R.id.back_top, R.id.no_exist_order_goods_ready_buy_edit, R.id.right_button_top, R.id.click_one_key_write_car_order_goods_ready_buy_edit, R.id.click_one_key_location_order_goods_ready_buy_edit, R.id.click_one_key_write_address_order_goods_ready_buy_edit, R.id.click_choose_car_order_goods_ready_buy_edit, R.id.click_type_order_goods_ready_buy_edit, R.id.click_address_order_goods_ready_buy_edit, R.id.click_time_order_goods_ready_buy_edit, R.id.click_penal_sum_order_goods_ready_buy_edit, R.id.click_other_sum_order_goods_ready_buy_edit, R.id.click_submit_order_goods_ready_buy_edit})
@@ -411,7 +411,7 @@ public class OrderSOSEdit extends BaseActivity {
                                     showOtherOrderSOSEdit.setText(jsonObject1.getString("remark"));
                                     input.setText(jsonObject1.getString("title"));
                                     String a = jsonObject1.getString("price");
-                                    if (!StringUtils.isEmpty(carOrderSOSEdit.getText().toString().trim())){
+                                    if (!StringUtils.isEmpty(carOrderSOSEdit.getText().toString().trim())) {
                                         noExistOrderSOSEdit.setVisibility(View.GONE);
                                         isExistOrderSOSEdit.setVisibility(View.VISIBLE);
                                     }
@@ -424,7 +424,6 @@ public class OrderSOSEdit extends BaseActivity {
                                         listPhoto.add(jsonArray.getString(i));
                                     }
                                     sss_adapter.setList(listPhoto);
-
 
 
                                 } else {
@@ -1195,9 +1194,13 @@ public class OrderSOSEdit extends BaseActivity {
         JSONArray picture = new JSONArray();
         for (int i = 0; i < listPhoto.size(); i++) {
             if (!"default".equals(listPhoto.get(i))) {
-                picture.put(ConvertUtils.bitmapToBase64(BitmapUtils.decodeSampledBitmapFromFile(listPhoto.get(i),
-                        getWindowManager().getDefaultDisplay().getWidth(),
-                        getWindowManager().getDefaultDisplay().getHeight())));
+                if (!listPhoto.get(i).startsWith("/public/")) {
+                    picture.put(ConvertUtils.bitmapToBase64(BitmapUtils.decodeSampledBitmapFromFile(listPhoto.get(i),
+                            getWindowManager().getDefaultDisplay().getWidth(),
+                            getWindowManager().getDefaultDisplay().getHeight())));
+                } else {
+                    picture.put(listPhoto.get(i));
+                }
             }
         }
         try {
@@ -1268,15 +1271,20 @@ public class OrderSOSEdit extends BaseActivity {
         ywLoadingDialog.show();
         JSONArray picture = new JSONArray();
         for (int i = 0; i < listPhoto.size(); i++) {
-            if (!"default".equals(listPhoto.get(i))) {
+
+            if (!listPhoto.get(i).startsWith("/public/")) {
                 picture.put(ConvertUtils.bitmapToBase64(BitmapUtils.decodeSampledBitmapFromFile(listPhoto.get(i),
                         getWindowManager().getDefaultDisplay().getWidth(),
                         getWindowManager().getDefaultDisplay().getHeight())));
+            } else {
+                picture.put(listPhoto.get(i));
             }
+
         }
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.saveSOS(
                     new JSONObject()
+                            .put("sos_id", getIntent().getExtras().getString("sos_id"))
                             .put("status", "0")//0草稿箱，1立即求助（求助中），2进行中，3已完成
                             .put("mobile", mobileNameOrderSOSEdit.getText().toString().trim())
                             .put("recipients", peopleNameOrderSOSEdit.getText().toString().trim())

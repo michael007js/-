@@ -1529,7 +1529,15 @@ public class RequestWeb {
     public static Call cancelOrder(String send, StringCallback stringCallback) {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Order/cancel", send, "取消订单", stringCallback);
     }
-
+    /**
+     * 确认服务
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call service_goods(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Order/service_goods", send, "确认服务", stringCallback);
+    }
     /**
      * 确认收货
      *
@@ -1560,15 +1568,7 @@ public class RequestWeb {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Order/confirm_goods", send, "商家确认收货（退货）", stringCallback);
     }
 
-    /**
-     * 确认服务
-     *
-     * @param send
-     * @param stringCallback
-     */
-    public static Call service_goods(String send, StringCallback stringCallback) {
-        return Webbiz.requestByString(Config.url + "/index.php/Api/Order/service_goods", send, "确认服务", stringCallback);
-    }
+
 
     /**
      * 删除已交易成功的订单
@@ -1759,6 +1759,16 @@ public class RequestWeb {
     }
 
     /**
+     * 用户订单议价
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call bargain(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Order/bargain", send, "用户订单议价 ", stringCallback);
+    }
+
+    /**
      * 取消SOS订单信息(卖家版)
      *
      * @param send
@@ -1788,6 +1798,35 @@ public class RequestWeb {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Order/detail", send, "获取订单详情(卖家版)", stringCallback);
     }
 
+    /**
+     * 同意拒绝
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call status_bargain(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Order/status_bargain", send, "同意拒绝", stringCallback);
+    }
+
+    /**
+     * 获取商品订单商品列表
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call pay_goods_list(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Order/goods_list", send, "获取商品订单商品列表", stringCallback);
+    }
+
+    /**
+     * 更新商品价格
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call pay_order_goods(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Order/order_goods", send, "更新商品价格", stringCallback);
+    }
     /**
      * 支出和收入同意或者拒绝
      *
@@ -2611,7 +2650,15 @@ public class RequestWeb {
     public static Call oneKeyRead(String send, StringCallback stringCallback) {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Classify/read", send, "消息一键已读", stringCallback);
     }
-
+    /**
+     * 标记消息已读
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call mark_read(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Classify/mark_read", send, "标记消息已读", stringCallback);
+    }
     /**
      * 全局搜索
      *
@@ -2937,5 +2984,14 @@ public class RequestWeb {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Member/service_remark", send, "设置客服备注", stringCallback);
     }
 
+    /**
+     * 获取公众号二维码信息
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call qr_pic(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Login/Setting", send, "获取公众号二维码信息", stringCallback);
+    }
 
 }

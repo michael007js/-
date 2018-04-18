@@ -116,10 +116,19 @@ public class CarGarageAdapter extends BaseAdapter {
             }
             carGarageAdapterHolder.default_item_car_list_adapter_content.setTextColor(context.getResources().getColor(R.color.mainColor));
             carGarageAdapterHolder.default_item_car_list_adapter_content.setOnClickListener(null);
+            carGarageAdapterHolder.default_logo_item_car_list_adapter_content.setOnClickListener(null);
         }else {
             loadImageCallBack.onLoad(GlidUtils.glideLoad(false,carGarageAdapterHolder.default_logo_item_car_list_adapter_content,context,R.mipmap.yes_un));
             carGarageAdapterHolder.default_item_car_list_adapter_content.setTextColor(Color.parseColor("#383838"));
             carGarageAdapterHolder.default_item_car_list_adapter_content.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (carGarageCallBack!=null){
+                        carGarageCallBack.onDefault(list.get(position));
+                    }
+                }
+            });
+            carGarageAdapterHolder.default_logo_item_car_list_adapter_content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (carGarageCallBack!=null){

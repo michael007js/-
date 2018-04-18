@@ -105,13 +105,29 @@ public class CarUtils {
         switch (type) {
             //1实物订单，2服务订单，3SOS订单
             case "sos":
-                sos(context, status, ids, goodsComment, isComment);
+                sos(context, status, ids, null);
                 break;
             case "goods":
-                goods(context, status, ids, isIncome, goodsComment, isComment, exchange_id, exchange_status);
+                goods(context, status, ids, isIncome, goodsComment, isComment, exchange_id, exchange_status,null);
                 break;
             case "service":
-                service(context, status, ids, isIncome, goodsComment, isComment);
+                service(context, status, ids, isIncome, goodsComment, isComment,null);
+                break;
+        }
+    }
+
+    public static void orderJump(Context context, String type, int status, String ids, boolean isIncome, String goodsComment, String isComment, String exchange_id, String exchange_status,String is_bargain) {
+        LogUtils.e("type:" + type + "     status:" + status + "     id:" + ids + "     isIncome:" + isIncome + "     goodsComment:" + goodsComment + "     isComment:" + isComment + "     exchange_status:" + exchange_status);
+        switch (type) {
+            //1实物订单，2服务订单，3SOS订单
+            case "sos":
+                sos(context, status, ids, is_bargain);
+                break;
+            case "goods":
+                goods(context, status, ids, isIncome, goodsComment, isComment, exchange_id, exchange_status, is_bargain);
+                break;
+            case "service":
+                service(context, status, ids, isIncome, goodsComment, isComment, is_bargain);
                 break;
         }
     }
@@ -124,7 +140,7 @@ public class CarUtils {
      * @param ids
      * @param isIncome
      */
-    private static void goods(Context context, int status, String ids, boolean isIncome, String goodsComment, String isComment, String exchange_id, String exchange_status) {
+    private static void goods(Context context, int status, String ids, boolean isIncome, String goodsComment, String isComment, String exchange_id, String exchange_status,String is_bargain) {
         switch (status) {
             case Constant.Ready_Buy://预购
                 if (isIncome) {
@@ -168,17 +184,34 @@ public class CarUtils {
                 break;
             case Constant.Have_Already_Delivery_Awating_Sign_For:
                 if (isIncome) {
-                    context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                    context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
-                            .putExtra("status", status)
-                            .putExtra("buttonTitle", "待签收"));
+                            .putExtra("exchange_id", exchange_id)
+                            .putExtra("is_bargain",is_bargain)
+                            .putExtra("exchange_status", exchange_status)
+                            .putExtra("status", status));
+//                    context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+//                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                            .putExtra("order_id", ids)
+//                            .putExtra("status", status)
+//                            .putExtra("buttonTitle", "待签收"));
                 } else {
+
+                    if ("0".equals(exchange_status)){
                     context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("order_id", ids)
                             .putExtra("isIncome", isIncome)
                             .putExtra("status", status));
+                    }else {
+                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("order_id", ids)
+                                .putExtra("grayness", true)
+                                .putExtra("buttonTitle", "待处理"));
+                    }
+
                 }
                 break;
             case Constant.Awating_Comment:
@@ -236,11 +269,11 @@ public class CarUtils {
                                 .putExtra("grayness", true)
                                 .putExtra("buttonTitle", "已同意"));
                     } else if ("2".equals(exchange_status)) {
-                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                        context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
-                                .putExtra("grayness", true)
-                                .putExtra("buttonTitle", "未同意"));
+                                .putExtra("",exchange_status)
+                                .putExtra("status", status));
                     } else {
                         context.startActivity(new Intent(context, OrderGoodsOrderSendSeller.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -257,11 +290,17 @@ public class CarUtils {
                                 .putExtra("isIncome", isIncome)
                                 .putExtra("status", status));
                     } else if ("2".equals(exchange_status)) {
-                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+//                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+//                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                                .putExtra("order_id", ids)
+//                                .putExtra("grayness", true)
+//                                .putExtra("buttonTitle", "未同意"));
+                        context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
-                                .putExtra("grayness", true)
-                                .putExtra("buttonTitle", "未同意"));
+                                .putExtra("exchange_status",exchange_status)
+                                .putExtra("isIncome", isIncome)
+                                .putExtra("status",status));
                     }else {
                         context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -382,7 +421,7 @@ public class CarUtils {
      * @param ids
      * @param isIncome
      */
-    private static void service(Context context, int status, String ids, boolean isIncome, String goodsComment, String isComment) {
+    private static void service(Context context, int status, String ids, boolean isIncome, String goodsComment, String isComment,String is_bargain) {
         switch (status) {
             case Constant.Ready_Buy://预购
                 if (isIncome) {
@@ -491,7 +530,7 @@ public class CarUtils {
      * @param status
      * @param ids
      */
-    private static void sos(Context context, int status, String ids, String goodsComment, String isComment) {
+    public static void sos(Context context, int status, String ids,String is_bargain) {
         LogUtils.e(status);
         switch (status) {
             case 0://求助中

@@ -853,6 +853,7 @@ public class OrderServiceReadyBuy extends BaseActivity {
                 couponModel3.is_check = jsonArray.getJSONObject(i).getString("is_check");
                 list.add(couponModel3);
                 showCouponOrderServiceReadyBuy.setTextColor(getResources().getColor(R.color.black));
+                showCouponOrderServiceReadyBuy.setText("优惠券可用");
 //                if ("1".equals(couponModel3.is_check)) {
 //                    showCouponOrderServiceReadyBuy.setText(couponModel3.name);
 //                    coupon_id = couponModel3.id;
@@ -991,10 +992,13 @@ public class OrderServiceReadyBuy extends BaseActivity {
                 integrityMoneyModel.is_check = jsonArray.getJSONObject(i).getString("is_check");
                 integrityMoneyModel.name = jsonArray.getJSONObject(i).getString("name");
                 if ("1".equals(integrityMoneyModel.is_check)) {
-//                    showPenalSumOrderServiceReadyBuy.setText(integrityMoneyModel.name);
+                    penalSum = integrityMoneyModel.name;
+                    if (showPenalSumOrderServiceReadyBuy!=null) {
+                        showPenalSumOrderServiceReadyBuy.setText(integrityMoneyModel.name);
+                    }
                 }
                 integrityMoneyList.add(integrityMoneyModel);
-//                penalSum = integrityMoneyModel.name;
+//
             }
 
         }

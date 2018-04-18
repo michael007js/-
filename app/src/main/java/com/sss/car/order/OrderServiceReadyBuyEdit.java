@@ -563,6 +563,7 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.getOrderDetailsSeller(
                     new JSONObject()
+                            .put("member_id",Config.member_id)
                             .put("order_id", getIntent().getExtras().getString("order_id"))
                             .toString()
                     , new StringCallback() {
@@ -828,6 +829,7 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                 couponModel3.is_check = jsonArray.getJSONObject(i).getString("is_check");
                 list.add(couponModel3);
                 showCouponOrderServiceReadyBuyEdit.setTextColor(getResources().getColor(R.color.black));
+                showCouponOrderServiceReadyBuyEdit.setText("优惠券可用");
                 LogUtils.e((couponModel3.is_check));
 //                if ("1".equals(couponModel3.is_check)) {
 //                    showCouponOrderServiceReadyBuyEdit.setText(couponModel3.name);
@@ -968,7 +970,10 @@ public class OrderServiceReadyBuyEdit extends BaseActivity {
                 integrityMoneyModel.name = jsonArray.getJSONObject(i).getString("name");
                 if ("1".equals(integrityMoneyModel.is_check)) {
                     LogUtils.e(integrityMoneyModel.is_check);
-                    showPenalSumOrderServiceReadyBuyEdit.setText(integrityMoneyModel.name);
+                    penalSum=jsonArray.getJSONObject(i).getString("name");
+                    if (showPenalSumOrderServiceReadyBuyEdit!=null) {
+                        showPenalSumOrderServiceReadyBuyEdit.setText(integrityMoneyModel.name);
+                    }
                 }
                 integrityMoneyList.add(integrityMoneyModel);
                 penalSum = integrityMoneyModel.name;

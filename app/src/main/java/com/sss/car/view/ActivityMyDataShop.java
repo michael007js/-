@@ -119,6 +119,9 @@ public class ActivityMyDataShop extends BaseActivity {
                     setshopInfo("设置商铺地址", new JSONObject()
                             .put("lat", event.lat)
                             .put("lng", event.lng)
+                            .put("province",event.province)
+                            .put("city",event.city)
+                            .put("county",event.district)
                             .put("address", event.msg));
                     showAdressActivityMyDataShop.setText(event.msg);
                 } catch (JSONException e) {
@@ -183,6 +186,9 @@ public class ActivityMyDataShop extends BaseActivity {
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityChangeInfoShopAddress.class)
                             .putExtra("canChange", true)
+                            .putExtra("district",myDataShopModel.county)
+                            .putExtra("city",myDataShopModel.city)
+                            .putExtra("province",myDataShopModel.province)
                             .putExtra("type", "shopAdress").putExtra("extra", myDataShopModel.address));
                 }
                 break;
@@ -253,6 +259,9 @@ public class ActivityMyDataShop extends BaseActivity {
                                     JSONObject jsonObject = new JSONObject(response);
                                     if ("1".equals(jsonObject.getString("status"))) {
                                         myDataShopModel.shop_id = jsonObject.getJSONObject("data").getString("shop_id");
+                                        myDataShopModel. province =jsonObject.getJSONObject("data").getString("province");
+                                        myDataShopModel. city =jsonObject.getJSONObject("data").getString("city");
+                                        myDataShopModel. county =jsonObject.getJSONObject("data").getString("county");
                                         myDataShopModel.name = jsonObject.getJSONObject("data").getString("name");
                                         myDataShopModel.logo = jsonObject.getJSONObject("data").getString("logo");
                                         myDataShopModel.address = jsonObject.getJSONObject("data").getString("address");

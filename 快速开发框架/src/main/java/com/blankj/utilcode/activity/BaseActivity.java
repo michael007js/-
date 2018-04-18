@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -157,9 +159,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
     }
 
 
-
-
-
     /**
      * 1、获取main在窗体的可视区域
      * 2、获取main在窗体的不可视区域高度
@@ -273,8 +272,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
     /**
      * 请求权限
      */
-    public void requestPermissions(List<PermissionItem> permissionItemList,PermissionCallback permissionCallback) {
-        PermissionUtils.requestRunTimePermission(getBaseActivityContext(),permissionItemList,permissionCallback);
+    public void requestPermissions(List<PermissionItem> permissionItemList, PermissionCallback permissionCallback) {
+        PermissionUtils.requestRunTimePermission(getBaseActivityContext(), permissionItemList, permissionCallback);
     }
 
     @Override
@@ -373,12 +372,13 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        BadgerUtils.removeCount(getBaseActivityContext());
+        BadgerUtils.applyCount(getBaseActivityContext(),0);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BadgerUtils.applyCount(getBaseActivityContext(),0);
         if (ywLoadingDialog != null) {
             ywLoadingDialog.dismiss();
         }

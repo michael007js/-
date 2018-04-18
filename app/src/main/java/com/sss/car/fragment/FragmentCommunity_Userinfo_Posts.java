@@ -57,11 +57,11 @@ public class FragmentCommunity_Userinfo_Posts extends BaseFragment implements
         LoadImageCallBack,
         Community_Userinfo_PostsOperationCallBack,
         NineAdapter2OperationCallBack {
-        @BindView(R.id.can_content_view)
+    @BindView(R.id.can_content_view)
     public PullToRefreshListView canContentView;
     Unbinder unbinder;
     YWLoadingDialog ywLoadingDialog;
-   public int p = 1;
+    public int p = 1;
     String cate_id;
     String confirm;
     String friend_id;
@@ -72,12 +72,12 @@ public class FragmentCommunity_Userinfo_Posts extends BaseFragment implements
 
     String collect;//如果传1，则为兴趣社区，否则为其他
 
-    boolean isShow=false;//控制是否显示type_name_item_community_userinfo_posts_adapter与arrows_item_community_userinfo_posts_adapter
-   public List<Community_Userinfo_Posts_Model> list = new ArrayList<>();
+    boolean isShow = false;//控制是否显示type_name_item_community_userinfo_posts_adapter与arrows_item_community_userinfo_posts_adapter
+    public List<Community_Userinfo_Posts_Model> list = new ArrayList<>();
 
     Community_Userinfo_PostsAdapter community_userinfo_postsAdapter;
 
-boolean isNeedEmptyView;
+    boolean isNeedEmptyView;
     CustomRefreshLayoutCallBack addHeadViewCallBack;
 
     public FragmentCommunity_Userinfo_Posts() {
@@ -87,18 +87,18 @@ boolean isNeedEmptyView;
      * 分享==>社区调用
      *
      * @param isShow
-     * @param cate_id 此参数如果不传,则默认刷新所有类型的集合
-     * @param confirm 社区调用,假如需要查看我的帖子,则需要传1
-     * @param collect 社区调用,假如需要查看兴趣社区,则需要传1
+     * @param cate_id             此参数如果不传,则默认刷新所有类型的集合
+     * @param confirm             社区调用,假如需要查看我的帖子,则需要传1
+     * @param collect             社区调用,假如需要查看兴趣社区,则需要传1
      * @param addHeadViewCallBack
      */
-    public FragmentCommunity_Userinfo_Posts(boolean isNeedEmptyView,boolean isShow,String cate_id, String confirm,String collect,CustomRefreshLayoutCallBack addHeadViewCallBack) {
-        this.isNeedEmptyView=isNeedEmptyView;
-       this.isShow=isShow;
+    public FragmentCommunity_Userinfo_Posts(boolean isNeedEmptyView, boolean isShow, String cate_id, String confirm, String collect, CustomRefreshLayoutCallBack addHeadViewCallBack) {
+        this.isNeedEmptyView = isNeedEmptyView;
+        this.isShow = isShow;
         this.cate_id = cate_id;
-        this.collect=collect;
+        this.collect = collect;
         this.confirm = confirm;
-        this.addHeadViewCallBack=addHeadViewCallBack;
+        this.addHeadViewCallBack = addHeadViewCallBack;
 
     }
 
@@ -124,13 +124,12 @@ boolean isNeedEmptyView;
      *
      * @param friend_id 帖子调用,则需要传ID
      */
-    public FragmentCommunity_Userinfo_Posts(boolean isNeedEmptyView,boolean isShow,String friend_id,CustomRefreshLayoutCallBack addHeadViewCallBack) {
-        this.isNeedEmptyView=isNeedEmptyView;
-        this.isShow=isShow;
+    public FragmentCommunity_Userinfo_Posts(boolean isNeedEmptyView, boolean isShow, String friend_id, CustomRefreshLayoutCallBack addHeadViewCallBack) {
+        this.isNeedEmptyView = isNeedEmptyView;
+        this.isShow = isShow;
         this.friend_id = friend_id;
-        this.addHeadViewCallBack=addHeadViewCallBack;
+        this.addHeadViewCallBack = addHeadViewCallBack;
     }
-
 
 
     @Override
@@ -154,52 +153,52 @@ boolean isNeedEmptyView;
 
     @Override
     protected void lazyLoad() {
-      if (!isLoad){
-          new Thread() {
-              @Override
-              public void run() {
-                  super.run();
-                  try {
-                      sleep(100);
-                      getActivity().runOnUiThread(new Runnable() {
-                          @Override
-                          public void run() {
-                              canContentView.setMode(PullToRefreshBase.Mode.BOTH);
-                              if (isNeedEmptyView){
-                                  canContentView.setEmptyView(LayoutInflater.from(getBaseFragmentActivityContext()).inflate(R.layout.empty_view,null));
-                              }
-                              canContentView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-                                  @Override
-                                  public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                                      p = 1;
-                                      communityArticle(null);
-                                  }
+        if (!isLoad) {
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        sleep(100);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                canContentView.setMode(PullToRefreshBase.Mode.BOTH);
+                                if (isNeedEmptyView) {
+                                    canContentView.setEmptyView(LayoutInflater.from(getBaseFragmentActivityContext()).inflate(R.layout.empty_view, null));
+                                }
+                                canContentView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+                                    @Override
+                                    public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                                        p = 1;
+                                        communityArticle(null);
+                                    }
 
-                                  @Override
-                                  public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                                    @Override
+                                    public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 
-                                      communityArticle(null);
-                                  }
-                              });
+                                        communityArticle(null);
+                                    }
+                                });
 
 
-                              community_userinfo_postsAdapter = new Community_Userinfo_PostsAdapter(isShow,getBaseFragmentActivityContext(), list,
-                                      FragmentCommunity_Userinfo_Posts.this,
-                                      FragmentCommunity_Userinfo_Posts.this,
-                                      FragmentCommunity_Userinfo_Posts.this);
-                              canContentView.setAdapter(community_userinfo_postsAdapter);
-                              if (addHeadViewCallBack != null) {
-                                  addHeadViewCallBack.onAdd(canContentView.getRefreshableView());
-                              }
-                              communityArticle(null);
-                          }
-                      });
-                  } catch (InterruptedException e) {
-                      e.printStackTrace();
-                  }
-              }
-          }.start();
-      }
+                                community_userinfo_postsAdapter = new Community_Userinfo_PostsAdapter(isShow, getBaseFragmentActivityContext(), list,
+                                        FragmentCommunity_Userinfo_Posts.this,
+                                        FragmentCommunity_Userinfo_Posts.this,
+                                        FragmentCommunity_Userinfo_Posts.this);
+                                canContentView.setAdapter(community_userinfo_postsAdapter);
+                                if (addHeadViewCallBack != null) {
+                                    addHeadViewCallBack.onAdd(canContentView.getRefreshableView());
+                                }
+                                communityArticle(null);
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
 
     }
 
@@ -227,7 +226,6 @@ boolean isNeedEmptyView;
 
     /**
      * 获取动态社区文章
-     *
      */
     public void communityArticle(final TextView textView) {
         try {
@@ -236,22 +234,26 @@ boolean isNeedEmptyView;
                             .put("p", p)
                             .put("member_id", Config.member_id)
                             .put("cate_id", cate_id)
-                            .put("collect",collect)
+                            .put("collect", collect)
                             .put("confirm", confirm)//如果在分享==>社区调用,假如需要查看我的帖子,则需要传1其余地方调用的全部都不传
                             .put("friend_id", friend_id)//如果在用户信息==>帖子调用,则需要传ID,其他地方调用的全部不传
-                            .put("essence",essence)//精华
-                            .put("reply",reply)//最后回复
-                            .put("newest",newest)//最新发布
+                            .put("essence", essence)//精华
+                            .put("reply", reply)//最后回复
+                            .put("newest", newest)//最新发布
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
                             ToastUtils.showShortToast(getBaseFragmentActivityContext(), e.getMessage());
-                            canContentView.onRefreshComplete();
+                            if (canContentView != null) {
+                                canContentView.onRefreshComplete();
+                            }
                         }
 
                         @Override
                         public void onResponse(String response, int id) {
-                            canContentView.onRefreshComplete();
+                            if (canContentView != null) {
+                                canContentView.onRefreshComplete();
+                            }
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
@@ -283,20 +285,22 @@ boolean isNeedEmptyView;
                                         community_userinfo_posts_model.comment_count = jsonArray.getJSONObject(i).getString("comment_count");
 
 
-                                        JSONArray jsonArray1=jsonArray.getJSONObject(i).getJSONArray("picture");
-                                        if (jsonArray1.length()>0){
-                                            List<String> pic=new ArrayList<>();
+                                        JSONArray jsonArray1 = jsonArray.getJSONObject(i).getJSONArray("picture");
+                                        if (jsonArray1.length() > 0) {
+                                            List<String> pic = new ArrayList<>();
                                             for (int j = 0; j < jsonArray1.length(); j++) {
                                                 pic.add(jsonArray1.getString(j));
                                             }
-                                            community_userinfo_posts_model.picture=pic;
+                                            community_userinfo_posts_model.picture = pic;
                                         }
 
                                         list.add(community_userinfo_posts_model);
                                     }
-                                    community_userinfo_postsAdapter.refresh(list);
-                                    if (textView!=null){
-                                        APPOftenUtils.setBackgroundOfVersion(textView,getResources().getDrawable(R.color.line));
+                                    if (community_userinfo_postsAdapter != null) {
+                                        community_userinfo_postsAdapter.refresh(list);
+                                    }
+                                    if (textView != null) {
+                                        APPOftenUtils.setBackgroundOfVersion(textView, getResources().getDrawable(R.color.line));
                                     }
 
                                 } else {
@@ -314,8 +318,9 @@ boolean isNeedEmptyView;
             e.printStackTrace();
         }
     }
+
     /**
-     *  获取帖子评论。点赞。分享数据
+     * 获取帖子评论。点赞。分享数据
      *
      * @param community_id
      */
@@ -332,7 +337,7 @@ boolean isNeedEmptyView;
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.getPostsPraiseCommentSharenumber(
                     new JSONObject()
                             .put("member_id", Config.member_id)
-                            .put("community_id",cid)
+                            .put("community_id", cid)
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
@@ -353,11 +358,11 @@ boolean isNeedEmptyView;
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     for (int i = 0; i < list.size(); i++) {
-                                        if (list.get(i).community_id.equals(cid)){
-                                            list.get(i).comment_count=jsonObject.getJSONObject("data").getString("comment_count");
-                                            list.get(i).collect_count=jsonObject.getJSONObject("data").getString("collect_count");
-                                            list.get(i).share=jsonObject.getJSONObject("data").getString("share");
-                                            list.get(i).is_collect=jsonObject.getJSONObject("data").getString("is_collect");
+                                        if (list.get(i).community_id.equals(cid)) {
+                                            list.get(i).comment_count = jsonObject.getJSONObject("data").getString("comment_count");
+                                            list.get(i).collect_count = jsonObject.getJSONObject("data").getString("collect_count");
+                                            list.get(i).share = jsonObject.getJSONObject("data").getString("share");
+                                            list.get(i).is_collect = jsonObject.getJSONObject("data").getString("is_collect");
                                             community_userinfo_postsAdapter.refresh(list);
                                             return;
                                         }
@@ -419,13 +424,13 @@ boolean isNeedEmptyView;
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     if ("1".equals(jsonObject.getJSONObject("data").getString("code"))) {
                                         model.collect_count = String.valueOf(Integer.valueOf(model.collect_count) + 1);
-                                        model.is_collect="1";
+                                        model.is_collect = "1";
                                     } else if ("0".equals(jsonObject.getJSONObject("data").getString("code"))) {
                                         model.collect_count = String.valueOf(Integer.valueOf(model.collect_count) - 1);
-                                        model.is_collect="0";
+                                        model.is_collect = "0";
                                     }
                                     FragmentCommunity_Userinfo_Posts.this.list.set(position, model);
-                                    community_userinfo_postsAdapter.updateItem(position, FragmentCommunity_Userinfo_Posts.this.list,canContentView.getRefreshableView());
+                                    community_userinfo_postsAdapter.updateItem(position, FragmentCommunity_Userinfo_Posts.this.list, canContentView.getRefreshableView());
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
                                 }
@@ -453,6 +458,7 @@ boolean isNeedEmptyView;
 
     /**
      * 类型被点击
+     *
      * @param model
      * @param list
      * @param position
@@ -461,13 +467,14 @@ boolean isNeedEmptyView;
     public void onType(Community_Userinfo_Posts_Model model, List<Community_Userinfo_Posts_Model> list, int position) {
         if (getBaseFragmentActivityContext() != null) {
             getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivitySharePostOther.class)
-                    .putExtra("cate_id",model.cate_id)
-                    .putExtra("cate_name",model.cate_name));
+                    .putExtra("cate_id", model.cate_id)
+                    .putExtra("cate_name", model.cate_name));
         }
     }
 
     /**
      * item被点击
+     *
      * @param model
      * @param list
      * @param position
@@ -476,7 +483,7 @@ boolean isNeedEmptyView;
     public void onClickItem(Community_Userinfo_Posts_Model model, List<Community_Userinfo_Posts_Model> list, int position) {
         if (getBaseFragmentActivityContext() != null) {
             getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivitySharePostDetails.class)
-                    .putExtra("community_id",model.community_id));
+                    .putExtra("community_id", model.community_id));
         }
     }
 
@@ -491,8 +498,8 @@ boolean isNeedEmptyView;
     public void onComment(Community_Userinfo_Posts_Model model, List<Community_Userinfo_Posts_Model> list, int position) {
         if (getBaseFragmentActivityContext() != null) {
             getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivitySharePostDetails.class)
-                    .putExtra("community_id",model.community_id)
-            .putExtra("is_show_keyboard",true));
+                    .putExtra("community_id", model.community_id)
+                    .putExtra("is_show_keyboard", true));
         }
     }
 
@@ -505,7 +512,7 @@ boolean isNeedEmptyView;
      */
     @Override
     public void onShare(Community_Userinfo_Posts_Model model, List<Community_Userinfo_Posts_Model> list, int position) {
-        ShareUtils.prepareShare(ywLoadingDialog,getActivity(),"community",model.community_id);
+        ShareUtils.prepareShare(ywLoadingDialog, getActivity(), "community", model.community_id);
     }
 
     /**
@@ -529,14 +536,14 @@ boolean isNeedEmptyView;
      */
     @Override
     public void onClickImage(int position, String url, List<String> urlList) {
-            if (getBaseFragmentActivityContext() != null) {
-                List<String> temp=new ArrayList<>();
-                for (int i = 0; i < urlList.size(); i++) {
-                    temp.add(Config.url+urlList.get(i));
-                }
-                startActivity(new Intent(getBaseFragmentActivityContext(), ActivityImages.class)
-                        .putStringArrayListExtra("data", (ArrayList<String>) temp)
-                        .putExtra("current", position));
+        if (getBaseFragmentActivityContext() != null) {
+            List<String> temp = new ArrayList<>();
+            for (int i = 0; i < urlList.size(); i++) {
+                temp.add(Config.url + urlList.get(i));
             }
+            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityImages.class)
+                    .putStringArrayListExtra("data", (ArrayList<String>) temp)
+                    .putExtra("current", position));
+        }
     }
 }

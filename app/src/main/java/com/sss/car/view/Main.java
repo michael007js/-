@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -25,16 +24,15 @@ import com.blankj.utilcode.dao.Webbiz;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.BadgerUtils;
-import com.blankj.utilcode.util.BitmapUtils;
 import com.blankj.utilcode.util.CountDownTimerUtils;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.SettingUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedBlackList;
+import com.sss.car.EventBusModel.ChangedChatList;
 import com.sss.car.EventBusModel.ChangedDynamicList;
 import com.sss.car.EventBusModel.ChangedMessage;
 import com.sss.car.EventBusModel.ChangedMessageList;
@@ -67,12 +65,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.model.PhotoInfo;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.RongIMClient;
@@ -81,8 +76,6 @@ import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
-
-import static android.R.id.list;
 
 
 /**
@@ -162,6 +155,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
         setContentView(R.layout.main);
         ButterKnife.bind(this);
         requestAPPLicense();
+
     }
 
 
@@ -272,6 +266,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
                                 Config.face = jsonObject.getJSONObject("data").getString("face");
                                 Config.flash = jsonObject.getJSONObject("data").getInt("flash") * 1000;
                                 Config.mobile = jsonObject.getJSONObject("data").getString("mobile");
+                                Config.account = jsonObject.getJSONObject("data").getString("account");
                                 Config.token = jsonObject.getJSONObject("data").getString("token");
                                 RongYunUtils.connect(Config.token, new RongIMClient.ConnectCallback() {
                                     @Override
@@ -458,7 +453,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
         RongYunUtils.registerConversationExtend();
         RongIM.setOnReceiveMessageListener(this);
         customInit(main, false, false, true);
-        MyApplication.initJiGuangUser(Config.mobile, getBaseActivityContext().getApplicationContext());
+        MyApplication.initJiGuangUser(Config.account, getBaseActivityContext().getApplicationContext());
         RongYunUtils.setCurrentUserInfo(new UserInfo(Config.member_id, Config.nikename, Uri.parse(Config.url + Config.face)));
         countDownTimerUtils.start();
         navMenuLayoutMain.setOnItemSelectedListener(new NavMenuLayout.OnItemSelectedListener() {
@@ -584,8 +579,9 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
             @Override
             public UserInfo getUserInfo(String s) {
                 try {
-                    RequestWeb.getUserInfo(new JSONObject()
-                            .put("member_id", s)
+                    RequestWeb.trends_member(new JSONObject()
+                            .put("member_id", Config.member_id)
+                            .put("friend_id", s)
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
@@ -597,7 +593,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     RongYunUtils.refreshUserinfo(jsonObject.getJSONObject("data").getString("member_id"),
-                                            jsonObject.getJSONObject("data").getString("username"),
+                                            jsonObject.getJSONObject("data").getString("remark"),
                                             Uri.parse(Config.url + jsonObject.getJSONObject("data").getString("face")));
                                 }
                             } catch (JSONException e) {
@@ -717,6 +713,7 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
         content = new String(message.getContent().encode()).toString();
         LogUtils.e(message.getSenderUserId() + "--" + message.getTargetId());
         message.setExtra(messageType);
+            BadgerUtils.applyCount(   getBaseActivityContext(), 1);
         LogUtils.e(type + "\n" +
                 "\n类型" + message.getConversationType().getName() +
                 "\n消息头" + message.getObjectName() +
@@ -741,7 +738,15 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
             }
         }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangedChatList changedChatList) {
+        if (fragmentMessage != null) {
+            if (fragmentMessage.fragmentMessageInteraction != null) {
+                fragmentMessage.fragmentMessageInteraction.loadList();
+            }
 
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangedUserInfo changedUserInfo) {

@@ -101,7 +101,7 @@ public class CustomListViewOrderBuyer extends LinearLayout {
             TextView target_name_custom_listview_order = $.f(view, R.id.name_custom_listview_order);
             final TextView state_custom_listview_order = $.f(view, R.id.state_custom_listview_order);
             TextView one_order_custom_listview_order = $.f(view, R.id.one_order_custom_listview_order);
-            TextView two_order_custom_listview_order = $.f(view, R.id.two_order_custom_listview_order);
+            final TextView two_order_custom_listview_order = $.f(view, R.id.two_order_custom_listview_order);
             TextView three_order_custom_listview_order = $.f(view, R.id.three_order_custom_listview_order);
             TextView four_order_custom_listview_order = $.f(view, R.id.four_order_custom_listview_order);
             order_code_custom_listview_order.setText("订单编号:"+list.get(finalI).order_code);
@@ -174,7 +174,7 @@ public class CustomListViewOrderBuyer extends LinearLayout {
                             @Override
                             public void onClick(View v) {
 //                                if (onListViewOrderCallBack != null) {
-//                                    onListViewOrderCallBack.onConfirmedService(list.get(finalI).order_id);
+//                                    onListViewOrderCallBack.onConfirmedService(list.get(finalI));
 //                                }
                             }
                         });
@@ -205,14 +205,23 @@ public class CustomListViewOrderBuyer extends LinearLayout {
                             }
                         }
                     });
-                    addLine(two_order_custom_listview_order, "确认收货").setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (onListViewOrderCallBack != null) {
-                                onListViewOrderCallBack.onConfirmReceipt(list.get(finalI));
+                    if ("1".equals(list.get(finalI).is_bargain)){
+                        addLine(two_order_custom_listview_order, "待处理").setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
                             }
-                        }
-                    });
+                        });
+                    }else {
+                        addLine(two_order_custom_listview_order, "确认收货").setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (onListViewOrderCallBack != null) {
+                                    onListViewOrderCallBack.onConfirmReceipt(list.get(finalI));
+                                }
+                            }
+                        });
+                    }
                     addLine(three_order_custom_listview_order, "退换货").setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -221,9 +230,11 @@ public class CustomListViewOrderBuyer extends LinearLayout {
                             }
                         }
                     });
+
+
                     break;
                 case Constant.Awating_Comment://待评价
-                    if ("0".equals(list.get(finalI).is_comment)) {
+                    if ("0".equals(list.get(finalI).goods_comment)) {
                         addLine(one_order_custom_listview_order, "立即评论").setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -278,6 +289,15 @@ public class CustomListViewOrderBuyer extends LinearLayout {
                             @Override
                             public void onClick(View v) {
 
+                            }
+                        });
+                    }else if ("2".equals(list.get(finalI).exchange_status)){
+                        addLine(one_order_custom_listview_order, "确认收货").setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (onListViewOrderCallBack != null) {
+                                    onListViewOrderCallBack.onConfirmReceipt(list.get(finalI));
+                                }
                             }
                         });
                     }
@@ -606,7 +626,7 @@ public class CustomListViewOrderBuyer extends LinearLayout {
          *
          * @param order_id
          */
-        void onConfirmedService(String order_id);
+        void onConfirmedService(OrderModel orderModel);
 
         /**
          * 立即收货

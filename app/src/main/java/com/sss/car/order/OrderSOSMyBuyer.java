@@ -39,7 +39,7 @@ public class OrderSOSMyBuyer extends BaseActivity {
     LinearLayout activitOrderSOSMyBuyer;
 
     //底部导航栏文字
-    String[] text = new String[]{"            未完成            ", "            已完成            "};
+    String[] text = new String[]{"            未完成            ", "            已结束            "};
 
 
     FragmentOrderSOSBuyer fragmentOrderSOSBuyerUnFinish;
@@ -128,7 +128,7 @@ public class OrderSOSMyBuyer extends BaseActivity {
         fragmentOrderSOSBuyerUnFinish.p = 1;
         fragmentOrderSOSBuyerUnFinish.getSOSSellerList();
         fragmentOrderSOSBuyerComplete.p = 1;
-        fragmentOrderSOSBuyerUnFinish.getSOSSellerList();
+        fragmentOrderSOSBuyerComplete.getSOSSellerList();
     }
 
 

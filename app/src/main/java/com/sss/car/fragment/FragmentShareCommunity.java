@@ -158,7 +158,7 @@ public class FragmentShareCommunity extends BaseFragment implements LoadImageCal
         bannerVariation.setDelayTime(Config.flash);
         initAdv("10",classify_id,bannerVariation);
         //这里显示热门帖子
-        fragmentCommunity_userinfo_posts = new FragmentCommunity_Userinfo_Posts(false,true, "0", "","",
+        fragmentCommunity_userinfo_posts = new FragmentCommunity_Userinfo_Posts(false,true, "", "","",
 
         new CustomRefreshLayoutCallBack() {
             @Override

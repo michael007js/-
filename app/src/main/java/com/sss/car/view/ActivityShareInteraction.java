@@ -25,6 +25,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sss.car.Config;
+import com.sss.car.EventBusModel.ChangedChatList;
 import com.sss.car.EventBusModel.ChangedMessageList;
 import com.sss.car.EventBusModel.ChangedMessageType;
 import com.sss.car.R;
@@ -53,6 +54,7 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import okhttp3.Call;
 
+import static com.sss.car.Config.member_id;
 import static com.sss.car.R.id.conversation;
 
 
@@ -180,9 +182,12 @@ public class ActivityShareInteraction extends BaseActivity implements MessageCha
                 helper.getView(R.id.delete).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((SwipeMenuLayout) helper.getView(R.id.scoll)).smoothClose();
+                        ToastUtils.showShortToast(getBaseActivityContext(),"sss");
+                        ((SwipeMenuLayout) helper.getView(R.id.scoll_new_friend_item)).smoothClose();
+                        close_window(bean.member_id,bean.member_pid);
                     }
                 });
+
             }
 
             @Override
@@ -197,13 +202,9 @@ public class ActivityShareInteraction extends BaseActivity implements MessageCha
     /**
      * 设置消息已读
      */
-    void close_window(final String cate_id, final String targetId) {
+    void close_window(final String member_id,String member_pid) {
         String window_type = null;
-        if ("5".equals(cate_id)) {
-            window_type = "group";
-        } else {
-            window_type = "private";
-        }
+
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
@@ -213,9 +214,8 @@ public class ActivityShareInteraction extends BaseActivity implements MessageCha
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.close_window(
                     new JSONObject()
-                            .put("member_pid", Config.member_id)
-                            .put("window_type", window_type)
-                            .put("member_id", targetId).toString(), new StringCallback() {
+                            .put("member_pid",member_pid)
+                            .put("member_id", member_id).toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
                             if (ywLoadingDialog != null) {
@@ -232,31 +232,19 @@ public class ActivityShareInteraction extends BaseActivity implements MessageCha
                             ywLoadingDialog = null;
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
-                                if ("5".equals(cate_id)) {
-                                    RongYunUtils.removeConversation(Conversation.ConversationType.GROUP, targetId, new RongIMClient.ResultCallback() {
-                                        @Override
-                                        public void onSuccess(Object o) {
-                                            getChatList(true);
-                                        }
+                                RongYunUtils.removeConversation(Conversation.ConversationType.PRIVATE, member_id, new RongIMClient.ResultCallback() {
+                                    @Override
+                                    public void onSuccess(Object o) {
+                                        EventBus.getDefault().post(new ChangedChatList());
+                                        p=1;
+                                        getChatList(true);
+                                    }
 
-                                        @Override
-                                        public void onError(RongIMClient.ErrorCode errorCode) {
-                                            ToastUtils.showShortToast(getBaseActivityContext(), errorCode.getMessage());
-                                        }
-                                    });
-                                } else {
-                                    RongYunUtils.removeConversation(Conversation.ConversationType.PRIVATE, targetId, new RongIMClient.ResultCallback() {
-                                        @Override
-                                        public void onSuccess(Object o) {
-                                            getChatList(true);
-                                        }
-
-                                        @Override
-                                        public void onError(RongIMClient.ErrorCode errorCode) {
-                                            ToastUtils.showShortToast(getBaseActivityContext(), errorCode.getMessage());
-                                        }
-                                    });
-                                }
+                                    @Override
+                                    public void onError(RongIMClient.ErrorCode errorCode) {
+                                        ToastUtils.showShortToast(getBaseActivityContext(), errorCode.getMessage());
+                                    }
+                                });
 
                             } catch (JSONException e) {
                                 ToastUtils.showShortToast(getBaseActivityContext(), "解析错误err-0" + e.getMessage());
@@ -307,12 +295,13 @@ public class ActivityShareInteraction extends BaseActivity implements MessageCha
 
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.getChatList(
                     new JSONObject()
-                            .put("member_id", Config.member_id)
+                            .put("member_id", member_id)
                             .put("p", p)
                             .put("cate_id", getIntent().getExtras().getString("cate_id"))//
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
+                            listviewActivityInteraction.onRefreshComplete();
                             if (getBaseActivityContext() != null) {
                                 ToastUtils.showShortToast(getBaseActivityContext(), "服务器访问错误");
                             }
@@ -323,6 +312,7 @@ public class ActivityShareInteraction extends BaseActivity implements MessageCha
 
                         @Override
                         public void onResponse(String response, int id) {
+                            listviewActivityInteraction.onRefreshComplete();
                             if (ywLoadingDialog != null) {
                                 ywLoadingDialog.disMiss();
                             }
@@ -353,12 +343,11 @@ public class ActivityShareInteraction extends BaseActivity implements MessageCha
                                                 messageChatListModel.create_time = jsonArray.getJSONObject(i).getString("create_time");
                                                 list.add(messageChatListModel);
                                             }
-                                            sss_rvAdapter.setList(list);
+
                                         }
 
-                                    } else {
-
                                     }
+                                    sss_rvAdapter.setList(list);
                                 } catch (JSONException e) {
                                     if (getBaseActivityContext() != null) {
                                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err: list-0");

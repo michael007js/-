@@ -285,9 +285,9 @@ public class OrderSOSAcceptFromSeller extends BaseActivity {
                     int a = initTotalPrice();
                     if (a != -1) {
                         if (showPenalSumOrderSOSAcceptFromSeller.getText().toString().trim().contains("%")) {
-                            PayUtils.requestPayment(ywLoadingDialog, friend_id, getIntent().getExtras().getString("sos_id"), 1, 1, String.valueOf(a), getBaseActivity());
+                            PayUtils.requestPayment(ywLoadingDialog, false,friend_id, getIntent().getExtras().getString("sos_id"), 1, 1, String.valueOf(a), getBaseActivity(),null);
                         }else {
-                            PayUtils.requestPayment(ywLoadingDialog, friend_id, getIntent().getExtras().getString("sos_id"), 1, 0, String.valueOf(a), getBaseActivity());
+                            PayUtils.requestPayment(ywLoadingDialog,false, friend_id, getIntent().getExtras().getString("sos_id"), 1, 0, String.valueOf(a), getBaseActivity(),null);
                         }
 //                        showDialog(initTotalPrice() + "");
                     } else {

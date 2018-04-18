@@ -6,7 +6,7 @@ package com.sss.car.EventBusModel;
 
 public class ChangeInfoModel {
     public String msg;
-    public String province_city_district;
+    public String province;
     public String city;
     public String district;
     public String lat;

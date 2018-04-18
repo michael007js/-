@@ -847,12 +847,12 @@ M3C3BHSSBC
         <activity
             android:name=".order.OrderServiceReadyBuyEdit"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+            android:windowSoftInputMode="adjustNothing|stateUnchanged"/>
 
         <activity
             android:name=".order.OrderGoodsMyOrderBuyer"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+            android:windowSoftInputMode="adjustNothing|stateUnchanged"/>
 
         <activity
             android:name=".order.OrderReturns"

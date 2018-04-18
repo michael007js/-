@@ -165,6 +165,9 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
         }
         listview.setOnCustomOrderReturnsListViewCallBack(this);
         customInit(activityOrderApplyForReturnsChangeRightTopButtonDetails, false, true, true);
+
+
+
         if (getIntent().getExtras().getBoolean("returnOrChange_isFirst")) {//第一次打开,申请退换货
             titleTop.setText("退换货申请");
             titleCompany.setTextColor(getResources().getColor(R.color.line));
@@ -220,6 +223,17 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
                 }
             });
         }
+
+        if (true==getIntent().getExtras().getBoolean("isStop")){
+            titleTop.setText("退换货资料");
+            clickSubmit.setVisibility(View.GONE);
+            applyForType.setEnabled(false);
+            clickCompany.setEnabled(false);
+            clickCode.setEnabled(false);
+            clickReason.setEnabled(false);
+            photo.setEnabled(false);
+        }
+
         getInfo();
 
     }

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.InputType;
-import android.text.method.NumberKeyListener;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,6 +26,8 @@ import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.HttpRequestLib.HttpRequestUtils;
+import com.blankj.utilcode.HttpRequestLib.dao.IDataListener;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.RegisterComplete;
 import com.sss.car.EventBusModel.RegisterModel;
@@ -209,6 +210,17 @@ public class LoginAndRegister extends BaseActivity implements CustomExceptionCal
                     return;
                 }
                 login();
+//                HttpRequestUtils.doGet(10000, "http://apis.juhe.cn/lottery/types", new IDataListener() {
+//                    @Override
+//                    public void onSuccess(String response) {
+//                        ToastUtils.showShortToast(getBaseActivityContext(),response);
+//                    }
+//
+//                    @Override
+//                    public void onFail(int responseCode, String responseMessage) {
+//                        ToastUtils.showShortToast(getBaseActivityContext(),responseCode+"---"+responseMessage);
+//                    }
+//                });
                 break;
             case R.id.register_activity_login:
                 if (Config.license == false) {
@@ -286,8 +298,11 @@ public class LoginAndRegister extends BaseActivity implements CustomExceptionCal
                             Config.flash = jsonObject.getJSONObject("data").getInt("flash")*1000;
                             Config.mobile = jsonObject.getJSONObject("data").getString("mobile");
                             Config.token = jsonObject.getJSONObject("data").getString("token");
-                            spUtils.put("account",accountActivityLogin.getText().toString().trim());
-                            spUtils.put("password",passwordActivityLogin.getText().toString().trim());
+                            Config.account = jsonObject.getJSONObject("data").getString("account");
+                            if (spUtils!=null){
+                                spUtils.put("account",accountActivityLogin.getText().toString().trim());
+                                spUtils.put("password",passwordActivityLogin.getText().toString().trim());
+                            }
                             RongYunUtils.connect(Config.token, new RongIMClient.ConnectCallback() {
                                 @Override
                                 public void onSuccess(String s) {

@@ -12,6 +12,7 @@
         android:layout_height="0.5dp"
         android:layout_marginTop="10dp"
         android:background="#cccccc"/>
+
     <LinearLayout
         android:id="@+id/click_address"
         android:layout_width="match_parent"
@@ -24,11 +25,11 @@
         android:paddingRight="10dp">
 
         <TextView
-            android:textColor="@color/black"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="省  市  区"/>
+            android:text="省  市  区"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/title_address"
@@ -44,15 +45,17 @@
 
 
     </LinearLayout>
+
     <EditText
-        android:layout_marginTop="1dp"
-        android:padding="10dp"
-        android:textSize="14sp"
         android:id="@+id/edit_activity_change_info_shop_address"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginTop="1dp"
         android:background="#fff"
-        android:gravity="center_vertical"/>
+        android:gravity="top"
+        android:hint="请填写详细地址"
+        android:padding="10dp"
+        android:textSize="14sp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -62,12 +65,12 @@
 
     <TextView
         android:id="@+id/select"
-        android:textColor="@color/mainColor"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
         android:background="@color/white"
-        android:text="地图位置选择"
         android:gravity="center"
         android:singleLine="true"
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:text="地图位置选择"
+        android:textColor="@color/mainColor"/>
 </LinearLayout>

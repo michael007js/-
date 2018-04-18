@@ -327,7 +327,7 @@ public class ActivityGoodsServiceDetails extends BaseActivity implements UserCal
                     new JSONObject()
                             .put("member_id", Config.member_id)
                             .put("type","1")
-                            .put("ids", Config.member_id)
+                            .put("ids", shop_id)
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {

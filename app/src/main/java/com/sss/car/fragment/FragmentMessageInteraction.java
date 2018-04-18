@@ -251,8 +251,9 @@ public class FragmentMessageInteraction extends BaseFragment {
                     jsonObject = new JSONObject();
                     LogUtils.e(bean.getConversationType().getName());
                     if ("private".equals(bean.getConversationType().getName())) {
-                        RequestWeb.getUserInfo(jsonObject
-                                .put("member_id", bean.getTargetId()).toString(), new StringCallback() {
+                        RequestWeb.trends_member(jsonObject
+                                .put("member_id", Config.member_id)
+                                .put("friend_id",bean.getTargetId()).toString(), new StringCallback() {
                             @Override
                             public void onError(Call call, Exception e, int id) {
 
@@ -262,9 +263,9 @@ public class FragmentMessageInteraction extends BaseFragment {
                             public void onResponse(String response, int id) {
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
-                                    helper.setText(R.id.name, jsonObject.getJSONObject("data").getString("username"));
+                                    helper.setText(R.id.name, jsonObject.getJSONObject("data").getString("remark"));
                                     addImageViewList(FrescoUtils.showImage(false, 80, 80, Uri.parse(Config.url + jsonObject.getJSONObject("data").getString("face")), ((SimpleDraweeView) helper.getView(R.id.pic)), 99999));
-                                    RongYunUtils.refreshUserinfo(bean.getTargetId(), jsonObject.getJSONObject("data").getString("username"), Uri.parse(Config.url + jsonObject.getJSONObject("data").getString("face")));
+                                    RongYunUtils.refreshUserinfo(bean.getTargetId(), jsonObject.getJSONObject("data").getString("remark"), Uri.parse(Config.url + jsonObject.getJSONObject("data").getString("face")));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

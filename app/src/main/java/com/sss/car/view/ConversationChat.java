@@ -98,6 +98,10 @@ public class ConversationChat extends BaseFragmentActivity implements RongIM.OnS
     SimpleDraweeView logoRight;
 
 
+
+    String is_remark;
+
+
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
 
@@ -153,6 +157,7 @@ public class ConversationChat extends BaseFragmentActivity implements RongIM.OnS
         messageType = getIntent().getData().getQueryParameter("title");//客服传6，商品详情客服传2，群组传5
         if ("6".equals(messageType)||"2".equals(messageType)){
             logoRight.setVisibility(View.INVISIBLE);
+            is_remark="1";
         }
         //会话类型
         conversationType = Conversation.ConversationType.valueOf(getIntent().getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
@@ -360,6 +365,7 @@ public class ConversationChat extends BaseFragmentActivity implements RongIM.OnS
                     new JSONObject()
                             .put("member_id", Config.member_id)
                             .put("friend_id", targetId)
+                            .put("is_remark",is_remark)
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {

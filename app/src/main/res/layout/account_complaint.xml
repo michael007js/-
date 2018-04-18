@@ -157,7 +157,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="列举一至两位好友账号"
+            android:hint="列举多个好友账号用“，”隔开"
             android:inputType="phone"
             android:maxLength="11"
             android:textSize="13.8sp"/>

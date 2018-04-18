@@ -8,6 +8,9 @@ import java.util.List;
 
 public class MyDataShopModel {
     public String shop_id;
+    public String province;
+    public String city;
+    public String county;
     public String name;
     public String logo;
     public String address;

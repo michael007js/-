@@ -99,6 +99,7 @@ public class MyApplication extends UtilCodeApplication {
                     case NETWORK_UNAVAILABLE://网络不可用。
                         break;
                     case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
+                        initJiGuangUser("null",context);
                         new SPUtils(context,Config.defaultFileName,MODE_PRIVATE).put("password","");
                         ActivityManagerUtils.getActivityManager().finishAllActivity();
                         startActivity(new Intent(context, LoginAndRegister.class)

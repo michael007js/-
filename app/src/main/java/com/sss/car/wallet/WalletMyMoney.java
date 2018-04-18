@@ -157,17 +157,17 @@ public class WalletMyMoney extends BaseActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
-                                    int total = jsonObject.getJSONObject("data").getInt("balance");
+                                    int total = jsonObject.getJSONObject("data").getInt("total");
                                     int cash_deposit = jsonObject.getJSONObject("data").getInt("cash_deposit");
                                     int freeze = jsonObject.getJSONObject("data").getInt("freeze");
-                                    int expendable = jsonObject.getJSONObject("data").getInt("expendable");
+                                    int expendable = jsonObject.getJSONObject("data").getInt("balance");
                                     float[] x = {(float) cash_deposit / total, (float) freeze / total, (float) expendable / total};
                                     String[] y = {"#fba62f", "#f26956", "#2466b0"};
                                     calcPriceWalletMyMoney.initSrc(x, y);
                                     oneWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("cash_deposit"));
                                     twoWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("freeze"));
-                                    threeWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("expendable"));
-                                    totalWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("balance"));
+                                    threeWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("balance"));
+                                    totalWalletMyMoney.setText(jsonObject.getJSONObject("data").getString("total"));
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }

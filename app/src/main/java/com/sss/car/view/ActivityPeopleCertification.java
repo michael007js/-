@@ -115,7 +115,7 @@ public class ActivityPeopleCertification extends BaseActivity {
                 finish();
                 break;
             case R.id.click_front:
-                if ("-1".equals(state) || "2".equals(state)) {
+                if ("-1".equals(state) || "1".equals(state)||"2".equals(state)) {
                     APPOftenUtils.createPhotoChooseDialog(0, 1, getBaseActivityContext(), MyApplication.getFunctionConfig(), new GalleryFinal.OnHanlderResultCallback() {
                         @Override
                         public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
@@ -149,7 +149,7 @@ public class ActivityPeopleCertification extends BaseActivity {
                 }
                 break;
             case R.id.click_back:
-                if ("-1".equals(state) || "2".equals(state)) {
+                if ("-1".equals(state) || "1".equals(state)||"2".equals(state)) {
                     APPOftenUtils.createPhotoChooseDialog(0, 1, getBaseActivityContext(), MyApplication.getFunctionConfig(), new GalleryFinal.OnHanlderResultCallback() {
                         @Override
                         public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
@@ -181,7 +181,7 @@ public class ActivityPeopleCertification extends BaseActivity {
                 }
                 break;
             case R.id.click_hold:
-                if ("-1".equals(state) || "2".equals(state)) {
+                if ("-1".equals(state) || "1".equals(state)||"2".equals(state)) {
                     APPOftenUtils.createPhotoChooseDialog(0, 1, getBaseActivityContext(), MyApplication.getFunctionConfig(), new GalleryFinal.OnHanlderResultCallback() {
                         @Override
                         public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
@@ -305,7 +305,6 @@ public class ActivityPeopleCertification extends BaseActivity {
             front = ActivityPeopleCertification.this.front;
         } else {
             front = ConvertUtils.bitmapToBase64(BitmapUtils.decodeSampledBitmapFromFile(frontChoose, getWindowManager().getDefaultDisplay().getWidth(), getWindowManager().getDefaultDisplay().getHeight()));
-
         }
         String back = null;
         if (StringUtils.isEmpty(backChoose)) {

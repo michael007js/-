@@ -260,7 +260,7 @@ int total=0;
                 }
 //                showDialog(NumberSelectEditOrderSosAcceptFromBuyer.getCurrentNumber() + "");
 
-                PayUtils.requestPayment(ywLoadingDialog,friend_id,getIntent().getExtras().getString("sos_id"),1,0,total+"",getBaseActivity());
+                PayUtils.requestPayment(ywLoadingDialog,false,friend_id,getIntent().getExtras().getString("sos_id"),1,0,total+"",getBaseActivity(),null);
                 break;
             case R.id.cancel_submit_order_sos_accept_from_buyer:
                 if (can) {
@@ -423,7 +423,7 @@ int total=0;
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
-                                    PayUtils.requestPayment(ywLoadingDialog,friend_id,sos_id,1,0,price,getBaseActivity());
+                                    PayUtils.requestPayment(ywLoadingDialog,false,friend_id,sos_id,1,0,price,getBaseActivity(),null);
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }

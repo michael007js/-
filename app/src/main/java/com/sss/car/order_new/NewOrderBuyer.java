@@ -46,7 +46,7 @@ public class NewOrderBuyer extends BaseActivity  {
     String[] title = {
             "待付款",
             "待完成",
-            "已完成",
+            "已结束",
             "退换货",
     };
 

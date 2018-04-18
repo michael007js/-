@@ -16,9 +16,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.blankj.utilcode.adapter.sssAdapter.SSS_Adapter;
+import com.blankj.utilcode.adapter.sssAdapter.SSS_HolderHelper;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.EditText.NumberSelectEdit;
+import com.blankj.utilcode.customwidget.EditText.PriceEditText;
 import com.blankj.utilcode.customwidget.ListView.InnerListview;
 import com.blankj.utilcode.customwidget.Menu.popMenu.MenuItemEntity;
 import com.blankj.utilcode.customwidget.Menu.popMenu.UIPopupMenu;
@@ -29,6 +31,7 @@ import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.$;
 import com.blankj.utilcode.util.APPOftenUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -44,11 +47,14 @@ import com.sss.car.dao.OnExistsShopCallBack;
 import com.sss.car.dao.OnIntegralCallBack;
 import com.sss.car.dao.OnOneKeyReadCallBack;
 import com.sss.car.dao.OnPayPasswordVerificationCallBack;
+import com.sss.car.dao.OnPriceCallBack;
+import com.sss.car.dao.OnPriceGoodsServiceCallBack;
 import com.sss.car.dao.OnUserInfoMenuCallBack;
 import com.sss.car.dao.ShoppingCartCallBack;
 import com.sss.car.model.GoodsChooseModel;
 import com.sss.car.model.GoodsChooseSizeName;
 import com.sss.car.model.GoodsChooseSizeName_Model;
+import com.sss.car.model.OrderPayModel;
 import com.sss.car.model.UserinfoModel;
 import com.sss.car.view.ActivityCreateGroupInviteGroupSend;
 import com.sss.car.view.ActivityFeedback;
@@ -56,7 +62,6 @@ import com.sss.car.view.ActivityMyDataSetPassword;
 import com.sss.car.view.ActivityPublishDymaic;
 import com.sss.car.view.ActivityPublishPost;
 import com.sss.car.view.ActivityReport;
-import com.sss.car.view.ActivitySearchAddFriend;
 import com.sss.car.view.ActivitySearchGoodsShopUserListPublic;
 import com.sss.car.view.ActivityShareCollect;
 import com.sss.car.view.ActivitySharePostMy;
@@ -225,7 +230,7 @@ public class MenuDialog implements QRCodeDataListener {
                         }
                     }
                 })
-                .showAsDropDown(view,  -50, 0);
+                .showAsDropDown(view, -50, 0);
 
         return uiPopupMenu;
     }
@@ -293,7 +298,7 @@ public class MenuDialog implements QRCodeDataListener {
                         }
                     }
                 })
-                .showAsDropDown(view,  -50, 0);
+                .showAsDropDown(view, -50, 0);
 
         return uiPopupMenu;
     }
@@ -348,7 +353,7 @@ public class MenuDialog implements QRCodeDataListener {
                         }
                     }
                 })
-                .showAsDropDown(view,  -50, 0);
+                .showAsDropDown(view, -50, 0);
 
         return uiPopupMenu;
     }
@@ -687,7 +692,7 @@ public class MenuDialog implements QRCodeDataListener {
     int price = 0;
     JSONArray jsonArray = new JSONArray();
 
-    public void createGoodsBottomDialog(String where,int number, final Context context, int numColumns, final GoodsChooseModel goodsChooseModel, final ShoppingCartCallBack shoppingCartCallBack) {
+    public void createGoodsBottomDialog(String where, int number, final Context context, int numColumns, final GoodsChooseModel goodsChooseModel, final ShoppingCartCallBack shoppingCartCallBack) {
         num = 1;
         price = 0;
         jsonArray = null;
@@ -747,7 +752,7 @@ public class MenuDialog implements QRCodeDataListener {
                     @Override
                     public void onEditChanged(NumberSelectEdit numberSelectEdit, int currentNumber) {
                         num = numberSelectEdit.getCurrentNumber();
-                        price_dialog_choose_shop_info_bottom.setText(String.valueOf( num*price));
+                        price_dialog_choose_shop_info_bottom.setText(String.valueOf(num * price));
                     }
                 });
 
@@ -1273,6 +1278,114 @@ public class MenuDialog implements QRCodeDataListener {
         }
     }
 
+    public void createPriceDialog_SOS(String t, double total, Context context, final OnPriceCallBack onPriceCallBack) {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_price_changed, null);
+        SimpleDraweeView close = $.f(view, R.id.close);
+        TextView title = $.f(view, R.id.title);
+        SimpleDraweeView sub = $.f(view, R.id.sub);
+        SimpleDraweeView add = $.f(view, R.id.add);
+        final PriceEditText price = $.f(view, R.id.price);
+        TextView next = $.f(view, R.id.next);
+        price.setPrice(total);
+        title.setText(t);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+        sub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (price.getDoublePrice() > 1) {
+                    price.setPrice(price.getDoublePrice() - 1);
+                } else {
+                    price.setPrice(0.00);
+                }
+
+            }
+        });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                price.setPrice(price.getDoublePrice() + 1);
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onPriceCallBack != null) {
+                    onPriceCallBack.onPriceCallBack(price.getDoublePrice(), bottomSheetDialog);
+                }
+            }
+        });
+        bottomSheetDialog.setCanceledOnTouchOutside(false);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+    }
+
+
+
+
+
+
+
+    public void createPriceDialog_GoodsService(String t, final List<OrderPayModel> list, Context context, final OnPriceGoodsServiceCallBack onPriceGoodsServiceCallBack) {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_price_changed_goods_service, null);
+        SimpleDraweeView close = $.f(view, R.id.close);
+        TextView title = $.f(view, R.id.title);
+        TextView next = $.f(view, R.id.next);
+        ListView lietview = $.f(view, R.id.lietview);
+        title.setText(t);
+
+        SSS_Adapter sss_adapter = new SSS_Adapter<OrderPayModel>(context, R.layout.item_dialog_price_changed_goods_service) {
+            @Override
+            protected void setView(final SSS_HolderHelper helper, final int position, OrderPayModel bean, SSS_Adapter instance) {
+                ((PriceEditText)helper.getView(R.id.price)).setPrice(bean.total);
+                helper.setText(R.id.name, bean.title);
+                helper.getView(R.id.sub).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((PriceEditText)helper.getView(R.id.price)).setPrice(((PriceEditText)helper.getView(R.id.price)).getDoublePrice()-1);
+                        list.get(position).total=((PriceEditText)helper.getView(R.id.price)).getStringPrice();
+                    }
+                });
+                helper.getView(R.id.add).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((PriceEditText)helper.getView(R.id.price)).setPrice(((PriceEditText)helper.getView(R.id.price)).getDoublePrice()+1);
+                        list.get(position).total=((PriceEditText)helper.getView(R.id.price)).getStringPrice();
+                    }
+                });
+            }
+
+            @Override
+            protected void setItemListener(SSS_HolderHelper helper) {
+
+            }
+        };
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPriceGoodsServiceCallBack.onPriceCallBack(list,bottomSheetDialog);
+            }
+        });
+        lietview.setAdapter(sss_adapter);
+        sss_adapter.setList(list);
+        bottomSheetDialog.setCanceledOnTouchOutside(false);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+
+    }
+
 
     public interface OnPaymentCallBack {
         void onVerificationPassword(String password, PassWordKeyboard passWordKeyboard, String payMode, String is_integral, BottomSheetDialog bottomSheetDialog);
@@ -1579,6 +1692,6 @@ public class MenuDialog implements QRCodeDataListener {
 
     @Override
     public void onQRCodeDataChange(String data, Context baseContext) {
-        QRUtils.start(data,activity,ywLoadingDialog);
+        QRUtils.start(data, activity, ywLoadingDialog);
     }
 }

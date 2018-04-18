@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.Fragment.BaseFragment;
 import com.blankj.utilcode.MyRecycleview.ExStaggeredGridLayoutManager;
 import com.blankj.utilcode.activity.ActivityInputKeyboard;
-import com.blankj.utilcode.adapter.sssAdapter.SSS_Adapter;
 import com.blankj.utilcode.adapter.sssAdapter.SSS_HolderHelper;
 import com.blankj.utilcode.adapter.sssAdapter.SSS_RVAdapter;
 import com.blankj.utilcode.constant.RequestModel;
@@ -28,14 +26,12 @@ import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.GridView.InnerGridView;
 import com.blankj.utilcode.customwidget.KeyboardInput;
 import com.blankj.utilcode.customwidget.ListView.HorizontalListView;
-import com.blankj.utilcode.customwidget.ListView.InnerListview;
 import com.blankj.utilcode.dao.LoadImageCallBack;
 import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.pullToRefresh.PullToRefreshBase;
 import com.blankj.utilcode.util.$;
 import com.blankj.utilcode.util.APPOftenUtils;
-import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -87,6 +83,7 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
         DymaicDetailsOperationCallBack, DymaicDetailsPraiseAdapterCallBack, ShareDynamicAdapterOperationCallBack, PullToRefreshBase.OnRefreshListener2, KeyboardInput.KeyboardInputOperationCallBack {
     Unbinder unbinder;
     public int p = 1;
+    String targetId;
     String type = "1";//（type == 1所有，2我的，3好友，4关注，5社区，6周边）
     boolean isShowOnFrontPager;
     List<ShareDynamicModel> list = new ArrayList<>();
@@ -99,6 +96,7 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
     @BindView(R.id.input_fragment_dynamic_friend_attention_community_near)
     KeyboardInput inputFragmentDynamicFriendAttentionCommunityNear;
     boolean isNeedEmptyView=false;
+    String friend_id;
 
     public Fragment_Dynamic_Friend_Attention_community_Near() {
     }
@@ -134,7 +132,9 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
         return listFragmentDynamicFriendAttentionCommunityNear;
     }
 
-    public Fragment_Dynamic_Friend_Attention_community_Near(boolean isNeedEmptyView,String type, boolean isShowOnFrontPager, CustomRefreshLayoutCallBack2 addHeadViewCallBack2) {
+    public Fragment_Dynamic_Friend_Attention_community_Near(String friend_id,String targetId,boolean isNeedEmptyView,String type, boolean isShowOnFrontPager, CustomRefreshLayoutCallBack2 addHeadViewCallBack2) {
+        this.friend_id=friend_id;
+        this.targetId=targetId;
         this.isNeedEmptyView=isNeedEmptyView;
         this.type = type;
         this.isShowOnFrontPager = isShowOnFrontPager;
@@ -265,6 +265,7 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
     }
 
 
+
     /**
      * 获取动态
      *
@@ -276,7 +277,8 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
                         .put("type", type)
                         .put("gps",Config.latitude+","+Config.longitude)
                         .put("p", String.valueOf(p))
-                        .put("member_id", Config.member_id)
+                        .put("friend_id",friend_id)
+                        .put("member_id",targetId)
                         .toString(), new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
@@ -305,7 +307,9 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
                                     if (jsonArray.length() > 0) {
                                         if (p == 1) {
                                             list.clear();
-                                            listFragmentDynamicFriendAttentionCommunityNear.refreshData();
+                                            if (listFragmentDynamicFriendAttentionCommunityNear!=null) {
+                                                listFragmentDynamicFriendAttentionCommunityNear.refreshData();
+                                            }
                                         }
                                         p++;
 
@@ -384,8 +388,8 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
                                             shareDynamicModel.goods_data = list1;
                                             list.add(shareDynamicModel);
                                             showData(shareDynamicModel, list.size() - 1);
-
                                         }
+
                                     }
                                 }
                             } catch (JSONException e) {
@@ -410,6 +414,9 @@ public class Fragment_Dynamic_Friend_Attention_community_Near extends BaseFragme
      * @param position
      */
     void showData(final ShareDynamicModel shareDynamicModel, final int position) {
+        if (getBaseFragmentActivityContext()==null){
+            return;
+        }
         if ("".equals(shareDynamicModel.goods_id)) {//普通动态
             View view = LayoutInflater.from(getBaseFragmentActivityContext()).inflate(R.layout.item_share_dynamic_adapter_dynamic, null);
             FrameLayout bg_item_share_dynamic_adapter_dynamic = $.f(view, R.id.bg_item_share_dynamic_adapter_dynamic);

@@ -40,6 +40,7 @@ import com.sss.car.dao.OnUserInfoMenuCallBack;
 import com.sss.car.fragment.FragmentCommunity_Userinfo_Posts;
 import com.sss.car.fragment.FragmentUserInfoDymaic;
 import com.sss.car.fragment.FragmentUserInfoReputation;
+import com.sss.car.fragment.Fragment_Dynamic_Friend_Attention_community_Near;
 import com.sss.car.model.UserinfoModel;
 import com.sss.car.rongyun.RongYunUtils;
 import com.sss.car.utils.MenuDialog;
@@ -57,6 +58,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import okhttp3.Call;
 
@@ -106,7 +108,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
 
     YWLoadingDialog ywLoadingDialog;
 
-    FragmentUserInfoDymaic fragmentUserInfoDymaic;
+    Fragment_Dynamic_Friend_Attention_community_Near fragment_dynamic_friend_attention_community_near;
 
     FragmentCommunity_Userinfo_Posts fragmentCommunity_userinfo_posts;
 
@@ -139,10 +141,10 @@ public class ActivityUserInfo extends BaseFragmentActivity {
             menuDialog.clear();
         }
         menuDialog = null;
-        if (fragmentUserInfoDymaic != null) {
-            fragmentUserInfoDymaic.onDestroy();
+        if (fragment_dynamic_friend_attention_community_near != null) {
+            fragment_dynamic_friend_attention_community_near.onDestroy();
         }
-        fragmentUserInfoDymaic = null;
+        fragment_dynamic_friend_attention_community_near = null;
         if (fragmentCommunity_userinfo_posts != null) {
             fragmentCommunity_userinfo_posts.onDestroy();
         }
@@ -213,8 +215,8 @@ public class ActivityUserInfo extends BaseFragmentActivity {
     }
 
 
-    void init() {
-        fragmentUserInfoDymaic = new FragmentUserInfoDymaic(getIntent().getExtras().getString("id"));
+    void init(String friend_id) {
+        fragment_dynamic_friend_attention_community_near = new Fragment_Dynamic_Friend_Attention_community_Near(friend_id,Config.member_id, false,"2",true,null);
         if (Config.member_id.equals(userinfoModel.member_id)) {
             fragmentCommunity_userinfo_posts = new FragmentCommunity_Userinfo_Posts(true, true, Config.member_id, null);
         } else {
@@ -245,7 +247,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                 "      信誉      ",
         };
         fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), title);
-        fragmentAdapter.addFragment(fragmentUserInfoDymaic);
+        fragmentAdapter.addFragment(fragment_dynamic_friend_attention_community_near);
         fragmentAdapter.addFragment(fragmentCommunity_userinfo_posts);
         fragmentAdapter.addFragment(fragmentUserInfoReputation);
         scrollTab.setTitles(Arrays.asList(title));
@@ -290,6 +292,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                     getUserInfo();
                     return;
                 }
+                String a=userinfoModel.shop_id;
                 if (getBaseActivityContext() != null) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityShopInfo.class)
                             .putExtra("shop_id", userinfoModel.shop_id));
@@ -387,7 +390,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
 
                     @Override
                     public void delete() {
-                        APPOftenUtils.createAskDialog(getBaseActivityContext(), "是否确定要拉黑该用户?", new OnAskDialogCallBack() {
+                        APPOftenUtils.createAskDialog(getBaseActivityContext(), "是否确定要删除该用户?", new OnAskDialogCallBack() {
                             @Override
                             public void onOKey(Dialog dialog) {
                                 dialog.dismiss();
@@ -470,14 +473,14 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     getUserInfo();
                                     if ("1".equals(send.getString("status"))) {
-                                        EventBus.getDefault().post(new ChangedAttentionList("friend_id"));
+                                        EventBus.getDefault().post(new ChangedAttentionList(send.getString("friend_id")));
                                     } else if ("2".equals(send.getString("status"))) {
-                                        EventBus.getDefault().post(new ChangedAttentionList("friend_id"));
+                                        EventBus.getDefault().post(new ChangedAttentionList(send.getString("friend_id")));
                                     } else if ("3".equals(send.getString("status"))) {
-                                        EventBus.getDefault().post(new ChangedBlackList("friend_id"));
+                                        EventBus.getDefault().post(new ChangedBlackList(send.getString("friend_id")));
                                     } else if ("4".equals(send.getString("status"))) {
-                                        EventBus.getDefault().post(new ChangedAttentionList("friend_id"));
-                                        EventBus.getDefault().post(new ChangedBlackList("friend_id"));
+                                        EventBus.getDefault().post(new ChangedAttentionList(send.getString("friend_id")));
+                                        EventBus.getDefault().post(new ChangedBlackList(send.getString("friend_id")));
                                     }
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
@@ -586,9 +589,9 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                             fragmentCommunity_userinfo_posts.p = 1;
                                             fragmentCommunity_userinfo_posts.communityArticle(null);
                                         }
-                                        if (fragmentUserInfoDymaic != null) {
-                                            fragmentUserInfoDymaic.p = 1;
-                                            fragmentUserInfoDymaic.dymaicInfo();
+                                        if (fragment_dynamic_friend_attention_community_near != null) {
+                                            fragment_dynamic_friend_attention_community_near.p = 1;
+                                            fragment_dynamic_friend_attention_community_near.getDymaic();
                                         }
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
@@ -711,7 +714,7 @@ public class ActivityUserInfo extends BaseFragmentActivity {
                                             jsonObject.getJSONObject("data").getString("sex"),
                                             jsonObject.getJSONObject("data").getString("stranger")
                                     );
-                                    init();
+                                    init( jsonObject.getJSONObject("data").getString("member_id"));
                                     LogUtils.e(userinfoModel.toString());
                                     picActivityUserInfo.setTag(R.id.glide_tag, Config.url + userinfoModel.face);
                                     addImageViewList(GlidUtils.downLoader(true, picActivityUserInfo, getBaseActivityContext()));

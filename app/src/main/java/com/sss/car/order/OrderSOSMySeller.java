@@ -42,7 +42,7 @@ public class OrderSOSMySeller extends BaseActivity {
     FragmentAdapter fragmentAdapter;
 
     //底部导航栏文字
-    String[] text = new String[]{"            未完成            ", "            已完成            "};
+    String[] text = new String[]{"            未完成            ", "            已结束            "};
 
 
     FragmentOrderSOSSeller fragmentOrderSOSSellerUnfinish;

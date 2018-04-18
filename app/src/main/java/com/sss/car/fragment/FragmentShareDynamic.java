@@ -235,7 +235,7 @@ public class FragmentShareDynamic extends BaseFragment {
 
 
         //（type == 1所有，2我的，3好友，4关注，5社区，6周边）
-        fragment_dynamic_friend_attention_community_near = new Fragment_Dynamic_Friend_Attention_community_Near(false,"1",true, new CustomRefreshLayoutCallBack2() {
+        fragment_dynamic_friend_attention_community_near = new Fragment_Dynamic_Friend_Attention_community_Near(null,Config.member_id,false,"1",true, new CustomRefreshLayoutCallBack2() {
             @Override
             public void onAdd(ListViewVariation listViewVariation) {
                 listViewVariation.addHeadView(view);

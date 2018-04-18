@@ -117,6 +117,11 @@ public class DectionaryDetails extends BaseActivity {
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     textDectionaryDetails.setText(jsonObject.getJSONObject("data").getString("contents"));
                                     titleDectionaryDetails.setText(jsonObject.getJSONObject("data").getString("title"));
+                                    if ("1".equals(jsonObject.getJSONObject("data").getString("is_collect"))){
+                                        rightButtonTop.setText("收藏");
+                                    }else {
+                                        rightButtonTop.setText("已收藏");
+                                    }
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }
@@ -169,6 +174,11 @@ public class DectionaryDetails extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                    if ("1".equals(jsonObject.getJSONObject("data").getString("code"))){
+                                        rightButtonTop.setText("收藏");
+                                    }else {
+                                        rightButtonTop.setText("已收藏");
+                                    }
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }

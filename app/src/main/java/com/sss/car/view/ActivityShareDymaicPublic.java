@@ -18,6 +18,7 @@ import com.blankj.utilcode.activity.BaseFragmentActivity;
 import com.blankj.utilcode.util.$;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedDynamicList;
 import com.sss.car.R;
 import com.sss.car.custom.ListViewVariation;
@@ -124,7 +125,7 @@ public class ActivityShareDymaicPublic extends BaseActivity {
 
 
         if (fragmentShareDymaic == null) {
-            fragmentShareDymaic = new Fragment_Dynamic_Friend_Attention_community_Near(true,getIntent().getExtras().getString("type"), false, new CustomRefreshLayoutCallBack2() {
+            fragmentShareDymaic = new Fragment_Dynamic_Friend_Attention_community_Near(null,Config.member_id,true,getIntent().getExtras().getString("type"), false, new CustomRefreshLayoutCallBack2() {
                 @Override
                 public void onAdd(ListViewVariation listViewVariation) {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {

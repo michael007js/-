@@ -597,4 +597,35 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
 
         }
     }
+
+    @Override
+    public void onDepositChangedPrice(OrderModel orderModel) {
+        if ("1".equals(orderModel.type)) {
+            CarUtils.orderJump(
+                    getBaseFragmentActivityContext(),
+                    "goods",
+                    Integer.valueOf(orderModel.status),
+                    orderModel.order_id,
+                    true,
+                    orderModel.goods_comment,
+                    orderModel.is_comment,
+                    orderModel.exchange_id,
+                    orderModel.exchange_status,
+                    orderModel.is_bargain);
+        } else if ("2".equals(orderModel.type)) {
+            CarUtils.orderJump(
+                    getBaseFragmentActivityContext(),
+                    "service",
+                    Integer.valueOf(orderModel.status),
+                    orderModel.order_id,
+                    true,
+                    orderModel.goods_comment,
+                    orderModel.is_comment,
+                    orderModel.exchange_id,
+                    orderModel.exchange_status,
+                    orderModel.is_bargain);
+
+        }
+
+    }
 }

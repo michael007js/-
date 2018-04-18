@@ -30,8 +30,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.path;
 
 /**
  * Created by sendtion on 2016/6/24.
@@ -162,19 +165,26 @@ public class RichTextView extends ScrollView {
     /**
      * 在特定位置添加ImageView
      */
-    public void addImageViewAtIndex(Context context, final int index, final String imagePath, final int w, final int h) {
+    public void addImageViewAtIndex(final Context context, final int index, final String imagePath, final int w, final int h) {
         final RelativeLayout imageLayout = createImageLayout();
         final DataImageView imageView = (DataImageView) imageLayout.findViewById(R.id.edit_imageView);
         imageList.add(imageView);
+        imageLayout.setTag(imagePath);
+        LogUtils.e(imagePath);
         GlidUtils.getWidthAndHeight(context, imageView, imagePath, new GlidUtils.OnWidthAndHeightCallBack() {
             @Override
             public void onCallBack(String imgUrl, int width, int height) {
-                double percentage = height / width;
-                int tempH = h;
-                if ((int) (percentage * height) > 0) {
-                    tempH = (int) (percentage * height);
-                }
 
+                int screenWidth=ScreenUtils.getScreenWidth(context);
+
+
+
+                double percentage = new BigDecimal((float)height/width).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                int tempH = h;
+                if ((int) (percentage * screenWidth) > 0) {
+                    tempH = (int) (percentage * screenWidth);
+                }
+                LogUtils.e("percentage:"+percentage+"\nheight:"+height+"\nwidth:"+width+"\nscreenWidth:"+screenWidth+"\nw:"+w);
                 FrescoUtils.showImage(false, w, tempH, Uri.parse(imgUrl), imageView, 0f);
                 if (onHeightCallBack!=null){
                     onHeightCallBack.onHeight(tempH);
@@ -182,32 +192,26 @@ public class RichTextView extends ScrollView {
                 imageView.setAbsolutePath(imgUrl);
 
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                        width, height);
+                        screenWidth, tempH);
                 lp.bottomMargin = 5;
                 imageView.setLayoutParams(lp);
 
-                allLayout.addView(imageLayout, index);
                 imageView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (onImageClickListener != null) {
-
-                            int a = 0;
-                            for (int j = 0; j < allLayout.getChildCount(); j++) {
-                                if (j <= index) {
-                                    if (allLayout.getChildAt(j) instanceof TextView) {
-                                        a++;
-                                    }
-                                }
+                            List<String> temp=new ArrayList<>();
+                            for (int i = img.size()-1; i >-1; i--) {
+                                temp.add(img.get(i));
                             }
-                            LogUtils.e(allLayout.getChildCount() + "---" + index + "---" + a);
-                            onImageClickListener.onClickImage(index - a, img, imageView);
+                            onImageClickListener.onClickImage(index,imagePath, temp, imageView);
                             return;
                         }
                     }
                 });
             }
         });
+        allLayout.addView(imageLayout, index);
     }
 
 
@@ -332,7 +336,7 @@ public class RichTextView extends ScrollView {
 
     public interface OnImageClickListener {
 
-        void onClickImage(int position, List<String> img, DataImageView imageView);
+        void onClickImage(int position,String path, List<String> img, DataImageView imageView);
 
     }
 }

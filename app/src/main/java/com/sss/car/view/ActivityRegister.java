@@ -2,6 +2,7 @@ package com.sss.car.view;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Button.CountDownButton;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.dao.OnAskDialogCallBack;
+import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.BitmapUtils;
@@ -23,6 +25,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.sss.car.Config;
 import com.sss.car.EventBusModel.RegisterModel;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
@@ -108,7 +111,8 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
         APPOftenUtils.underLineOfTextView(protocolActivityRegister);
         init();
         if (getBaseActivityContext() != null) {
-            addImageViewList(GlidUtils.glideLoad(false, qrActivityRegister, getBaseActivityContext(), R.mipmap.logo_register_code_qr));
+            qr_pic();
+//            addImageViewList(GlidUtils.glideLoad(false, qrActivityRegister, getBaseActivityContext(), R.mipmap.logo_register_code_qr));
         }
         getCodeActivityRegister.createCountTimer();
         getCodeActivityRegister.setOnOperationCallBack(new CountDownButton.CountDownButtonOperationCallBack() {
@@ -355,6 +359,52 @@ public class ActivityRegister extends BaseActivity implements View.OnFocusChange
                     startActivity(new Intent(getBaseActivityContext(), ActivityProtocol.class));
                 }
                 break;
+        }
+    }
+
+    public void qr_pic() {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.dismiss();
+        }
+        ywLoadingDialog = null;
+        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
+        ywLoadingDialog.show();
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.qr_pic(
+                    new JSONObject()
+                            .put("member_id", Config.member_id)
+                            .toString()
+                    , new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.dismiss();
+                            }
+                            ToastUtils.showShortToast(getBaseActivityContext(), e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.dismiss();
+                            }
+                            try {
+                                final JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    qrActivityRegister.setTag(R.id.glide_tag,Config.url+jsonObject.getJSONObject("data").getString("qr_code"));
+                                    addImageViewList(GlidUtils.downLoader(false,qrActivityRegister,getBaseActivityContext()));
+                                } else {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:-2");
+                                e.printStackTrace();
+                            }
+                        }
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:-0");
+            e.printStackTrace();
         }
     }
 

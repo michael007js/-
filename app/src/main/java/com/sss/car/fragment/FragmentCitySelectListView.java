@@ -230,8 +230,7 @@ public class FragmentCitySelectListView extends BaseFragment implements CitySele
         CarUtils.select(getBaseFragmentActivityContext(), model.name, model.lat, model.lng, new CarUtils.OnCitySelectCallBack() {
             @Override
             public void onSuccess() {
-                EventBus.getDefault().post(new SelectCtityModel(model.name));
-                getActivity().finish();
+                insert_looks(model.id, model.name, model.lat, model.lng);
             }
 
             @Override

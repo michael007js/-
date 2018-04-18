@@ -255,7 +255,7 @@ public class OrderSOSGrabList extends BaseActivity {
                             if (menuDialog == null) {
                                 menuDialog = new MenuDialog(getBaseActivity());
                             }
-                            PayUtils.requestPayment(ywLoadingDialog, list.get(position).member_id, list.get(position).sos_id, 1, 0, list.get(position).price, getBaseActivity());
+                            PayUtils.requestPayment(ywLoadingDialog,false, list.get(position).member_id, list.get(position).sos_id, 1, 0, list.get(position).price, getBaseActivity(),null);
                         } else {
                             ToastUtils.showLongToast(getBaseActivityContext(), "该订单已过期");
                         }

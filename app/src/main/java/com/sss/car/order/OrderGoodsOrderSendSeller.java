@@ -34,9 +34,7 @@ import com.sss.car.model.ExpressModel;
 import com.sss.car.model.OrderSellerModel;
 import com.sss.car.model.OrderSellerModel_Order_Goods;
 import com.sss.car.order_new.Constant;
-import com.sss.car.order_new.OrderGoodsReadyBuyList;
 import com.sss.car.order_new.OrderReturnsChangeApplyForAndCompleteDataSeller;
-import com.sss.car.order_new.OrderServiceReadyBuyList;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.utils.OrderUtils;
 import com.sss.car.view.ActivityMyDataSetPassword;
@@ -55,9 +53,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
-
-import static com.sss.car.R.string.sss;
-import static com.umeng.socialize.utils.DeviceConfig.context;
 
 /**
  * 我的订单==>实物类发货
@@ -129,6 +124,14 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
     MenuDialog menuDialog;
     BottomSheetDialog bottomSheetDialog;
     String express_id;
+    @BindView(R.id.click_d)
+    TextView clickD;
+    @BindView(R.id.price)
+    TextView price;
+    @BindView(R.id.parent_price)
+    LinearLayout parentPrice;
+    @BindView(R.id.line)
+    TextView line;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -211,8 +214,15 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
 
     void initView() {
 
-        LogUtils.e(getIntent().getExtras().getInt("status") + "---" + getIntent().getExtras().getString("exchange_status"));
+        LogUtils.e(getIntent().getExtras().getInt("status") + "---" + getIntent().getExtras().getString("exchange_status")+"---is_bargain:"+getIntent().getExtras().getString("is_bargain"));
         switch (getIntent().getExtras().getInt("status")) {
+            case Constant.Have_Already_Delivery_Awating_Sign_For:
+//                if ("1".equals(getIntent().getExtras().getString("is_bargain"))) {
+//
+//                }
+
+                bargain();
+                break;
             case Constant.Have_Already_Paid_Awating_Delivery:
                 send();
                 break;
@@ -225,9 +235,9 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
 
                 break;
             case Constant.Changed:
-                if ("3".equals(getIntent().getExtras().getString("exchange_status"))||"6".equals(getIntent().getExtras().getString("exchange_status"))) {
+                if ("3".equals(getIntent().getExtras().getString("exchange_status")) || "6".equals(getIntent().getExtras().getString("exchange_status"))) {
                     changed();
-                }  else {
+                } else {
                     send();
                 }
                 break;
@@ -235,10 +245,43 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
                 delete();
                 break;
             case Constant.Awating_Dispose_Returns:
-                deposit();
+                if ("2".equals(getIntent().getExtras().getString("exchange_status"))){
+                    stop();
+                }else {
+                    deposit();
+                }
                 break;
         }
 
+    }
+
+    private void stop() {
+        clickD.setText("已拒绝");
+        clickD.setVisibility(View.VISIBLE);
+        clicks.setVisibility(View.GONE);
+        parentPrice.setVisibility(View.VISIBLE);
+        line.setVisibility(View.VISIBLE);
+
+    }
+    private void bargain() {
+        clickD.setText("拒绝");
+        clicks.setText("同意");
+        clickD.setVisibility(View.VISIBLE);
+        clicks.setVisibility(View.VISIBLE);
+        parentPrice.setVisibility(View.VISIBLE);
+        line.setVisibility(View.VISIBLE);
+        clickD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderUtils.status_bargain(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), "2");
+            }
+        });
+        clicks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderUtils.status_bargain(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), "2");
+            }
+        });
     }
 
     private void send() {
@@ -311,8 +354,8 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
                                 }
                                 menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
                                     @Override
-                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
-                                        P.r(ywLoadingDialog, Config.member_id, password,getBaseActivity(), new P.r() {
+                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final BottomSheetDialog bottomSheetDialog) {
+                                        P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
                                             @Override
                                             public void match() {
                                                 bottomSheetDialog.dismiss();
@@ -381,8 +424,8 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
                                 }
                                 menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
                                     @Override
-                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
-                                        P.r(ywLoadingDialog, Config.member_id, password,getBaseActivity(), new P.r() {
+                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final BottomSheetDialog bottomSheetDialog) {
+                                        P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
                                             @Override
                                             public void match() {
                                                 bottomSheetDialog.dismiss();
@@ -556,6 +599,7 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
                                     orderSellerModel.order_code = jsonObject.getJSONObject("data").getString("order_code");
                                     orderSellerModel.delivery_time = jsonObject.getJSONObject("data").getString("delivery_time");
                                     orderSellerModel.damages = jsonObject.getJSONObject("data").getString("damages");
+                                    orderSellerModel.bargain = jsonObject.getJSONObject("data").getString("bargain");
                                     orderSellerModel.total = jsonObject.getJSONObject("data").getString("total");
                                     orderSellerModel.deduct_price = jsonObject.getJSONObject("data").getString("deduct_price");
                                     orderSellerModel.coupon_price = jsonObject.getJSONObject("data").getString("coupon_price");
@@ -606,6 +650,7 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
 
 
     void showData() {
+        price.setText(orderSellerModel.bargain);
         express_id = orderSellerModel.express_id;
         peopleNameOrderGoodsOrderSendSeller.setText(orderSellerModel.recipients);
         contentOrderGoodsOrderSendSeller.setText(orderSellerModel.address);

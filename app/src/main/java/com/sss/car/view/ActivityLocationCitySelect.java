@@ -98,7 +98,6 @@ public class ActivityLocationCitySelect extends BaseActivity {
                             FragmentUtils.hideAllShowFragment(fragmentCitySelectSearchListView);
                             fragmentCitySelectSearchListView.search_city(editText.getText().toString().trim());
                         }
-
                     }
             }
         });

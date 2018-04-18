@@ -16,8 +16,10 @@ import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.CountDownTimerUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.AdvertisementManager;
 import com.sss.car.Config;
 import com.sss.car.R;
@@ -37,6 +39,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.weyye.hipermission.PermissionCallback;
+import me.weyye.hipermission.PermissionItem;
 import okhttp3.Call;
 
 /**
@@ -52,17 +56,7 @@ public class Splash extends BaseActivity {
     Intent intent;
     SPUtils spUtils;
     List<AdvertisementModel> list = new ArrayList<>();
-    CountDownTimerUtils countDownTimer = new CountDownTimerUtils(4000, 1000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-            countTimeSplash.setText("倒计时" + millisUntilFinished / 1000);
-        }
-
-        @Override
-        public void onFinish() {
-            onViewClicked();
-        }
-    };
+    CountDownTimerUtils countDownTimer;
     AdvertisementViewPagerHelper advertisementViewPagerHelper;
     @BindView(R.id.banner)
     BannerViewPager banner;
@@ -83,7 +77,6 @@ public class Splash extends BaseActivity {
         ButterKnife.bind(this);
         customInit(splash, false, false, false);
         advertisementViewPagerHelper = new AdvertisementViewPagerHelper();
-        countDownTimer.start();
         advertisement();
 //        AdvertisementManager.advertisement("16", "", new AdvertisementManager.OnAdvertisementCallBack() {
 //            @Override
@@ -99,6 +92,20 @@ public class Splash extends BaseActivity {
 
     }
 
+    private void init(long time) {
+        countDownTimer = new CountDownTimerUtils(time, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                countTimeSplash.setText("倒计时" + millisUntilFinished / 1000);
+            }
+
+            @Override
+            public void onFinish() {
+                onViewClicked();
+            }
+        };
+        countDownTimer.start();
+    }
 
     @Override
     protected void onResume() {
@@ -161,7 +168,8 @@ public class Splash extends BaseActivity {
                                                             isFinishByUser = true;
                                                         }
                                                     });
-                                        }else {
+                                            init((jsonObject.getLong("run_time")+1) * 1000);
+                                        } else {
                                             onViewClicked();
                                         }
                                     }
@@ -189,6 +197,7 @@ public class Splash extends BaseActivity {
             advertisementViewPagerHelper.onDestroy();
         }
         spUtils = null;
+        Config.tempUrl = null;
     }
 
 

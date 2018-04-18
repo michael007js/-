@@ -134,6 +134,11 @@ public class WalletWithdraw extends BaseActivity {
                     canWalletWithdraw.setText("可用于提现的金额:  " + expendable + "元");
                 } else {
                     canWalletWithdraw.setText(content);
+                    if (expendable < Integer.valueOf(s.toString())) {
+                        inputWalletWithdraw.setText(expendable+"");
+                        inputWalletWithdraw.setSelection(s.toString().length()-1);
+                        ToastUtils.showShortToast(getBaseActivityContext(),"可用于提现的金额为:  " + expendable + "元");
+                    }
                 }
             }
         });

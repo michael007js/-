@@ -15,6 +15,8 @@ public class OrderSellerModel_Order_Goods implements Parcelable {
     public String slogan;
     public String master_map;
     public String cost_price;
+    public String total;
+
 
     @Override
     public int describeContents() {
@@ -30,6 +32,7 @@ public class OrderSellerModel_Order_Goods implements Parcelable {
         dest.writeString(this.slogan);
         dest.writeString(this.master_map);
         dest.writeString(this.cost_price);
+        dest.writeString(this.total);
     }
 
     public OrderSellerModel_Order_Goods() {
@@ -43,6 +46,7 @@ public class OrderSellerModel_Order_Goods implements Parcelable {
         this.slogan = in.readString();
         this.master_map = in.readString();
         this.cost_price = in.readString();
+        this.total = in.readString();
     }
 
     public static final Creator<OrderSellerModel_Order_Goods> CREATOR = new Creator<OrderSellerModel_Order_Goods>() {

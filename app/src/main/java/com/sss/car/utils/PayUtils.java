@@ -107,6 +107,7 @@ public class PayUtils {
      * 请求可用积分
      *
      * @param ywLoadingDialog
+     * @param walletDisenable 钱包是否不显示
      * @param friend_id       如果是SOS订单支付时才有用，其他支付可以无视
      * @param ids             商品类型ID
      * @param title_type      1SOS订单支付，2订单支付，3优惠券支付，4推广订单支付，5账户充值
@@ -114,7 +115,15 @@ public class PayUtils {
      * @param money           支付金额
      * @param activity
      */
-    public static void requestPayment(final YWLoadingDialog ywLoadingDialog, final String friend_id, final String ids, final int title_type, final int is_deposit, final String money, final Activity activity) {
+    public static void requestPayment(final YWLoadingDialog ywLoadingDialog,
+                                      final boolean walletDisenable,
+                                      final String friend_id,
+                                      final String ids,
+                                      final int title_type,
+                                      final int is_deposit,
+                                      final String money,
+                                      final Activity activity,
+                                      final String isOrderPayWindow) {
         LogUtils.e("ids:" + ids + "    title_type:" + title_type + "    money:" + money + "    is_deposit:" + is_deposit);
         try {
             RequestWeb.payment_integral(
@@ -145,9 +154,9 @@ public class PayUtils {
                                 }
                                 double b = Double.valueOf(a);
                                 if ("0".equals(money) || "0.0".equals(money) || "0.00".equals(money)) {
-                                    createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money, 0, title_type, ids, "1", is_deposit, null);
+                                    createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money, 0, title_type, ids, "1", is_deposit, null, isOrderPayWindow);
                                 } else {
-                                    createPaymentDialog(ywLoadingDialog, friend_id, ids, title_type, is_deposit, money, (float) b, activity);
+                                    createPaymentDialog(ywLoadingDialog, walletDisenable, friend_id, ids, title_type, is_deposit, money, (float) b, activity, isOrderPayWindow);
                                 }
 
                             } catch (JSONException e) {
@@ -166,6 +175,7 @@ public class PayUtils {
      * 创建弹窗
      *
      * @param ywLoadingDialog
+     * @param walletDisenable 钱包是否显示
      * @param friend_id       如果是SOS订单支付时才有用，其他支付可以无视
      * @param ids             商品类型ID
      * @param title_type      1SOS订单支付，2订单支付，3优惠券支付，4推广订单支付，5账户充值
@@ -174,7 +184,8 @@ public class PayUtils {
      * @param score           积分抵兑金额
      * @param activity
      */
-    public static void createPaymentDialog(final YWLoadingDialog ywLoadingDialog, final String friend_id, final String ids, final int title_type, final int is_deposit, final String money, final float score, final Activity activity) {
+    public static void createPaymentDialog(final YWLoadingDialog ywLoadingDialog, final boolean walletDisenable, final String friend_id, final String ids, final int title_type,
+                                           final int is_deposit, final String money, final float score, final Activity activity, final String isOrderPayWindow) {
 
         getDefaultBankCard(ywLoadingDialog, activity, new OnDefaultBankCardCallBack() {
             @Override
@@ -201,10 +212,15 @@ public class PayUtils {
                 final TextView zfb_name = $.f(view, R.id.zfb_name);
                 final TextView wx_name = $.f(view, R.id.wx_name);
 
+                if (walletDisenable) {
+                    click_balance_dialog_payment_bottom.setVisibility(View.GONE);
+                } else {
+                    click_balance_dialog_payment_bottom.setVisibility(View.VISIBLE);
+                }
                 if (bankModel.card_id != null) {
                     bank_name.setText(bankModel.bank_name);
                 } else {
-                    bank_name.setText("绑定银行卡");
+                    bank_name.setText("银行卡");
                     cb_bank_dialog_payment_bottom.setVisibility(View.GONE);
                     bank_name.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -390,14 +406,14 @@ public class PayUtils {
                             is_integral = 0;
                         }
                         if (cb_balance_dialog_payment_bottom.isChecked()) {
-                            createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "1", is_deposit, null);
+                            createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "1", is_deposit, null, isOrderPayWindow);
                         } else if (cb_wx_dialog_payment_bottom.isChecked()) {
                             payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "2", is_deposit, null);
                         } else if (cb_zfb_dialog_payment_bottom.isChecked()) {
                             payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "3", is_deposit, null);
                         } else if (cb_bank_dialog_payment_bottom.isChecked()) {
                             if (bankModel.card_id != null) {
-                                createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "4", is_deposit, bankModel);
+                                createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "4", is_deposit, bankModel, isOrderPayWindow);
                             }
                         }
                         bottomSheetDialog.dismiss();
@@ -482,60 +498,105 @@ public class PayUtils {
      * @param bankModel       如果是由银行卡支付调起的，这里需要银行卡，其他的可以为空
      */
     private static void createPasswordInputDialog(final YWLoadingDialog ywLoadingDialog, final String friend_id, final Activity activity, final String money,
-                                                  final int is_integral, final int title_type, final String ids, final String payment_mode, final int is_deposit, final BankModel bankModel) {
+                                                  final int is_integral, final int title_type, final String ids, final String payment_mode, final int is_deposit, final BankModel bankModel, String isOrderPayWindow) {
+        if ("1".equals(isOrderPayWindow)) {
+            if ("0".equals(money) || "0.0".equals(money) || "0.00".equals(money)) {
+                switch (title_type) {//1SOS订单支付，2订单支付，3优惠券支付，4推广订单支付，5账户充值
+                    case 1:
+                        EventBus.getDefault().post(new ChangedOrderModel());
+                        break;
+                    case 2:
+                        EventBus.getDefault().post(new ChangedOrderModel());
+                        break;
+                    case 3:
+                        EventBus.getDefault().post(new ChangedCouponModel());
+                        break;
+                    case 4:
+                        EventBus.getDefault().post(new ChangedPopularizeModel());
+                        break;
+                    case 5:
+                        EventBus.getDefault().post(new ChangedWalletModel());
+                        break;
 
-        P.e(ywLoadingDialog, Config.member_id, activity, new P.p() {
-            @Override
-            public void exist() {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
-                View view = LayoutInflater.from(activity).inflate(R.layout.dialog_password_input, null);
-                final PassWordKeyboard PassWordKeyboard = $.f(view, R.id.PassWordKeyboard);
-                PassWordKeyboard
-                        .title("验证支付密码")
-                        .titleColor(activity.getResources().getColor(R.color.mainColor))
-                        .setColor(activity.getResources().getColor(R.color.mainColor))
-                        .setLoadingDraw(activity, R.mipmap.logo_loading)
-                        .overridePendingTransition(activity)
-                        .customFunction("")
-                        .setOnPassWordKeyboardCallBack(new PassWordKeyboard.OnPassWordKeyboardCallBack() {
-                            @Override
-                            public void onPassword(final String pasword) {
-                                P.r(ywLoadingDialog, Config.member_id, pasword, activity, new P.r() {
-                                    @Override
-                                    public void match() {
-                                        bottomSheetDialog.dismiss();
-                                        PassWordKeyboard.setStatus(true);
-                                        payment_into(ywLoadingDialog, friend_id, activity, money, is_integral, title_type, ids, payment_mode, is_deposit, bankModel);
-                                    }
-
-                                    @Override
-                                    public void mismatches() {
-                                        PassWordKeyboard.setStatus(false);
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                bottomSheetDialog.dismiss();
-                            }
-
-                            @Override
-                            public void onCustomFunction() {
-                            }
-                        });
-                bottomSheetDialog.setContentView(view);
-                bottomSheetDialog.show();
-            }
-
-            @Override
-            public void nonexistence() {
-                if (activity != null) {
-                    activity.startActivity(new Intent(activity, ActivityMyDataSynthesizSettingSetPayPassword.class)
-                            .putExtra("mode", ActivityMyDataSynthesizSettingSetPayPassword.set));
                 }
+            } else {
+                payment_into(ywLoadingDialog, friend_id, activity, money, is_integral, title_type, ids, payment_mode, is_deposit, bankModel);
             }
-        });
+        } else {
+            P.e(ywLoadingDialog, Config.member_id, activity, new P.p() {
+                @Override
+                public void exist() {
+                    final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
+                    View view = LayoutInflater.from(activity).inflate(R.layout.dialog_password_input, null);
+                    final PassWordKeyboard PassWordKeyboard = $.f(view, R.id.PassWordKeyboard);
+                    PassWordKeyboard
+                            .title("验证支付密码")
+                            .titleColor(activity.getResources().getColor(R.color.mainColor))
+                            .setColor(activity.getResources().getColor(R.color.mainColor))
+                            .setLoadingDraw(activity, R.mipmap.logo_loading)
+                            .overridePendingTransition(activity)
+                            .customFunction("")
+                            .setOnPassWordKeyboardCallBack(new PassWordKeyboard.OnPassWordKeyboardCallBack() {
+                                @Override
+                                public void onPassword(final String pasword) {
+                                    P.r(ywLoadingDialog, Config.member_id, pasword, activity, new P.r() {
+                                        @Override
+                                        public void match() {
+                                            bottomSheetDialog.dismiss();
+                                            PassWordKeyboard.setStatus(true);
+                                            if ("0".equals(money) || "0.0".equals(money) || "0.00".equals(money)) {
+                                                switch (title_type) {//1SOS订单支付，2订单支付，3优惠券支付，4推广订单支付，5账户充值
+                                                    case 1:
+                                                        EventBus.getDefault().post(new ChangedOrderModel());
+                                                        break;
+                                                    case 2:
+                                                        EventBus.getDefault().post(new ChangedOrderModel());
+                                                        break;
+                                                    case 3:
+                                                        EventBus.getDefault().post(new ChangedCouponModel());
+                                                        break;
+                                                    case 4:
+                                                        EventBus.getDefault().post(new ChangedPopularizeModel());
+                                                        break;
+                                                    case 5:
+                                                        EventBus.getDefault().post(new ChangedWalletModel());
+                                                        break;
+
+                                                }
+                                            } else {
+                                                payment_into(ywLoadingDialog, friend_id, activity, money, is_integral, title_type, ids, payment_mode, is_deposit, bankModel);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void mismatches() {
+                                            PassWordKeyboard.setStatus(false);
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    bottomSheetDialog.dismiss();
+                                }
+
+                                @Override
+                                public void onCustomFunction() {
+                                }
+                            });
+                    bottomSheetDialog.setContentView(view);
+                    bottomSheetDialog.show();
+                }
+
+                @Override
+                public void nonexistence() {
+                    if (activity != null) {
+                        activity.startActivity(new Intent(activity, ActivityMyDataSynthesizSettingSetPayPassword.class)
+                                .putExtra("mode", ActivityMyDataSynthesizSettingSetPayPassword.set));
+                    }
+                }
+            });
+        }
 
     }
 
@@ -566,7 +627,7 @@ public class PayUtils {
             final int is_deposit, final BankModel bankModel) {
         final YWLoadingDialog ywLoadingDialog1 = showToast(ywLoadingDialog, activity, "正在生成订单");
         try {
-            JSONObject jsonObject=  new JSONObject()
+            JSONObject jsonObject = new JSONObject()
                     .put("money", money)
                     .put("type", title_type)
                     .put("ids", ids)
@@ -577,11 +638,11 @@ public class PayUtils {
                     .put("is_integral", is_integral)
                     .put("payment_mode", payment_mode)
                     .put("member_id", Config.member_id);
-            if (bankModel!=null){
-                jsonObject .put("card_id", bankModel.card_id);
+            if (bankModel != null) {
+                jsonObject.put("card_id", bankModel.card_id);
             }
             RequestWeb.payment_into(jsonObject.toString()
-                  , new StringCallback() {
+                    , new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
                             if (ywLoadingDialog != null) {
@@ -705,7 +766,7 @@ public class PayUtils {
                     ToastUtils.showShortToast(activity, "请输入验证码");
                     return;
                 }
-                payByBankCard(ywLoadingDialog1, TrxId, order_code, title_type, code.getText().toString().trim(), activity,bottomSheetDialog);
+                payByBankCard(ywLoadingDialog1, TrxId, order_code, title_type, code.getText().toString().trim(), activity, bottomSheetDialog);
             }
         });
 

@@ -545,6 +545,7 @@ public class OrderGoodsReadyBuyEdit extends BaseActivity {
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.getOrderDetailsSeller(
                     new JSONObject()
+                            .put("member_id",Config.member_id)
                             .put("order_id", getIntent().getExtras().getString("order_id"))
                             .toString()
                     , new StringCallback() {
@@ -812,6 +813,7 @@ public class OrderGoodsReadyBuyEdit extends BaseActivity {
                 couponModel3.is_check = jsonArray.getJSONObject(i).getString("is_check");
                 list.add(couponModel3);
                 showCouponOrderGoodsReadyBuyEdit.setTextColor(getResources().getColor(R.color.black));
+                showCouponOrderGoodsReadyBuyEdit.setText("优惠券可用");
 //                if ("1".equals(couponModel3.is_check)) {
 //                    showCouponOrderGoodsReadyBuyEdit.setText(couponModel3.name);
 //                    coupon_id=couponModel3.coupon_id;

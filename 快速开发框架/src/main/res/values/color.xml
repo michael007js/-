@@ -22,7 +22,7 @@
     <color name="google_yellow">#FBBC05</color>
     <color name="shadow">#25808080</color>
     <!--LayoutCanRefresh-->
-
+    <color name="blue_sky">#a2a3Ff</color>
 
     <!--update-->
     <color name="checkupdatelibrary_update_button">#64B5F6</color>

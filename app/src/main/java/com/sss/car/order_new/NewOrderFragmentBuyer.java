@@ -401,8 +401,7 @@ public class NewOrderFragmentBuyer extends BaseFragment implements CustomListVie
 
     @Override
     public void onPayment(final OrderModel orderModel) {
-        PayUtils.requestPayment(ywLoadingDialog, "0", orderModel.order_id, 2, 0, PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total), 2), getActivity());
-
+        PayUtils.requestPayment(ywLoadingDialog,false, "0", orderModel.order_id, 2, 0, PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total), 2), getActivity(),null);
 
 //        try {
 //            String a = orderModel.total;
@@ -637,43 +636,47 @@ public class NewOrderFragmentBuyer extends BaseFragment implements CustomListVie
             public void onOKey(Dialog dialog) {
                 dialog.dismiss();
                 dialog = null;
-
-                P.e(ywLoadingDialog, Config.member_id, baseActivity, new P.p() {
-                    @Override
-                    public void exist() {
-                        if (menuDialog == null) {
-                            menuDialog = new MenuDialog(baseActivity);
-                        }
-                        menuDialog.createPasswordInputDialog("请输入您的支付密码", baseActivity, new OnPayPasswordVerificationCallBack() {
-                            @Override
-                            public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
-                                P.r(ywLoadingDialog, Config.member_id, password,baseActivity, new P.r() {
-                                    @Override
-                                    public void match() {
-                                        bottomSheetDialog.dismiss();
-                                        passWordKeyboard.setStatus(true);
-                                        OrderUtils.sureOrderGoods(baseActivity, ywLoadingDialog, false, orderModel.order_id);
-                                    }
-
-                                    @Override
-                                    public void mismatches() {
-
-                                        passWordKeyboard.setStatus(false);
-                                    }
-                                });
-                            }
-
-                        });
-                    }
-
-
-                    @Override
-                    public void nonexistence() {
-                        if (getBaseFragmentActivityContext() != null) {
-                            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityMyDataSetPassword.class));
-                        }
-                    }
-                });
+                onItem(orderModel.type, orderModel.order_id, orderModel.shop_id, orderModel.status, orderModel);
+//                OrderUtils.start(1,menuDialog,baseActivity, ywLoadingDialog, false, orderModel.order_id,Double.valueOf(orderModel.total));
+//                P.e(ywLoadingDialog, Config.member_id, baseActivity, new P.p() {
+//                    @Override
+//                    public void exist() {
+//                        if (menuDialog == null) {
+//                            menuDialog = new MenuDialog(baseActivity);
+//                        }
+//                        menuDialog.createPasswordInputDialog("请输入您的支付密码", baseActivity, new OnPayPasswordVerificationCallBack() {
+//                            @Override
+//                            public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+//                                P.r(ywLoadingDialog, Config.member_id, password,baseActivity, new P.r() {
+//                                    @Override
+//                                    public void match() {
+//                                        bottomSheetDialog.dismiss();
+//                                        passWordKeyboard.setStatus(true);
+//                                        if (ywLoadingDialog==null){
+//                                            ywLoadingDialog=new YWLoadingDialog(getBaseFragmentActivityContext());
+//                                        }
+//                                        OrderUtils.start(1,menuDialog,baseActivity, ywLoadingDialog, false, orderModel.order_id,Double.valueOf(orderModel.total));
+//                                    }
+//
+//                                    @Override
+//                                    public void mismatches() {
+//
+//                                        passWordKeyboard.setStatus(false);
+//                                    }
+//                                });
+//                            }
+//
+//                        });
+//                    }
+//
+//
+//                    @Override
+//                    public void nonexistence() {
+//                        if (getBaseFragmentActivityContext() != null) {
+//                            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityMyDataSetPassword.class));
+//                        }
+//                    }
+//                });
 
 
             }
@@ -690,56 +693,57 @@ public class NewOrderFragmentBuyer extends BaseFragment implements CustomListVie
      */
     @Override
     public void onConfirmReceiptReturns(final OrderModel orderModel) {
-        APPOftenUtils.createAskDialog(getBaseFragmentActivityContext(), "是否确定要收货?", new OnAskDialogCallBack() {
-            @Override
-            public void onOKey(Dialog dialog) {
-                dialog.dismiss();
-                dialog = null;
-                P.e(ywLoadingDialog, Config.member_id, baseActivity, new P.p() {
-                    @Override
-                    public void exist() {
-                        if (menuDialog == null) {
-                            menuDialog = new MenuDialog(baseActivity);
-                        }
-                        menuDialog.createPasswordInputDialog("请输入您的支付密码", baseActivity, new OnPayPasswordVerificationCallBack() {
-                            @Override
-                            public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
-                                P.r(ywLoadingDialog, Config.member_id, password,baseActivity, new P.r() {
-                                    @Override
-                                    public void match() {
-                                        bottomSheetDialog.dismiss();
-                                        passWordKeyboard.setStatus(true);
-                                        OrderUtils.exchange_goods(baseActivity, ywLoadingDialog, false, orderModel.order_id,orderModel.exchange_id);
-                                    }
-
-                                    @Override
-                                    public void mismatches() {
-
-                                        passWordKeyboard.setStatus(false);
-                                    }
-                                });
-                            }
-
-                        });
-                    }
-
-
-                    @Override
-                    public void nonexistence() {
-                        if (getBaseFragmentActivityContext() != null) {
-                            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityMyDataSetPassword.class));
-                        }
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancel(Dialog dialog) {
-                dialog.dismiss();
-                dialog = null;
-            }
-        });
+//        APPOftenUtils.createAskDialog(getBaseFragmentActivityContext(), "是否确定要收货?", new OnAskDialogCallBack() {
+//            @Override
+//            public void onOKey(Dialog dialog) {
+//                dialog.dismiss();
+//                dialog = null;
+//                P.e(ywLoadingDialog, Config.member_id, baseActivity, new P.p() {
+//                    @Override
+//                    public void exist() {
+//                        if (menuDialog == null) {
+//                            menuDialog = new MenuDialog(baseActivity);
+//                        }
+//                        menuDialog.createPasswordInputDialog("请输入您的支付密码", baseActivity, new OnPayPasswordVerificationCallBack() {
+//                            @Override
+//                            public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+//                                P.r(ywLoadingDialog, Config.member_id, password,baseActivity, new P.r() {
+//                                    @Override
+//                                    public void match() {
+//                                        bottomSheetDialog.dismiss();
+//                                        passWordKeyboard.setStatus(true);
+//                                        OrderUtils.exchange_goods(baseActivity, ywLoadingDialog, false, orderModel.order_id,orderModel.exchange_id);
+//                                    }
+//
+//                                    @Override
+//                                    public void mismatches() {
+//
+//                                        passWordKeyboard.setStatus(false);
+//                                    }
+//                                });
+//                            }
+//
+//                        });
+//                    }
+//
+//
+//                    @Override
+//                    public void nonexistence() {
+//                        if (getBaseFragmentActivityContext() != null) {
+//                            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityMyDataSetPassword.class));
+//                        }
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void onCancel(Dialog dialog) {
+//                dialog.dismiss();
+//                dialog = null;
+//            }
+//        });
+        onItem(orderModel.type, orderModel.order_id, orderModel.shop_id, orderModel.status, orderModel);
     }
 
     /**
@@ -786,13 +790,40 @@ public class NewOrderFragmentBuyer extends BaseFragment implements CustomListVie
      * @param order_id
      */
     @Override
-    public void onConfirmedService(final String order_id) {
+    public void onConfirmedService(final OrderModel orderModel) {
         APPOftenUtils.createAskDialog(getBaseFragmentActivityContext(), "是否确认服务?", new OnAskDialogCallBack() {
             @Override
             public void onOKey(Dialog dialog) {
                 dialog.dismiss();
                 dialog = null;
-                OrderUtils.service_goods(baseActivity, ywLoadingDialog, false, order_id);
+                OrderUtils.start(2,menuDialog,baseActivity, ywLoadingDialog, false,orderModel.order_id,Double.valueOf(orderModel.total));
+//                if (menuDialog == null) {
+//                    menuDialog = new MenuDialog(baseActivity);
+//                }
+//                menuDialog.createPasswordInputDialog("请输入您的支付密码", baseActivity, new OnPayPasswordVerificationCallBack() {
+//                    @Override
+//                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final com.rey.material.app.BottomSheetDialog bottomSheetDialog) {
+//                        P.r(ywLoadingDialog, Config.member_id, password, baseActivity, new P.r() {
+//                            @Override
+//                            public void match() {
+//                                bottomSheetDialog.dismiss();
+//                                passWordKeyboard.setStatus(true);
+//                                if (ywLoadingDialog==null){
+//                                    ywLoadingDialog=new YWLoadingDialog(getBaseFragmentActivityContext());
+//                                }
+//                                OrderUtils.start(2,menuDialog,baseActivity, ywLoadingDialog, false,orderModel.order_id,Double.valueOf(orderModel.total));
+//                            }
+//
+//                            @Override
+//                            public void mismatches() {
+//
+//                                passWordKeyboard.setStatus(false);
+//                            }
+//                        });
+//                    }
+//
+//                });
+
             }
 
             @Override

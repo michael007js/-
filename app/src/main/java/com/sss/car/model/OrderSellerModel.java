@@ -22,6 +22,7 @@ public class OrderSellerModel implements Parcelable {
     public String delivery_time;
     public String damages;
     public String total;
+    public String bargain;
     public String deduct_price;
     public String coupon_price;
     public String number;
@@ -57,11 +58,12 @@ public class OrderSellerModel implements Parcelable {
         dest.writeString(this.recipients);
         dest.writeString(this.address);
         dest.writeString(this.vehicle_name);
-        dest.writeString(this.order_code);
         dest.writeString(this.remark);
+        dest.writeString(this.order_code);
         dest.writeString(this.delivery_time);
         dest.writeString(this.damages);
         dest.writeString(this.total);
+        dest.writeString(this.bargain);
         dest.writeString(this.deduct_price);
         dest.writeString(this.coupon_price);
         dest.writeString(this.number);
@@ -95,11 +97,12 @@ public class OrderSellerModel implements Parcelable {
         this.recipients = in.readString();
         this.address = in.readString();
         this.vehicle_name = in.readString();
-        this.order_code = in.readString();
         this.remark = in.readString();
+        this.order_code = in.readString();
         this.delivery_time = in.readString();
         this.damages = in.readString();
         this.total = in.readString();
+        this.bargain = in.readString();
         this.deduct_price = in.readString();
         this.coupon_price = in.readString();
         this.number = in.readString();

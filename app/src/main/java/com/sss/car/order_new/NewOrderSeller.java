@@ -31,8 +31,8 @@ import butterknife.OnClick;
 public class NewOrderSeller extends BaseActivity {
     String[] title = {
             "待付款",
-            "待发货",
-            "已完成",
+            "待完成",
+            "已结束",
             "退换货"
     };
 

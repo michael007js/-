@@ -30,6 +30,7 @@ import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.rongyun.RongYunUtils;
 import com.sss.car.utils.MenuDialog;
+import com.sss.car.utils.OrderUtils;
 import com.sss.car.view.ActivityImages;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,7 +48,6 @@ import butterknife.OnClick;
 import io.rong.imlib.model.Conversation;
 import okhttp3.Call;
 
-import static com.sss.car.Config.address;
 
 
 /**
@@ -103,6 +103,7 @@ public class OrderSOSAffirmBuyer extends BaseActivity {
     TextView totalPriceOrderOrderSosAffirmBuyer;
     @BindView(R.id.click_submit_order_order_sos_affirm_buyer)
     TextView clickSubmitOrderOrderSosAffirmBuyer;
+    double price=0.00;
 
 
     @Override
@@ -172,7 +173,10 @@ public class OrderSOSAffirmBuyer extends BaseActivity {
                     public void onOKey(Dialog dialog) {
                         dialog.dismiss();
                         dialog=null;
-                        accomplish();
+                        if (ywLoadingDialog==null){
+                            ywLoadingDialog=new YWLoadingDialog(getBaseActivityContext());
+                        }
+                        OrderUtils.start(3,menuDialog,getBaseActivity(),ywLoadingDialog,true,getIntent().getExtras().getString("sos_id"),price);
                     }
 
                     @Override
@@ -296,10 +300,11 @@ public class OrderSOSAffirmBuyer extends BaseActivity {
                                     peopleNameOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("recipients"));
                                     mobileNameOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("mobile"));
                                     car_order_sos_affirm_buyer.setText(jsonObject1.getString("vehicle_name"));
-                                    penalSumOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("vehicle_name"));
+                                    penalSumOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("damages"));
                                     helpTypeOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("type"));
                                     showAddressOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("address"));
                                     priceOrderSOSDetails.setText(jsonObject1.getString("price"));
+                                    price=jsonObject1.getDouble("price");
                                     totalPriceOrderOrderSosAffirmBuyer.setText("¥" + jsonObject1.getString("price"));
                                     showServiceTimeOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("service_time"));
                                     showOtherOrderOrderSOSAffirmBuyer.setText(jsonObject1.getString("remark"));
@@ -371,57 +376,6 @@ public class OrderSOSAffirmBuyer extends BaseActivity {
                     })));
         } catch (JSONException e) {
             ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 完成SOS订单
-     */
-    public void accomplish() {
-        if (ywLoadingDialog != null) {
-            ywLoadingDialog.disMiss();
-        }
-        ywLoadingDialog = null;
-        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
-        ywLoadingDialog.show();
-        try {
-            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.accomplish(
-                    new JSONObject()
-                            .put("member_id",Config.member_id)
-                            .put("sos_id", getIntent().getExtras().getString("sos_id"))
-                            .toString()
-                    , new StringCallback() {
-                        @Override
-                        public void onError(Call call, Exception e, int id) {
-                            if (ywLoadingDialog != null) {
-                                ywLoadingDialog.disMiss();
-                            }
-                            ToastUtils.showShortToast(getBaseActivityContext(), e.getMessage());
-                        }
-
-                        @Override
-                        public void onResponse(String response, int id) {
-                            if (ywLoadingDialog != null) {
-                                ywLoadingDialog.disMiss();
-                            }
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                if ("1".equals(jsonObject.getString("status"))) {
-                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
-                                    EventBus.getDefault().post(new ChangedMessageOrderList());
-                                    finish();
-                                } else {
-                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
-                                }
-                            } catch (JSONException e) {
-                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:-0");
-                                e.printStackTrace();
-                            }
-                        }
-                    })));
-        } catch (JSONException e) {
-            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:-0");
             e.printStackTrace();
         }
     }

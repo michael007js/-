@@ -48,7 +48,9 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
     @BindView(R.id.title_address)
     TextView titleAddress;
     AddressPicker addressPicker;
-    String province_city_district;
+    String province;
+    String city;
+    String district;
 
 
     @Override
@@ -98,6 +100,10 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
 
             }
         });
+        district=getIntent().getExtras().getString("district");
+        city=getIntent().getExtras().getString("city");
+        province=getIntent().getExtras().getString("province");
+        titleAddress.setText(province + city + district);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -107,8 +113,10 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
         select.setText(event.adress);
         editActivityChangeInfoShopAddress.setText(event.adress);
         isChanged = true;
-        province_city_district=event.province+event.city+event.district;
-        titleAddress.setText(province_city_district);
+        province = event.province;
+        city = event.city;
+        district = event.district;
+        titleAddress.setText(province + city + district);
     }
 
     @OnClick({R.id.back_top, R.id.right_button_top, R.id.select, R.id.click_address})
@@ -122,17 +130,19 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
                     ToastUtils.showShortToast(getBaseActivityContext(), "您未修改任何内容!");
                     return;
                 }
-                if (StringUtils.isEmpty(titleAddress.getText().toString().trim())){
+                if (StringUtils.isEmpty(titleAddress.getText().toString().trim())) {
                     ToastUtils.showShortToast(getBaseActivityContext(), "地址不能为空!");
                     return;
                 }
-                if (StringUtils.isEmpty(province_city_district)) {
+                if (StringUtils.isEmpty(province) || StringUtils.isEmpty(city) || StringUtils.isEmpty(district)) {
                     ToastUtils.showShortToast(getBaseActivityContext(), "请选择省市区!");
                     return;
                 }
                 ChangeInfoModel changeUserInfoModel = new ChangeInfoModel();
                 changeUserInfoModel.msg = editActivityChangeInfoShopAddress.getText().toString().trim();
-                changeUserInfoModel.province_city_district=province_city_district;
+                changeUserInfoModel.province = province;
+                changeUserInfoModel.city=city;
+                changeUserInfoModel.district=district;
                 changeUserInfoModel.type = getIntent().getExtras().getString("type");
                 if (StringUtils.isEmpty(lat) || StringUtils.isEmpty(lng)) {
                     changeUserInfoModel.lat = Config.latitude;
@@ -150,14 +160,17 @@ public class ActivityChangeInfoShopAddress extends BaseActivity {
                 }
                 break;
             case R.id.click_address:
-                if (addressPicker== null) {
+                if (addressPicker == null) {
                     addressPicker = new AddressPicker(getBaseActivityContext());
                 }
                 addressPicker.setAddressListener(new AddressPicker.OnAddressListener() {
                     @Override
                     public void onAddressSelected(String province, String city, String district) {
-                        province_city_district=province+city+district;
-                        titleAddress.setText(province_city_district);
+                        isChanged = true;
+                        ActivityChangeInfoShopAddress.this.province = province;
+                        ActivityChangeInfoShopAddress.this.city = city;
+                        ActivityChangeInfoShopAddress.this.district = district;
+                        titleAddress.setText(province + city + district);
                     }
                 });
                 addressPicker.show();

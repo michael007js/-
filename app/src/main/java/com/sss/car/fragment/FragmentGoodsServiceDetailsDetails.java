@@ -123,16 +123,25 @@ public class FragmentGoodsServiceDetailsDetails extends BaseFragment {
                                 }
                                 content.setOnImageClickListener(new RichTextView.OnImageClickListener() {
                                     @Override
-                                    public void onClickImage(int position, List<String> img, DataImageView imageView) {
+                                    public void onClickImage(int position,String path, List<String> urlList, DataImageView imageView) {
                                         if (getBaseFragmentActivityContext() != null) {
+                                            int a = 0;
                                             List<String> temp = new ArrayList<>();
-                                            for (int i = 0; i < img.size(); i++) {
-                                                temp.add(Config.url + img.get(i));
+                                            for (int i = 0; i < urlList.size(); i++) {
+                                                if (path != null) {
+                                                    if (path.equals(Config.url +urlList.get(i))) {
+                                                        a = i;
+                                                    }
+                                                } else {
+                                                    a=0;
+                                                }
+                                                temp.add(Config.url + urlList.get(i));
                                             }
                                             startActivity(new Intent(getBaseFragmentActivityContext(), ActivityImages.class)
                                                     .putStringArrayListExtra("data", (ArrayList<String>) temp)
-                                                    .putExtra("current", position));
+                                                    .putExtra("current", a));
                                         }
+
                                     }
                                 });
                             }

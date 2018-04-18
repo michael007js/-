@@ -153,8 +153,10 @@ public class FragmentCitySelectSearchListView extends BaseFragment {
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         list.add(new Gson().fromJson(jsonArray.getJSONObject(i).toString(), CityModel.class));
                                     }
-                                    sss_adapter.setList(list);
-                                } else {
+                                    if (sss_adapter != null) {
+                                        sss_adapter.setList(list);
+                                    }
+                                }else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
                                 }
                             } catch (JSONException e) {

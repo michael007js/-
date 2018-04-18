@@ -36,6 +36,7 @@ import com.blankj.utilcode.util.$;
 import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.AnimationUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.ArrayUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenLightUtils;
@@ -206,7 +207,7 @@ public class ActivitySharePostDetails extends BaseActivity implements
         customInit(activitySharePostDetails, false, true, true, false);
         addImageViewList(GlidUtils.glideLoad(false, logoRightSearchTopImage, getBaseActivityContext(), R.mipmap.logo_more));
 
-        sharePostDetailsCommentAdapter = new SharePostDetailsCommentAdapter(hold,list, getBaseActivityContext(), this, this);
+        sharePostDetailsCommentAdapter = new SharePostDetailsCommentAdapter(hold, list, getBaseActivityContext(), this, this);
         listviewActivitySharePostDetails.setAdapter(sharePostDetailsCommentAdapter);
 
         menuDialog = new MenuDialog(this);
@@ -531,7 +532,9 @@ public class ActivitySharePostDetails extends BaseActivity implements
             }
         });
     }
-String hold="Zz.~!)s$@%/^#$**xxs143/ert($%^&!a*($%S.|/Z~ZZ)$%*^&*(^&-fS.2^&$%dsf--)_+";
+
+    String hold = "Zz.~!)s$@%/^#$**xxs143/ert($%^&!a*($%S.|/Z~ZZ)$%*^&*(^&-fS.2^&$%dsf--)_+";
+
     /**
      * 展示服务器返回的数据
      */
@@ -566,7 +569,7 @@ String hold="Zz.~!)s$@%/^#$**xxs143/ert($%^&!a*($%S.|/Z~ZZ)$%*^&*(^&-fS.2^&$%dsf
                     getBaseActivityContext(),
                     width, height, textSize);
             SharePostDetailsCommentModel sharePostDetailsCommentModel = new SharePostDetailsCommentModel();
-            sharePostDetailsCommentModel.contents =hold ;
+            sharePostDetailsCommentModel.contents = hold;
             list.add(sharePostDetailsCommentModel);
             sharePostDetailsCommentAdapter.refresh(list);
         } catch (JSONException e) {
@@ -944,7 +947,7 @@ String hold="Zz.~!)s$@%/^#$**xxs143/ert($%^&!a*($%S.|/Z~ZZ)$%*^&*(^&-fS.2^&$%dsf
 
                                         }
                                         for (int i = 0; i < list.size(); i++) {
-                                            if (hold.equals(list.get(i).contents)){
+                                            if (hold.equals(list.get(i).contents)) {
                                                 list.remove(i);
                                             }
                                         }
@@ -1077,15 +1080,23 @@ String hold="Zz.~!)s$@%/^#$**xxs143/ert($%^&!a*($%S.|/Z~ZZ)$%*^&*(^&-fS.2^&$%dsf
 
 
     @Override
-    public void onClickImage(int position, List<String> urlList, DataImageView imageView) {
+    public void onClickImage(int position, String path, List<String> urlList, DataImageView imageView) {
         if (getBaseActivityContext() != null) {
+            int a = 0;
             List<String> temp = new ArrayList<>();
             for (int i = 0; i < urlList.size(); i++) {
+                if (path != null) {
+                    if (path.equals(Config.url +urlList.get(i))) {
+                        a = i;
+                    }
+                } else {
+                    a=0;
+                }
                 temp.add(Config.url + urlList.get(i));
             }
             startActivity(new Intent(getBaseActivityContext(), ActivityImages.class)
                     .putStringArrayListExtra("data", (ArrayList<String>) temp)
-                    .putExtra("current", position));
+                    .putExtra("current", a));
         }
     }
 

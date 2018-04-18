@@ -27,7 +27,7 @@
             />
 
         <TextView
-            android:textColor="@color/mainColor"
+            android:textColor="@color/black"
             android:id="@+id/show_income_wallet_my"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -60,7 +60,7 @@
             />
 
         <TextView
-            android:textColor="@color/mainColor"
+            android:textColor="@color/black"
             android:id="@+id/show_expend_wallet_my"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -93,7 +93,7 @@
             />
 
         <TextView
-            android:textColor="@color/mainColor"
+            android:textColor="@color/black"
             android:id="@+id/show_integral_wallet_my"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -126,7 +126,7 @@
             />
 
         <TextView
-            android:textColor="@color/mainColor"
+            android:textColor="@color/black"
             android:id="@+id/show_coupon_wallet_my"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -159,7 +159,7 @@
             />
 
         <TextView
-            android:textColor="@color/mainColor"
+            android:textColor="@color/black"
             android:id="@+id/show_money_wallet_my"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

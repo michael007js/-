@@ -1615,8 +1615,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     if (!"4".equals(status)) {
-                                        PayUtils.requestPayment(ywLoadingDialog, "0", jsonObject.getJSONObject("data").getString("popularize_id"), 4, 1, totalPrice, getBaseActivity());
-                                        finish();
+                                        PayUtils.requestPayment(ywLoadingDialog,false, "0", jsonObject.getJSONObject("data").getString("popularize_id"), 4, 1, totalPrice, getBaseActivity(),null);
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                     }

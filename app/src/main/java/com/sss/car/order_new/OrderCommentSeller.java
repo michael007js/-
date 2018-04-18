@@ -92,6 +92,7 @@ public class OrderCommentSeller extends BaseActivity {
         rightButtonTop.setTextColor(getResources().getColor(R.color.mainColor));
         order_comment();
         ratingBar.setStarCount(5);
+        grade=5;
         ratingBar.setOnStarChangeListener(new OnChangeListener() {
             @Override
             public void onChange(int star) {

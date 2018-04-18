@@ -135,7 +135,7 @@ public class FragmentCollect extends BaseFragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                listviewActivityShareCollect.setEmptyView(LayoutInflater.from(getBaseFragmentActivityContext()).inflate(R.layout.empty_view,null));
+                                listviewActivityShareCollect.setEmptyView(LayoutInflater.from(getBaseFragmentActivityContext()).inflate(R.layout.empty_view, null));
                                 listviewActivityShareCollect.setMode(PullToRefreshBase.Mode.BOTH);
                                 listviewActivityShareCollect.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
                                     @Override
@@ -143,7 +143,7 @@ public class FragmentCollect extends BaseFragment {
                                         if (isSearchMode) {
                                             if (!StringUtils.isEmpty(keywords)) {
                                                 search_collect();
-                                            }else {
+                                            } else {
                                                 listviewActivityShareCollect.onRefreshComplete();
                                             }
                                         } else {
@@ -295,14 +295,13 @@ public class FragmentCollect extends BaseFragment {
                 switch (view.getId()) {
                     case R.id.short_click_item_collect_adapter:
                         if (!isEdit) {
-                            if ("1".equals(list.get(position).type))
-                            if (getBaseFragmentActivityContext() != null) {
+                            if ("community".equals(list.get(position).type)) {
                                 getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivitySharePostDetails.class)
-                                        .putExtra("community_id", list.get(position).community_id)
+                                        .putExtra("community_id", list.get(position).collect_id)
                                         .putExtra("is_show_keyboard", false));
-                            }else {
+                            } else   if ("book".equals(list.get(position).type)) {
                                 startActivity(new Intent(getBaseFragmentActivityContext(), DectionaryDetails.class)
-                                        .putExtra("article_id", list.get(position).community_id)
+                                        .putExtra("article_id", list.get(position).collect_id)
                                         .putExtra("title", list.get(position).title)
                                 );
                             }
@@ -314,10 +313,10 @@ public class FragmentCollect extends BaseFragment {
                             }
 
                             if (list.get(position).isChoose) {
-                                selectList.add(list.get(position).community_id);
+                                selectList.add(list.get(position).collect_id);
                             } else {
                                 for (int i = 0; i < selectList.size(); i++) {
-                                    if (selectList.get(i).equals(list.get(position).community_id)) {
+                                    if (selectList.get(i).equals(list.get(position).collect_id)) {
                                         selectList.remove(i);
                                     }
                                 }
@@ -345,7 +344,7 @@ public class FragmentCollect extends BaseFragment {
                         public void onEdit() {
                             if (getBaseFragmentActivityContext() != null) {
                                 List<String> list = new ArrayList<>();
-                                list.add(FragmentCollect.this.list.get(position).community_id);
+                                list.add(FragmentCollect.this.list.get(position).collect_id);
                                 getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivityCollectLable.class)
                                         .putStringArrayListExtra("data", (ArrayList<String>) list));
                             }
@@ -353,7 +352,7 @@ public class FragmentCollect extends BaseFragment {
 
                         @Override
                         public void onDetete() {
-                            postsCollectCancelCollect(list.get(position).community_id, false);
+                            postsCollectCancelCollect(list.get(position).collect_id, false);
                         }
 
                         @Override
@@ -426,26 +425,13 @@ public class FragmentCollect extends BaseFragment {
                                         p++;
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             ShareCollectModel shareCollectModel = new ShareCollectModel();
-                                            shareCollectModel.community_id = jsonArray.getJSONObject(i).getString("community_id");
+                                            shareCollectModel.type = jsonArray.getJSONObject(i).getString("type");
                                             shareCollectModel.title = jsonArray.getJSONObject(i).getString("title");
                                             shareCollectModel.label_name = jsonArray.getJSONObject(i).getString("label_name");
                                             shareCollectModel.create_time = jsonArray.getJSONObject(i).getString("create_time");
-                                            shareCollectModel.cate_id = jsonArray.getJSONObject(i).getString("cate_id");
-                                            shareCollectModel.member_id = jsonArray.getJSONObject(i).getString("member_id");
-                                            shareCollectModel.share = jsonArray.getJSONObject(i).getString("share");
-                                            shareCollectModel.is_top = jsonArray.getJSONObject(i).getString("is_top");
-                                            shareCollectModel.is_hot = jsonArray.getJSONObject(i).getString("is_hot");
-                                            shareCollectModel.is_essence = jsonArray.getJSONObject(i).getString("is_essence");
+                                            shareCollectModel.collect_id = jsonArray.getJSONObject(i).getString("collect_id");
                                             shareCollectModel.username = jsonArray.getJSONObject(i).getString("username");
                                             shareCollectModel.face = jsonArray.getJSONObject(i).getString("face");
-                                            shareCollectModel.day = jsonArray.getJSONObject(i).getString("day");
-                                            shareCollectModel.month = jsonArray.getJSONObject(i).getString("month");
-                                            shareCollectModel.week = jsonArray.getJSONObject(i).getString("week");
-                                            shareCollectModel.vehicle_name = jsonArray.getJSONObject(i).getString("vehicle_name");
-                                            shareCollectModel.cate_name = jsonArray.getJSONObject(i).getString("cate_name");
-                                            shareCollectModel.is_collect = jsonArray.getJSONObject(i).getString("is_collect");
-                                            shareCollectModel.collect_count = jsonArray.getJSONObject(i).getString("collect_count");
-                                            shareCollectModel.comment_count = jsonArray.getJSONObject(i).getString("comment_count");
                                             List<String> picture = new ArrayList<>();
                                             JSONArray jsonArray1 = jsonArray.getJSONObject(i).getJSONArray("picture");
                                             for (int j = 0; j < jsonArray1.length(); j++) {
@@ -521,27 +507,13 @@ public class FragmentCollect extends BaseFragment {
                                         p++;
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             ShareCollectModel shareCollectModel = new ShareCollectModel();
-                                            shareCollectModel.community_id = jsonArray.getJSONObject(i).getString("community_id");
+                                            shareCollectModel.collect_id = jsonArray.getJSONObject(i).getString("collect_id");
                                             shareCollectModel.title = jsonArray.getJSONObject(i).getString("title");
                                             shareCollectModel.label_name = jsonArray.getJSONObject(i).getString("label_name");
                                             shareCollectModel.create_time = jsonArray.getJSONObject(i).getString("create_time");
-                                            shareCollectModel.cate_id = jsonArray.getJSONObject(i).getString("cate_id");
-                                            shareCollectModel.member_id = jsonArray.getJSONObject(i).getString("member_id");
-                                            shareCollectModel.share = jsonArray.getJSONObject(i).getString("share");
-                                            shareCollectModel.is_top = jsonArray.getJSONObject(i).getString("is_top");
-                                            shareCollectModel.is_hot = jsonArray.getJSONObject(i).getString("is_hot");
-                                            shareCollectModel.is_essence = jsonArray.getJSONObject(i).getString("is_essence");
+                                            shareCollectModel.type = jsonArray.getJSONObject(i).getString("type");
                                             shareCollectModel.username = jsonArray.getJSONObject(i).getString("username");
                                             shareCollectModel.face = jsonArray.getJSONObject(i).getString("face");
-                                            shareCollectModel.day = jsonArray.getJSONObject(i).getString("day");
-                                            shareCollectModel.month = jsonArray.getJSONObject(i).getString("month");
-                                            shareCollectModel.week = jsonArray.getJSONObject(i).getString("week");
-                                            shareCollectModel.vehicle_name = jsonArray.getJSONObject(i).getString("vehicle_name");
-                                            shareCollectModel.cate_name = jsonArray.getJSONObject(i).getString("cate_name");
-                                            shareCollectModel.is_collect = jsonArray.getJSONObject(i).getString("is_collect");
-                                            shareCollectModel.collect_count = jsonArray.getJSONObject(i).getString("collect_count");
-                                            shareCollectModel.comment_count = jsonArray.getJSONObject(i).getString("comment_count");
-                                            shareCollectModel.type = jsonArray.getJSONObject(i).getString("type");
                                             List<String> picture = new ArrayList<>();
                                             JSONArray jsonArray1 = jsonArray.getJSONObject(i).getJSONArray("picture");
                                             for (int j = 0; j < jsonArray1.length(); j++) {
@@ -625,7 +597,6 @@ public class FragmentCollect extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     p = 1;
-                                    collect();
                                     EventBus.getDefault().post(new ChangedPostsModel());
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));

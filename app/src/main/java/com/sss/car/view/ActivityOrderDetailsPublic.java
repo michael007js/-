@@ -375,6 +375,7 @@ public class ActivityOrderDetailsPublic extends BaseActivity {
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.getOrderDetailsSeller(
                     new JSONObject()
+                            .put("member_id",Config.member_id)
                             .put("order_id", getIntent().getExtras().getString("order_id"))
                             .toString()
                     , new StringCallback() {

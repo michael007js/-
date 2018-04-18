@@ -742,7 +742,7 @@ public final class ConvertUtils {
         try {
             if(null!=bitmap){
                 bos=new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bos);//将bitmap放入字节数组流中
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);//将bitmap放入字节数组流中
 
                 bos.flush();//将bos流缓存在内存中的数据全部输出，清空缓存
                 bos.close();
