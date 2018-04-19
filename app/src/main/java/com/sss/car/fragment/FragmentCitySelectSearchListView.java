@@ -122,7 +122,7 @@ public class FragmentCitySelectSearchListView extends BaseFragment {
             public void onItemChildClick(View view, int position, SSS_HolderHelper holder) {
                 switch (view.getId()) {
                     case R.id.text_item_city_search_adapter:
-                        insert_looks(list.get(position).id, list.get(position).name);
+                        insert_looks(list.get(position).id, list.get(position).name,list.get(position).lat,list.get(position).lng);
                         break;
                 }
             }
@@ -171,7 +171,7 @@ public class FragmentCitySelectSearchListView extends BaseFragment {
         }
     }
 
-    public void insert_looks(String looks_id, final String name) {
+    public void insert_looks(String looks_id, final String name, final String lat, final String lng) {
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
@@ -201,6 +201,8 @@ public class FragmentCitySelectSearchListView extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     Config.city = name;
+                                    Config.latitude= lat;
+                                    Config.longitude= lng;
                                     EventBus.getDefault().post(new SelectCtityModel(name));
                                     getActivity().finish();
                                 } else {
