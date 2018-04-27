@@ -12,6 +12,7 @@ import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.PieChart;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.APPOftenUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
 import com.sss.car.R;
@@ -171,15 +172,13 @@ public class WalletMyIncomeAndExpendPublic extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     totalPriceWalletMyIncomeAndExpendPublic.setText(jsonObject.getJSONObject("data").getString("total"));
-                                    int consume = jsonObject.getJSONObject("data").getInt("consume");
-                                    int deposit = jsonObject.getJSONObject("data").getInt("deposit");
-                                    int other = jsonObject.getJSONObject("data").getInt("other");
-                                    int total = jsonObject.getJSONObject("data").getInt("total");
-                                    totalPriceWalletMyIncomeAndExpendPublic.setText(total + "");
-                                    goodsWalletMyIncomeAndExpendPublic.setText(consume + "");
-                                    depositWalletMyIncomeAndExpendPublic.setText(deposit + "");
-                                    threeSss.setText(other + "");
-                                    float[] a = {(float) deposit / total, (float) consume / total, (float) other / total};
+                                    totalPriceWalletMyIncomeAndExpendPublic.setText( jsonObject.getJSONObject("data").getString("total") );
+                                    goodsWalletMyIncomeAndExpendPublic.setText(jsonObject.getJSONObject("data").getString("consume") );
+                                    depositWalletMyIncomeAndExpendPublic.setText(jsonObject.getJSONObject("data").getString("deposit") );
+                                    threeSss.setText( jsonObject.getJSONObject("data").getString("other") );
+                                    float[] a = {  (float) jsonObject.getJSONObject("data").getDouble("deposit") / (float) jsonObject.getJSONObject("data").getDouble("total"),
+                                            (float) jsonObject.getJSONObject("data").getDouble("consume") / (float) jsonObject.getJSONObject("data").getDouble("total"),
+                                            (float) jsonObject.getJSONObject("data").getDouble("other") / (float) jsonObject.getJSONObject("data").getDouble("total")};
                                     String[] color = {"#f26956", "#fba62f", "#0000cc"};
                                     calcPriceWalletMyIncomeAndExpendPublic.initSrc(a, color);
                                 } else {

@@ -819,8 +819,13 @@ public class ActivityGoodsServiceEdit extends BaseActivity {
         List<RichTextEditor.EditData> list = RichTextEditor.buildEditData();
         JSONArray photo = new JSONArray();
         try {
+            size_data.put(new JSONObject()
+                    .put("id",0)
+                    .put("name", etSpecification.getText().toString().trim())
+                    .put("price", etPrice.getText().toString().trim()));
 
             if ("2".equals(priceType)){
+
                 for (int i = 0; i < specificationList.size(); i++) {
                     size_data.put(new JSONObject().put("id", i + 1)
                             .put("name", specificationList.get(i).specification)
@@ -835,9 +840,6 @@ public class ActivityGoodsServiceEdit extends BaseActivity {
 
                 }
             }
-            size_data.put(new JSONObject()
-                    .put("name", etSpecification.getText().toString().trim())
-                    .put("price", etPrice.getText().toString().trim()));
 
             for (int i = 0; i < list.size(); i++) {
                 LogUtils.e(list.get(i).toString());
@@ -981,16 +983,17 @@ public class ActivityGoodsServiceEdit extends BaseActivity {
         List<RichTextEditor.EditData> list = RichTextEditor.buildEditData();
         JSONArray photo = new JSONArray();
         try {
-
+            size_data.put(new JSONObject()
+                    .put("id",0)
+                    .put("name", etSpecification.getText().toString().trim())
+                    .put("price", etPrice.getText().toString().trim()));
             for (int i = 0; i < specificationList.size(); i++) {
                 size_data.put(new JSONObject().put("id", i + 1)
                         .put("name", specificationList.get(i).specification)
                         .put("price", specificationList.get(i).price));
 
             }
-            size_data.put(new JSONObject()
-                    .put("name", etSpecification.getText().toString().trim())
-                    .put("price", etPrice.getText().toString().trim()));
+
 
 
             for (int i = 0; i < list.size(); i++) {
@@ -1112,6 +1115,11 @@ public class ActivityGoodsServiceEdit extends BaseActivity {
         List<RichTextEditor.EditData> list = RichTextEditor.buildEditData();
         JSONArray photo = new JSONArray();
         try {
+            size_data.put(new JSONObject()
+                    .put("id",0)
+                    .put("name", etSpecification.getText().toString().trim())
+                    .put("price", etPrice.getText().toString().trim()));
+
 
             for (int i = 0; i < specificationList.size(); i++) {
                 size_data.put(new JSONObject().put("id", i + 1)
@@ -1119,9 +1127,7 @@ public class ActivityGoodsServiceEdit extends BaseActivity {
                         .put("price", specificationList.get(i).price));
 
             }
-            size_data.put(new JSONObject()
-                    .put("name", etSpecification.getText().toString().trim())
-                    .put("price", etPrice.getText().toString().trim()));
+
 
 
             for (int i = 0; i < list.size(); i++) {
@@ -1277,15 +1283,15 @@ public class ActivityGoodsServiceEdit extends BaseActivity {
                                     /***************************************************************************/
                                     JSONArray size_data = jsonObject.getJSONObject("data").getJSONArray("size_data");
                                     if (size_data.length() > 0) {
-                                        for (int i = 0; i < size_data.length() - 1; i++) {
+                                        for (int i = 1; i < size_data.length() ; i++) {
                                             SpecificationPriceModel specificationPriceModel = new SpecificationPriceModel();
                                             specificationPriceModel.price = size_data.getJSONObject(i).getString("price");
                                             specificationPriceModel.specification = size_data.getJSONObject(i).getString("name");
                                             specificationList.add(specificationPriceModel);
                                         }
                                         specificationAdapter.setList(specificationList);
-                                        etSpecification.setText(size_data.getJSONObject(size_data.length() - 1).getString("name"));
-                                        etPrice.setText(size_data.getJSONObject(size_data.length() - 1).getString("price"));
+                                        etSpecification.setText(size_data.getJSONObject(0).getString("name"));
+                                        etPrice.setText(size_data.getJSONObject(0).getString("price"));
                                     }
                                     /***************************************************************************/
                                     JSONArray classify_data = jsonObject.getJSONObject("data").getJSONArray("classify_data");

@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
  */
 
 public class ViewPagerHelperUtils {
-    public static final int LOOP_COUNT = 5000;
+    public static final int LOOP_COUNT = 0;
     public static final int LOOP_TAIL_MODE = 0x1001;
 
     public static final int LOOP_MODE = 0x1002;

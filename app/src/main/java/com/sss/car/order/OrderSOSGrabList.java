@@ -29,6 +29,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.sss.car.Config;
+import com.sss.car.EventBusModel.ChangedMessageOrderList;
 import com.sss.car.EventBusModel.ChangedOrderModel;
 import com.sss.car.EventBusModel.ChangedSOSHelperList;
 import com.sss.car.EventBusModel.CloseSOSGrabList;
@@ -255,7 +256,8 @@ public class OrderSOSGrabList extends BaseActivity {
                             if (menuDialog == null) {
                                 menuDialog = new MenuDialog(getBaseActivity());
                             }
-                            PayUtils.requestPayment(ywLoadingDialog,false, list.get(position).member_id, list.get(position).sos_id, 1, 0, list.get(position).price, getBaseActivity(),null);
+                            PayUtils.requestPayment(ywLoadingDialog,false, list.get(position).member_id, list.get(position).sos_id,
+                                    1, 0, list.get(position).price, getBaseActivity(),null,"0");
                         } else {
                             ToastUtils.showLongToast(getBaseActivityContext(), "该订单已过期");
                         }
@@ -435,6 +437,7 @@ public class OrderSOSGrabList extends BaseActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
+                                    EventBus.getDefault().post(new ChangedMessageOrderList());
                                     finish();
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));

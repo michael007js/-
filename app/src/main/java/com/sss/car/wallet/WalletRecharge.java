@@ -159,11 +159,13 @@ public class WalletRecharge extends BaseActivity {
                     if ("bank".equals(getIntent().getExtras().getString("type"))) {
                         if (!StringUtils.isEmpty(bankModel.card_id)) {
                             if (getBaseActivityContext() != null) {
-                                startActivity(new Intent(getBaseActivityContext(), WalletBankList.class));
+                                startActivity(new Intent(getBaseActivityContext(), WalletBankList.class)
+                                        .putExtra("isHidemobile",false));
                             }
                         } else {
                             if (getBaseActivityContext() != null) {
-                                startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
+                                startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class)
+                                .putExtra("isHidemobile",false));
                             }
 //                        if (getBaseActivityContext() != null) {
 //                            startActivity(new Intent(getBaseActivityContext(), WalletAddBank.class));
@@ -190,17 +192,18 @@ public class WalletRecharge extends BaseActivity {
                     }
                     if (StringUtils.isEmpty(bankModel.card_id)) {
                         if (getBaseActivityContext() != null) {
-                            startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
+                            startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class)
+                            .putExtra("isHidemobile",true));
                         }
                     }else {
 
-                        PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "4", 0, bankModel);
+                        PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "4", 0, bankModel,"0");
 //                        PayUtils.createPaymentDialog(ywLoadingDialog, "0", Config.member_id, 5, 0, inputWalletRecharge.getText().toString().trim(), (float) 0, getBaseActivity());
                     }
                 } else if ("wx".equals(getIntent().getExtras().getString("type"))) {
-                    PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "2", 0, null);
+                    PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "2", 0, null,"0");
                 } else if ("zfb".equals(getIntent().getExtras().getString("type"))) {
-                    PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "3", 0, null);
+                    PayUtils.payment_into(ywLoadingDialog, "0", getBaseActivity(), inputWalletRecharge.getText().toString().trim(), 0, 5, Config.member_id, "3", 0, null,"0");
                 }
                 break;
         }

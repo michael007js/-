@@ -133,8 +133,9 @@ public class WalletWithdraw extends BaseActivity {
                 if (StringUtils.isEmpty(s.toString())) {
                     canWalletWithdraw.setText("可用于提现的金额:  " + expendable + "元");
                 } else {
-                    canWalletWithdraw.setText(content);
-                    if (expendable < Integer.valueOf(s.toString())) {
+//                    canWalletWithdraw.setText(content);
+                    terrace_withdraw(inputWalletWithdraw.getText().toString());
+                    if (expendable < Integer.valueOf(inputWalletWithdraw.getText().toString())) {
                         inputWalletWithdraw.setText(expendable+"");
                         inputWalletWithdraw.setSelection(s.toString().length()-1);
                         ToastUtils.showShortToast(getBaseActivityContext(),"可用于提现的金额为:  " + expendable + "元");
@@ -144,7 +145,7 @@ public class WalletWithdraw extends BaseActivity {
         });
         get_default();
         my_balance();
-        terrace_withdraw();
+
     }
 
     @OnClick({R.id.back_top, R.id.next_wallet_withdraw, R.id.bank})
@@ -154,13 +155,15 @@ public class WalletWithdraw extends BaseActivity {
                 if (bankModel != null) {
                     if (!StringUtils.isEmpty(bankModel.card_id)) {
                         if (getBaseActivityContext() != null) {
-                            startActivity(new Intent(getBaseActivityContext(), WalletBankList.class));
+                            startActivity(new Intent(getBaseActivityContext(), WalletBankList.class)
+                            .putExtra("isHidemobile",true));
                         }
                     } else {
                         if (getBaseActivityContext() != null) {
 //                            startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
 //                                    .putExtra("type",ActivityWeb.BANK_BIND));
-                            startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
+                            startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class)
+                            .putExtra("isHidemobile",true));
                         }
 //                        if (getBaseActivityContext() != null) {
 //                            startActivity(new Intent(getBaseActivityContext(), WalletAddBank.class));
@@ -185,7 +188,8 @@ public class WalletWithdraw extends BaseActivity {
                 }
                 if (StringUtils.isEmpty(bankModel.card_id)) {
                     ToastUtils.showLongToast(getBaseActivityContext(), "请绑定银行卡");
-                    startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
+                    startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class)
+                    .putExtra("isHidemobile",true));
                     return;
                 }
                 if (StringUtils.isEmpty(inputWalletWithdraw.getText().toString().trim())) {
@@ -232,16 +236,17 @@ public class WalletWithdraw extends BaseActivity {
         }
     }
 
-    public void terrace_withdraw() {
-        if (ywLoadingDialog != null) {
-            ywLoadingDialog.disMiss();
-        }
-        ywLoadingDialog = null;
-        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
-        ywLoadingDialog.show();
+    public void terrace_withdraw(String money) {
+//        if (ywLoadingDialog != null) {
+//            ywLoadingDialog.disMiss();
+//        }
+//        ywLoadingDialog = null;
+//        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
+//        ywLoadingDialog.show();
         try {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.terrace_withdraw(
                     new JSONObject()
+                            .put("money",money)
                             .put("member_id", Config.member_id)
                             .toString(), new StringCallback() {
                         @Override
@@ -261,6 +266,7 @@ public class WalletWithdraw extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     content = jsonObject.getJSONObject("data").getString("contents");
+                                    canWalletWithdraw.setText(content);
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                 }

@@ -1215,7 +1215,7 @@ public class OrderSOSEdit extends BaseActivity {
                             .put("type", showTypeOrderSOSEdit.getText().toString().trim())
                             .put("gps", sendLai + "," + sengLng)
                             .put("price", priceOrderSOSEdit.getCurrentNumber())
-                            .put("service_time", showPenalSumOrderSOSEdit.getText().toString().trim())
+                            .put("service_time", showTimeOrderSOSEdit.getText().toString().trim())
                             .put("damages", showPenalSumOrderSOSEdit.getText().toString().trim())
                             .put("address", showAddressOrderSOSEdit.getText().toString().trim())
                             .put("remark", showOtherOrderSOSEdit.getText().toString().trim())

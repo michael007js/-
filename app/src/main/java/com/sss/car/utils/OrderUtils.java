@@ -32,6 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.rong.imkit.widget.AsyncImageView;
 import okhttp3.Call;
 
 /**
@@ -163,7 +164,6 @@ public class OrderUtils {
         if (menuDialog == null) {
             menuDialog = new MenuDialog(activity);
         }
-
         if (where == 1||where==2) {
             pay_goods_list(where,menuDialog, activity, ywLoadingDialog, isFinish, order_id);
         } else if (where == 3) {
@@ -171,7 +171,7 @@ public class OrderUtils {
         }
 
     }
-
+AsyncImageView asyncImageView;
     /**
      * 获取商品订单商品列表
      */
@@ -245,7 +245,8 @@ public class OrderUtils {
                                             ToastUtils.showShortToast(activity, "最低不得小于一元！");
                                         } else {
                                             if (doublePrice > total) {
-                                                PayUtils.requestPayment(ywLoadingDialog, true, "0", Config.member_id, 3, 0, PriceUtils.formatBy2Scale(doublePrice - total, 2), activity, "1");
+                                                PayUtils.requestPayment(ywLoadingDialog, true, "0", Config.member_id, 3,
+                                                        0, PriceUtils.formatBy2Scale(doublePrice - total, 2), activity, "1","0");
                                             } else {
                                                 bargain("sos", activity, ywLoadingDialog, isFinish, order_id, doublePrice);
 
@@ -401,7 +402,8 @@ public class OrderUtils {
     /**
      * 更新商品价格
      */
-    private static void pay_order_goods(final int where, final MenuDialog menuDialog, final BaseActivity activity, final YWLoadingDialog ywLoadingDialog, final boolean isFinish, final String order_id,JSONArray jsonArray) {
+    private static void pay_order_goods(final int where, final MenuDialog menuDialog, final BaseActivity activity, final YWLoadingDialog ywLoadingDialog, final boolean isFinish,
+                                        final String order_id,JSONArray jsonArray) {
         try {
             if (ywLoadingDialog != null) {
                 ywLoadingDialog.show();
@@ -434,7 +436,8 @@ public class OrderUtils {
                                             service(activity, ywLoadingDialog, isFinish, order_id);
                                         }
                                     }else   if (money>0){
-                                        PayUtils.requestPayment(ywLoadingDialog, true, "0", Config.member_id, 3, 0, PriceUtils.formatBy2Scale(jsonObject.getJSONObject("data").getDouble("money"), 2), activity, "1");
+                                        PayUtils.requestPayment(ywLoadingDialog, false, "0", Config.member_id, 5, 0,
+                                                PriceUtils.formatBy2Scale(jsonObject.getJSONObject("data").getDouble("money"), 2), activity, "1","1");
                                     }else {
                                         EventBus.getDefault().post(new ChangedOrderModel());
                                         if (isFinish) {
@@ -497,7 +500,8 @@ public class OrderUtils {
                                             service(activity, ywLoadingDialog, isFinish, order_id);
                                         }
                                     } else {
-                                        PayUtils.requestPayment(ywLoadingDialog, true, "0", Config.member_id, 3, 0, PriceUtils.formatBy2Scale(jsonObject.getJSONObject("data").getDouble("money"), 2), activity, "1");
+                                        PayUtils.requestPayment(ywLoadingDialog, true, "0", Config.member_id, 3, 0,
+                                                PriceUtils.formatBy2Scale(jsonObject.getJSONObject("data").getDouble("money"), 2), activity, "1","1");
                                     }
                                 } else {
                                     ToastUtils.showShortToast(activity, jsonObject.getString("message"));
@@ -840,7 +844,7 @@ public class OrderUtils {
      */
     public static void status_bargain(final BaseActivity activity, final YWLoadingDialog ywLoadingDialog, final boolean isFinish, final String order_id, String status) {
         try {
-            activity.addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.exchange_goods(
+            activity.addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.status_bargain(
                     new JSONObject()
                             .put("status", status)
                             .put("order_id", order_id)

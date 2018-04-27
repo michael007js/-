@@ -190,6 +190,9 @@ public class PriceEditText extends EditText {
      * @param d
      */
     public void setPrice(Double d) {
+        if (d<1){
+            return;
+        }
         if (decimalFormat == null) decimalFormat = new DecimalFormat("#0.00");
         setText(decimalFormat.format(d));
         setSelection(getText().toString().length()-1);

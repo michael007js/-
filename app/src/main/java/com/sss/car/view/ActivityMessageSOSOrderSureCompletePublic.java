@@ -10,9 +10,13 @@ import com.blankj.utilcode.pullToRefresh.PullToRefreshListView;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.sss.car.EventBusModel.ChangeUnRead;
 import com.sss.car.R;
 import com.sss.car.dao.OnPullToRefreshListViewCallBack;
 import com.sss.car.fragment.FragmentMessageOrderPublic;
+import com.sss.car.rongyun.RongYunUtils;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +51,12 @@ public class ActivityMessageSOSOrderSureCompletePublic extends BaseActivity {
         activityMessageSosOrderSureCompletePublic = null;
         super.onDestroy();
     }
-
+    @Subscribe
+    public void onMessageEvent(ChangeUnRead changedMessage) {
+        if (fragmentMessageOrderPublic!=null){
+            fragmentMessageOrderPublic.changeList();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +66,7 @@ public class ActivityMessageSOSOrderSureCompletePublic extends BaseActivity {
             finish();
         }
         ButterKnife.bind(this);
-        customInit(activityMessageSosOrderSureCompletePublic, false, true, false);
+        customInit(activityMessageSosOrderSureCompletePublic, false, true, true);
         if (fragmentMessageOrderPublic == null) {
             fragmentMessageOrderPublic = new FragmentMessageOrderPublic(null, null, getIntent().getExtras().getString("status"));    //1SOS订单，2收入订单，3支出订单
             fragmentMessageOrderPublic.setOnPullToRefreshListViewCallBack(new OnPullToRefreshListViewCallBack() {

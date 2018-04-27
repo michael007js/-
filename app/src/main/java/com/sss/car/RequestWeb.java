@@ -2660,6 +2660,15 @@ public class RequestWeb {
         return Webbiz.requestByString(Config.url + "/index.php/Api/Classify/mark_read", send, "标记消息已读", stringCallback);
     }
     /**
+     * 获取SOS最新订单状态
+     *
+     * @param send
+     * @param stringCallback
+     */
+    public static Call sos_status(String send, StringCallback stringCallback) {
+        return Webbiz.requestByString(Config.url + "/index.php/Api/Sos/sos_status", send, "获取SOS最新订单状态", stringCallback);
+    }
+    /**
      * 全局搜索
      *
      * @param send

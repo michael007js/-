@@ -40,12 +40,12 @@
         "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable\\rc_switch_btn.xml"
     },
     {
-        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_unread_msg_bg_style.xml",
-        "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable\\rc_unread_msg_bg_style.xml"
-    },
-    {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_emotion_toggle_selector.xml",
         "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable\\rc_emotion_toggle_selector.xml"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_unread_msg_bg_style.xml",
+        "source": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable\\rc_unread_msg_bg_style.xml"
     },
     {
         "merged": "C:\\JuXiangChe\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_an_voice_sent.xml",

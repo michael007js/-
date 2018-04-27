@@ -150,7 +150,9 @@ public class WalletBankList extends BaseActivity {
                 finish();
                 break;
             case R.id.right_button_top:
-                startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class));
+                startActivity(new Intent(getBaseActivityContext(), ActivityBangCardBind.class)
+                        .putExtra("isHidemobile",getIntent().getExtras().getBoolean("isHidemobile"))
+                );
 //                if (getBaseActivityContext() != null) {
 //                    startActivity(new Intent(getBaseActivityContext(), ActivityWeb.class)
 //                            .putExtra("type",ActivityWeb.BANK_BIND));

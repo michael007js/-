@@ -261,7 +261,8 @@ public class OrderGoodsMyOrderBuyer extends BaseActivity {
                             public void onOKey(Dialog dialog) {
                                 dialog.dismiss();
                                 dialog = null;
-                                PayUtils.requestPayment(ywLoadingDialog,false, "0", orderModel.order_id, 2, 0, PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total), 2), getBaseActivity(),null);
+                                PayUtils.requestPayment(ywLoadingDialog,false, "0", orderModel.order_id, 2, 0,
+                                        PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total), 2), getBaseActivity(),null,"0");
 //                                if (ywLoadingDialog != null) {
 //                                    ywLoadingDialog.dismiss();
 //                                }

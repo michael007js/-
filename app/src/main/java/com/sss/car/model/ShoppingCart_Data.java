@@ -8,10 +8,12 @@ import java.util.List;
  */
 
 public class ShoppingCart_Data {
+
     public String id;
     public String name;
     public String num;
     public String price;
+    public String count_price;
     public String shop_id;
     public String master_map;
     public String sid;

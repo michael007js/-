@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class TimePicker extends Dialog implements View.OnClickListener {
 
-    private static final int MIN_HOUR = 0;
+    private static final int MIN_HOUR = 1;
     private static final int MAX_HOUR = 24;
     private View view;
     private WheelView mHourWheelView;
@@ -161,7 +161,7 @@ public class TimePicker extends Dialog implements View.OnClickListener {
 
         minutePos = nowCalendar.get(Calendar.MINUTE);
         //初始化分
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 59; i++) {
             minutes.add(format(i + 1));
         }
         mMinuteWheelView.setItems(minutes);
@@ -171,7 +171,7 @@ public class TimePicker extends Dialog implements View.OnClickListener {
         if (withSecond) {
             secondPos = nowCalendar.get(Calendar.SECOND) - 1;
             //设置秒
-            for (int i = 0; i < 60; i++) {
+            for (int i = 0; i < 59; i++) {
                 seconds.add(format(i + 1));
             }
             mSecondWheelView.setItems(seconds);

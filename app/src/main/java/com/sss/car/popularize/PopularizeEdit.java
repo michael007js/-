@@ -152,6 +152,9 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
     List<String> sexList = new ArrayList<>();
     SSS_Adapter sexAdapter;
 
+    List<String> incloud = new ArrayList<>();
+    SSS_Adapter incloudAdapter;
+    String incloud_id;
 
     String popularize_id;//推广ID
 
@@ -173,6 +176,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
     boolean isCoupon = false;//优惠券模式
     boolean isActivity = false;//活动模式
     boolean isGround = false;//地推人员模式
+    boolean isIncloud = false;
     boolean canOperation = true;
 
     String goods_id;
@@ -299,7 +303,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
         rightButtonTop.setOnClickListener(this);
         backTop.setOnClickListener(this);
         tip();
-       goods_id= getIntent().getExtras().getString("goods_id");
+        goods_id = getIntent().getExtras().getString("goods_id");
         etGoods.setText(getIntent().getExtras().getString("title"));
         if ("edit".equals(getIntent().getExtras().getString("type"))) {
             get_info(getIntent().getExtras().getInt("popularize_id"));
@@ -415,6 +419,16 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                 if (canOperation) {
                     if (getBaseActivityContext() != null) {
                         startActivity(new Intent(getBaseActivityContext(), ActivityPopularizerChooseTime.class));
+                    }
+                }
+                break;
+            case R.id.et_include:
+                if (canOperation) {
+                    if (isIncloud) {
+                        if (menuDialog == null) {
+                            menuDialog = new MenuDialog(getBaseActivity());
+                        }
+                        bottomSheetDialog = menuDialog.createPopularizeDialog(getBaseActivityContext(), incloudAdapter);
                     }
                 }
                 break;
@@ -546,6 +560,8 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                 oneAdapter.setList(oneList);
                 twoList.clear();
                 twoAdapter.setList(twoList);
+                tipInclude.setTextColor(getResources().getColor(R.color.edittext_stop));
+                etInclude.setOnClickListener(null);
                 break;
             case 2:
                 one = null;
@@ -559,6 +575,8 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                 oneAdapter.setList(oneList);
                 twoList.clear();
                 twoAdapter.setList(twoList);
+                tipInclude.setTextColor(getResources().getColor(R.color.edittext_stop));
+                etInclude.setOnClickListener(null);
                 break;
             case 3:
                 two = null;
@@ -567,6 +585,8 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                 coupon_id = null;
                 twoList.clear();
                 twoAdapter.setList(twoList);
+                tipInclude.setTextColor(getResources().getColor(R.color.edittext_stop));
+                etInclude.setOnClickListener(null);
                 break;
         }
 
@@ -616,6 +636,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
         isActivity = false;
         etInclude.setText("");
 
+
     }
 
 
@@ -648,6 +669,14 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                     tipTwo.setTextColor(getResources().getColor(R.color.black));
                 } else {
                     tipTwo.setTextColor(getResources().getColor(R.color.edittext_stop));
+                }
+
+                break;
+            case 4:
+                if (canOperation) {
+                    tipInclude.setTextColor(getResources().getColor(R.color.black));
+                } else {
+                    tipInclude.setTextColor(getResources().getColor(R.color.edittext_stop));
                 }
 
                 break;
@@ -808,22 +837,33 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                         }
                         popularize_rule(two, 0);
                         if (isCoupon) {
-
-                            if ("1".equals(bean.scope)) {//1全场，2品类，3单品
-                                etInclude.setText("全场");
-                                etGoods.setText(getIntent().getExtras().getString("title"));
-                            } else if ("2".equals(bean.scope)) {//1全场，2品类，3单品
-                                etInclude.setText("品类");
-                                etGoods.setText(getIntent().getExtras().getString("title"));
-                                tipGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
-                                etGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
-                            } else if ("3".equals(bean.scope)) {//1全场，2品类，3单品
-                                etInclude.setText("单品");
-                                etGoods.setText(getIntent().getExtras().getString("classify_name"));
-                                tipGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
-                                etGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
-                            }
-                        }else {
+                            coupon_id = bean.coupon_id;
+                            incloud.clear();
+                            incloud.add("全场");
+                            incloud.add("品类");
+                            incloud.add("单品");
+                            incloudAdapter.setList(incloud);
+                            incloud_id = "1";
+                            isIncloud = true;
+                            resetTip(4, true);
+                            etInclude.setOnClickListener(PopularizeEdit.this);
+//                            if ("1".equals(bean.scope)) {//1全场，2品类，3单品
+//                                etInclude.setText("全场");
+//                                etGoods.setText(getIntent().getExtras().getString("title"));
+//                            } else if ("2".equals(bean.scope)) {//1全场，2品类，3单品
+//                                etInclude.setText("品类");
+//                                etGoods.setText(getIntent().getExtras().getString("title"));
+//                                tipGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
+//                                etGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
+//                            } else if ("3".equals(bean.scope)) {//1全场，2品类，3单品
+//                                etInclude.setText("单品");
+//                                etGoods.setText(getIntent().getExtras().getString("classify_name"));
+//                                tipGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
+//                                etGoods.setTextColor(getResources().getColor(R.color.edittext_stop));
+//                            }
+                        } else {
+                            resetTip(4, false);
+                            isIncloud = false;
                         }
                     }
                 });
@@ -834,6 +874,29 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
 
             }
         };
+
+        incloudAdapter = new SSS_Adapter<String>(getBaseActivityContext(), R.layout.item_popularize_text) {
+            @Override
+            protected void setView(SSS_HolderHelper helper, final int position, final String bean, SSS_Adapter instance) {
+                helper.setText(R.id.text_item_popularize, bean);
+                helper.getView(R.id.text_item_popularize).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        incloud_id = String.valueOf(position + 1);
+                        etInclude.setText(bean);
+                        if (bottomSheetDialog != null) {
+                            bottomSheetDialog.dismiss();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            protected void setItemListener(SSS_HolderHelper helper) {
+
+            }
+        };
+
 
         cityAdapter = new SSS_Adapter<PopularizeCityModel>(getBaseActivityContext(), R.layout.item_popularize_text) {
             @Override
@@ -914,13 +977,15 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                                    PopularizeEdit.this.goods_id=jsonObject1.getString("goods_id");
+                                    PopularizeEdit.this.goods_id = jsonObject1.getString("goods_id");
                                     PopularizeEdit.this.popularize_id = jsonObject1.getString("popularize_id");//推广ID
                                     PopularizeEdit.this.coupon_id = jsonObject1.getString("coupon_id");//优惠券ID
                                     PopularizeEdit.this.subject_id = jsonObject1.getString("subject_id"); //活动ID
                                     PopularizeEdit.this.city_id = jsonObject1.getString("city_id"); //城市ID
                                     etCity.setText(jsonObject1.getString("city_name"));
                                     PopularizeEdit.this.sex = jsonObject1.getString("sex"); //性别
+                                    incloud_id = jsonObject1.getString("scope");
+
                                     if ("0".equals(PopularizeEdit.this.sex)) {
                                         etSex.setText("男");
                                     } else if ("1".equals(PopularizeEdit.this.sex)) {
@@ -938,47 +1003,13 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                     etPrice.setText(jsonObject1.getString("price"));
                                     etDescribe.setText(jsonObject1.getString("slogan"));
                                     JSONArray jsonArray = jsonObject1.getJSONArray("cate_name");
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        switch (i) {
-                                            case 0:
-                                                PopularizeEdit.this.type = jsonArray.getJSONObject(0).getString("cate_id");//一级菜单ID
-                                                etType.setText(jsonArray.getJSONObject(0).getString("name"));
-                                                popularize_type(null, 1);
-                                                twoCanClick = true;//二级菜单能否点击
-                                                break;
-                                            case 1:
-                                                PopularizeEdit.this.category = jsonArray.getJSONObject(1).getString("cate_id");//二级菜单ID
-                                                etCategory.setText(jsonArray.getJSONObject(1).getString("name"));
-                                                threeCanClick = true;//三级菜单能否点击
-                                                popularize_type(PopularizeEdit.this.type, 2);
-                                                break;
-                                            case 2:
-                                                PopularizeEdit.this.one = jsonArray.getJSONObject(2).getString("cate_id");//三级菜单ID
-                                                etOne.setText(jsonArray.getJSONObject(2).getString("name"));
-                                                fourCanClick = true;//四级菜单能否点击
-                                                popularize_type(PopularizeEdit.this.category, 3);
-                                                break;
-                                            case 3:
-                                                PopularizeEdit.this.two = jsonArray.getJSONObject(3).getString("cate_id");//四级菜单ID
-                                                etTwo.setText(jsonArray.getJSONObject(3).getString("name"));
-                                                popularize_type(PopularizeEdit.this.one, 4);
-                                                break;
-                                        }
-                                    }
                                     if (jsonArray.length() > 0) {
                                         if ("0".equals(subject_id) || StringUtils.isEmpty(subject_id)) {
-                                            popularize_amount(jsonArray.getJSONObject(jsonArray.length()-1).getString("cate_id"), 0);
+                                            popularize_amount(jsonArray.getJSONObject(jsonArray.length() - 1).getString("cate_id"), 0);
                                         } else {
-                                            popularize_amount(jsonArray.getJSONObject(jsonArray.length()-1).getString("cate_id"), 4);
+                                            popularize_amount(jsonArray.getJSONObject(jsonArray.length() - 1).getString("cate_id"), 4);
                                         }
                                     }
-
-
-                                    if (!"0".equals(jsonObject1.getString("city_id"))) {
-
-                                    }
-
-
                                     switch (jsonArray.length()) {
                                         case 1:
                                             resetTip(1, false);
@@ -999,6 +1030,56 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                     }
 
                                     PopularizeEdit.this.picture.setList(temp);
+
+
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        switch (i) {
+                                            case 0:
+                                                PopularizeEdit.this.type = jsonArray.getJSONObject(0).getString("cate_id");//一级菜单ID
+                                                etType.setText(jsonArray.getJSONObject(0).getString("name"));
+                                                popularize_type(null, 1);
+                                                resetTip(1, true);
+                                                twoCanClick = true;//二级菜单能否点击
+                                                break;
+                                            case 1:
+                                                PopularizeEdit.this.category = jsonArray.getJSONObject(1).getString("cate_id");//二级菜单ID
+                                                etCategory.setText(jsonArray.getJSONObject(1).getString("name"));
+                                                threeCanClick = true;//三级菜单能否点击
+                                                resetTip(2, true);
+                                                popularize_type(PopularizeEdit.this.type, 2);
+                                                break;
+                                            case 2:
+                                                PopularizeEdit.this.one = jsonArray.getJSONObject(2).getString("cate_id");//三级菜单ID
+                                                etOne.setText(jsonArray.getJSONObject(2).getString("name"));
+                                                fourCanClick = true;//四级菜单能否点击
+                                                resetTip(3, true);
+                                                popularize_type(PopularizeEdit.this.category, 3);
+                                                if ("满减券".equals(etOne.getText().toString()) || "现金券".equals(etOne.getText().toString()) || "折扣券".equals(etOne.getText().toString())) {
+                                                    popularize_type_coupon(PopularizeEdit.this.one);
+                                                    etTwo.setText(jsonObject.getJSONObject("data").getString("coupon_name"));
+                                                    resetTip(4, true);
+                                                }
+                                                break;
+
+                                        }
+                                    }
+                                    if ("1".endsWith(incloud_id)) {
+                                        tipTwo.setTextColor(getResources().getColor(R.color.black));
+                                        isIncloud = true;
+                                        etInclude.setText("全场");
+                                    } else if ("2".endsWith(incloud_id)) {
+                                        isIncloud = true;
+                                        tipTwo.setTextColor(getResources().getColor(R.color.black));
+                                        etInclude.setText("品类");
+                                    } else if ("3".endsWith(incloud_id)) {
+                                        isIncloud = true;
+                                        tipTwo.setTextColor(getResources().getColor(R.color.black));
+                                        etInclude.setText("单品");
+                                    }
+
+
+
 
                                 } else {
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
@@ -1030,7 +1111,7 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.popularize_type(
                     new JSONObject()
                             .put("cate_id", cate_id)
-                            .put("where",where)
+                            .put("where", where)
                             .put("member_id", Config.member_id)
                             .toString()
                     , new StringCallback() {
@@ -1585,10 +1666,11 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                             .put("start_time", startTime)
                             .put("end_time", endTime)
                             .put("coupon_id", coupon_id)
-                            .put("goods_id",goods_id )
+                            .put("goods_id", goods_id)
                             .put("subject_id", subject_id)
                             .put("city_id", city_id)
                             .put("sex", sex)
+                            .put("scope", incloud_id)
                             .put("price", totalPrice)
                             .put("number", number)
                             .put("slogan", etDescribe.getText().toString().trim())
@@ -1615,7 +1697,8 @@ public class PopularizeEdit extends BaseActivity implements View.OnClickListener
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     if (!"4".equals(status)) {
-                                        PayUtils.requestPayment(ywLoadingDialog,false, "0", jsonObject.getJSONObject("data").getString("popularize_id"), 4, 1, totalPrice, getBaseActivity(),null);
+                                        PayUtils.requestPayment(ywLoadingDialog, false, "0", jsonObject.getJSONObject("data").getString("popularize_id"),
+                                                4, 1, totalPrice, getBaseActivity(), null,"0");
                                     } else {
                                         ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                     }

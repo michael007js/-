@@ -221,7 +221,12 @@
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="13.8sp"/>
-
+                <com.facebook.drawee.view.SimpleDraweeView
+                    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    fresco:placeholderImage="@mipmap/down_arrows"
+                    fresco:placeholderImageScaleType="centerInside"/>
             </LinearLayout>
 
             <LinearLayout

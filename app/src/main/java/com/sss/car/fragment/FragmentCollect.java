@@ -24,6 +24,7 @@ import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.pullToRefresh.PullToRefreshBase;
 import com.blankj.utilcode.pullToRefresh.PullToRefreshListView;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -35,6 +36,7 @@ import com.sss.car.adapter.NineAdapter2;
 import com.sss.car.dao.CollectBottomDialogCallaback;
 import com.sss.car.dao.NineAdapter2OperationCallBack;
 import com.sss.car.dictionary.DectionaryDetails;
+import com.sss.car.model.CollectModel;
 import com.sss.car.model.ShareCollectModel;
 import com.sss.car.utils.MenuDialog;
 import com.sss.car.view.ActivityCollectLable;
@@ -77,7 +79,7 @@ public class FragmentCollect extends BaseFragment {
     public SSS_Adapter sss_adapter;
     public int p = 1;
     public boolean isEdit = false;
-    public List<String> selectList = new ArrayList<>();
+    public List<CollectModel> selectList = new ArrayList<>();
     public List<ShareCollectModel> list = new ArrayList<>();
     YWLoadingDialog ywLoadingDialog;
     public MenuDialog menuDialog;
@@ -204,12 +206,16 @@ public class FragmentCollect extends BaseFragment {
                     return;
                 }
                 if (getBaseFragmentActivityContext() != null) {
+                    List<String> temp=new ArrayList<>();
+                    for (int i = 0; i < selectList.size(); i++) {
+                        temp.add(selectList.get(i).id+"|"+selectList.get(i).type);
+                    }
                     getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivityCollectLable.class)
-                            .putStringArrayListExtra("data", (ArrayList<String>) selectList));
+                            .putStringArrayListExtra("data", (ArrayList<String>) temp));
                 }
                 break;
             case R.id.delete_activity_share_collect:
-                postsCollectCancelCollect(null, true);
+                postsCollectCancelCollect(null, null,true);
                 break;
         }
     }
@@ -313,10 +319,10 @@ public class FragmentCollect extends BaseFragment {
                             }
 
                             if (list.get(position).isChoose) {
-                                selectList.add(list.get(position).collect_id);
+                                selectList.add(new CollectModel(list.get(position).collect_id,list.get(position).type));
                             } else {
                                 for (int i = 0; i < selectList.size(); i++) {
-                                    if (selectList.get(i).equals(list.get(position).collect_id)) {
+                                    if (selectList.get(i).id.equals(list.get(position).collect_id)) {
                                         selectList.remove(i);
                                     }
                                 }
@@ -344,7 +350,7 @@ public class FragmentCollect extends BaseFragment {
                         public void onEdit() {
                             if (getBaseFragmentActivityContext() != null) {
                                 List<String> list = new ArrayList<>();
-                                list.add(FragmentCollect.this.list.get(position).collect_id);
+                                list.add(FragmentCollect.this.list.get(position).collect_id+"|"+FragmentCollect.this.list.get(position).type);
                                 getBaseFragmentActivityContext().startActivity(new Intent(getBaseFragmentActivityContext(), ActivityCollectLable.class)
                                         .putStringArrayListExtra("data", (ArrayList<String>) list));
                             }
@@ -352,7 +358,7 @@ public class FragmentCollect extends BaseFragment {
 
                         @Override
                         public void onDetete() {
-                            postsCollectCancelCollect(list.get(position).collect_id, false);
+                            postsCollectCancelCollect(list.get(position).collect_id, list.get(position).type,false);
                         }
 
                         @Override
@@ -547,8 +553,9 @@ public class FragmentCollect extends BaseFragment {
      * @param collect_id
      * @param isDouble   是否多选模式
      */
-    public void postsCollectCancelCollect(final String collect_id, final boolean isDouble) {
+    public void postsCollectCancelCollect(final String collect_id,final String t, final boolean isDouble) {
         final JSONArray jsonArray = new JSONArray();
+        final JSONArray type = new JSONArray();
         if (isDouble) {
             if (selectList.size() == 0) {
                 ToastUtils.showShortToast(getBaseFragmentActivityContext(), "您没有选中任何收藏");
@@ -556,10 +563,12 @@ public class FragmentCollect extends BaseFragment {
             }
 
             for (int i = 0; i < selectList.size(); i++) {
-                jsonArray.put(selectList.get(i));
+                jsonArray.put(selectList.get(i).id);
+                type.put(selectList.get(i).type);
             }
         } else {
             jsonArray.put(collect_id);
+            type.put(t);
         }
 
 
@@ -575,7 +584,7 @@ public class FragmentCollect extends BaseFragment {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.postsCollectCancelCollect(
                     new JSONObject()
                             .put("member_id", Config.member_id)
-                            .put("type", "community")
+                            .put("type", type)
                             .put("collect_id", jsonArray)//此处传要收藏的文章ID
                             .toString(), new StringCallback() {
                         @Override
@@ -596,6 +605,7 @@ public class FragmentCollect extends BaseFragment {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
+                                    selectList.clear();
                                     p = 1;
                                     EventBus.getDefault().post(new ChangedPostsModel());
                                 } else {

@@ -372,9 +372,9 @@ public class NewOrderFragmentBuyer extends BaseFragment implements CustomListVie
 //                break;
 //        }
         if ("1".equals(types)) {
-            CarUtils.orderJump(getBaseFragmentActivityContext(), "goods", status, orderModel.order_id, false, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status);
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "goods", status, orderModel.order_id, false, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status,orderModel.is_bargain);
         } else {
-            CarUtils.orderJump(getBaseFragmentActivityContext(), "service", status, orderModel.order_id, false, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status);
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "service", status, orderModel.order_id, false, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status,orderModel.is_bargain);
 
         }
     }
@@ -401,7 +401,8 @@ public class NewOrderFragmentBuyer extends BaseFragment implements CustomListVie
 
     @Override
     public void onPayment(final OrderModel orderModel) {
-        PayUtils.requestPayment(ywLoadingDialog,false, "0", orderModel.order_id, 2, 0, PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total), 2), getActivity(),null);
+        PayUtils.requestPayment(ywLoadingDialog,false, "0", orderModel.order_id, 2, 0, PriceUtils.formatBy2Scale(Double.valueOf(orderModel.total),
+                2), getActivity(),null,"0");
 
 //        try {
 //            String a = orderModel.total;

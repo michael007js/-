@@ -13,6 +13,7 @@ import com.blankj.utilcode.Fragment.BaseFragment;
 import com.blankj.utilcode.activity.BaseActivity;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
+import com.blankj.utilcode.customwidget.ZhiFuBaoPasswordStyle.PassWordKeyboard;
 import com.blankj.utilcode.dao.OnAskDialogCallBack;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.pullToRefresh.PullToRefreshBase;
@@ -23,14 +24,20 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+import com.rey.material.app.BottomSheetDialog;
 import com.sss.car.Config;
+import com.sss.car.P;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.dao.OnPayPasswordVerificationCallBack;
 import com.sss.car.rongyun.RongYunUtils;
 import com.sss.car.utils.CarUtils;
+import com.sss.car.utils.MenuDialog;
 import com.sss.car.utils.OrderUtils;
 import com.sss.car.view.ActivityImages;
+import com.sss.car.view.ActivityMyDataSetPassword;
 import com.sss.car.view.ActivityShopInfo;
+import com.sss.car.view.ActivityUserInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,6 +76,7 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
     int p = 1;
     @BindView(R.id.empty_view)
     SimpleDraweeView emptyView;
+    MenuDialog menuDialog;
 
 
     public NewOrderFragmentSeller(int type, BaseActivity baseActivity) {
@@ -129,6 +137,10 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (menuDialog!=null){
+            menuDialog.clear();
+        }
+        menuDialog=null;
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
@@ -364,24 +376,24 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
 //                break;
 //        }
         if ("1".equals(types)) {
-            CarUtils.orderJump(getBaseFragmentActivityContext(), "goods", status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status);
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "goods", status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status,orderModel.is_bargain);
         } else {
-            CarUtils.orderJump(getBaseFragmentActivityContext(), "service", status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status);
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "service", status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status,orderModel.is_bargain);
 
         }
 
     }
 
     /**
-     * 店铺被点击
+     * 个人详细信息
      *
-     * @param shop_id
+     * @param id
      */
     @Override
-    public void onShop(String shop_id) {
+    public void onShop(String id) {
         if (getBaseFragmentActivityContext() != null) {
-            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityShopInfo.class)
-                    .putExtra("shop_id", shop_id));
+            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityUserInfo.class)
+                    .putExtra("id", id));
         }
     }
 
@@ -514,11 +526,49 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
             public void onOKey(Dialog dialog) {
                 dialog.dismiss();
                 dialog = null;
-                if (Constant.Changed == orderModel.status) {
-                    OrderUtils.exchange_goods(baseActivity, ywLoadingDialog, false, orderModel.order_id, orderModel.exchange_id);
-                } else if (Constant.Returns == orderModel.status) {
-                    OrderUtils.confirm_goods(baseActivity, ywLoadingDialog, false, orderModel.order_id, orderModel.exchange_id);
-                }
+                P.e(ywLoadingDialog, Config.member_id, baseActivity, new P.p() {
+                    @Override
+                    public void exist() {
+                        if (menuDialog == null) {
+                            menuDialog = new MenuDialog(baseActivity);
+                        }
+                        menuDialog.createPasswordInputDialog("请输入您的支付密码", baseActivity, new OnPayPasswordVerificationCallBack() {
+                            @Override
+                            public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final BottomSheetDialog bottomSheetDialog) {
+                                P.r(ywLoadingDialog, Config.member_id, password, baseActivity, new P.r() {
+                                    @Override
+                                    public void match() {
+                                        bottomSheetDialog.dismiss();
+                                        passWordKeyboard.setStatus(true);
+                                        if (Constant.Changed == orderModel.status) {
+                                            OrderUtils.exchange_goods(baseActivity, ywLoadingDialog, false, orderModel.order_id, orderModel.exchange_id);
+                                        } else if (Constant.Returns == orderModel.status) {
+                                            OrderUtils.confirm_goods(baseActivity, ywLoadingDialog, false, orderModel.order_id, orderModel.exchange_id);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void mismatches() {
+
+                                        passWordKeyboard.setStatus(false);
+                                    }
+                                });
+                            }
+
+                        });
+                    }
+
+
+                    @Override
+                    public void nonexistence() {
+                        if (getBaseFragmentActivityContext() != null) {
+                            startActivity(new Intent(getBaseFragmentActivityContext(), ActivityMyDataSetPassword.class));
+                        }
+                    }
+                });
+
+
+
             }
 
             @Override
@@ -536,9 +586,9 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
     @Override
     public void onImmediateDelivery(OrderModel orderModel) {
         if ("1".equals(orderModel.type)) {
-            CarUtils.orderJump(getBaseFragmentActivityContext(), "goods", orderModel.status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status);
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "goods", orderModel.status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status,orderModel.is_bargain);
         } else {
-            CarUtils.orderJump(getBaseFragmentActivityContext(), "service", orderModel.status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status);
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "service", orderModel.status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status,orderModel.is_bargain);
 
         }
     }
@@ -585,17 +635,23 @@ public class NewOrderFragmentSeller extends BaseFragment implements CustomListVi
     @Override
     public void onImmediateProcessingReadyBuy(OrderModel orderModel) {
         if ("1".equals(orderModel.type)) {
-            if (getBaseFragmentActivityContext() != null) {
-                startActivity(new Intent(getBaseFragmentActivityContext(), OrderGoodsReadyBuyList.class)
-                        .putExtra("order_id", orderModel.order_id));
-            }
-        } else if ("2".equals(orderModel.type)) {
-            if (getBaseFragmentActivityContext() != null) {
-                startActivity(new Intent(getBaseFragmentActivityContext(), OrderServiceReadyBuyList.class)
-                        .putExtra("order_id", orderModel.order_id));
-            }
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "goods", orderModel.status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status,orderModel.is_bargain);
+        } else {
+            CarUtils.orderJump(getBaseFragmentActivityContext(), "service", orderModel.status, orderModel.order_id, true, orderModel.goods_comment, orderModel.is_comment, orderModel.exchange_id, orderModel.exchange_status,orderModel.is_bargain);
 
         }
+//        if ("1".equals(orderModel.type)) {
+//            if (getBaseFragmentActivityContext() != null) {
+//                startActivity(new Intent(getBaseFragmentActivityContext(), OrderGoodsReadyBuyList.class)
+//                        .putExtra("order_id", orderModel.order_id));
+//            }
+//        } else if ("2".equals(orderModel.type)) {
+//            if (getBaseFragmentActivityContext() != null) {
+//                startActivity(new Intent(getBaseFragmentActivityContext(), OrderServiceReadyBuyList.class)
+//                        .putExtra("order_id", orderModel.order_id));
+//            }
+//
+//        }
     }
 
     @Override

@@ -224,7 +224,8 @@ public class ActivityCoupon extends BaseActivity {
                         ToastUtils.showShortToast(getBaseActivityContext(), "优惠券信息获取中...");
                         return;
                     }
-                    PayUtils.requestPayment(ywLoadingDialog,false,"0", getIntent().getExtras().getString("coupon_id"), 3, 0, PriceUtils.formatBy2Scale(Double.valueOf(price_activity_coupon_head.getText().toString().trim()), 2), getBaseActivity(),null);
+                    PayUtils.requestPayment(ywLoadingDialog,false,"0", getIntent().getExtras().getString("coupon_id"),
+                            3, 0, PriceUtils.formatBy2Scale(Double.valueOf(price_activity_coupon_head.getText().toString().trim()), 2), getBaseActivity(),null,"0");
                 }
             });
         } else if ("returns".equals(getIntent().getExtras().getString("mode"))) {
@@ -310,7 +311,8 @@ public class ActivityCoupon extends BaseActivity {
                     }
                     String a=price_activity_coupon_head.getText().toString().trim();
                     double b=Double.valueOf(a);
-                    PayUtils.requestPayment(ywLoadingDialog,false,"0", getIntent().getExtras().getString("coupon_id"), 3, 0, PriceUtils.formatBy2Scale(b, 2), getBaseActivity(),null);
+                    PayUtils.requestPayment(ywLoadingDialog,false,"0", getIntent().getExtras().getString("coupon_id"), 3, 0, PriceUtils.formatBy2Scale(b, 2)
+                            , getBaseActivity(),null,"0");
                 }
             });
         }

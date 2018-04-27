@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\img_menu_click.png",
-        "source": "C:\\JuXiangChe\\Pay\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\img_menu_click.png"
-    },
-    {
         "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\img_wx.png",
         "source": "C:\\JuXiangChe\\Pay\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\img_wx.png"
+    },
+    {
+        "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\img_menu_click.png",
+        "source": "C:\\JuXiangChe\\Pay\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\img_menu_click.png"
     },
     {
         "merged": "C:\\JuXiangChe\\Pay\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\img_icon_wx.png",

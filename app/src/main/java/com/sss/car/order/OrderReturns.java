@@ -1,7 +1,6 @@
 package com.sss.car.order;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,10 +14,7 @@ import com.blankj.utilcode.adapter.sssAdapter.SSS_HolderHelper;
 import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.GalleryHorizontalListView.GalleryHorizontalListView;
-import com.blankj.utilcode.customwidget.ListView.HorizontalListView;
-import com.blankj.utilcode.fresco.FrescoUtils;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
-import com.blankj.utilcode.util.APPOftenUtils;
 import com.blankj.utilcode.util.BitmapUtils;
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -29,10 +25,10 @@ import com.rey.material.app.BottomSheetDialog;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangeInfoModel;
 import com.sss.car.EventBusModel.ChangedOrderModel;
-import com.sss.car.MyApplication;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.model.ExpressModel;
+import com.sss.car.model.ReterunAndChangeModel;
 import com.sss.car.order_new.CustomOrderReturnsListView;
 import com.sss.car.order_new.OrderModel;
 import com.sss.car.utils.MenuDialog;
@@ -48,18 +44,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.model.PhotoInfo;
 import okhttp3.Call;
-
-import static com.sss.car.R.id.company;
 
 
 /**
@@ -131,6 +122,12 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
     BottomSheetDialog bottomSheetDialog;
     String express_id;
     List<String> temp = new ArrayList<>();
+    @BindView(R.id.return_type)
+    Spinner returnType;
+    List<ReterunAndChangeModel> list = new ArrayList<>();
+    String attr_id;
+    @BindView(R.id.parent_return_type)
+    LinearLayout parentReturnType;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -166,8 +163,6 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
         listview.setOnCustomOrderReturnsListViewCallBack(this);
         customInit(activityOrderApplyForReturnsChangeRightTopButtonDetails, false, true, true);
 
-
-
         if (getIntent().getExtras().getBoolean("returnOrChange_isFirst")) {//第一次打开,申请退换货
             titleTop.setText("退换货申请");
             titleCompany.setTextColor(getResources().getColor(R.color.line));
@@ -184,6 +179,8 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
             });
             listSpinner.add("退货");
             listSpinner.add("换货");
+            parentReturnType.setVisibility(View.VISIBLE);
+            returnType.setVisibility(View.VISIBLE);
             initSpinner();
             initPhotoAdapter(true);
         } else if (getIntent().getExtras().getBoolean("returnOrChange_isFirst") == false) {//不是第一次打开,填写
@@ -224,7 +221,7 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
             });
         }
 
-        if (true==getIntent().getExtras().getBoolean("isStop")){
+        if (true == getIntent().getExtras().getBoolean("isStop")) {
             titleTop.setText("退换货资料");
             clickSubmit.setVisibility(View.GONE);
             applyForType.setEnabled(false);
@@ -235,6 +232,7 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
         }
 
         getInfo();
+        orderAttr();
 
     }
 
@@ -449,6 +447,32 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
         });
     }
 
+
+    void initType(){
+        returnType.setAdapter(new SSS_Adapter<ReterunAndChangeModel>(getBaseActivityContext(), R.layout.item_spinner, list) {
+            @Override
+            protected void setView(SSS_HolderHelper helper, int position, ReterunAndChangeModel bean, SSS_Adapter instance) {
+                helper.setText(R.id.text_item_spinner, bean.name);
+            }
+
+            @Override
+            protected void setItemListener(SSS_HolderHelper helper) {
+
+            }
+        });
+        returnType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                attr_id = list.get(position).attr_id;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
     void initPhotoAdapter(boolean isCanAdd) {
         if (isCanAdd) {
             photo.setCanOperation(true);
@@ -476,6 +500,61 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
 
     }
 
+    /**
+     * 获取退换类型
+     */
+    public void orderAttr() {
+        if (ywLoadingDialog != null) {
+            ywLoadingDialog.disMiss();
+        }
+        ywLoadingDialog = null;
+        ywLoadingDialog = new YWLoadingDialog(getBaseActivityContext());
+        ywLoadingDialog.show();
+        try {
+            addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.orderAttr(
+                    new JSONObject()
+                            .put("member_id", Config.member_id)
+                            .put("type", "5")//1送达时效，2违约金比例，3求助类型，4服务就位，5退换货原因
+                            .toString(), new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            ToastUtils.showShortToast(getBaseActivityContext(), e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (ywLoadingDialog != null) {
+                                ywLoadingDialog.disMiss();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        ReterunAndChangeModel reterunAndChangeModel = new ReterunAndChangeModel();
+                                        reterunAndChangeModel.attr_id = jsonArray.getJSONObject(i).getString("attr_id");
+                                        reterunAndChangeModel.name = jsonArray.getJSONObject(i).getString("name");
+                                        list.add(reterunAndChangeModel);
+                                    }
+                                    initType();
+
+                                } else {
+                                    ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
+                                e.printStackTrace();
+                            }
+                        }
+                    })));
+        } catch (JSONException e) {
+            ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 获取退换货详情
@@ -576,6 +655,7 @@ public class OrderReturns extends BaseActivity implements CustomOrderReturnsList
                             .put("order_id", orderModel.order_id)
                             .put("member_id", Config.member_id)
                             .put("goods_id", goods_id)
+                            .put("attr_id", attr_id)
                             .put("cause", sendReason)
                             .put("type", sendReturnOrChange)
                             .put("picture", picture)

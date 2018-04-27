@@ -76,7 +76,7 @@ public class FragmentMessageSystem extends BaseFragment {
     Unbinder unbinder;
 
     SSS_Adapter sss_adapter;
-    int p = 1;
+    public int p = 1;
 
     YWLoadingDialog ywLoadingDialog;
     View view;

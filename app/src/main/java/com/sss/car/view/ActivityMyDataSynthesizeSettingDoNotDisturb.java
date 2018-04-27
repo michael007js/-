@@ -1,5 +1,6 @@
 package com.sss.car.view;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,13 +13,16 @@ import com.blankj.utilcode.constant.RequestModel;
 import com.blankj.utilcode.customwidget.Dialog.YWLoadingDialog;
 import com.blankj.utilcode.customwidget.SwitchButton.SwitchButton;
 import com.blankj.utilcode.okhttp.callback.StringCallback;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
 import com.sss.car.EventBusModel.ChangedSet;
 import com.sss.car.EventBusModel.ChangedTime;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
+import com.sss.car.rongyun.RongYunUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,6 +32,9 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.BasicPushNotificationBuilder;
+import cn.jpush.android.api.JPushInterface;
+import io.rong.imlib.RongIMClient;
 import okhttp3.Call;
 
 import static android.R.attr.value;
@@ -65,17 +72,38 @@ public class ActivityMyDataSynthesizeSettingDoNotDisturb extends BaseActivity {
     public void onMessageEvent(ChangedTime changedTime) {
         start = changedTime.startTime;
         end = changedTime.endTime;
-        from.setText("从"+start);
-        to.setText("至"+end);
+        from.setText("从" + start);
+        to.setText("至" + end);
+        if (switchTime.isOpened()) {
+            long a = TimeUtils.string2Millis(end, "HH:mm");
+            long b = TimeUtils.string2Millis(start, "HH:mm");
+            LogUtils.e(start + "---" + (a - b));
+            RongYunUtils.setNotificationQuietHours(start + ":00", (int) ((a - b) / 1000 / 60), new RongIMClient.OperationCallback() {
+                @Override
+                public void onSuccess() {
+                    BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(getBaseActivityContext());
+                    builder.notificationDefaults =
+                            Notification.DEFAULT_VIBRATE | // 设置为、震动
+                                    Notification.DEFAULT_LIGHTS; // 设置为呼吸灯闪烁
+                    JPushInterface.setPushNotificationBuilder(1, builder);
+                    ToastUtils.showShortToast(getBaseActivityContext(), "设置成功");
+                }
+
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+                    ToastUtils.showShortToast(getBaseActivityContext(), "设置失败");
+                }
+            });
+        }
 
     }
 
     @Override
     protected void onDestroy() {
-        if (ywLoadingDialog!=null){
+        if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
         }
-        ywLoadingDialog=null;
+        ywLoadingDialog = null;
         backTop = null;
         titleTop = null;
         from = null;
@@ -101,23 +129,23 @@ public class ActivityMyDataSynthesizeSettingDoNotDisturb extends BaseActivity {
         }
         start = getIntent().getExtras().getString("start");
         end = getIntent().getExtras().getString("end");
-        from.setText("从"+start);
-        to.setText("至"+end);
-        if ("1".equals(getIntent().getExtras().getString("disturb"))){
+        from.setText("从" + start);
+        to.setText("至" + end);
+        if ("1".equals(getIntent().getExtras().getString("disturb"))) {
             switchTime.setOpened(true);
-        }else if ("0".equals(getIntent().getExtras().getString("disturb"))){
+        } else if ("0".equals(getIntent().getExtras().getString("disturb"))) {
             switchTime.setOpened(false);
         }
         switchTime.setOnStateChangedListener(new SwitchButton.OnStateChangedListener() {
             @Override
             public void toggleToOn(SwitchButton view) {
                 switchTime.setOpened(true);
-                if (StringUtils.isEmpty(start)||StringUtils.isEmpty(end)){
+                if (StringUtils.isEmpty(start) || StringUtils.isEmpty(end)) {
                     startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSynthesizeSettingDoNotDisturbChooseTime.class)
                             .putExtra("start", start)
                             .putExtra("end", end)
                     );
-                }else {
+                } else {
                     setUsinfo("1");
                 }
             }
@@ -125,7 +153,7 @@ public class ActivityMyDataSynthesizeSettingDoNotDisturb extends BaseActivity {
             @Override
             public void toggleToOff(SwitchButton view) {
                 switchTime.setOpened(false);
-                if (!StringUtils.isEmpty(start)&&!StringUtils.isEmpty(end)){
+                if (!StringUtils.isEmpty(start) && !StringUtils.isEmpty(end)) {
                     setUsinfo("0");
                 }
             }
@@ -150,9 +178,6 @@ public class ActivityMyDataSynthesizeSettingDoNotDisturb extends BaseActivity {
     }
 
 
-    /**
-     * 获取用户设置资料
-     */
     public void setUsinfo(final String value) {
         if (ywLoadingDialog != null) {
             ywLoadingDialog.disMiss();
@@ -164,7 +189,7 @@ public class ActivityMyDataSynthesizeSettingDoNotDisturb extends BaseActivity {
             addRequestCall(new RequestModel(System.currentTimeMillis() + "", RequestWeb.setUsinfo(
                     new JSONObject()
                             .put("member_id", Config.member_id)
-                            .put("disturb",value)
+                            .put("disturb", value)
                             .toString(), new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
@@ -182,10 +207,45 @@ public class ActivityMyDataSynthesizeSettingDoNotDisturb extends BaseActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
-                                    if ("1".equals(value)){
+                                    if ("1".equals(value)) {
                                         switchTime.setOpened(true);
-                                    }else {
+                                        if (StringUtils.isEmpty(start) || StringUtils.isEmpty(end)) {
+                                            long a = TimeUtils.string2Millis(end, "HH:mm");
+                                            long b = TimeUtils.string2Millis(start, "HH:mm");
+                                            RongYunUtils.setNotificationQuietHours(start + ":00", (int) ((a - b) / 1000 / 60), new RongIMClient.OperationCallback() {
+                                                @Override
+                                                public void onSuccess() {
+                                                    BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(getBaseActivityContext());
+                                                    builder.notificationDefaults =
+                                                            Notification.DEFAULT_VIBRATE | // 设置为、震动
+                                                                    Notification.DEFAULT_LIGHTS; // 设置为呼吸灯闪烁
+                                                    JPushInterface.setPushNotificationBuilder(1, builder);
+                                                    ToastUtils.showShortToast(getBaseActivityContext(), "设置成功");
+                                                }
+
+                                                @Override
+                                                public void onError(RongIMClient.ErrorCode errorCode) {
+                                                    ToastUtils.showShortToast(getBaseActivityContext(), "设置失败");
+                                                }
+                                            });
+                                        }
+                                    } else {
                                         switchTime.setOpened(false);
+                                        RongYunUtils.removeNotificationQuietHours(new RongIMClient.OperationCallback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(getBaseActivityContext());
+                                                builder.notificationDefaults = Notification.DEFAULT_SOUND | // 设置为铃声
+                                                                Notification.DEFAULT_LIGHTS; // 设置为呼吸灯闪烁
+                                                JPushInterface.setPushNotificationBuilder(1, builder);
+                                                ToastUtils.showShortToast(getBaseActivityContext(), "设置成功");
+                                            }
+
+                                            @Override
+                                            public void onError(RongIMClient.ErrorCode errorCode) {
+                                                ToastUtils.showShortToast(getBaseActivityContext(), "设置失败");
+                                            }
+                                        });
                                     }
                                     EventBus.getDefault().post(new ChangedSet());
                                     ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));

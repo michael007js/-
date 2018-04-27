@@ -220,6 +220,15 @@ public class ActivityOrderService extends BaseActivity {
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public void onAddAndSubtractPrice(String count_price, String sid, List<ShoppingCart> shoppingCartOrderlist) {
+                try {
+                    updateShoppingCart(shoppingCartOrderlist);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         });
         priceActivityOrderService
                 .init(getBaseActivityContext(), true)

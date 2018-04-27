@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
+import com.sss.car.EventBusModel.ChangeUnRead;
 import com.sss.car.EventBusModel.ChangedMessage;
 import com.sss.car.EventBusModel.ChangedMessageOrderList;
 import com.sss.car.EventBusModel.JiGuangModel;
@@ -66,7 +67,7 @@ public class ReceivedMessage extends BroadcastReceiver {
             LogUtils.e(TAG, intent.getAction() + "\n[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
             LogUtils.e(bundle.getString(JPushInterface.EXTRA_EXTRA));
-//            add(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
+            add(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
             EventBus.getDefault().post(new JiGuangModel());
             BadgerUtils.applyCount(context, 1);
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
@@ -215,7 +216,7 @@ public class ReceivedMessage extends BroadcastReceiver {
                             final JSONObject jsonObject = new JSONObject(response);
                             if ("1".equals(jsonObject.getString("status"))) {
 
-                                EventBus.getDefault().post(new ChangedMessage());
+                                EventBus.getDefault().post(new ChangeUnRead());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -225,24 +226,49 @@ public class ReceivedMessage extends BroadcastReceiver {
 
     }
 
-    void parse(String data, Context context) throws JSONException {
+    void parse(final String data, final Context context) throws JSONException {
 
         if (!StringUtils.isEmpty(data)) {
             JSONObject jsonObject = new JSONObject(data);
 
             switch (jsonObject.getString("type")) {
                 case "sos":
-                    LogUtils.e("sss---" + jsonObject.getString("type") + "---" + data);
-                    CarUtils.orderJump(
-                            context,
-                            "sos",
-                            jsonObject.getInt("status"),
-                            jsonObject.getJSONObject("data").getString("sos_id"),
-                            false,
-                            null,
-                            null,
-                            null,
-                            null);
+                    RequestWeb.sos_status(
+                            new JSONObject()
+                                    .put("member_id", Config.member_id)
+                                    .put("sos_id",  jsonObject.getJSONObject("data").getString("sos_id"))
+                                    .toString()
+                            , new StringCallback() {
+                                @Override
+                                public void onError(Call call, Exception e, int id) {
+
+                                    ToastUtils.showShortToast(context, e.getMessage());
+                                }
+
+                                @Override
+                                public void onResponse(String response, int id) {
+
+                                    try {
+                                        final JSONObject jsonObject = new JSONObject(response);
+                                        if ("1".equals(jsonObject.getString("status"))) {
+                                            CarUtils.orderJump(
+                                                    context,
+                                                    "sos",
+                                                    jsonObject.getJSONObject("data").getInt("status"),
+                                                    jsonObject.getJSONObject("data").getString("ids"),
+                                                    false,
+                                                    null,
+                                                    null,
+                                                    null,
+                                                    null);
+                                            EventBus.getDefault().post(new ChangedMessage());
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+
                     break;
                 case "order":
                     if ("1".equals(jsonObject.getString("order_type"))) {
@@ -285,34 +311,33 @@ public class ReceivedMessage extends BroadcastReceiver {
         if (!StringUtils.isEmpty(data)) {
             try {
                 JSONObject jsonObject = new JSONObject(data);
-                LogUtils.e(jsonObject.getString("type") + jsonObject.getString("status"));
                 switch (jsonObject.getString("type")) {
                     case "sos":
                         EventBus.getDefault().post(new ChangedMessageOrderList());
                         // status:1.sos求助弹窗, 2.sos接受订单, 3.sos用户取消, 4.sos店铺取消, 5.用户确认服务
                         switch (jsonObject.getString("status")) {
                             case "1":
-                                PushSOSHelperFromBuyerModel pushSOSHelperFromBuyerModel = new PushSOSHelperFromBuyerModel();
-                                pushSOSHelperFromBuyerModel.status = jsonObject.getString("status");
-                                pushSOSHelperFromBuyerModel.type = jsonObject.getJSONObject("data").getString("type");
-                                pushSOSHelperFromBuyerModel.sos_id = jsonObject.getJSONObject("data").getString("sos_id");
-                                pushSOSHelperFromBuyerModel.recipients = jsonObject.getJSONObject("data").getString("recipients");
-                                pushSOSHelperFromBuyerModel.start_time = jsonObject.getJSONObject("data").getString("start_time");
-                                pushSOSHelperFromBuyerModel.title = jsonObject.getJSONObject("data").getString("title");
-                                pushSOSHelperFromBuyerModel.mobile = jsonObject.getJSONObject("data").getString("mobile");
-                                pushSOSHelperFromBuyerModel.price = jsonObject.getJSONObject("data").getInt("price");
-                                pushSOSHelperFromBuyerModel.credit = jsonObject.getJSONObject("data").getString("credit");
-                                pushSOSHelperFromBuyerModel.damages = jsonObject.getJSONObject("data").getString("damages");
-                                pushSOSHelperFromBuyerModel.vehicle_name = jsonObject.getJSONObject("data").getString("vehicle_name");
-                                pushSOSHelperFromBuyerModel.member_id = jsonObject.getJSONObject("data").getString("member_id");
-                                pushSOSHelperFromBuyerModel.lat = jsonObject.getJSONObject("data").getDouble("lat");
-                                pushSOSHelperFromBuyerModel.lng = jsonObject.getJSONObject("data").getDouble("lng");
-                                if (ActivityUtils.isRunning(context, Main.class)) {
-                                    if (ActivityManagerUtils.getActivityManager().existActivity("order.OrderSOSPopUpWindows") == null) {
-                                        context.startActivity(new Intent(context, OrderSOSPopUpWindows.class)
-                                                .putExtra("data", pushSOSHelperFromBuyerModel).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                    }
-                                }
+//                                PushSOSHelperFromBuyerModel pushSOSHelperFromBuyerModel = new PushSOSHelperFromBuyerModel();
+//                                pushSOSHelperFromBuyerModel.status = jsonObject.getString("status");
+//                                pushSOSHelperFromBuyerModel.type = jsonObject.getJSONObject("data").getString("type");
+//                                pushSOSHelperFromBuyerModel.sos_id = jsonObject.getJSONObject("data").getString("sos_id");
+//                                pushSOSHelperFromBuyerModel.recipients = jsonObject.getJSONObject("data").getString("recipients");
+//                                pushSOSHelperFromBuyerModel.start_time = jsonObject.getJSONObject("data").getString("start_time");
+//                                pushSOSHelperFromBuyerModel.title = jsonObject.getJSONObject("data").getString("title");
+//                                pushSOSHelperFromBuyerModel.mobile = jsonObject.getJSONObject("data").getString("mobile");
+//                                pushSOSHelperFromBuyerModel.price = jsonObject.getJSONObject("data").getInt("price");
+//                                pushSOSHelperFromBuyerModel.credit = jsonObject.getJSONObject("data").getString("credit");
+//                                pushSOSHelperFromBuyerModel.damages = jsonObject.getJSONObject("data").getString("damages");
+//                                pushSOSHelperFromBuyerModel.vehicle_name = jsonObject.getJSONObject("data").getString("vehicle_name");
+//                                pushSOSHelperFromBuyerModel.member_id = jsonObject.getJSONObject("data").getString("member_id");
+//                                pushSOSHelperFromBuyerModel.lat = jsonObject.getJSONObject("data").getDouble("lat");
+//                                pushSOSHelperFromBuyerModel.lng = jsonObject.getJSONObject("data").getDouble("lng");
+//                                if (ActivityUtils.isRunning(context, Main.class)) {
+//                                    if (ActivityManagerUtils.getActivityManager().existActivity("order.OrderSOSPopUpWindows") == null) {
+//                                        context.startActivity(new Intent(context, OrderSOSPopUpWindows.class)
+//                                                .putExtra("data", pushSOSHelperFromBuyerModel).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//                                    }
+//                                }
 
 
                                 break;

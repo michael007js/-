@@ -357,8 +357,8 @@ public class RongYunUtils {
      * @param spanMinutes   设置的免打扰结束时间距离起始时间的间隔分钟数。 0 < spanMinutes < 1440。 比如，设置的起始时间是 00：00， 结束时间为 23：59，则 spanMinutes 为 23 * 60 + 59 = 1339 分钟。
      * @param callback
      */
-    public static void setNotificationQuietHours(String spanMinutes,RongIMClient.OperationCallback callback) {
-        RongIM.getInstance().getRongIMClient().setNotificationQuietHours(TimeUtils.millis2String(System.currentTimeMillis(), spanMinutes), 1439, callback);
+    public static void setNotificationQuietHours(String startTime,int spanMinutes,RongIMClient.OperationCallback callback) {
+        RongIM.getInstance().getRongIMClient().setNotificationQuietHours(startTime, spanMinutes, callback);
     }
 
     /**

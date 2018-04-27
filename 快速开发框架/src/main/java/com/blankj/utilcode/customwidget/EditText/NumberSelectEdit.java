@@ -247,6 +247,14 @@ public class NumberSelectEdit extends LinearLayout {
 
     }
 
+    public NumberSelectEdit isHideChangeButton(boolean hide){
+        if (hide){
+            mSubtract.setVisibility(GONE);
+            mAdd.setVisibility(GONE);
+            mEditText.setEnabled(false);
+        }
+        return this;
+    }
 
     /**
      * 是否可以弹出键盘

@@ -245,8 +245,19 @@ public class OrderServiceReadyBuy extends BaseActivity {
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public void onAddAndSubtractPrice(String count_price, String sid, List<ShoppingCart> shoppingCartOrderlist) {
+                try {
+                    updateShoppingCart(shoppingCartOrderlist);
+                    setClick(true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         });
         priceOrderServiceReadyBuy
+                .isHideChangeButton(true)
                 .init(getBaseActivityContext(), true)
                 .isNegativeNumber(false)
                 .minNumber(0)
@@ -275,8 +286,7 @@ public class OrderServiceReadyBuy extends BaseActivity {
                     @Override
                     public void onEditChanged(NumberSelectEdit numberSelectEdit, int currentNumber) {
                         totalPrice = String.valueOf(currentNumber);
-                        totalPrice = String.valueOf(numberSelectEdit.getCurrentNumber());
-                        requestPrice();
+
                     }
                 });
 
@@ -295,7 +305,6 @@ public class OrderServiceReadyBuy extends BaseActivity {
 
     private void setClick(boolean enable) {
         if (enable) {
-            coupon(false);
             clickCouponOrderServiceReadyBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -427,7 +436,12 @@ public class OrderServiceReadyBuy extends BaseActivity {
                             }
                         }
                         sss_adapter.setList(list);
-                        requestPrice();
+                        try {
+                            updateShoppingCart(listOrderServiceReadyBuy.getShoppingCartOrderlist());
+                            setClick(true);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         break;
                 }
             }
@@ -609,6 +623,7 @@ public class OrderServiceReadyBuy extends BaseActivity {
                                                 shoppingCart_data.name = jsonArray1.getJSONObject(j).getString("name");
                                                 shoppingCart_data.num = jsonArray1.getJSONObject(j).getString("num");
                                                 shoppingCart_data.price = jsonArray1.getJSONObject(j).getString("price");
+                                                shoppingCart_data.count_price = jsonArray1.getJSONObject(j).getString("price");
                                                 shoppingCart_data.shop_id = jsonArray1.getJSONObject(j).getString("shop_id");
                                                 shoppingCart_data.sid = jsonArray1.getJSONObject(j).getString("sid");
                                                 shoppingCart_data.master_map = jsonArray1.getJSONObject(j).getString("master_map");
@@ -636,8 +651,8 @@ public class OrderServiceReadyBuy extends BaseActivity {
                                             shoppingCartOrderlist.add(shoppingCart);
                                         }
                                         listOrderServiceReadyBuy.setList(OrderServiceReadyBuy.this, shoppingCartOrderlist, true);
-                                        listOrderServiceReadyBuy.totalPrice();
-                                        listOrderServiceReadyBuy.totalCount();
+//                                        listOrderServiceReadyBuy.totalPrice();
+//                                        listOrderServiceReadyBuy.totalCount();
                                     }
                                     coupon(false);
                                 } else {
@@ -761,7 +776,12 @@ public class OrderServiceReadyBuy extends BaseActivity {
                                                 ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                             }
                                         }
-                                        requestPrice();
+                                        try {
+                                            updateShoppingCart(listOrderServiceReadyBuy.getShoppingCartOrderlist());
+                                            setClick(true);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     } catch (JSONException e) {
                                         ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
                                         e.printStackTrace();
@@ -820,7 +840,12 @@ public class OrderServiceReadyBuy extends BaseActivity {
                                             ToastUtils.showShortToast(getBaseActivityContext(), jsonObject.getString("message"));
                                         }
                                     }
-                                    requestPrice();
+                                    try {
+                                        updateShoppingCart(listOrderServiceReadyBuy.getShoppingCartOrderlist());
+                                        setClick(true);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 } catch (JSONException e) {
                                     ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:order-0");
                                     e.printStackTrace();
@@ -1012,11 +1037,13 @@ public class OrderServiceReadyBuy extends BaseActivity {
         JSONArray num = new JSONArray();
         JSONArray price = new JSONArray();
         JSONArray options = new JSONArray();
+        JSONArray total = new JSONArray();
         for (int j = 0; j < list.size(); j++) {
             for (int k = 0; k < list.get(j).data.size(); k++) {
                 sid.put(list.get(j).data.get(k).sid);
                 num.put(list.get(j).data.get(k).num);
                 price.put(list.get(j).data.get(k).price);
+                total.put(list.get(j).data.get(k).count_price);
                 JSONArray jsonArray = new JSONArray();
                 for (int l = 0; l < list.get(j).data.get(k).options.size(); l++) {
                     jsonArray.put(new JSONObject().put("name", list.get(j).data.get(k).options.get(l).name)
@@ -1041,6 +1068,8 @@ public class OrderServiceReadyBuy extends BaseActivity {
                             .put("member_id", member_id)
                             .put("sid", sid)
                             .put("num", num)
+                            .put("coupon_id", coupon_id)
+                            .put("total",total)
                             .put("price", price)
                             .put("options", options)
                             .put("type", "order")//购物车（cart）预购（pre_order）订单（order）
@@ -1060,15 +1089,21 @@ public class OrderServiceReadyBuy extends BaseActivity {
 //                            if (ywLoadingDialog != null) {
 //                                ywLoadingDialog.disMiss();
 //                            }
-//                            try {
-//                                JSONObject jsonObject = new JSONObject(response);
-//                                if ("1".equals(jsonObject.getString("status"))) {
-//                                } else {
-//                                }
-//                            } catch (JSONException e) {
-//                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:Shopping Cart-0");
-//                                e.printStackTrace();
-//                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if ("1".equals(jsonObject.getString("status"))) {
+                                    if ("1".equals(jsonObject.getString("status"))) {
+                                        if (totalPriceOrderServiceReadyBuy != null) {
+                                            String a = "¥" + jsonObject.getJSONObject("data").getString("total");
+                                            totalPriceOrderServiceReadyBuy.setText(a);
+                                            priceOrderServiceReadyBuy.setCurrentNumber(jsonObject.getJSONObject("data").getInt("total"));
+                                        }
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                ToastUtils.showShortToast(getBaseActivityContext(), "数据解析错误Err:Shopping Cart-0");
+                                e.printStackTrace();
+                            }
                         }
                     })));
         } catch (JSONException e) {

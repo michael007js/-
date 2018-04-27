@@ -253,6 +253,13 @@ public class FragmentGoodsServiceChild extends BaseFragment {
             activityParent.setVisibility(View.GONE);
             goods_subclass();
         }
+        if ("1".equals(type)) {
+            initAdv("3", classify_id, viewpager_up_fragment_goods_head);
+            initAdv("5", classify_id, viewpager_down_fragment_goods_head);
+        } else if ("2".equals(type)) {
+            initAdv("4", classify_id, viewpager_up_fragment_goods_head);
+            initAdv("6", classify_id, viewpager_down_fragment_goods_head);
+        }
         classify_goods();
     }
 
@@ -338,13 +345,7 @@ public class FragmentGoodsServiceChild extends BaseFragment {
                 scollViewFragmentGoods.getRefreshableView().smoothScrollTo(0, 0);
             }
         });
-        if ("1".equals(type)) {
-            initAdv("3", classify_id, viewpager_up_fragment_goods_head);
-            initAdv("5", classify_id, viewpager_down_fragment_goods_head);
-        } else if ("2".equals(type)) {
-            initAdv("4", classify_id, viewpager_up_fragment_goods_head);
-            initAdv("6", classify_id, viewpager_down_fragment_goods_head);
-        }
+
 
 
         enter.setOnClickListener(new View.OnClickListener() {
@@ -407,6 +408,9 @@ public class FragmentGoodsServiceChild extends BaseFragment {
         AdvertisementManager.advertisement(site_id, classify_id, new AdvertisementManager.OnAdvertisementCallBack() {
             @Override
             public void onSuccessCallBack(List<AdvertisementModel> list) {
+                if (bannerVariation!=null){
+                    bannerVariation.stopAutoPlay();
+                }
                 bannerVariation
                         .setImages(list)
                         .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)

@@ -31,6 +31,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
+import com.sss.car.EventBusModel.ChangeUnRead;
 import com.sss.car.EventBusModel.ChangedBlackList;
 import com.sss.car.EventBusModel.ChangedChatList;
 import com.sss.car.EventBusModel.ChangedDynamicList;
@@ -347,6 +348,17 @@ public class Main extends BaseActivity implements RongIMClient.OnReceiveMessageL
     @Subscribe
     public void onMessageEvent(ChangedMessage changedMessage) {
         unread(RongYunUtils.getUnreadCount(conversationTypes));
+    }
+    @Subscribe
+    public void onMessageEvent(ChangeUnRead changedMessage) {
+        unread(RongYunUtils.getUnreadCount(conversationTypes));
+        if (fragmentMessage!=null){
+            if (fragmentMessage.fragmentMessageOrder!=null){
+                if (fragmentMessage.fragmentMessageOrder.fragmentMessageOrderPublic!=null){
+                    fragmentMessage.fragmentMessageOrder.fragmentMessageOrderPublic.changeList();
+                }
+            }
+        }
     }
 
     boolean isLoad = false;

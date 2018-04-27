@@ -111,7 +111,7 @@ public class CustomListViewOrderSeller extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     if (onCustomListViewCallBack != null) {
-                        onCustomListViewCallBack.onShop(list.get(finalI).shop_id);
+                        onCustomListViewCallBack.onShop(list.get(finalI).member_id);
                     }
                 }
             });

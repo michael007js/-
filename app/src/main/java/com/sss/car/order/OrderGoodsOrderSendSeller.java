@@ -132,6 +132,7 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
     LinearLayout parentPrice;
     @BindView(R.id.line)
     TextView line;
+    double totalPrice = 0.00;
 
     @Override
     protected void TRIM_MEMORY_UI_HIDDEN() {
@@ -214,7 +215,7 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
 
     void initView() {
 
-        LogUtils.e(getIntent().getExtras().getInt("status") + "---" + getIntent().getExtras().getString("exchange_status")+"---is_bargain:"+getIntent().getExtras().getString("is_bargain"));
+        LogUtils.e(getIntent().getExtras().getInt("status") + "---" + getIntent().getExtras().getString("exchange_status") + "---is_bargain:" + getIntent().getExtras().getString("is_bargain"));
         switch (getIntent().getExtras().getInt("status")) {
             case Constant.Have_Already_Delivery_Awating_Sign_For:
 //                if ("1".equals(getIntent().getExtras().getString("is_bargain"))) {
@@ -245,9 +246,9 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
                 delete();
                 break;
             case Constant.Awating_Dispose_Returns:
-                if ("2".equals(getIntent().getExtras().getString("exchange_status"))){
+                if ("2".equals(getIntent().getExtras().getString("exchange_status"))) {
                     stop();
-                }else {
+                } else {
                     deposit();
                 }
                 break;
@@ -263,6 +264,7 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
         line.setVisibility(View.VISIBLE);
 
     }
+
     private void bargain() {
         clickD.setText("拒绝");
         clicks.setText("同意");
@@ -415,43 +417,44 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
                     public void onOKey(Dialog dialog) {
                         dialog.dismiss();
                         dialog = null;
+                        OrderUtils.start(1, menuDialog, getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), totalPrice);
 
-                        P.e(ywLoadingDialog, Config.member_id, getBaseActivity(), new P.p() {
-                            @Override
-                            public void exist() {
-                                if (menuDialog == null) {
-                                    menuDialog = new MenuDialog(getBaseActivity());
-                                }
-                                menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
-                                    @Override
-                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final BottomSheetDialog bottomSheetDialog) {
-                                        P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
-                                            @Override
-                                            public void match() {
-                                                bottomSheetDialog.dismiss();
-                                                passWordKeyboard.setStatus(true);
-                                                OrderUtils.exchange_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
-                                            }
-
-                                            @Override
-                                            public void mismatches() {
-
-                                                passWordKeyboard.setStatus(false);
-                                            }
-                                        });
-                                    }
-
-                                });
-                            }
-
-
-                            @Override
-                            public void nonexistence() {
-                                if (getBaseActivityContext() != null) {
-                                    startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSetPassword.class));
-                                }
-                            }
-                        });
+//                        P.e(ywLoadingDialog, Config.member_id, getBaseActivity(), new P.p() {
+//                            @Override
+//                            public void exist() {
+//                                if (menuDialog == null) {
+//                                    menuDialog = new MenuDialog(getBaseActivity());
+//                                }
+//                                menuDialog.createPasswordInputDialog("请输入您的支付密码", getBaseActivity(), new OnPayPasswordVerificationCallBack() {
+//                                    @Override
+//                                    public void onVerificationPassword(String password, final PassWordKeyboard passWordKeyboard, final BottomSheetDialog bottomSheetDialog) {
+//                                        P.r(ywLoadingDialog, Config.member_id, password, getBaseActivity(), new P.r() {
+//                                            @Override
+//                                            public void match() {
+//                                                bottomSheetDialog.dismiss();
+//                                                passWordKeyboard.setStatus(true);
+//                                                OrderUtils.exchange_goods(getBaseActivity(), ywLoadingDialog, true, getIntent().getExtras().getString("order_id"), orderSellerModel.exchange_id);
+//                                            }
+//
+//                                            @Override
+//                                            public void mismatches() {
+//
+//                                                passWordKeyboard.setStatus(false);
+//                                            }
+//                                        });
+//                                    }
+//
+//                                });
+//                            }
+//
+//
+//                            @Override
+//                            public void nonexistence() {
+//                                if (getBaseActivityContext() != null) {
+//                                    startActivity(new Intent(getBaseActivityContext(), ActivityMyDataSetPassword.class));
+//                                }
+//                            }
+//                        });
 
                     }
 
@@ -620,6 +623,7 @@ public class OrderGoodsOrderSendSeller extends BaseActivity {
                                     orderSellerModel.coupon_name = jsonObject.getJSONObject("data").getString("coupon_name");
                                     orderSellerModel.exchange_id = jsonObject.getJSONObject("data").getString("exchange_id");
                                     JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("goods_data");
+                                    totalPrice = jsonObject.getJSONObject("data").getDouble("total");
                                     List<OrderSellerModel_Order_Goods> list = new ArrayList<>();
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         OrderSellerModel_Order_Goods orderSellerModel_order_goods = new OrderSellerModel_Order_Goods();

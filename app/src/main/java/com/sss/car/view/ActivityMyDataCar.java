@@ -109,6 +109,15 @@ public class ActivityMyDataCar extends BaseActivity {
                 fragmentMyDataCarMyCurrentCarInfo.style = event.msg;
                 fragmentMyDataCarMyCurrentCarInfo.add_vehicle();
                 break;
+            case "pai":
+                fragmentMyDataCarMyCurrentCarInfo.name = event.msg;
+                fragmentMyDataCarMyCurrentCarInfo.add_vehicle();
+                break;
+            case "xi":
+                fragmentMyDataCarMyCurrentCarInfo.type = event.msg;
+                fragmentMyDataCarMyCurrentCarInfo.add_vehicle();
+                break;
+
 
         }
     }

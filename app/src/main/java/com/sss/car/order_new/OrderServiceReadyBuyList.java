@@ -220,7 +220,7 @@ public class OrderServiceReadyBuyList extends BaseActivity {
                             double price = PriceUtils.multiply(Double.valueOf(pen), Double.valueOf(orderSellerModel.total), 2);
                             LogUtils.e(price);
 
-                            PayUtils.requestPayment(ywLoadingDialog, false,"0", orderSellerModel.order_id, 2, 1, String.valueOf(price), getBaseActivity(),null);
+                            PayUtils.requestPayment(ywLoadingDialog, false,"0", orderSellerModel.order_id, 2, 1, String.valueOf(price), getBaseActivity(),null,"0");
                         } catch (IndexOutOfBoundsException e) {
                             ToastUtils.showShortToast(getBaseActivityContext(), "违约金解析错误");
                         }

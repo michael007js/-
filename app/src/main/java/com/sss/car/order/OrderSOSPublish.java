@@ -1128,7 +1128,7 @@ public class OrderSOSPublish extends BaseActivity {
                             .put("type", showTypeOrderSosPublish.getText().toString().trim())
                             .put("gps", sendLai + "," + sengLng)
                             .put("price", priceOrderSosPublish.getCurrentNumber())
-                            .put("service_time", showPenalSumOrderSosPublish.getText().toString().trim())
+                            .put("service_time", showTimeOrderSosPublish.getText().toString().trim())
                             .put("damages", showPenalSumOrderSosPublish.getText().toString().trim())
                             .put("address", showAddressOrderSosPublish.getText().toString().trim())
                             .put("remark", showOtherOrderSosPublish.getText().toString().trim())

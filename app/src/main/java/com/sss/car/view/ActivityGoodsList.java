@@ -118,9 +118,9 @@ public class ActivityGoodsList extends BaseActivity {
         }
         String site_id = null;
         if ("1".equals(getIntent().getExtras().getString("type"))) {
-            site_id = "11";
+            site_id = "13";
         } else {
-            site_id = "12";
+            site_id = "14";
         }
         AdvertisementManager.advertisement(site_id, getIntent().getExtras().getString("classify_id"), new AdvertisementManager.OnAdvertisementCallBack() {
             @Override

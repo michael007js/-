@@ -212,6 +212,7 @@ public class AdvertisementViewPagerHelper implements JCBuriedPointStandard {
 
                 @Override
                 public void onPageSelected(int position) {
+                    LogUtils.e(position);
                     pausePlay();
                 }
 

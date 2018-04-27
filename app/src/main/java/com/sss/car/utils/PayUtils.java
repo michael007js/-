@@ -123,7 +123,7 @@ public class PayUtils {
                                       final int is_deposit,
                                       final String money,
                                       final Activity activity,
-                                      final String isOrderPayWindow) {
+                                      final String isOrderPayWindow, final String is_bargain) {
         LogUtils.e("ids:" + ids + "    title_type:" + title_type + "    money:" + money + "    is_deposit:" + is_deposit);
         try {
             RequestWeb.payment_integral(
@@ -154,9 +154,9 @@ public class PayUtils {
                                 }
                                 double b = Double.valueOf(a);
                                 if ("0".equals(money) || "0.0".equals(money) || "0.00".equals(money)) {
-                                    createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money, 0, title_type, ids, "1", is_deposit, null, isOrderPayWindow);
+                                    createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money, 0, title_type, ids, "1", is_deposit, null, isOrderPayWindow,is_bargain);
                                 } else {
-                                    createPaymentDialog(ywLoadingDialog, walletDisenable, friend_id, ids, title_type, is_deposit, money, (float) b, activity, isOrderPayWindow);
+                                    createPaymentDialog(ywLoadingDialog, walletDisenable, friend_id, ids, title_type, is_deposit, money, (float) b, activity, isOrderPayWindow,is_bargain);
                                 }
 
                             } catch (JSONException e) {
@@ -185,7 +185,7 @@ public class PayUtils {
      * @param activity
      */
     public static void createPaymentDialog(final YWLoadingDialog ywLoadingDialog, final boolean walletDisenable, final String friend_id, final String ids, final int title_type,
-                                           final int is_deposit, final String money, final float score, final Activity activity, final String isOrderPayWindow) {
+                                           final int is_deposit, final String money, final float score, final Activity activity, final String isOrderPayWindow, final String is_bargain) {
 
         getDefaultBankCard(ywLoadingDialog, activity, new OnDefaultBankCardCallBack() {
             @Override
@@ -225,7 +225,8 @@ public class PayUtils {
                     bank_name.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            activity.startActivity(new Intent(activity, ActivityBangCardBind.class));
+                            activity.startActivity(new Intent(activity, ActivityBangCardBind.class)
+                                    .putExtra("isHidemobile",false));
                             bottomSheetDialog.dismiss();
                         }
                     });
@@ -406,14 +407,14 @@ public class PayUtils {
                             is_integral = 0;
                         }
                         if (cb_balance_dialog_payment_bottom.isChecked()) {
-                            createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "1", is_deposit, null, isOrderPayWindow);
+                            createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "1", is_deposit, null, isOrderPayWindow,is_bargain);
                         } else if (cb_wx_dialog_payment_bottom.isChecked()) {
-                            payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "2", is_deposit, null);
+                            payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "2", is_deposit, null,is_bargain);
                         } else if (cb_zfb_dialog_payment_bottom.isChecked()) {
-                            payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "3", is_deposit, null);
+                            payment_into(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "3", is_deposit, null,is_bargain);
                         } else if (cb_bank_dialog_payment_bottom.isChecked()) {
                             if (bankModel.card_id != null) {
-                                createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "4", is_deposit, bankModel, isOrderPayWindow);
+                                createPasswordInputDialog(ywLoadingDialog, friend_id, activity, money_dialog_payment_bottom.getText().toString().trim(), is_integral, title_type, ids, "4", is_deposit, bankModel, isOrderPayWindow,is_bargain);
                             }
                         }
                         bottomSheetDialog.dismiss();
@@ -498,29 +499,12 @@ public class PayUtils {
      * @param bankModel       如果是由银行卡支付调起的，这里需要银行卡，其他的可以为空
      */
     private static void createPasswordInputDialog(final YWLoadingDialog ywLoadingDialog, final String friend_id, final Activity activity, final String money,
-                                                  final int is_integral, final int title_type, final String ids, final String payment_mode, final int is_deposit, final BankModel bankModel, String isOrderPayWindow) {
+                                                  final int is_integral, final int title_type, final String ids, final String payment_mode, final int is_deposit, final BankModel bankModel, String isOrderPayWindow, final String is_bargain) {
         if ("1".equals(isOrderPayWindow)) {
             if ("0".equals(money) || "0.0".equals(money) || "0.00".equals(money)) {
-                switch (title_type) {//1SOS订单支付，2订单支付，3优惠券支付，4推广订单支付，5账户充值
-                    case 1:
-                        EventBus.getDefault().post(new ChangedOrderModel());
-                        break;
-                    case 2:
-                        EventBus.getDefault().post(new ChangedOrderModel());
-                        break;
-                    case 3:
-                        EventBus.getDefault().post(new ChangedCouponModel());
-                        break;
-                    case 4:
-                        EventBus.getDefault().post(new ChangedPopularizeModel());
-                        break;
-                    case 5:
-                        EventBus.getDefault().post(new ChangedWalletModel());
-                        break;
-
-                }
+                payment_into(ywLoadingDialog,friend_id,activity,"0",is_integral,title_type,ids ,payment_mode,is_deposit,bankModel,is_bargain);
             } else {
-                payment_into(ywLoadingDialog, friend_id, activity, money, is_integral, title_type, ids, payment_mode, is_deposit, bankModel);
+                payment_into(ywLoadingDialog, friend_id, activity, money, is_integral, title_type, ids, payment_mode, is_deposit, bankModel,is_bargain);
             }
         } else {
             P.e(ywLoadingDialog, Config.member_id, activity, new P.p() {
@@ -564,7 +548,7 @@ public class PayUtils {
 
                                                 }
                                             } else {
-                                                payment_into(ywLoadingDialog, friend_id, activity, money, is_integral, title_type, ids, payment_mode, is_deposit, bankModel);
+                                                payment_into(ywLoadingDialog, friend_id, activity, money, is_integral, title_type, ids, payment_mode, is_deposit, bankModel,is_bargain);
                                             }
                                         }
 
@@ -600,7 +584,24 @@ public class PayUtils {
 
     }
 
-
+// switch (title_type) {//1SOS订单支付，2订单支付，3优惠券支付，4推广订单支付，5账户充值
+//        case 1:
+//            EventBus.getDefault().post(new ChangedOrderModel());
+//            break;
+//        case 2:
+//            EventBus.getDefault().post(new ChangedOrderModel());
+//            break;
+//        case 3:
+//            EventBus.getDefault().post(new ChangedCouponModel());
+//            break;
+//        case 4:
+//            EventBus.getDefault().post(new ChangedPopularizeModel());
+//            break;
+//        case 5:
+//            EventBus.getDefault().post(new ChangedWalletModel());
+//            break;
+//
+//    }
     /**
      * 生成统一订单
      *
@@ -624,13 +625,14 @@ public class PayUtils {
             final int title_type,
             String ids,
             final String payment_mode,
-            final int is_deposit, final BankModel bankModel) {
+            final int is_deposit, final BankModel bankModel,String is_bargain) {
         final YWLoadingDialog ywLoadingDialog1 = showToast(ywLoadingDialog, activity, "正在生成订单");
         try {
             JSONObject jsonObject = new JSONObject()
                     .put("money", money)
                     .put("type", title_type)
                     .put("ids", ids)
+                    .put("is_bargain",is_bargain)
                     .put("lat", Config.latitude)
                     .put("lng", Config.longitude)
                     .put("is_deposit", is_deposit)
@@ -673,6 +675,9 @@ public class PayUtils {
                                         } else if (title_type == 4) {
                                             ToastUtils.showShortToast(activity, jsonObject.getString("message"));
                                             EventBus.getDefault().post(new ChangedPopularizeModel());
+                                        }else if (title_type==5){
+                                            ToastUtils.showShortToast(activity, jsonObject.getString("message"));
+                                            EventBus.getDefault().post(new ChangedWalletModel());
                                         }
                                     } else if ("2".equals(payment_mode)) {
                                         wxPay(ywLoadingDialog1, title_type, jsonObject, activity);

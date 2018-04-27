@@ -403,17 +403,12 @@ public class FragmentDraftPublic extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
-                                    for (int i = 0; i < drapPopularizeList.size(); i++) {
-                                        if (popularize_id.equals(drapPopularizeList.get(i).popularize_id)) {
-                                            drapPopularizeList.remove(i);
-                                        }
+                                    p = 1;
+                                    if (autoRequest) {
+                                        request();
+                                    } else {
+                                        search(keywords);
                                     }
-                                    if (drapPopularizeList.size() > 0) {
-                                        emptyView.setVisibility(View.GONE);
-                                    }else {
-                                        emptyView.setVisibility(View.VISIBLE);
-                                    }
-                                    listviewDraftPopularize.setList(drapPopularizeList, getBaseFragmentActivityContext());
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
                                 }
@@ -470,39 +465,45 @@ public class FragmentDraftPublic extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
-                                    LogUtils.e(type);
-                                    switch (type) {
-                                        case "order":
-                                            p = 1;
-                                            request();
-                                            break;
-                                        case "sos":
-                                            for (int i = 0; i < drapSOSList.size(); i++) {
-                                                if (targetId.equals(drapSOSList.get(i).sos_id)) {
-                                                    drapSOSList.remove(i);
-                                                }
-                                            }
-                                            if (drapSOSList.size() > 0) {
-                                                emptyView.setVisibility(View.GONE);
-                                            }else {
-                                                emptyView.setVisibility(View.VISIBLE);
-                                            }
-                                            listviewDraftSos.setList(drapSOSList, getBaseFragmentActivityContext());
-                                            break;
-
-                                        case "goods":
-                                            for (int i = 0; i < drapGoodsList.size(); i++) {
-                                                if (targetId.equals(drapGoodsList.get(i).goods_id)) {
-                                                    drapGoodsList.remove(i);
-                                                }
-                                            }
-                                            if (drapGoodsList.size() > 0) {
-                                                emptyView.setVisibility(View.GONE);
-                                            }else {
-                                                emptyView.setVisibility(View.VISIBLE);
-                                            }
-                                            listviewDraftGoods.setList(drapGoodsList, getBaseFragmentActivityContext());
-                                            break;
+//                                    LogUtils.e(type);
+//                                    switch (type) {
+//                                        case "order":
+//                                            p = 1;
+//                                            request();
+//                                            break;
+//                                        case "sos":
+//                                            for (int i = 0; i < drapSOSList.size(); i++) {
+//                                                if (targetId.equals(drapSOSList.get(i).sos_id)) {
+//                                                    drapSOSList.remove(i);
+//                                                }
+//                                            }
+//                                            if (drapSOSList.size() > 0) {
+//                                                emptyView.setVisibility(View.GONE);
+//                                            }else {
+//                                                emptyView.setVisibility(View.VISIBLE);
+//                                            }
+//                                            listviewDraftSos.setList(drapSOSList, getBaseFragmentActivityContext());
+//                                            break;
+//
+//                                        case "goods":
+//                                            for (int i = 0; i < drapGoodsList.size(); i++) {
+//                                                if (targetId.equals(drapGoodsList.get(i).goods_id)) {
+//                                                    drapGoodsList.remove(i);
+//                                                }
+//                                            }
+//                                            if (drapGoodsList.size() > 0) {
+//                                                emptyView.setVisibility(View.GONE);
+//                                            }else {
+//                                                emptyView.setVisibility(View.VISIBLE);
+//                                            }
+//                                            listviewDraftGoods.setList(drapGoodsList, getBaseFragmentActivityContext());
+//                                            break;
+//                                    }
+                                    p = 1;
+                                    if (autoRequest) {
+                                        request();
+                                    } else {
+                                        search(keywords);
                                     }
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
@@ -559,20 +560,21 @@ public class FragmentDraftPublic extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                    if (p == 1) {
+                                        drapOrderList.clear();
+                                    }
                                     if (jsonArray.length() > 0) {
-                                        if (p == 1) {
-                                            drapOrderList.clear();
-                                        }
                                         p++;
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             drapOrderList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), DrapOrder.class));
                                         }
-                                        listviewDraftOrder.setList(drapOrderList, getBaseFragmentActivityContext());
+
                                     }
 
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
                                 }
+                                listviewDraftOrder.setList(drapOrderList, getBaseFragmentActivityContext());
                                 if (drapOrderList.size() > 0) {
                                     emptyView.setVisibility(View.GONE);
                                 }else {
@@ -631,20 +633,22 @@ public class FragmentDraftPublic extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                    if (p == 1) {
+                                        drapSOSList.clear();
+                                    }
                                     if (jsonArray.length() > 0) {
-                                        if (p == 1) {
-                                            drapSOSList.clear();
-                                        }
+
                                         p++;
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             drapSOSList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), DrapSOS.class));
                                         }
-                                        listviewDraftSos.setList(drapSOSList, getBaseFragmentActivityContext());
+
                                     }
 
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
                                 }
+                                listviewDraftSos.setList(drapSOSList, getBaseFragmentActivityContext());
                                 if (drapSOSList.size() > 0) {
                                     emptyView.setVisibility(View.GONE);
                                 }else {
@@ -702,21 +706,22 @@ public class FragmentDraftPublic extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                    if (p == 1) {
+                                        drapGoodsList.clear();
+                                    }
                                     if (jsonArray.length() > 0) {
-                                        if (p == 1) {
-                                            drapGoodsList.clear();
-                                        }
+
                                         p++;
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             drapGoodsList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), DrapGoods.class));
                                         }
-                                        listviewDraftGoods.setList(drapGoodsList, getBaseFragmentActivityContext());
                                     }
 
 
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
                                 }
+                                listviewDraftGoods.setList(drapGoodsList, getBaseFragmentActivityContext());
                                 if (drapGoodsList.size() > 0) {
                                     emptyView.setVisibility(View.GONE);
                                 }else {
@@ -774,10 +779,11 @@ public class FragmentDraftPublic extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                    if (p == 1) {
+                                        drapPopularizeList.clear();
+                                    }
                                     if (jsonArray.length() > 0) {
-                                        if (p == 1) {
-                                            drapPopularizeList.clear();
-                                        }
+
                                         p++;
                                         for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -790,6 +796,7 @@ public class FragmentDraftPublic extends BaseFragment {
                                 } else {
                                     ToastUtils.showShortToast(getBaseFragmentActivityContext(), jsonObject.getString("message"));
                                 }
+                                listviewDraftPopularize.setList(drapPopularizeList, getBaseFragmentActivityContext());
                                 if (drapPopularizeList.size() > 0) {
                                     emptyView.setVisibility(View.GONE);
                                 }else {

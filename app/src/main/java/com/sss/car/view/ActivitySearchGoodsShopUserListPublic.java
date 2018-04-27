@@ -139,7 +139,7 @@ public class ActivitySearchGoodsShopUserListPublic extends BaseActivity {
 //
 //        });
         listview.setMode(PullToRefreshBase.Mode.BOTH);
-        listview.getRefreshableView().setEmptyView(LayoutInflater.from(getBaseActivityContext()).inflate(R.layout.empty_view,null));
+        listview.getRefreshableView().setEmptyView(LayoutInflater.from(getBaseActivityContext()).inflate(R.layout.empty_view, null));
         listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -161,7 +161,7 @@ public class ActivitySearchGoodsShopUserListPublic extends BaseActivity {
             }
         });
         initAdapter();
-        if (input.getText().toString().trim()!=null&&!"".equals(input.getText().toString().trim())) {
+        if (input.getText().toString().trim() != null && !"".equals(input.getText().toString().trim())) {
             all_search_into();
         }
     }
@@ -294,11 +294,24 @@ public class ActivitySearchGoodsShopUserListPublic extends BaseActivity {
                                 final JSONObject jsonObject = new JSONObject(response);
                                 if ("1".equals(jsonObject.getString("status"))) {
                                     JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                    if ("1".equals(getIntent().getExtras().getString("type"))) {
+                                        if (p == 1) {
+                                            goodsList.clear();
+                                        }
+                                        goodsAdapter.setList(goodsList);
+                                    } else if ("2".equals(getIntent().getExtras().getString("type"))) {
+                                        if (p == 1) {
+                                            shopList.clear();
+                                        }
+                                        shopAdapter.setList(shopList);
+                                    } else if ("3".equals(getIntent().getExtras().getString("type"))) {
+                                        if (p == 1) {
+                                            userList.clear();
+                                        }
+                                        userAdapter.setList(userList);
+                                    }
                                     if (jsonArray.length() > 0) {
                                         if ("1".equals(getIntent().getExtras().getString("type"))) {
-                                            if (p == 1) {
-                                                goodsList.clear();
-                                            }
                                             p++;
 
                                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -306,9 +319,6 @@ public class ActivitySearchGoodsShopUserListPublic extends BaseActivity {
                                             }
                                             goodsAdapter.setList(goodsList);
                                         } else if ("2".equals(getIntent().getExtras().getString("type"))) {
-                                            if (p == 1) {
-                                                shopList.clear();
-                                            }
                                             p++;
 
                                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -316,20 +326,14 @@ public class ActivitySearchGoodsShopUserListPublic extends BaseActivity {
                                             }
                                             shopAdapter.setList(shopList);
                                         } else if ("3".equals(getIntent().getExtras().getString("type"))) {
-                                            if (p == 1) {
-                                                userList.clear();
-                                            }
                                             p++;
 
                                             for (int i = 0; i < jsonArray.length(); i++) {
                                                 userList.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), SearchGoodsShopUserListPublic_User.class));
                                             }
+                                            userAdapter.setList(userList);
                                         }
                                     }
-                                    if (userAdapter==null){
-                                        return;
-                                    }
-                                    userAdapter.setList(userList);
                                     EventBus.getDefault().post(new SearchModel(getIntent().getExtras().getString("type"), input.getText().toString().trim()));
 
                                 } else {

@@ -1,7 +1,6 @@
 package com.sss.car.fragment;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,17 +18,11 @@ import com.blankj.utilcode.okhttp.callback.StringCallback;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sss.car.Config;
-import com.sss.car.EventBusModel.CarName;
-import com.sss.car.EventBusModel.ChangeInfoModel;
-import com.sss.car.EventBusModel.CreateCarModel;
 import com.sss.car.R;
 import com.sss.car.RequestWeb;
 import com.sss.car.view.ActivityChangeInfo;
 import com.sss.car.view.ActivityMyDataCarSetCarInfo;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,9 +58,13 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
     LinearLayout typeFragmentMyDataCarMyCurrentCarInfo;
     Unbinder unbinder;
     YWLoadingDialog ywLoadingDialog;
-   public String vehicle_id, ids, name, logo, type, style,displacement, year;
+    public String vehicle_id, ids, name, logo, type, style, displacement, year;
 
     boolean is_other;
+    @BindView(R.id.pai_name)
+    TextView paiName;
+    @BindView(R.id.xi_name)
+    TextView xiName;
 
     public FragmentMyDataCarMyCurrentCarInfo() {
     }
@@ -130,43 +127,61 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.displacement_fragment_my_data_car_my_current_car_info, R.id.year_fragment_my_data_car_my_current_car_info, R.id.type_fragment_my_data_car_my_current_car_info})
+    @OnClick({R.id.displacement_fragment_my_data_car_my_current_car_info, R.id.year_fragment_my_data_car_my_current_car_info, R.id.type_fragment_my_data_car_my_current_car_info,R.id.pai,R.id.xi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.pai:
+                if (is_other == false) {
+
+                } else {
+                    startActivity(new Intent(getBaseFragmentActivityContext(), ActivityChangeInfo.class)
+                            .putExtra("type", "pai")
+                            .putExtra("canChange", true)
+                            .putExtra("extra", name));
+                }
+                break;
+            case R.id.xi:
+                if (is_other == false) {
+
+                } else {
+                    startActivity(new Intent(getBaseFragmentActivityContext(), ActivityChangeInfo.class)
+                            .putExtra("type", "xi")
+                            .putExtra("canChange", true)
+                            .putExtra("extra", type));
+                }
+                break;
             case R.id.displacement_fragment_my_data_car_my_current_car_info:
                 if (is_other == false) {
                     jump("1");
-                }else {
-                    startActivity(new Intent(getBaseFragmentActivityContext(),ActivityChangeInfo.class)
+                } else {
+                    startActivity(new Intent(getBaseFragmentActivityContext(), ActivityChangeInfo.class)
                             .putExtra("type", "displacement")
                             .putExtra("canChange", true)
-                            .putExtra("extra",displacement ));
+                            .putExtra("extra", displacement));
                 }
                 break;
             case R.id.year_fragment_my_data_car_my_current_car_info:
                 if (is_other == false) {
                     jump("2");
-                }else {
-                    startActivity(new Intent(getBaseFragmentActivityContext(),ActivityChangeInfo.class)
+                } else {
+                    startActivity(new Intent(getBaseFragmentActivityContext(), ActivityChangeInfo.class)
                             .putExtra("type", "year")
                             .putExtra("canChange", true)
-                            .putExtra("extra",year ));
+                            .putExtra("extra", year));
                 }
                 break;
             case R.id.type_fragment_my_data_car_my_current_car_info:
                 if (is_other == false) {
                     jump("3");
-                }else {
-                    startActivity(new Intent(getBaseFragmentActivityContext(),ActivityChangeInfo.class)
+                } else {
+                    startActivity(new Intent(getBaseFragmentActivityContext(), ActivityChangeInfo.class)
                             .putExtra("type", "style")
                             .putExtra("canChange", true)
-                            .putExtra("extra",style ));
+                            .putExtra("extra", style));
                 }
                 break;
         }
     }
-
-
 
 
     public void add_vehicle() {
@@ -182,7 +197,7 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
                             .put("member_id", Config.member_id)
                             .put("name", name)
                             .put("type", type)
-                            .put("displacement",displacement)
+                            .put("displacement", displacement)
                             .put("year", year)
                             .put("style", style)
                             .toString()
@@ -218,7 +233,6 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
             e.printStackTrace();
         }
     }
-
 
 
     /**
@@ -287,13 +301,15 @@ public class FragmentMyDataCarMyCurrentCarInfo extends BaseFragment {
                                         if (getBaseFragmentActivityContext() != null) {
                                             addImageViewList(GlidUtils.downLoader(false, carLogoFragmentMyDataCarMyCurrentCarInfo, getBaseFragmentActivityContext()));
                                         }
+                                        paiName.setText(jsonObject.getJSONObject("data").getString("name"));
+                                        xiName.setText(jsonObject.getJSONObject("data").getString("type"));
                                         displacementShowFragmentMyDataCarMyCurrentCarInfo.setText(jsonObject.getJSONObject("data").getString("displacement"));
                                         yearShowFragmentMyDataCarMyCurrentCarInfo.setText(jsonObject.getJSONObject("data").getString("year"));
-                                        typeShowFragmentMyDataCarMyCurrentCarInfo.setText(jsonObject.getJSONObject("data").getString("displacement") + jsonObject.getJSONObject("data").getString("style"));
+                                        typeShowFragmentMyDataCarMyCurrentCarInfo.setText(jsonObject.getJSONObject("data").getString("style"));
                                         vehicle_id = jsonObject.getJSONObject("data").getString("vehicle_id");
                                         ids = jsonObject.getJSONObject("data").getString("ids");
                                         name = jsonObject.getJSONObject("data").getString("name");
-                                        displacement= jsonObject.getJSONObject("data").getString("displacement");
+                                        displacement = jsonObject.getJSONObject("data").getString("displacement");
                                         logo = jsonObject.getJSONObject("data").getString("brand");
                                         year = jsonObject.getJSONObject("data").getString("year");
                                         type = jsonObject.getJSONObject("data").getString("type");

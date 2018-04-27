@@ -12,6 +12,7 @@ import com.sss.car.WebViewActivity;
 import com.sss.car.order.OrderGoodsMyOrderBuyer;
 import com.sss.car.order.OrderGoodsOrderSendSeller;
 import com.sss.car.order.OrderGoodsOrderTip;
+import com.sss.car.order.OrderSOSAcceptFromSeller;
 import com.sss.car.order.OrderSOSAffirmBuyer;
 import com.sss.car.order.OrderSOSAffirmSeller;
 import com.sss.car.order.OrderSOSDetails;
@@ -105,7 +106,7 @@ public class CarUtils {
         switch (type) {
             //1实物订单，2服务订单，3SOS订单
             case "sos":
-                sos(context, status, ids, null);
+                sos(context, status, ids);
                 break;
             case "goods":
                 goods(context, status, ids, isIncome, goodsComment, isComment, exchange_id, exchange_status,null);
@@ -117,11 +118,11 @@ public class CarUtils {
     }
 
     public static void orderJump(Context context, String type, int status, String ids, boolean isIncome, String goodsComment, String isComment, String exchange_id, String exchange_status,String is_bargain) {
-        LogUtils.e("type:" + type + "     status:" + status + "     id:" + ids + "     isIncome:" + isIncome + "     goodsComment:" + goodsComment + "     isComment:" + isComment + "     exchange_status:" + exchange_status);
+        LogUtils.e("type:" + type + "     status:" + status + "     id:" + ids + "     isIncome:" + isIncome + "     goodsComment:" + goodsComment + "     isComment:" + isComment + "     exchange_status:" + exchange_status+"    is_bargain:"+is_bargain);
         switch (type) {
             //1实物订单，2服务订单，3SOS订单
             case "sos":
-                sos(context, status, ids, is_bargain);
+                sos(context, status, ids);
                 break;
             case "goods":
                 goods(context, status, ids, isIncome, goodsComment, isComment, exchange_id, exchange_status, is_bargain);
@@ -198,18 +199,18 @@ public class CarUtils {
 //                            .putExtra("buttonTitle", "待签收"));
                 } else {
 
-                    if ("0".equals(exchange_status)){
-                    context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .putExtra("order_id", ids)
-                            .putExtra("isIncome", isIncome)
-                            .putExtra("status", status));
-                    }else {
-                        context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
+                    if ("1".equals(is_bargain)){
+                       context.startActivity(new Intent(context, OrderGoodsOrderTip.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .putExtra("order_id", ids)
                                 .putExtra("grayness", true)
                                 .putExtra("buttonTitle", "待处理"));
+                    }else {
+                        context.startActivity(new Intent(context, OrderGoodsMyOrderBuyer.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .putExtra("order_id", ids)
+                                .putExtra("isIncome", isIncome)
+                                .putExtra("status", status));
                     }
 
                 }
@@ -530,7 +531,7 @@ public class CarUtils {
      * @param status
      * @param ids
      */
-    public static void sos(Context context, int status, String ids,String is_bargain) {
+    public static void sos(Context context, int status, String ids ) {
         LogUtils.e(status);
         switch (status) {
             case 0://求助中
@@ -559,9 +560,9 @@ public class CarUtils {
                         .putExtra("sos_id", ids));
                 break;
             case 6://施救者进行中(建立关系前)
-                context.startActivity(new Intent(context, OrderSOSDetails.class)
+                context. startActivity(new Intent(context, OrderSOSAcceptFromSeller.class)
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .putExtra("sos_id", ids));
+                        .putExtra("sos_id",ids));
                 break;
         }
     }

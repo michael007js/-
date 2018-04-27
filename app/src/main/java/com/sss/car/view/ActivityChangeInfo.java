@@ -227,6 +227,14 @@ public class ActivityChangeInfo extends BaseActivity {
                 titleTop.setText("车款");
                 editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
                 break;
+            case "pai":
+                titleTop.setText("汽车品牌");
+                editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
+                break;
+            case "xi":
+                titleTop.setText("汽车系列");
+                editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));
+                break;
             case "service_username":
                 titleTop.setText("设置备注名");
                 editActivityChangeInfo.setText(getIntent().getExtras().getString("extra"));

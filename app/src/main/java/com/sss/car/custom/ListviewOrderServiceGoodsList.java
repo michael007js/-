@@ -97,16 +97,47 @@ public class ListviewOrderServiceGoodsList extends LinearLayout {
             SSS_RVAdapter sss_rvAdapter = new SSS_RVAdapter<ShoppingCart_Data>(listview_listview_order_service_goods_list, R.layout.item_listview_order_service_goods_list_adapter) {
 
                 @Override
-                protected void setView(final SSS_HolderHelper helper, final int position, ShoppingCart_Data bean) {
+                protected void setView(final SSS_HolderHelper helper, final int position, final ShoppingCart_Data bean) {
                     helper.getView(R.id.parent_item_listview_order_service_goods_list_adapter).setLayoutParams(new LayoutParams(activity.getWindowManager().getDefaultDisplay().getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT));
                     LogUtils.e(bean.num);
                     helper.setText(R.id.edit_item_listview_order_service_goods_list_adapter, bean.num);
                     helper.setText(R.id.content_item_listview_order_service_goods_list_adapter, bean.name);
                     helper.setText(R.id.price_item_listview_order_service_goods_list_adapter, "¥" + bean.price);
                     if (isShowNumberSelect) {
+                        helper.setVisibility(R.id.subtract, View.VISIBLE);
+                        helper.setVisibility(R.id.edit, View.VISIBLE);
+                        helper.setVisibility(R.id.add, View.VISIBLE);
                         helper.setVisibility(R.id.subtract_item_listview_order_service_goods_list_adapter, View.VISIBLE);
                         helper.setVisibility(R.id.edit_item_listview_order_service_goods_list_adapter, View.VISIBLE);
                         helper.setVisibility(R.id.add_item_listview_order_service_goods_list_adapter, View.VISIBLE);
+                        ((EditText) helper.getView(R.id.edit)).addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                if (!StringUtils.isEmpty( ((EditText) helper.getView(R.id.edit)).getText().toString().trim())) {
+                                    if ( ((EditText) helper.getView(R.id.edit)).getText().toString().length() < maxLength - 1) {
+                                        shoppingCartOrderlist.get(finalI).data.get(position).count_price = s.toString();
+                                    }
+                                } else {
+                                    ((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).setText(bean.count_price);
+                                }
+                                if (addAndSubtractCallBack != null) {
+                                    addAndSubtractCallBack.onAddAndSubtract(shoppingCartOrderlist.get(finalI).data.get(position).num, shoppingCartOrderlist.get(finalI).data.get(position).sid, shoppingCartOrderlist);
+                                }
+
+                            }
+                        });
+
+
 
                         final String[] a = {""};
                         ((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).addTextChangedListener(new TextWatcher() {
@@ -131,11 +162,22 @@ public class ListviewOrderServiceGoodsList extends LinearLayout {
                                 } else {
                                     ((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).setText(a[0]);
                                 }
-                                totalCount();
-                                totalPrice();
+                                if (addAndSubtractCallBack != null) {
+                                    addAndSubtractCallBack.onAddAndSubtract(shoppingCartOrderlist.get(finalI).data.get(position).num, shoppingCartOrderlist.get(finalI).data.get(position).sid, shoppingCartOrderlist);
+                                }
+                                if (!StringUtils.isEmpty(((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).getText().toString())){
+                                   int n= Integer.parseInt(((EditText) helper.getView(R.id.edit_item_listview_order_service_goods_list_adapter)).getText().toString());
+                                   int p= Integer.parseInt(bean.price);
+                                   helper.setText(R.id.edit,(n*p)+"");
+                                }
+//                                totalCount();
+//                                totalPrice();
                             }
                         });
                     } else {
+                        helper.setVisibility(R.id.subtract, View.GONE);
+                        helper.setVisibility(R.id.edit, View.GONE);
+                        helper.setVisibility(R.id.add, View.GONE);
                         helper.setVisibility(R.id.subtract_item_listview_order_service_goods_list_adapter, View.GONE);
                         helper.setVisibility(R.id.edit_item_listview_order_service_goods_list_adapter, View.GONE);
                         helper.setVisibility(R.id.add_item_listview_order_service_goods_list_adapter, View.GONE);
@@ -148,6 +190,8 @@ public class ListviewOrderServiceGoodsList extends LinearLayout {
                 protected void setItemListener(SSS_HolderHelper helper) {
                     helper.setItemChildClickListener(R.id.subtract_item_listview_order_service_goods_list_adapter);
                     helper.setItemChildClickListener(R.id.add_item_listview_order_service_goods_list_adapter);
+                    helper.setItemChildClickListener(R.id.subtract);
+                    helper.setItemChildClickListener(R.id.add);
                 }
 
             };
@@ -157,6 +201,24 @@ public class ListviewOrderServiceGoodsList extends LinearLayout {
                 @Override
                 public void onItemChildClick(View view, int position, SSS_HolderHelper holder) {
                     switch (view.getId()) {
+                        case R.id.subtract:
+                            int aa = Integer.parseInt(shoppingCartOrderlist.get(finalI).data.get(position).count_price);
+                            if (aa > 1) {
+                                shoppingCartOrderlist.get(finalI).data.get(position).count_price = String.valueOf(aa - 1);
+                                holder.setText(R.id.edit, shoppingCartOrderlist.get(finalI).data.get(position).count_price);
+                            }
+                            if (addAndSubtractCallBack != null) {
+                                addAndSubtractCallBack.onAddAndSubtractPrice(shoppingCartOrderlist.get(finalI).data.get(position).count_price, shoppingCartOrderlist.get(finalI).data.get(position).sid, shoppingCartOrderlist);
+                            }
+                            break;
+                        case R.id.add:
+                            int bb = Integer.parseInt(shoppingCartOrderlist.get(finalI).data.get(position).count_price);
+                            shoppingCartOrderlist.get(finalI).data.get(position).count_price = String.valueOf(bb + 1);
+                            holder.setText(R.id.edit, shoppingCartOrderlist.get(finalI).data.get(position).count_price);
+                            if (addAndSubtractCallBack != null) {
+                                addAndSubtractCallBack.onAddAndSubtract(shoppingCartOrderlist.get(finalI).data.get(position).count_price, shoppingCartOrderlist.get(finalI).data.get(position).sid, shoppingCartOrderlist);
+                            }
+                            break;
                         case R.id.subtract_item_listview_order_service_goods_list_adapter:
                             int a = Integer.parseInt(shoppingCartOrderlist.get(finalI).data.get(position).num);
                             if (a > 1) {
@@ -265,6 +327,8 @@ public class ListviewOrderServiceGoodsList extends LinearLayout {
 
     public interface AddAndSubtractCallBack {
         void onAddAndSubtract(String number, String sid, List<ShoppingCart> list);
+
+        void onAddAndSubtractPrice(String count_price, String sid, List<ShoppingCart> shoppingCartOrderlist);
     }
 
 

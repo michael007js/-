@@ -159,6 +159,33 @@
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"/>
             </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/parent_return_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="退换类型"/>
+
+                <Spinner
+                    android:visibility="gone"
+                    android:id="@+id/return_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </Spinner>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/feedback_parent"

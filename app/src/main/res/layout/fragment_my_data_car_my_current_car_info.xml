@@ -57,10 +57,67 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
-
+    <LinearLayout
+        android:id="@+id/pai"
+        android:layout_marginTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+        <TextView
+            android:text="汽车品牌"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/pai_name"
+            android:gravity="center|right"
+            android:layout_weight="1"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@mipmap/right_arrows"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/xi"
+        android:layout_marginTop="1dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+        <TextView
+            android:text="汽车系列"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/xi_name"
+            android:gravity="center|right"
+            android:layout_weight="1"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@mipmap/right_arrows"/>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/displacement_fragment_my_data_car_my_current_car_info"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="1dp"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:gravity="center_vertical"

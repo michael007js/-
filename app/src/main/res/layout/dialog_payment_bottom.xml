@@ -117,6 +117,7 @@
             <CheckBox
                 android:id="@+id/cb_balance_dialog_payment_bottom"
                 android:layout_width="30dp"
+                android:checked="true"
                 android:layout_height="match_parent"
                 android:button="@drawable/bg_check_box"/>
 
